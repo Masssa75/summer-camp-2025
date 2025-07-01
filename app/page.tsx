@@ -11,13 +11,7 @@ export default function HomePage() {
         </div>
         <div className="content-wrapper">
           <div className="logo-container">
-            <div className="logo-circle">
-              <svg viewBox="0 0 100 100" className="logo-icon">
-                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="3"/>
-                <path d="M50 20 C30 35, 30 65, 50 80 C70 65, 70 35, 50 20" fill="currentColor"/>
-              </svg>
-            </div>
-            <span className="logo-text">The Waldorf Phuket</span>
+            <img src="/references/Logo Waldorf Phuket copy.png" alt="The Waldorf Phuket" className="logo-image" />
           </div>
           <h1 className="hero-title">
             <span>SUMMER</span>
