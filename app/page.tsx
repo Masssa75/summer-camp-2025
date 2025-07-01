@@ -30,21 +30,22 @@ export default function HomePage() {
       <section className="slide slide-2">
         <div className="slide-2-grid">
           <div className="slide-2-left">
-            <img src="/images/backgrounds/2.jpg" alt="" className="slide-2-bg" />
+            <img src="/images/backgrounds/2.jpg" alt="Lagoon with boat between limestone cliffs" className="slide-2-bg" />
             <div className="slide-2-title">
               <h2>Waldorf-Inspired<br />Summer Camp:</h2>
             </div>
           </div>
           <div className="slide-2-right">
-            <div className="slide-2-photo">
-              <img src="/images/Summer Camp Presentation Images/2.jpg" alt="Children painting at camp" />
+            <div className="slide-2-photo photo-top">
+              <img src="/images/presentation/2.jpg" alt="Children painting at table" />
             </div>
-            <div className="slide-2-photo">
-              <img src="/images/Summer Camp Presentation Images/5.jpg" alt="Child drawing at camp" />
+            <div className="slide-2-photo photo-middle">
+              <img src="/images/presentation/5.jpg" alt="Child drawing, top-down view" />
             </div>
-            <div className="slide-2-photo">
-              <img src="/images/Summer Camp Presentation Images/3.jpg" alt="Outdoor activities at camp" />
+            <div className="slide-2-photo photo-bottom">
+              <img src="/images/presentation/3.jpg" alt="Outdoor shelter with children" />
             </div>
+            <div className="decorative-circle"></div>
           </div>
         </div>
       </section>
