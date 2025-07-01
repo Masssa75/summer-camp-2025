@@ -1,0 +1,490 @@
+/* Import Playful Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Bubblegum+Sans&family=Fredoka:wght@300;400;500;600;700&display=swap');
+
+/* Reset and Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Color Variables */
+:root {
+  --green-primary: #7A9A3B;
+  --green-secondary: #8BA85E;
+  --green-light: rgba(122, 154, 59, 0.2);
+  --green-dark: #5A7A2B;
+  --cream: #F5F2E8;
+  --orange: #F39C12;
+  --white: #FFFFFF;
+}
+
+/* Typography */
+body {
+  font-family: 'Fredoka', 'Quicksand', 'Comic Sans MS', cursive, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  font-family: 'Bubblegum Sans', 'Fredoka', cursive;
+  font-weight: 400;
+  letter-spacing: -1px;
+}
+
+h1 {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.9;
+  color: white;
+  text-shadow: 
+    2px 2px 0 #000,
+    3px 3px 8px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  color: white;
+}
+
+p {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+/* Container */
+.brochure-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Base Slide */
+.slide {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Background Layer */
+.background-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.background-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.9);
+}
+
+.background-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(122, 154, 59, 0.2);
+}
+
+.background-overlay.dark {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.background-overlay.green-tint {
+  background: rgba(122, 154, 59, 0.4);
+}
+
+/* Content Wrapper */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px;
+}
+
+/* Header Content */
+.header-content {
+  margin-bottom: 60px;
+}
+
+/* Carousel Styles */
+.photo-carousel {
+  position: relative;
+}
+
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 40px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.story-card {
+  min-width: 400px;
+  height: 450px;
+  position: relative;
+  scroll-snap-align: center;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.story-card:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 10px;
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.3),
+    0 0 0 4px rgba(255,255,255,0.5);
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: transform 0.6s ease;
+}
+
+.story-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+/* Navigation Dots */
+.navigation-dots {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 100;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255,255,255,0.8);
+}
+
+.dot:hover {
+  transform: scale(1.2);
+}
+
+.dot.active {
+  background: white;
+  width: 40px;
+  border-radius: 10px;
+}
+
+/* Slide 1 - Hero */
+.slide-1 {
+  background: var(--green-primary);
+}
+
+.slide-1 .background-layer img {
+  filter: brightness(0.8);
+}
+
+.slide-1 .logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.logo-circle {
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.logo-icon {
+  width: 80px;
+  height: 80px;
+  color: var(--green-primary);
+}
+
+.logo-text {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-title {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hero-title span {
+  display: block;
+  font-size: clamp(4rem, 10vw, 8rem);
+  text-shadow: 
+    3px 3px 0 var(--green-primary),
+    6px 6px 0 rgba(122, 154, 59, 0.5),
+    0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Slide 2 */
+.slide-2 .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Slide 3 */
+.slide-3 .content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.text-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.age-subtitle {
+  font-size: 0.7em;
+  font-weight: 500;
+}
+
+.highlight-banner {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--green-primary);
+  padding: 10px 20px;
+  border-radius: 25px;
+  display: inline-block;
+  margin: 20px 0;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.single-photo .story-card {
+  min-width: 500px;
+  height: 400px;
+}
+
+/* Slide 4 - Activity Grid */
+.slide-4 .centered-content {
+  text-align: center;
+}
+
+.wonder-title {
+  margin-bottom: 60px;
+  color: white;
+}
+
+.activity-grid {
+  position: relative;
+  width: 600px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.activity-bubble {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.activity-bubble:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+.activity-bubble img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.activity-bubble.top-left {
+  top: 0;
+  left: 0;
+}
+
+.activity-bubble.top-right {
+  top: 0;
+  right: 0;
+}
+
+.activity-bubble.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.activity-bubble.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+/* Split Layout */
+.split-layout {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.text-panel {
+  background: rgba(122, 154, 59, 0.9);
+  padding: 40px;
+  border-radius: 30px;
+  color: white;
+  max-width: 500px;
+  backdrop-filter: blur(10px);
+}
+
+.text-panel h2 {
+  margin-bottom: 20px;
+}
+
+.feature-photo .story-card {
+  min-width: 350px;
+  height: 350px;
+}
+
+/* Contact Section */
+.slide-contact {
+  background: var(--green-primary);
+}
+
+.contact-content {
+  text-align: center;
+  color: white;
+  padding: 60px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.contact-content h2 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  margin-bottom: 40px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.2rem;
+}
+
+.contact-item .icon {
+  font-size: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .content-wrapper {
+    padding: 40px;
+  }
+  
+  .split-layout {
+    flex-direction: column;
+  }
+  
+  .activity-grid {
+    width: 500px;
+    height: 400px;
+  }
+  
+  .activity-bubble {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  .content-wrapper {
+    padding: 30px;
+  }
+  
+  .story-card {
+    min-width: 280px;
+    height: 350px;
+  }
+  
+  .carousel-wrapper {
+    padding: 0 30px;
+    gap: 20px;
+  }
+  
+  .activity-grid {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .activity-bubble {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+}
