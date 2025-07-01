@@ -883,7 +883,7 @@ export default function HomePage() {
       </section>
 
       {/* Slide 39: Summer Camp Schedule (Explorers) */}
-      <section className="slide slide-39">
+      <section className="slide slide-39" id="explorer-schedule-section">
         <div className="background-layer">
           <img src="/references/backgrounds/39.jpg" alt="Grass field" />
           <div className="background-overlay green-tint"></div>
