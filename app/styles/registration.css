@@ -2,7 +2,8 @@
 .registration-page {
   min-height: 100vh;
   background: #f5f5f5;
-  padding: 80px 20px 40px;
+  padding: 20px 20px 40px;
+  padding-top: 80px; /* Account for fixed navigation */
 }
 
 .registration-container {

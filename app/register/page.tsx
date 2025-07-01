@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import ExplorerRegistrationForm from '@/components/ExplorerRegistrationForm'
 import MiniRegistrationForm from '@/components/MiniRegistrationForm'
+import TopNavigation from '@/components/TopNavigation'
 import '../styles/registration.css'
 
 export default function RegisterPage() {
@@ -18,32 +19,35 @@ export default function RegisterPage() {
   }, [searchParams])
 
   return (
-    <div className="registration-page">
-      <div className="registration-container">
-        <div className="registration-header">
-          <h1>Summer Camp 2025 Registration</h1>
-          <div className="age-group-selector">
-            <button 
-              className={`age-btn ${ageGroup === 'mini' ? 'active' : ''}`}
-              onClick={() => setAgeGroup('mini')}
-            >
-              Mini Camp (3-6 years)
-            </button>
-            <button 
-              className={`age-btn ${ageGroup === 'explorer' ? 'active' : ''}`}
-              onClick={() => setAgeGroup('explorer')}
-            >
-              Explorer Camp (7-13 years)
-            </button>
+    <>
+      <TopNavigation onAgeGroupSelect={setAgeGroup} />
+      <div className="registration-page">
+        <div className="registration-container">
+          <div className="registration-header">
+            <h1>Summer Camp 2025 Registration</h1>
+            <div className="age-group-selector">
+              <button 
+                className={`age-btn ${ageGroup === 'mini' ? 'active' : ''}`}
+                onClick={() => setAgeGroup('mini')}
+              >
+                Mini Camp (3-6 years)
+              </button>
+              <button 
+                className={`age-btn ${ageGroup === 'explorer' ? 'active' : ''}`}
+                onClick={() => setAgeGroup('explorer')}
+              >
+                Explorer Camp (7-13 years)
+              </button>
+            </div>
           </div>
-        </div>
 
-        {ageGroup === 'mini' ? (
-          <MiniRegistrationForm />
-        ) : (
-          <ExplorerRegistrationForm />
-        )}
+          {ageGroup === 'mini' ? (
+            <MiniRegistrationForm />
+          ) : (
+            <ExplorerRegistrationForm />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
