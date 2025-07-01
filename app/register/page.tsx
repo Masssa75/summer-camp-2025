@@ -6,6 +6,7 @@ import ExplorerRegistrationForm from '@/components/ExplorerRegistrationForm'
 import MiniRegistrationForm from '@/components/MiniRegistrationForm'
 import TopNavigation from '@/components/TopNavigation'
 import '../styles/registration.css'
+import '../styles/carousel-brochure.css'
 
 export default function RegisterPage() {
   const searchParams = useSearchParams()
