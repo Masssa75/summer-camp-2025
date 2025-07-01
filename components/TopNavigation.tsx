@@ -51,9 +51,6 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
       case 'whatsapp':
         window.open('https://wa.me/+66989124218', '_blank')
         return
-      case 'telegram':
-        window.open('https://t.me/waldorfphuket', '_blank')
-        return
     }
     
     const element = document.getElementById(targetId)
@@ -101,10 +98,6 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
           <a href="#whatsapp" className="nav-link contact-link" onClick={(e) => handleNavClick('whatsapp', e)}>
             <MessageCircle size={14} />
             <span>WhatsApp</span>
-          </a>
-          <a href="#telegram" className="nav-link contact-link" onClick={(e) => handleNavClick('telegram', e)}>
-            <MessageCircle size={14} />
-            <span>Telegram</span>
           </a>
           <a href="#register" className="nav-link register-btn" onClick={(e) => handleNavClick('register', e)}>
             <FileEdit size={14} />
