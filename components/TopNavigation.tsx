@@ -29,7 +29,12 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
     let targetId = ''
     switch (section) {
       case 'top':
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+        // If on registration page, go to home
+        if (window.location.pathname === '/register') {
+          window.location.href = '/'
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
         return
       case 'mini':
         targetId = 'mini-section'
