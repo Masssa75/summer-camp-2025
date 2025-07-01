@@ -1006,6 +1006,16 @@ p {
 }
 
 
+/* Page Content Transition */
+.page-content {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.brochure-container.transitioning .page-content {
+  opacity: 0;
+}
+
 /* Contact Section */
 .slide-contact {
   background: var(--green-primary);
