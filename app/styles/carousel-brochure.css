@@ -523,8 +523,10 @@ p {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   overflow-x: auto;
+  overflow-y: hidden;
   position: relative;
   -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
 
 /* Custom scrollbar for schedule */
