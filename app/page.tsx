@@ -82,6 +82,17 @@ export default function HomePage() {
                 <p>info@waldorfphuket.com</p>
               </div>
             </div>
+            <div className="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3946.8141369775073!2d98.2849!3d8.0193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s255%20Soi%20Cherngtalay%206%2C%20Choeng%20Thale%2C%20Thalang%20District%2C%20Phuket%2083110!5e0!3m2!1sen!2sth!4v1701234567890!5m2!1sen!2sth"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
           </div>
         </section>
       </main>
