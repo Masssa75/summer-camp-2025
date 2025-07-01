@@ -291,17 +291,14 @@ export default function HomePage() {
           <div className="background-overlay"></div>
         </div>
         
-        <div className="content-wrapper split-layout reverse">
-          <PhotoCarousel 
-            photos={[
-              { src: '/references/Summer Camp Presentation Images/17.jpg', alt: 'Child with blocks' }
-            ]}
-            className="feature-photo"
-          />
+        <div className="content-wrapper slide-14-layout">
+          <div className="slide-14-photo">
+            <img src="/references/Summer Camp Presentation Images/17.jpg" alt="Child with blocks" />
+          </div>
           
-          <div className="text-panel">
-            <h2>Fosters Creativity &<br/>Imagination:</h2>
-            <p>We believe in nurturing the inner world of the child.</p>
+          <div className="slide-14-text">
+            <h2>Fosters Creativity<br/>& Imagination:</h2>
+            <p>We believe in nurturing the<br/>inner world of the child.</p>
           </div>
         </div>
       </section>

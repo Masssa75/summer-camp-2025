@@ -434,6 +434,54 @@ p {
   text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
+/* Slide 14 Specific Layout */
+.slide-14 .background-overlay {
+  background: none;
+}
+
+.slide-14-layout {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  gap: 0;
+}
+
+.slide-14-photo {
+  flex: 1;
+  max-width: 50%;
+  padding: 40px;
+}
+
+.slide-14-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.slide-14-text {
+  flex: 1;
+  max-width: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 60px;
+  color: white;
+  backdrop-filter: blur(10px);
+  margin: 40px;
+  border-radius: 20px;
+}
+
+.slide-14-text h2 {
+  color: white;
+  margin-bottom: 30px;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.slide-14-text p {
+  color: white;
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
 .text-panel {
   background: rgba(122, 154, 59, 0.9);
   padding: 40px;
@@ -528,6 +576,22 @@ p {
     margin-left: 0;
     padding: 40px 30px;
     max-width: 100%;
+  }
+  
+  .slide-14-layout {
+    flex-direction: column;
+    height: auto;
+    padding: 40px 20px;
+  }
+  
+  .slide-14-photo,
+  .slide-14-text {
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  .slide-14-text {
+    margin: 20px 0;
   }
   
   .logo-image {
