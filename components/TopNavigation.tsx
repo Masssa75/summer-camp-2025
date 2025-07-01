@@ -45,8 +45,8 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
         targetId = 'contact-section'
         break
       case 'register':
-        // Handle registration
-        console.log('Opening registration...')
+        // Navigate to registration page with appropriate age group
+        window.location.href = `/register?group=${selectedAge}`
         return
       case 'whatsapp':
         window.open('https://wa.me/+66989124218', '_blank')

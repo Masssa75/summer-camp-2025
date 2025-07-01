@@ -15,7 +15,8 @@
     "dev-auto": "concurrently \"npm run dev\" \"npm run auto-update\""
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.1",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.50.2",
     "lucide-react": "^0.525.0",
     "next": "15.0.3",
     "playwright": "^1.53.2",

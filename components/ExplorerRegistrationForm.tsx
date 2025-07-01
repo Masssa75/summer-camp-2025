@@ -14,7 +14,11 @@ const WEEKS = [
   { week: 7, dates: 'August 11 - 15, 2025' }
 ]
 
-export default function ExplorerRegistrationForm() {
+interface ExplorerRegistrationFormProps {
+  ageGroup?: 'mini' | 'explorer'
+}
+
+export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: ExplorerRegistrationFormProps) {
   const [formData, setFormData] = useState({
     email: '',
     childName: '',
@@ -123,7 +127,7 @@ export default function ExplorerRegistrationForm() {
           nick_name: formData.nickName,
           gender: formData.gender,
           date_of_birth: formData.dateOfBirth,
-          age_group: 'explorer',
+          age_group: ageGroup,
           current_school: formData.currentSchool,
           nationality_language: formData.nationalityLanguage,
           english_level: formData.englishLevel,
