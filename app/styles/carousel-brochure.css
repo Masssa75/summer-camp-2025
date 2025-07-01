@@ -569,29 +569,29 @@ p {
 
 .schedule-grid {
   display: flex;
-  gap: 2px;
-  min-height: 600px;
-  min-width: 800px;
+  gap: 3px;
+  min-height: 700px;
+  min-width: 1000px;
 }
 
 .time-column,
 .day-column {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .time-column {
-  min-width: 120px;
-  width: 120px;
-  background: var(--green-primary);
-  border-radius: 10px 0 0 10px;
+  min-width: 140px;
+  width: 140px;
+  background: #e8f0e5;
+  border-radius: 12px 0 0 12px;
   flex-shrink: 0;
 }
 
 .day-column {
   flex: 1;
-  min-width: 140px;
+  min-width: 160px;
   flex-shrink: 0;
 }
 
@@ -602,55 +602,57 @@ p {
 .time-slot,
 .day-header,
 .activity {
-  padding: 12px 8px;
+  padding: 15px 10px;
   text-align: center;
   font-family: 'Fredoka', sans-serif;
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
+  min-height: 60px;
 }
 
 .time-slot {
-  background: var(--green-primary);
-  color: white;
+  background: #c5d9c0;
+  color: #2d4a2b;
   font-weight: 600;
+  font-size: 1.05rem;
 }
 
 .day-header {
-  background: var(--green-dark);
-  color: white;
+  background: #a8c5a0;
+  color: #2d4a2b;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .activity {
-  color: white;
-  font-size: 0.8rem;
+  color: #333;
+  font-size: 1.05rem;
   text-align: center;
+  font-weight: 500;
 }
 
-.activity.arrival { background: #FF6B6B; }
-.activity.handwork { background: #4ECDC4; }
-.activity.snack { background: #45B7D1; }
-.activity.outdoor { background: #96CEB4; }
-.activity.lunch { background: #FFEAA7; color: #333; }
-.activity.rest { background: #DDA0DD; }
-.activity.story { background: #98D8C8; }
-.activity.departure { background: #F7DC6F; color: #333; }
-.activity.cooking { background: #FDA085; }
-.activity.nature { background: #A8E6CF; }
-.activity.art { background: #FFB3BA; }
-.activity.animals { background: #BAFFC9; }
-.activity.garden { background: #BAE1FF; }
-.activity.puppet { background: #FFFFBA; color: #333; }
-.activity.sensory { background: #E0BBE4; }
-.activity.movement { background: #C7CEEA; }
-.activity.celebration { background: #FFD1DC; }
-.activity.free { background: #FDB462; }
-.activity.review { background: #B3DE69; }
+.activity.arrival { background: #ffc4c4; color: #4a2b2b; }
+.activity.handwork { background: #b8e6e2; color: #2b4a47; }
+.activity.snack { background: #b3dce6; color: #2b3f4a; }
+.activity.outdoor { background: #cbe5d4; color: #2b4a35; }
+.activity.lunch { background: #fff4cc; color: #4a4128; }
+.activity.rest { background: #e8d4e8; color: #4a3b4a; }
+.activity.story { background: #cce7e2; color: #2b4a43; }
+.activity.departure { background: #fbe8a6; color: #4a4128; }
+.activity.cooking { background: #fdd4c9; color: #4a362f; }
+.activity.nature { background: #ddf2cc; color: #384a2b; }
+.activity.art { background: #ffd6df; color: #4a2b35; }
+.activity.animals { background: #d6f5d6; color: #2b4a2b; }
+.activity.garden { background: #d6e9ff; color: #2b3d4a; }
+.activity.puppet { background: #ffffe0; color: #4a4a28; }
+.activity.sensory { background: #edd6ef; color: #4a354c; }
+.activity.movement { background: #dbe0f2; color: #35394a; }
+.activity.celebration { background: #ffe5ed; color: #4a2b35; }
+.activity.free { background: #fdd6b0; color: #4a3628; }
+.activity.review { background: #d9ebb5; color: #394a2b; }
 
 /* Age Circle for Slide 20 */
 .age-circle {
