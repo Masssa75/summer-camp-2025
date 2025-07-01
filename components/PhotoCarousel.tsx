@@ -18,10 +18,11 @@ export default function PhotoCarousel({ photos, className = '' }: PhotoCarouselP
 
   const scrollToCard = (index: number) => {
     if (carouselRef.current) {
-      const cards = carouselRef.current.querySelectorAll('.story-card')
-      if (cards[index]) {
-        cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
-      }
+      const scrollAmount = index * 440 // card width (400) + margin (40)
+      carouselRef.current.scrollTo({
+        left: scrollAmount,
+        behavior: 'smooth'
+      })
     }
     setActiveIndex(index)
   }
@@ -29,7 +30,7 @@ export default function PhotoCarousel({ photos, className = '' }: PhotoCarouselP
   const handleScroll = () => {
     if (carouselRef.current) {
       const scrollPosition = carouselRef.current.scrollLeft
-      const cardWidth = 400 + 40 // card width + gap
+      const cardWidth = 440 // card width + margin
       const newIndex = Math.round(scrollPosition / cardWidth)
       setActiveIndex(Math.min(Math.max(0, newIndex), photos.length - 1))
     }

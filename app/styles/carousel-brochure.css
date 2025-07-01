@@ -124,14 +124,16 @@ p {
 .carousel-wrapper {
   display: flex;
   align-items: center;
-  padding: 0 60px;
-  overflow-x: auto;
+  padding: 0 20px;
+  overflow-x: scroll;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  gap: 40px;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  height: 500px;
+  max-width: 100%;
 }
 
 .carousel-wrapper::-webkit-scrollbar {
@@ -144,6 +146,8 @@ p {
   position: relative;
   scroll-snap-align: center;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  flex-shrink: 0;
+  margin-right: 40px;
 }
 
 .story-card:hover {
@@ -224,10 +228,10 @@ p {
 }
 
 .logo-image {
-  width: 200px;
+  width: 400px;
   height: auto;
   filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .hero-title {
@@ -251,6 +255,13 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.slide-2 .photo-carousel {
+  width: 100%;
+  overflow: hidden;
 }
 
 /* Slide 3 */
@@ -413,7 +424,7 @@ p {
 /* Responsive */
 @media (max-width: 1024px) {
   .logo-image {
-    width: 180px;
+    width: 320px;
   }
   
   .content-wrapper {
@@ -437,7 +448,7 @@ p {
 
 @media (max-width: 768px) {
   .logo-image {
-    width: 150px;
+    width: 250px;
   }
   
   h1 {
