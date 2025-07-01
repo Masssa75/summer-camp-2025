@@ -520,12 +520,14 @@ p {
   padding: 30px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  overflow-x: auto;
 }
 
 .schedule-grid {
   display: flex;
   gap: 2px;
   min-height: 600px;
+  min-width: 800px;
 }
 
 .time-column,
@@ -537,13 +539,16 @@ p {
 
 .time-column {
   min-width: 120px;
+  width: 120px;
   background: var(--green-primary);
   border-radius: 10px 0 0 10px;
+  flex-shrink: 0;
 }
 
 .day-column {
   flex: 1;
   min-width: 140px;
+  flex-shrink: 0;
 }
 
 .day-column:last-child {
@@ -1177,5 +1182,37 @@ p {
     position: relative;
     width: 150px;
     height: 150px;
+  }
+  
+  /* Mobile Schedule Adjustments */
+  .schedule-container {
+    padding: 20px 15px;
+    margin-top: 30px;
+  }
+  
+  .schedule-grid {
+    min-width: 600px;
+    min-height: 500px;
+  }
+  
+  .time-column {
+    min-width: 80px;
+    width: 80px;
+  }
+  
+  .day-column {
+    min-width: 100px;
+  }
+  
+  .time-slot,
+  .day-header,
+  .activity {
+    padding: 8px 4px;
+    font-size: 0.7rem;
+    min-height: 40px;
+  }
+  
+  .day-header {
+    font-size: 0.8rem;
   }
 }

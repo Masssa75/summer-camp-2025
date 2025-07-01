@@ -10,7 +10,9 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "test": "playwright test",
-    "test:headed": "playwright test --headed"
+    "test:headed": "playwright test --headed",
+    "auto-update": "node scripts/auto-update.js",
+    "dev-auto": "concurrently \"npm run dev\" \"npm run auto-update\""
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.1",
@@ -26,6 +28,8 @@
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.16",
+    "chokidar": "^3.5.3",
+    "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "eslint-config-next": "15.0.3",
     "postcss": "^8.4.32",
