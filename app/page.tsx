@@ -58,7 +58,7 @@ export default function HomePage() {
           
           <PhotoCarousel 
             photos={[
-              { src: '/references/Summer Camp Presentation Images/3.jpg', alt: 'Children playing in sandbox' }
+              { src: '/references/Summer Camp Presentation Images/4.jpg', alt: 'Children playing in sandbox' }
             ]}
             className="single-photo"
           />

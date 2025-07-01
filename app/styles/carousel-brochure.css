@@ -282,9 +282,28 @@ p {
   gap: 60px;
 }
 
+.slide-3 .background-overlay {
+  background: none;
+}
+
 .text-content {
   flex: 1;
   max-width: 600px;
+  background: var(--green-primary);
+  padding: 60px;
+  border-radius: 0;
+  margin-left: -60px;
+}
+
+.text-content h2 {
+  color: white;
+  margin-bottom: 30px;
+}
+
+.text-content p {
+  color: white;
+  font-size: 1.2rem;
+  line-height: 1.6;
 }
 
 .age-subtitle {
@@ -295,13 +314,13 @@ p {
 .highlight-banner {
   background: rgba(255, 255, 255, 0.9);
   color: var(--green-primary);
-  padding: 10px 20px;
-  border-radius: 25px;
+  padding: 15px 30px;
+  border-radius: 30px;
   display: inline-block;
-  margin: 20px 0;
+  margin: 20px 0 30px 0;
   font-family: 'Quicksand', sans-serif;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .single-photo .story-card {
@@ -462,6 +481,17 @@ p {
 }
 
 @media (max-width: 768px) {
+  .slide-3 .content-wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .text-content {
+    margin-left: 0;
+    padding: 40px 30px;
+    max-width: 100%;
+  }
+  
   .logo-image {
     width: 220px;
     margin-bottom: 1rem;
