@@ -4,13 +4,15 @@
 
 @layer base {
   :root {
-    --color-primary: #F5D547;
-    --color-background: #000000;
-    --color-surface: #111111;
-    --color-text: #FFFFFF;
-    --color-text-secondary: rgba(255, 255, 255, 0.7);
-    --color-text-muted: rgba(255, 255, 255, 0.5);
-    --color-border: rgba(255, 255, 255, 0.1);
+    --color-primary: #16a34a;
+    --color-primary-dark: #15803d;
+    --color-secondary: #6B8E4E;
+    --color-background: #FFFFFF;
+    --color-surface: #f9fafb;
+    --color-text: #111827;
+    --color-text-secondary: #6b7280;
+    --color-text-muted: #9ca3af;
+    --color-border: #e5e7eb;
   }
 
   * {
@@ -28,6 +30,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-text);
+    scroll-behavior: smooth;
   }
 
   a {

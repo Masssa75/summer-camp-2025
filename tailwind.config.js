@@ -8,10 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#F5D547',
-        background: '#000000',
-        surface: '#111111',
-        border: 'rgba(255, 255, 255, 0.1)',
+        primary: '#16a34a',
+        'primary-dark': '#15803d',
+        secondary: '#6B8E4E',
+        background: '#FFFFFF',
+        surface: '#f9fafb',
+        border: '#e5e7eb',
       },
       fontSize: {
         'display': '48px',
