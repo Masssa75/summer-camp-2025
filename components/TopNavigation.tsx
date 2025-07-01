@@ -49,7 +49,7 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
         console.log('Opening registration...')
         return
       case 'whatsapp':
-        window.open('https://wa.me/+66123456789', '_blank')
+        window.open('https://wa.me/+66989124218', '_blank')
         return
       case 'telegram':
         window.open('https://t.me/waldorfphuket', '_blank')
