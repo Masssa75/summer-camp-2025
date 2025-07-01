@@ -37,17 +37,18 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
     emergencyContact: '',
     allergies: '',
     healthBehavioralConditions: '',
+    hasInsurance: false,
     photoPermission: '',
     howDidYouFind: '',
     termsAcknowledged: false,
+    allStatementsTrue: false,
     weeksSelected: [] as number[]
   })
 
   const [files, setFiles] = useState({
     childPassport: null as File | null,
     parentPassport1: null as File | null,
-    parentPassport2: null as File | null,
-    insurancePolicy: null as File | null
+    parentPassport2: null as File | null
   })
 
   const [loading, setLoading] = useState(false)
@@ -114,9 +115,6 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
       const parentPassport2Url = files.parentPassport2
         ? await uploadFile(files.parentPassport2, `${timestamp}_parent2_passport`)
         : null
-      const insurancePolicyUrl = files.insurancePolicy
-        ? await uploadFile(files.insurancePolicy, `${timestamp}_insurance`)
-        : null
 
       // Insert registration data
       const { error: dbError } = await supabase
@@ -143,17 +141,19 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
           child_passport_url: childPassportUrl,
           parent_passport_1_url: parentPassport1Url,
           parent_passport_2_url: parentPassport2Url,
-          insurance_policy_url: insurancePolicyUrl,
+          has_insurance: formData.hasInsurance,
           weeks_selected: formData.weeksSelected,
           photo_permission: formData.photoPermission === 'grant',
           how_did_you_find: formData.howDidYouFind,
-          terms_acknowledged: formData.termsAcknowledged
+          terms_acknowledged: formData.termsAcknowledged,
+          all_statements_true: formData.allStatementsTrue
         })
 
       if (dbError) throw dbError
 
+      // Add child to registered list
+      setRegisteredChildren(prev => [...prev, formData.childName])
       setSuccess(true)
-      // Reset form or redirect
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
@@ -161,11 +161,68 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
     }
   }
 
+  const [registeredChildren, setRegisteredChildren] = useState<string[]>([])
+
+  const handleAddAnotherChild = () => {
+    // Keep parent info but reset child-specific fields
+    setFormData(prev => ({
+      ...prev,
+      childName: '',
+      nickName: '',
+      gender: '',
+      dateOfBirth: '',
+      currentSchool: '',
+      nationalityLanguage: '',
+      englishLevel: '3',
+      allergies: '',
+      healthBehavioralConditions: '',
+      hasInsurance: false,
+      photoPermission: '',
+      weeksSelected: [],
+      allStatementsTrue: false,
+      termsAcknowledged: false
+    }))
+    setFiles({
+      childPassport: null,
+      parentPassport1: null,
+      parentPassport2: null
+    })
+    setSuccess(false)
+    setError('')
+  }
+
   if (success) {
     return (
       <div className="success-message">
         <h2>Registration Successful!</h2>
-        <p>Thank you for registering for Summer Camp 2025. We will send you an email with payment instructions shortly.</p>
+        <p>Thank you for registering {formData.childName} for Summer Camp 2025.</p>
+        <p>We will send you an email with payment instructions shortly.</p>
+        
+        {registeredChildren.length > 0 && (
+          <div className="registered-children">
+            <h3>Registered Children:</h3>
+            <ul>
+              {registeredChildren.map((child, index) => (
+                <li key={index}>{child}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        <div className="success-actions">
+          <button 
+            onClick={handleAddAnotherChild}
+            className="action-btn secondary"
+          >
+            Add Another Child
+          </button>
+          <button 
+            onClick={() => window.location.href = '/'}
+            className="action-btn primary"
+          >
+            Return to Home
+          </button>
+        </div>
       </div>
     )
   }
@@ -533,18 +590,17 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
           </label>
         </div>
         <div className="form-group">
-          <label>
-            Insurance Policy Copy *
-            <div className="file-input">
-              <input
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png"
-                onChange={(e) => handleFileChange(e, 'insurancePolicy')}
-                required
-              />
-              <Upload size={20} />
-              <span>{files.insurancePolicy?.name || 'Choose file'}</span>
-            </div>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              name="hasInsurance"
+              checked={formData.hasInsurance || false}
+              onChange={handleInputChange}
+              required
+            />
+            <span>
+              I confirm that my child has valid insurance coverage for the duration of the camp *
+            </span>
           </label>
         </div>
       </div>
@@ -612,6 +668,19 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
             I acknowledge that I have read and understood the terms and conditions 
             of the Waldorf Phuket Summer Camp, and I understand that the Waldorf 
             Phuket does not provide insurance for participants. *
+          </span>
+        </label>
+        
+        <label className="checkbox-label" style={{ marginTop: '15px' }}>
+          <input
+            type="checkbox"
+            name="allStatementsTrue"
+            checked={formData.allStatementsTrue}
+            onChange={handleInputChange}
+            required
+          />
+          <span>
+            I confirm that all information provided above is true and accurate to the best of my knowledge. *
           </span>
         </label>
       </div>

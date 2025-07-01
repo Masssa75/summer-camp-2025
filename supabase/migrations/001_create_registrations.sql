@@ -30,12 +30,12 @@ CREATE TABLE IF NOT EXISTS public.registrations (
   -- Health info
   allergies TEXT NOT NULL,
   health_behavioral_conditions TEXT NOT NULL,
+  has_insurance BOOLEAN NOT NULL DEFAULT false,
   
   -- Files (storing URLs from Supabase storage)
   child_passport_url TEXT,
   parent_passport_1_url TEXT,
   parent_passport_2_url TEXT,
-  insurance_policy_url TEXT,
   
   -- Camp details
   weeks_selected JSONB NOT NULL, -- Array of week numbers
@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS public.registrations (
   photo_permission BOOLEAN NOT NULL DEFAULT false,
   how_did_you_find TEXT NOT NULL,
   terms_acknowledged BOOLEAN NOT NULL DEFAULT false,
+  all_statements_true BOOLEAN NOT NULL DEFAULT false,
   
   -- Payment tracking
   payment_status TEXT DEFAULT 'pending' CHECK (payment_status IN ('pending', 'paid', 'refunded')),
