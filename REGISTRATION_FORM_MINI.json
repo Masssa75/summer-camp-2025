@@ -1,0 +1,35 @@
+{
+  "formTitle": "The Waldorf Phuket- Summer Camp 2025 Registration Form (For Age 3-6)",
+  "description": "Thank you for choosing The Waldorf Phuket- Summer Camp 2025!",
+  "termsAndConditionsUrl": "https://docs.google.com/document/d/1xTQy-ptHGNuBc3TNmCF54ZdkB9BOeLm0dzSNmVv-aws/edit?usp=sharing",
+  "paymentPolicy": "The camp fee must be paid in advance to secure the spot.",
+  "pricing": {
+    "earlyBird": {
+      "price": "13,000 baht",
+      "deadline": "April 15th, 2025"
+    },
+    "normal": {
+      "price": "15,000 baht",
+      "startsFrom": "April 15th, 2025 onwards"
+    }
+  },
+  "ageGroup": "3-6 years",
+  "refundPolicy": {
+    "oneMonthBefore": "100% refunded",
+    "lessThanOneMonth": "50% refunded",
+    "lessThanSevenDays": "No refund"
+  },
+  "contact": {
+    "whatsapp": "+66 98 912 4218",
+    "email": "info@waldorfphuket.com"
+  },
+  "weeks": [
+    { "week": 1, "dates": "June 30 - July 4, 2025" },
+    { "week": 2, "dates": "July 7-11, 2025" },
+    { "week": 3, "dates": "July 14-18, 2025" },
+    { "week": 4, "dates": "July 21-25, 2025" },
+    { "week": 5, "dates": "July 28 - August 1, 2025" },
+    { "week": 6, "dates": "August 4-8, 2025" },
+    { "week": 7, "dates": "August 11-15, 2025" }
+  ]
+}

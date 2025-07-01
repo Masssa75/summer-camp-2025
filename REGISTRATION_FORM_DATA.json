@@ -1,0 +1,207 @@
+{
+  "formTitle": "The Waldorf Phuket- Summer Camp 2025 Registration Form (For Age 7-13)",
+  "description": "Thank you for choosing The Waldorf Phuket- Summer Camp 2025!",
+  "termsAndConditionsUrl": "https://docs.google.com/document/d/1xTQy-ptHGNuBc3TNmCF54ZdkB9BOeLm0dzSNmVv-aws/edit?usp=sharing",
+  "paymentPolicy": "The camp fee must be paid in advance to secure the spot.",
+  "pricing": {
+    "earlyBird": {
+      "price": "13,000 baht",
+      "deadline": "April 15th, 2025"
+    },
+    "normal": {
+      "price": "15,000 baht",
+      "startsFrom": "April 15th, 2025 onwards"
+    }
+  },
+  "ageGroup": "7-13 years",
+  "refundPolicy": {
+    "oneMonthBefore": "100% refunded",
+    "lessThanOneMonth": "50% refunded",
+    "lessThanSevenDays": "No refund"
+  },
+  "contact": {
+    "whatsapp": "+66 98 912 4218",
+    "email": "info@waldorfphuket.com"
+  },
+  "weeks": [
+    { "week": 1, "dates": "June 30 - July 4, 2025" },
+    { "week": 2, "dates": "July 7-11, 2025" },
+    { "week": 3, "dates": "July 14-18, 2025" },
+    { "week": 4, "dates": "July 21-25, 2025" },
+    { "week": 5, "dates": "July 28 - August 1, 2025" },
+    { "week": 6, "dates": "August 4-8, 2025" },
+    { "week": 7, "dates": "August 11-15, 2025" }
+  ],
+  "formFields": [
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "email",
+      "required": true
+    },
+    {
+      "name": "childName",
+      "label": "Child Name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "nickName",
+      "label": "Nick Name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "gender",
+      "label": "Gender",
+      "type": "radio",
+      "required": true,
+      "options": ["Girl", "Boy"]
+    },
+    {
+      "name": "dateOfBirth",
+      "label": "Date of birth",
+      "type": "date",
+      "required": true
+    },
+    {
+      "name": "passportCopy",
+      "label": "Please upload a copy of your child's passport",
+      "type": "file",
+      "required": true,
+      "maxSize": "10 MB"
+    },
+    {
+      "name": "weeksToJoin",
+      "label": "Please choose the weeks to join",
+      "type": "checkbox",
+      "required": true,
+      "options": [
+        "Week 1: June 30- July 4, 2025",
+        "Week 2: July 7-11, 2025",
+        "Week 3: July 14-18, 2025",
+        "Week 4: July 21-25, 2025",
+        "Week 5: July 28- August 1, 2025",
+        "Week 6: August 4-8, 2025",
+        "Week 7: August 11-15, 2025"
+      ]
+    },
+    {
+      "name": "currentSchool",
+      "label": "Current school of your child",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "nationalityLanguage",
+      "label": "Nationality and Language",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "englishLevel",
+      "label": "Child's level of English language",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "parentName1",
+      "label": "Parent name 1",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "parentName2",
+      "label": "Parent name 2",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "parentPassport1",
+      "label": "Please upload copies of parents' passports",
+      "type": "file",
+      "required": true,
+      "maxSize": "10 MB"
+    },
+    {
+      "name": "parentPassport2",
+      "label": "Please upload copies of parents' passports",
+      "type": "file",
+      "required": true,
+      "maxSize": "10 MB"
+    },
+    {
+      "name": "mobilePhone1",
+      "label": "Mobile phone number 1",
+      "type": "tel",
+      "required": true,
+      "note": "Thai phone number if available"
+    },
+    {
+      "name": "wechatWhatsapp1",
+      "label": "WeChat/WhatsApp ID",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "mobilePhone2",
+      "label": "Mobile phone number 2",
+      "type": "tel",
+      "required": true,
+      "note": "Thai phone number if available"
+    },
+    {
+      "name": "wechatWhatsapp2",
+      "label": "WeChat/WhatsApp ID",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "emergencyContact",
+      "label": "Emergency contact in case we are not able to reach you",
+      "type": "text",
+      "required": true,
+      "note": "Name and Thai Phone number"
+    },
+    {
+      "name": "allergies",
+      "label": "Child's Allergy (if any)",
+      "type": "textarea",
+      "required": true
+    },
+    {
+      "name": "healthBehavioralConditions",
+      "label": "Are there any health or behavioral conditions that you want our teachers to be aware of?",
+      "type": "textarea",
+      "required": true
+    },
+    {
+      "name": "insuranceCopy",
+      "label": "Please upload a copy of your child's insurance policies",
+      "type": "file",
+      "required": true,
+      "maxSize": "10 MB"
+    },
+    {
+      "name": "photoPermission",
+      "label": "Photo/Video Permission",
+      "type": "radio",
+      "required": true,
+      "options": ["Grant permission", "Do not grant permission"],
+      "description": "Our school likes to celebrate your child's work and achievements. As a result, images of your child and his/her work may appear on our networks."
+    },
+    {
+      "name": "howDidYouFind",
+      "label": "How did you find about us? Please specify",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "acknowledgment",
+      "label": "Acknowledgment",
+      "type": "checkbox",
+      "required": true,
+      "description": "By signing below, you acknowledge that you have read and understood the terms and conditions of the Waldorf Phuket Summer Camp, and you understand that the Waldorf Phuket does not provide insurance for participants."
+    }
+  ]
+}
