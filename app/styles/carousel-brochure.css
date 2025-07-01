@@ -456,13 +456,14 @@ p {
   width: 100%;
   height: auto;
   border-radius: 30px;
+  border: 12px solid white;
   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 .slide-14-text {
   flex: 1;
   max-width: 50%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.3);
   padding: 60px;
   color: white;
   backdrop-filter: blur(10px);
