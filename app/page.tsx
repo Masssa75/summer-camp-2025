@@ -11,7 +11,8 @@ export default function HomePage() {
         </div>
         <div className="content-wrapper">
           <div className="logo-container">
-            <img src="/references/Logo Waldorf Phuket copy.png" alt="The Waldorf Phuket" className="logo-image" />
+            <img src="/references/Logo Only.png" alt="The Waldorf Phuket Logo" className="logo-image" />
+            <span className="logo-text">The Waldorf Phuket</span>
           </div>
           <h1 className="hero-title">
             <span>SUMMER</span>
@@ -299,6 +300,183 @@ export default function HomePage() {
           <div className="slide-14-text">
             <h2>Fosters Creativity<br/>& Imagination:</h2>
             <p>We believe in nurturing the<br/>inner world of the child.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 15: Supports Holistic Development */}
+      <section className="slide slide-15">
+        <div className="background-layer">
+          <img src="/references/backgrounds/15.jpg" alt="Waterfall in forest" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Supports Holistic<br/>Development:</h2>
+            <p>Focusing on head, heart, and hands.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/18.jpg', alt: 'Children doing art activities' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 16: Connects Children with Nature */}
+      <section className="slide slide-16">
+        <div className="background-layer">
+          <img src="/references/backgrounds/16.jpg" alt="Close-up of seedlings in soil" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Connects children<br/>with Nature:</h2>
+            <p>Cultivating a deep appreciation for the environment.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/19.jpg', alt: 'Children watering plants in garden' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 17: Builds Social-Emotional Skills */}
+      <section className="slide slide-17">
+        <div className="background-layer">
+          <img src="/references/backgrounds/17.jpg" alt="Waterfall and ferns" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Builds Social-Emotional<br/>Skills:</h2>
+            <p>Through cooperative play and gentle guidance.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/20.jpg', alt: 'Children playing together' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 18: Experienced & Caring Educators */}
+      <section className="slide slide-18">
+        <div className="background-layer">
+          <img src="/references/backgrounds/18.jpg" alt="Tropical beach with trees" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Experienced & Caring<br/>Educators:</h2>
+            <p>Our teachers are dedicated to creating a warm, supportive atmosphere.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/21.jpg', alt: 'Teacher with children in circle' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 19: Summer Camp Schedule */}
+      <section className="slide slide-19">
+        <div className="background-layer">
+          <img src="/references/backgrounds/19.jpg" alt="Nature/greenery" />
+          <div className="background-overlay green-tint"></div>
+        </div>
+        
+        <div className="content-wrapper">
+          <div className="centered-content">
+            <h2 className="section-title-white">Summer Camp Schedule</h2>
+            <div className="schedule-container">
+              <div className="schedule-grid">
+                <div className="time-column">
+                  <div className="time-slot">8:15 - 9:00</div>
+                  <div className="time-slot">9:00 - 10:30</div>
+                  <div className="time-slot">10:30 - 11:00</div>
+                  <div className="time-slot">11:00 - 12:00</div>
+                  <div className="time-slot">12:00 - 1:00</div>
+                  <div className="time-slot">1:00 - 2:00</div>
+                  <div className="time-slot">2:00 - 3:30</div>
+                  <div className="time-slot">3:30 - 4:00</div>
+                  <div className="time-slot">4:00 - 4:30</div>
+                </div>
+                <div className="day-column">
+                  <div className="day-header">Monday</div>
+                  <div className="activity arrival">Arrival & Free Play</div>
+                  <div className="activity handwork">Handwork & Crafts</div>
+                  <div className="activity snack">Morning Snack</div>
+                  <div className="activity outdoor">Outdoor Play</div>
+                  <div className="activity lunch">Lunch</div>
+                  <div className="activity rest">Rest Time</div>
+                  <div className="activity story">Story & Music</div>
+                  <div className="activity snack">Afternoon Snack</div>
+                  <div className="activity departure">Departure</div>
+                </div>
+                <div className="day-column">
+                  <div className="day-header">Tuesday</div>
+                  <div className="activity arrival">Arrival & Free Play</div>
+                  <div className="activity cooking">Cooking & Baking</div>
+                  <div className="activity snack">Morning Snack</div>
+                  <div className="activity nature">Nature Walk</div>
+                  <div className="activity lunch">Lunch</div>
+                  <div className="activity rest">Rest Time</div>
+                  <div className="activity art">Art & Painting</div>
+                  <div className="activity snack">Afternoon Snack</div>
+                  <div className="activity departure">Departure</div>
+                </div>
+                <div className="day-column">
+                  <div className="day-header">Wednesday</div>
+                  <div className="activity arrival">Arrival & Free Play</div>
+                  <div className="activity animals">Animal Care</div>
+                  <div className="activity snack">Morning Snack</div>
+                  <div className="activity garden">Garden Work</div>
+                  <div className="activity lunch">Lunch</div>
+                  <div className="activity rest">Rest Time</div>
+                  <div className="activity puppet">Puppetry & Drama</div>
+                  <div className="activity snack">Afternoon Snack</div>
+                  <div className="activity departure">Departure</div>
+                </div>
+                <div className="day-column">
+                  <div className="day-header">Thursday</div>
+                  <div className="activity arrival">Arrival & Free Play</div>
+                  <div className="activity sensory">Sensory Play</div>
+                  <div className="activity snack">Morning Snack</div>
+                  <div className="activity outdoor">Outdoor Adventures</div>
+                  <div className="activity lunch">Lunch</div>
+                  <div className="activity rest">Rest Time</div>
+                  <div className="activity movement">Movement & Games</div>
+                  <div className="activity snack">Afternoon Snack</div>
+                  <div className="activity departure">Departure</div>
+                </div>
+                <div className="day-column">
+                  <div className="day-header">Friday</div>
+                  <div className="activity arrival">Arrival & Free Play</div>
+                  <div className="activity celebration">Weekly Celebration</div>
+                  <div className="activity snack">Morning Snack</div>
+                  <div className="activity free">Free Choice Activities</div>
+                  <div className="activity lunch">Lunch</div>
+                  <div className="activity rest">Rest Time</div>
+                  <div className="activity review">Week Review & Sharing</div>
+                  <div className="activity snack">Afternoon Snack</div>
+                  <div className="activity departure">Departure</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

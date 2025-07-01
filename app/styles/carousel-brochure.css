@@ -238,9 +238,19 @@ p {
 }
 
 .logo-image {
-  width: 350px;
+  width: 300px;
   height: auto;
   filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+  margin-bottom: 1rem;
+}
+
+.logo-text {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  letter-spacing: 1px;
   margin-bottom: 1.5rem;
 }
 
@@ -501,6 +511,97 @@ p {
   height: 350px;
 }
 
+/* Schedule Styles */
+.schedule-container {
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.schedule-grid {
+  display: flex;
+  gap: 2px;
+  min-height: 600px;
+}
+
+.time-column,
+.day-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.time-column {
+  min-width: 120px;
+  background: var(--green-primary);
+  border-radius: 10px 0 0 10px;
+}
+
+.day-column {
+  flex: 1;
+  min-width: 140px;
+}
+
+.day-column:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.time-slot,
+.day-header,
+.activity {
+  padding: 12px 8px;
+  text-align: center;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+}
+
+.time-slot {
+  background: var(--green-primary);
+  color: white;
+  font-weight: 600;
+}
+
+.day-header {
+  background: var(--green-dark);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.activity {
+  color: white;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.activity.arrival { background: #FF6B6B; }
+.activity.handwork { background: #4ECDC4; }
+.activity.snack { background: #45B7D1; }
+.activity.outdoor { background: #96CEB4; }
+.activity.lunch { background: #FFEAA7; color: #333; }
+.activity.rest { background: #DDA0DD; }
+.activity.story { background: #98D8C8; }
+.activity.departure { background: #F7DC6F; color: #333; }
+.activity.cooking { background: #FDA085; }
+.activity.nature { background: #A8E6CF; }
+.activity.art { background: #FFB3BA; }
+.activity.animals { background: #BAFFC9; }
+.activity.garden { background: #BAE1FF; }
+.activity.puppet { background: #FFFFBA; color: #333; }
+.activity.sensory { background: #E0BBE4; }
+.activity.movement { background: #C7CEEA; }
+.activity.celebration { background: #FFD1DC; }
+.activity.free { background: #FDB462; }
+.activity.review { background: #B3DE69; }
+
 /* Contact Section */
 .slide-contact {
   background: var(--green-primary);
@@ -541,7 +642,11 @@ p {
 /* Responsive */
 @media (max-width: 1024px) {
   .logo-image {
-    width: 280px;
+    width: 250px;
+  }
+  
+  .logo-text {
+    font-size: 1.8rem;
   }
   
   .hero-title span {
@@ -596,7 +701,12 @@ p {
   }
   
   .logo-image {
-    width: 220px;
+    width: 200px;
+    margin-bottom: 0.8rem;
+  }
+  
+  .logo-text {
+    font-size: 1.5rem;
     margin-bottom: 1rem;
   }
   
