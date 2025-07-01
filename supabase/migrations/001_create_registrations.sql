@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS public.registrations (
   -- School info
   current_school TEXT NOT NULL,
   nationality_language TEXT NOT NULL,
-  english_level TEXT,
+  english_level TEXT, -- Will store '1' through '5'
   
   -- Parents info
   parent_name_1 TEXT NOT NULL,

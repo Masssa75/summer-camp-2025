@@ -27,7 +27,7 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
     dateOfBirth: '',
     currentSchool: '',
     nationalityLanguage: '',
-    englishLevel: '',
+    englishLevel: '3',
     parentName1: '',
     parentName2: '',
     mobilePhone1: '',
@@ -349,12 +349,27 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
           <div className="form-group">
             <label>
               Child's Level of English
-              <input
-                type="text"
-                name="englishLevel"
-                value={formData.englishLevel}
-                onChange={handleInputChange}
-              />
+              <div className="english-level-container">
+                <input
+                  type="range"
+                  name="englishLevel"
+                  min="1"
+                  max="5"
+                  value={formData.englishLevel || '3'}
+                  onChange={handleInputChange}
+                  className="english-level-slider"
+                />
+                <div className="english-level-labels">
+                  <span>1<br/><small>Beginner</small></span>
+                  <span>2<br/><small>Basic</small></span>
+                  <span>3<br/><small>Intermediate</small></span>
+                  <span>4<br/><small>Good</small></span>
+                  <span>5<br/><small>Fluent</small></span>
+                </div>
+                <div className="english-level-value">
+                  Level: {formData.englishLevel || '3'}
+                </div>
+              </div>
             </label>
           </div>
         </div>
