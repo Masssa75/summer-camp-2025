@@ -35,7 +35,8 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
         targetId = 'explorer-section'
         break
       case 'schedule':
-        targetId = 'schedule-section'
+        // Jump to the appropriate schedule based on selected age group
+        targetId = selectedAge === 'mini' ? 'schedule-section' : 'explorer-schedule-section'
         break
       case 'contact':
         targetId = 'contact-section'
