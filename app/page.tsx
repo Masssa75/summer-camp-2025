@@ -3,7 +3,7 @@ import './styles/brochure.css'
 export default function HomePage() {
   return (
     <main className="brochure-container">
-      {/* Slide 1: Title Page */}
+      {/* Slide 1: Title Page - Using clean background */}
       <section className="slide slide-1">
         <div className="hero-background">
           <img src="/images/backgrounds/1.jpg" alt="Phuket coastline" />
@@ -28,257 +28,385 @@ export default function HomePage() {
 
       {/* Slide 2: Waldorf-Inspired Summer Camp */}
       <section className="slide slide-2">
-        <div className="content-grid">
-          <div className="content-left">
-            <div className="image-main">
-              <img src="/images/presentation/2.jpg" alt="Phuket scenery" />
+        <div className="slide-content">
+          <div className="left-section">
+            <div className="main-image-container">
+              <img src="/images/backgrounds/2.jpg" alt="Phuket lagoon" className="main-bg" />
             </div>
-            <h2 className="section-title white-text">
+            <h2 className="overlay-title">
               Waldorf-Inspired<br />
               Summer Camp:
             </h2>
           </div>
-          <div className="content-right">
-            <div className="image-grid">
-              <div className="image-box">
-                <img src="/images/presentation/7.jpg" alt="Children activities" />
+          <div className="right-section">
+            <div className="image-collage">
+              <div className="collage-item rounded-1">
+                <img src="/images/presentation/2.jpg" alt="Children at table" />
               </div>
-              <div className="image-box">
-                <img src="/images/presentation/8.jpg" alt="Outdoor play" />
+              <div className="collage-item rounded-2">
+                <img src="/images/presentation/2.jpg" alt="Children activities" />
               </div>
-              <div className="image-box large">
-                <img src="/images/presentation/9.jpg" alt="Nature exploration" />
+              <div className="collage-item rounded-3">
+                <img src="/images/presentation/2.jpg" alt="Outdoor play" />
               </div>
             </div>
-            <div className="curved-shape white-curve"></div>
+            <div className="green-circle"></div>
           </div>
         </div>
       </section>
 
       {/* Slide 3: For Our Youngest Explorers */}
       <section className="slide slide-3">
-        <div className="content-wrapper">
-          <div className="text-content">
-            <h2 className="section-title white-text">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/20.jpg" alt="Forest background" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="text-section">
+            <h2 className="section-title-white">
               For Our Youngest<br />
               Explorers<br />
-              <span className="subtitle">(AGES 3-6)</span>
+              <span className="age-subtitle">(AGES 3-6)</span>
             </h2>
-            <div className="highlight-box">
-              <p>Discover the Magic of Childhood This Summer</p>
+            <div className="highlight-pill">
+              Discover the Magic of Childhood This Summer
             </div>
-            <p className="body-text">
+            <p className="body-text-white">
               Our Waldorf-inspired Mini Group offers<br />
               a nurturing haven where childhood<br />
               blossoms at its own pace.
             </p>
           </div>
-          <div className="image-content">
-            <div className="rounded-image-large">
-              <img src="/images/presentation/3.jpg" alt="Children playing in sand" />
+          <div className="image-section">
+            <div className="rounded-photo-frame">
+              <img src="/images/presentation/3.jpg" alt="Children playing" />
             </div>
           </div>
-          <div className="curved-shape bottom-curve"></div>
+          <div className="green-curve-bottom"></div>
         </div>
       </section>
 
       {/* Slide 4: Why Our Mini Group is Special */}
       <section className="slide slide-4">
-        <div className="special-content">
-          <h2 className="section-title green-text center">
-            Why Our Mini Group is Special:
-          </h2>
-          <div className="features-grid">
-            <div className="feature-item">
-              <h3>Gentle Rhythms & Predictable Days:</h3>
-              <p>A consistent flow of activities that respects your child's natural need for security and ease.</p>
+        <div className="features-container">
+          <h2 className="features-title">Why Our Mini Group is Special:</h2>
+          <div className="features-layout">
+            <div className="features-column">
+              <div className="feature-box">
+                <h3>Gentle Rhythms &<br />Predictable Days:</h3>
+                <p>A consistent flow of activities that respects your child's natural need for security and ease.</p>
+              </div>
+              <div className="feature-box">
+                <h3>Animal Care &<br />Connection:</h3>
+                <p>Daily interactions with our gentle farm animals, fostering empathy and responsibility.</p>
+              </div>
             </div>
-            <div className="feature-item">
-              <h3>Animal Care & Connection:</h3>
-              <p>Daily interactions with our gentle farm animals, fostering empathy and responsibility.</p>
+            <div className="features-column">
+              <div className="feature-box">
+                <h3>Creative Play & Arts:</h3>
+                <p>Hands-on activities including painting, crafts, and imaginative play in our prepared environments.</p>
+              </div>
+              <div className="feature-box">
+                <h3>Nature Exploration:</h3>
+                <p>Safe outdoor adventures exploring the wonders of our tropical surroundings.</p>
+              </div>
             </div>
-            <div className="feature-item">
-              <h3>Creative Play & Arts:</h3>
-              <p>Hands-on activities including painting, crafts, and imaginative play in our prepared environments.</p>
-            </div>
-            <div className="feature-item">
-              <h3>Nature Exploration:</h3>
-              <p>Safe outdoor adventures exploring the wonders of our tropical surroundings.</p>
-            </div>
-            <div className="feature-item highlight">
-              <h3>Supports Holistic Development:</h3>
-              <p>Focusing on head, heart, and hands—developing thinking, feeling, and willing in harmony.</p>
-            </div>
+          </div>
+          <div className="feature-box-wide">
+            <h3>Supports Holistic Development:</h3>
+            <p>Focusing on head, heart, and hands—developing thinking, feeling, and willing in harmony.</p>
           </div>
         </div>
       </section>
 
-      {/* Slide 5: Gentle Rhythms */}
-      <section className="slide slide-5" style={{backgroundImage: 'url(/images/backgrounds/1.jpg)'}}>
-        <div className="overlay-content">
-          <div className="text-box-green">
-            <h2 className="box-title">Gentle Rhythms &<br />Predictable Days:</h2>
-            <p className="box-text">
-              A consistent flow of<br />
-              activities that respects<br />
-              your child's natural need<br />
-              for security and ease.
-            </p>
+      {/* Slide 5: Gentle Rhythms & Predictable Days */}
+      <section className="slide slide-5">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/1.jpg" alt="Ocean view" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="green-text-box">
+            <h2>Gentle Rhythms &<br />Predictable Days:</h2>
+            <p>A consistent flow of<br />
+            activities that respects<br />
+            your child's natural need<br />
+            for security and ease.</p>
           </div>
-          <div className="activity-image">
-            <img src="/images/presentation/5.jpg" alt="Children activities" />
+          <div className="activity-photo">
+            <img src="/images/presentation/5.jpg" alt="Children playing" />
           </div>
         </div>
       </section>
 
-      {/* Slide 6-9: Activity Features */}
-      {[
-        {
-          title: "Animal Care & Connection:",
-          desc: "Daily interactions with our gentle farm animals, fostering empathy and responsibility.",
-          img: "6"
-        },
-        {
-          title: "Creative Play & Arts:",
-          desc: "Hands-on activities including painting, crafts, and imaginative play in our prepared environments.",
-          img: "7"
-        },
-        {
-          title: "Nature Exploration:",
-          desc: "Safe outdoor adventures exploring the wonders of our tropical surroundings.",
-          img: "8"
-        }
-      ].map((item, idx) => (
-        <section key={idx} className="slide slide-activity" style={{backgroundImage: `url(/images/presentation/${item.img}.jpg)`}}>
-          <div className="activity-overlay">
-            <div className="activity-text-box">
-              <h2>{item.title}</h2>
-              <p>{item.desc}</p>
-            </div>
+      {/* Slide 6: Animal Care & Connection */}
+      <section className="slide slide-6">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/1.jpg" alt="Nature background" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="green-text-box">
+            <h2>Animal Care &<br />Connection:</h2>
+            <p>Daily interactions with<br />
+            our gentle farm animals,<br />
+            fostering empathy and<br />
+            responsibility.</p>
           </div>
-        </section>
-      ))}
+          <div className="activity-photo">
+            <img src="/images/presentation/6.jpg" alt="Animal care" />
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 7: Joyful Cooking & Baking */}
+      <section className="slide slide-7">
+        <div className="slide-bg-split">
+          <div className="split-left">
+            <img src="/images/backgrounds/2.jpg" alt="Ocean view" />
+          </div>
+          <div className="split-right">
+            <img src="/images/backgrounds/1.jpg" alt="Mountain view" />
+          </div>
+        </div>
+        <div className="slide-content-overlay">
+          <div className="green-text-box">
+            <h2>Joyful Cooking &<br />Baking:</h2>
+            <p>Simple, hands-on culinary<br />
+            experiences, from<br />
+            kneading dough to<br />
+            preparing wholesome<br />
+            snacks.</p>
+          </div>
+          <div className="activity-photo-rounded">
+            <img src="/images/presentation/7.jpg" alt="Cooking activities" />
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 8: Creative Play & Arts */}
+      <section className="slide slide-8">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/1.jpg" alt="Beach background" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="green-text-box">
+            <h2>Creative Play & Arts:</h2>
+            <p>Hands-on activities including<br />
+            painting, crafts, and<br />
+            imaginative play in our<br />
+            prepared environments.</p>
+          </div>
+          <div className="activity-photo">
+            <img src="/images/presentation/8.jpg" alt="Arts and crafts" />
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 9: Storytelling & Puppetry */}
+      <section className="slide slide-9">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/1.jpg" alt="Ocean background" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="green-text-box">
+            <h2>Storytelling &<br />Puppetry:</h2>
+            <p>Enriching tales that ignite<br />
+            the imagination and<br />
+            nurture a love for<br />
+            language.</p>
+          </div>
+          <div className="activity-photo-rounded">
+            <img src="/images/presentation/9.jpg" alt="Storytelling activities" />
+          </div>
+        </div>
+      </section>
 
       {/* Slide 10: Nature's Classroom */}
       <section className="slide slide-10">
-        <div className="nature-classroom">
-          <div className="nc-left">
+        <div className="nature-split">
+          <div className="nature-left">
             <img src="/images/backgrounds/10.jpg" alt="Beach scene" />
           </div>
-          <div className="nc-right">
-            <div className="nc-text-box">
+          <div className="nature-right">
+            <div className="nature-text-box">
               <h2>Nature's<br />Classroom:</h2>
-              <p>
-                Daily outdoor adventures,<br />
-                exploring the wonders of<br />
-                the natural world through<br />
-                sensory experiences.
-              </p>
+              <p>Daily outdoor adventures,<br />
+              exploring the wonders of<br />
+              the natural world through<br />
+              sensory experiences.</p>
             </div>
-            <div className="nc-image">
-              <img src="/images/presentation/10.jpg" alt="Nature activities" />
+            <div className="nature-photo">
+              <img src="/images/presentation/10.jpg" alt="Nature exploration" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Slide 11-14: Daily Rhythm */}
-      <section className="slide slide-schedule">
-        <div className="schedule-content">
-          <h2 className="schedule-title">A Day in Mini Group</h2>
-          <div className="schedule-grid">
-            <div className="time-slot">
-              <div className="time">8:00 - 8:30</div>
-              <div className="activity">Welcome & Free Play</div>
-            </div>
-            <div className="time-slot">
-              <div className="time">8:30 - 9:00</div>
-              <div className="activity">Morning Circle</div>
-            </div>
-            <div className="time-slot">
-              <div className="time">9:00 - 10:00</div>
-              <div className="activity">Main Activity</div>
-            </div>
-            <div className="time-slot">
-              <div className="time">10:00 - 10:30</div>
-              <div className="activity">Snack Time</div>
-            </div>
-            <div className="time-slot">
-              <div className="time">10:30 - 11:30</div>
-              <div className="activity">Outdoor Exploration</div>
-            </div>
-            <div className="time-slot">
-              <div className="time">11:30 - 12:30</div>
-              <div className="activity">Lunch & Rest</div>
-            </div>
-            <div className="time-slot">
-              <div className="time">12:30 - 1:30</div>
-              <div className="activity">Quiet Activities</div>
-            </div>
-            <div className="time-slot">
-              <div className="time">1:30 - 2:00</div>
-              <div className="activity">Closing Circle & Pickup</div>
-            </div>
+      {/* Slide 11: Handwork & Practical Arts */}
+      <section className="slide slide-11">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/1.jpg" alt="Ocean view" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="green-text-box">
+            <h2>Handwork &<br />Practical Arts:</h2>
+            <p>Simple, joyful activities like<br />
+            sewing, finger knitting, or<br />
+            painting with natural<br />
+            pigments.</p>
+          </div>
+          <div className="activity-photo">
+            <img src="/images/presentation/11.jpg" alt="Handwork activities" />
           </div>
         </div>
       </section>
 
+      {/* Slide 12: Nourishing Snacks & Peaceful Moments */}
+      <section className="slide slide-12">
+        <div className="slide-bg-split">
+          <div className="split-left">
+            <img src="/images/backgrounds/4.jpg" alt="Beach view" />
+          </div>
+          <div className="split-right">
+            <img src="/images/backgrounds/12.jpg" alt="Hills view" />
+          </div>
+        </div>
+        <div className="slide-content-overlay">
+          <div className="green-text-box">
+            <h2>Nourishing Snacks &<br />Peaceful Moments:</h2>
+            <p>Wholesome, organic<br />
+            snacks and quiet times for<br />
+            rest and reflection.</p>
+          </div>
+          <div className="activity-photo-rounded">
+            <img src="/images/presentation/12.jpg" alt="Snack time" />
+          </div>
+        </div>
+      </section>
+      
+      {/* Slide 13: Why Choose The Waldorf Phuket */}
+      <section className="slide slide-13">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/13.jpg" alt="Forest landscape" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="why-choose-content">
+            <h2 className="white-title-centered">Why choose The Waldorf Phuket<br />Summer Camp for your little ones?</h2>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 14: Fosters Creativity & Imagination */}
+      <section className="slide slide-14">
+        <div className="fosters-layout">
+          <div className="fosters-left">
+            <div className="fosters-photo">
+              <img src="/images/presentation/14.jpg" alt="Child playing with blocks" />
+            </div>
+          </div>
+          <div className="fosters-right">
+            <img src="/images/backgrounds/14.jpg" alt="School building" className="fosters-bg" />
+            <div className="fosters-text">
+              <h2 className="fosters-title">Fosters Creativity<br />& Imagination:</h2>
+              <p className="fosters-subtitle">We believe in nurturing the<br />inner world of the child.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Slide 20: For Our Growing Adventurers */}
       <section className="slide slide-20">
-        <div className="adventurers-content">
-          <div className="adv-left">
-            <h2 className="adv-title">
+        <div className="adventurers-layout">
+          <div className="adventurers-text">
+            <h2 className="adventurers-title">
               For Our<br />
               Growing<br />
               Adventurers:
             </h2>
-            <h3 className="adv-subtitle">
+            <h3 className="adventurers-subtitle">
               The Explorers<br />
               (Ages 7-13)
             </h3>
           </div>
-          <div className="adv-right">
+          <div className="adventurers-bg">
             <img src="/images/backgrounds/20.jpg" alt="Forest scene" />
+          </div>
+          <div className="white-circle-large"></div>
+        </div>
+      </section>
+
+      {/* Slide 21: Unplug, Explore, Create */}
+      <section className="slide slide-21">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/21.jpg" alt="Island paradise" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="explorers-intro">
+            <h2 className="white-title-centered">Unplug, Explore, Create: Your Waldorf Summer<br />Adventure</h2>
+            <p className="white-text-centered">
+              Are you ready for a summer of meaningful challenges, cultural immersion, artistic<br />
+              expression, and real-world connection? Our Waldorf-inspired summer Camp Group<br />
+              offers a vibrant alternative to screen time, focusing on practical skills, creative<br />
+              endeavors, and a deep connection to the natural world and local culture.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Slide 21-29: Explorer Activities */}
-      <section className="slide slide-explorers">
-        <div className="explorers-grid">
-          <h2 className="explorers-title">Our Explorers Program Includes:</h2>
-          <div className="explorer-features">
-            <div className="explorer-item">
-              <h3>Thai Cooking Classes</h3>
-              <p>Master authentic Thai cuisine with hands-on cooking experiences</p>
+      {/* Slide 22: Beach Day Adventures */}
+      <section className="slide slide-22">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/1.jpg" alt="Beach background" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="beach-day-content">
+            <h2 className="section-title-white">IGNITE THEIR POTENTIAL THIS SUMMER:</h2>
+            <div className="beach-split">
+              <div className="beach-photo">
+                <img src="/images/presentation/22.jpg" alt="Beach activities" />
+              </div>
+              <div className="beach-text">
+                <h3 className="beach-subtitle">BEACH DAY ADVENTURES:</h3>
+                <p className="white-text-lg">
+                  Explore the wonders of the<br />
+                  coast with nature walks,<br />
+                  swimming in the clear water<br />
+                  and fun beach games.
+                </p>
+              </div>
             </div>
-            <div className="explorer-item">
-              <h3>Introduction to Muay Thai</h3>
-              <p>Learn discipline and self-defense through Thailand's national sport</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 25: Muay Thai */}
+      <section className="slide slide-25">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/25.jpg" alt="Thai temple background" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="muay-thai-content">
+            <div className="photo-frame-left">
+              <img src="/images/presentation/25.jpg" alt="Muay Thai training" />
             </div>
-            <div className="explorer-item">
-              <h3>Beach & Water Activities</h3>
-              <p>Swimming, snorkeling, and marine ecosystem exploration</p>
-            </div>
-            <div className="explorer-item">
-              <h3>Bushcraft & Survival Skills</h3>
-              <p>Essential outdoor skills and nature connection</p>
-            </div>
-            <div className="explorer-item">
-              <h3>Arts & Traditional Crafts</h3>
-              <p>Express creativity through various artistic mediums</p>
-            </div>
-            <div className="explorer-item">
-              <h3>Cultural Excursions</h3>
-              <p>Temple visits, local markets, and Thai cultural immersion</p>
+            <div className="text-section-right">
+              <h2 className="white-title">INTRODUCTION TO<br />MUAY THAI:</h2>
+              <p className="white-text-lg">
+                Experience the discipline<br />
+                and cultural heritage of<br />
+                Thailand's national sport<br />
+                through engaging, age-<br />
+                appropriate sessions.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Slide 40: Every Summer Quote */}
-      <section className="slide slide-40" style={{backgroundImage: 'url(/images/presentation/40.jpg)'}}>
-        <div className="quote-overlay">
+      <section className="slide slide-40">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/40.jpg" alt="Big Buddha Phuket" />
+        </div>
+        <div className="quote-overlay-dark">
           <h2 className="quote-text">
             EVERY SUMMER, A THOUSAND<br />
             MEMORIES ARE WAITING TO BE<br />
@@ -289,15 +417,15 @@ export default function HomePage() {
 
       {/* Slide 41: Contact */}
       <section className="slide slide-contact">
-        <div className="contact-content">
-          <div className="contact-left">
-            <img src="/images/presentation/41.jpg" alt="Camp entrance" />
+        <div className="contact-layout">
+          <div className="contact-image">
+            <img src="/images/presentation/41.jpg" alt="Camp location" />
           </div>
-          <div className="contact-right">
+          <div className="contact-info-section">
             <h2 className="contact-title">CONTACT US</h2>
-            <div className="contact-info">
+            <div className="contact-details">
               <div className="contact-item">
-                <div className="contact-icon">📍</div>
+                <span className="contact-icon orange">📍</span>
                 <div>
                   <h4>ADDRESS</h4>
                   <p>255 Soi Cherngtalay 6, Choeng<br />
@@ -305,22 +433,22 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">📱</div>
+                <span className="contact-icon orange">📱</span>
                 <div>
                   <h4>WHATSAPP</h4>
                   <p>+66 98 912 4218</p>
                 </div>
               </div>
               <div className="contact-item">
-                <div className="contact-icon">✉️</div>
+                <span className="contact-icon orange">✉️</span>
                 <div>
                   <h4>EMAIL</h4>
                   <p>info@waldorfphuket.com</p>
                 </div>
               </div>
             </div>
-            <div className="qr-code">
-              <img src="/images/presentation/41.jpg" alt="QR Code" />
+            <div className="qr-section">
+              <img src="/images/presentation/41.jpg" alt="QR Code" className="qr-code" />
             </div>
           </div>
         </div>
