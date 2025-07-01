@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import ExpandableImage from './ExpandableImage'
 
 interface Photo {
   src: string
@@ -46,7 +47,7 @@ export default function PhotoCarousel({ photos, className = '' }: PhotoCarouselP
         {photos.map((photo, index) => (
           <div key={index} className="story-card">
             <div className="card-image">
-              <img src={photo.src} alt={photo.alt} />
+              <ExpandableImage src={photo.src} alt={photo.alt} />
             </div>
           </div>
         ))}

@@ -1,4 +1,5 @@
 import PhotoCarousel from '@/components/PhotoCarousel'
+import ExpandableImage from '@/components/ExpandableImage'
 
 export default function MiniContent() {
   return (
@@ -61,16 +62,16 @@ export default function MiniContent() {
             
             <div className="activity-grid">
               <div className="activity-bubble top-left">
-                <img src="/references/Summer Camp Presentation Images/5.jpg" alt="Child drawing" />
+                <ExpandableImage src="/references/Summer Camp Presentation Images/5.jpg" alt="Child drawing" />
               </div>
               <div className="activity-bubble top-right">
-                <img src="/references/Summer Camp Presentation Images/6.jpg" alt="Child activity" />
+                <ExpandableImage src="/references/Summer Camp Presentation Images/6.jpg" alt="Child activity" />
               </div>
               <div className="activity-bubble bottom-left">
-                <img src="/references/Summer Camp Presentation Images/7.jpg" alt="Child with crafts" />
+                <ExpandableImage src="/references/Summer Camp Presentation Images/7.jpg" alt="Child with crafts" />
               </div>
               <div className="activity-bubble bottom-right">
-                <img src="/references/Summer Camp Presentation Images/8.jpg" alt="Outdoor activity" />
+                <ExpandableImage src="/references/Summer Camp Presentation Images/8.jpg" alt="Outdoor activity" />
               </div>
             </div>
           </div>
@@ -276,7 +277,7 @@ export default function MiniContent() {
         
         <div className="content-wrapper slide-14-layout">
           <div className="slide-14-photo">
-            <img src="/references/Summer Camp Presentation Images/17.jpg" alt="Child with blocks" />
+            <ExpandableImage src="/references/Summer Camp Presentation Images/17.jpg" alt="Child with blocks" />
           </div>
           
           <div className="slide-14-text">
