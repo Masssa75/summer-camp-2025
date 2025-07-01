@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import ExplorerRegistrationForm from '@/components/ExplorerRegistrationForm'
 import MiniRegistrationForm from '@/components/MiniRegistrationForm'
@@ -8,7 +8,7 @@ import TopNavigation from '@/components/TopNavigation'
 import '../styles/registration.css'
 import '../styles/carousel-brochure.css'
 
-export default function RegisterPage() {
+function RegisterContent() {
   const searchParams = useSearchParams()
   const [ageGroup, setAgeGroup] = useState<'mini' | 'explorer'>('explorer')
   
@@ -50,5 +50,21 @@ export default function RegisterPage() {
         </div>
       </div>
     </>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={
+      <div className="registration-page">
+        <div className="registration-container">
+          <div className="registration-header">
+            <h1>Loading...</h1>
+          </div>
+        </div>
+      </div>
+    }>
+      <RegisterContent />
+    </Suspense>
   )
 }
