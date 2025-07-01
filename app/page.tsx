@@ -1,10 +1,12 @@
 import './styles/carousel-brochure.css'
 import PhotoCarousel from '@/components/PhotoCarousel'
-import InteractiveLanding from '@/components/InteractiveLanding'
+import TopNavigation from '@/components/TopNavigation'
 
 export default function HomePage() {
   return (
-    <main className="brochure-container">
+    <>
+      <TopNavigation />
+      <main className="brochure-container">
       {/* Slide 1: Title Page */}
       <section className="slide slide-1">
         <div className="background-layer">
@@ -20,7 +22,6 @@ export default function HomePage() {
             <span>CAMP</span>
           </h1>
           
-          <InteractiveLanding />
         </div>
       </section>
 
@@ -1010,5 +1011,6 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+    </>
   )
 }
