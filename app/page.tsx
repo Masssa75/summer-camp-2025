@@ -81,13 +81,13 @@ export default function HomePage() {
                 <img src="/references/Summer Camp Presentation Images/5.jpg" alt="Child drawing" />
               </div>
               <div className="activity-bubble top-right">
-                <img src="/references/Summer Camp Presentation Images/7.jpg" alt="Child with flour" />
+                <img src="/references/Summer Camp Presentation Images/6.jpg" alt="Child activity" />
               </div>
               <div className="activity-bubble bottom-left">
-                <img src="/references/Summer Camp Presentation Images/1.jpg" alt="Child with crafts" />
+                <img src="/references/Summer Camp Presentation Images/7.jpg" alt="Child with crafts" />
               </div>
               <div className="activity-bubble bottom-right">
-                <img src="/references/Summer Camp Presentation Images/11.jpg" alt="Outdoor activity" />
+                <img src="/references/Summer Camp Presentation Images/8.jpg" alt="Outdoor activity" />
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function HomePage() {
           
           <PhotoCarousel 
             photos={[
-              { src: '/references/Summer Camp Presentation Images/5.jpg', alt: 'Children on playground' }
+              { src: '/references/Summer Camp Presentation Images/9.jpg', alt: 'Children on playground' }
             ]}
             className="feature-photo"
           />
@@ -131,7 +131,7 @@ export default function HomePage() {
           
           <PhotoCarousel 
             photos={[
-              { src: '/references/Summer Camp Presentation Images/15.jpg', alt: 'Children with animals' }
+              { src: '/references/Summer Camp Presentation Images/10.jpg', alt: 'Children with animals' }
             ]}
             className="feature-photo"
           />
@@ -153,15 +153,158 @@ export default function HomePage() {
           
           <PhotoCarousel 
             photos={[
-              { src: '/references/Summer Camp Presentation Images/7.jpg', alt: 'Children cooking' }
+              { src: '/references/Summer Camp Presentation Images/11.jpg', alt: 'Children cooking' }
             ]}
             className="feature-photo"
           />
         </div>
       </section>
 
-      {/* Continue with remaining slides... */}
-      {/* I'll add more slides based on the IMAGE_MAPPING.md document */}
+      {/* Slide 8: Imaginative Free Play */}
+      <section className="slide slide-8">
+        <div className="background-layer">
+          <img src="/references/backgrounds/8.jpg" alt="Bamboo forest" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Imaginative Free<br/>Play:</h2>
+            <p>Abundant time for creative play in a natural setting, fostering self-direction and social skills.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/12.jpg', alt: 'Children playing' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 9: Storytelling & Puppetry */}
+      <section className="slide slide-9">
+        <div className="background-layer">
+          <img src="/references/backgrounds/9.jpg" alt="Beach scene" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Storytelling &<br/>Puppetry:</h2>
+            <p>Enriching tales that ignite the imagination and nurture a love for language.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/13.jpg', alt: 'Story time' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 10: Nature's Classroom */}
+      <section className="slide slide-10">
+        <div className="background-layer">
+          <img src="/references/backgrounds/10.jpg" alt="Beach with palm trees" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Nature's<br/>Classroom:</h2>
+            <p>Daily outdoor adventures, exploring the wonders of the natural world through sensory experiences.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/14.jpg', alt: 'Nature exploration' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 11: Handwork & Practical Arts */}
+      <section className="slide slide-11">
+        <div className="background-layer">
+          <img src="/references/backgrounds/11.jpg" alt="Ocean view" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Handwork &<br/>Practical Arts:</h2>
+            <p>Simple, joyful activities like sewing, finger knitting, or painting with natural pigments.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/15.jpg', alt: 'Handwork activities' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 12: Nourishing Snacks & Peaceful Moments */}
+      <section className="slide slide-12">
+        <div className="background-layer">
+          <img src="/references/backgrounds/12.jpg" alt="Hillside view" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout">
+          <div className="text-panel">
+            <h2>Nourishing Snacks &<br/>Peaceful Moments:</h2>
+            <p>Wholesome, organic snacks and quiet times for rest and reflection.</p>
+          </div>
+          
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/16.jpg', alt: 'Snack preparation' }
+            ]}
+            className="feature-photo"
+          />
+        </div>
+      </section>
+
+      {/* Slide 13: Why Choose The Waldorf Phuket */}
+      <section className="slide slide-13">
+        <div className="background-layer">
+          <img src="/references/backgrounds/13.jpg" alt="Forest landscape" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper">
+          <div className="centered-content">
+            <h2 className="section-title-white">Why choose The Waldorf Phuket<br/>Summer Camp for your little ones?</h2>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 14: Fosters Creativity & Imagination */}
+      <section className="slide slide-14">
+        <div className="background-layer">
+          <img src="/references/backgrounds/14.jpg" alt="Natural playground" />
+          <div className="background-overlay"></div>
+        </div>
+        
+        <div className="content-wrapper split-layout reverse">
+          <PhotoCarousel 
+            photos={[
+              { src: '/references/Summer Camp Presentation Images/17.jpg', alt: 'Child with blocks' }
+            ]}
+            className="feature-photo"
+          />
+          
+          <div className="text-panel">
+            <h2>Fosters Creativity &<br/>Imagination:</h2>
+            <p>We believe in nurturing the inner world of the child.</p>
+          </div>
+        </div>
+      </section>
       
       {/* Slide 41: Contact */}
       <section className="slide slide-contact">

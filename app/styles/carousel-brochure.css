@@ -420,6 +420,20 @@ p {
   gap: 60px;
 }
 
+.split-layout.reverse {
+  flex-direction: row-reverse;
+}
+
+.centered-content {
+  text-align: center;
+}
+
+.section-title-white {
+  color: white;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
 .text-panel {
   background: rgba(122, 154, 59, 0.9);
   padding: 40px;
