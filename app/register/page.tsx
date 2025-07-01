@@ -2,8 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import ExplorerRegistrationForm from '@/components/ExplorerRegistrationForm'
-import MiniRegistrationForm from '@/components/MiniRegistrationForm'
+import MultiChildRegistrationForm from '@/components/MultiChildRegistrationForm'
 import TopNavigation from '@/components/TopNavigation'
 import '../styles/registration.css'
 import '../styles/carousel-brochure.css'
@@ -42,11 +41,7 @@ function RegisterContent() {
             </div>
           </div>
 
-          {ageGroup === 'mini' ? (
-            <MiniRegistrationForm />
-          ) : (
-            <ExplorerRegistrationForm />
-          )}
+          <MultiChildRegistrationForm initialAgeGroup={ageGroup} />
         </div>
       </div>
     </>

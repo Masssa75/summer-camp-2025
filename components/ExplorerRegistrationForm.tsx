@@ -18,16 +18,25 @@ interface ExplorerRegistrationFormProps {
   ageGroup?: 'mini' | 'explorer'
 }
 
+interface ChildData {
+  childName: string
+  nickName: string
+  gender: string
+  dateOfBirth: string
+  currentSchool: string
+  nationalityLanguage: string
+  englishLevel: string
+  allergies: string
+  healthBehavioralConditions: string
+  hasInsurance: boolean
+  childPassportFile?: File | null
+  weeksSelected: number[]
+}
+
 export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: ExplorerRegistrationFormProps) {
-  const [formData, setFormData] = useState({
+  // Parent information
+  const [parentData, setParentData] = useState({
     email: '',
-    childName: '',
-    nickName: '',
-    gender: '',
-    dateOfBirth: '',
-    currentSchool: '',
-    nationalityLanguage: '',
-    englishLevel: '3',
     parentName1: '',
     parentName2: '',
     mobilePhone1: '',
@@ -35,15 +44,29 @@ export default function ExplorerRegistrationForm({ ageGroup = 'explorer' }: Expl
     mobilePhone2: '',
     wechatWhatsapp2: '',
     emergencyContact: '',
-    allergies: '',
-    healthBehavioralConditions: '',
-    hasInsurance: false,
     photoPermission: '',
     howDidYouFind: '',
     termsAcknowledged: false,
-    allStatementsTrue: false,
-    weeksSelected: [] as number[]
+    allStatementsTrue: false
   })
+  
+  // Children information
+  const [children, setChildren] = useState<ChildData[]>([])
+  const [currentChild, setCurrentChild] = useState<ChildData>({
+    childName: '',
+    nickName: '',
+    gender: '',
+    dateOfBirth: '',
+    currentSchool: '',
+    nationalityLanguage: '',
+    englishLevel: '3',
+    allergies: '',
+    healthBehavioralConditions: '',
+    hasInsurance: false,
+    weeksSelected: []
+  })
+  
+  const [currentChildIndex, setCurrentChildIndex] = useState<number | null>(null)
 
   const [files, setFiles] = useState({
     childPassport: null as File | null,
