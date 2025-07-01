@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     unoptimized: true,
-    domains: ['t.me', 'img.youtube.com', 'i.ytimg.com'],
+    domains: ['t.me', 'img.youtube.com', 'i.ytimg.com', 'instagram.com', 'www.instagram.com'],
   },
   // Supabase requires this for real-time features
   experimental: {
