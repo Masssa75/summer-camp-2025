@@ -307,6 +307,89 @@ export default function HomePage() {
         </div>
       </section>
       
+      {/* Slide 15: Supports Holistic Development */}
+      <section className="slide slide-15">
+        <div className="slide-15-layout">
+          <div className="slide-15-left">
+            <div className="holistic-photo">
+              <img src="/images/Summer Camp Presentation Images/2.jpg" alt="Children doing art activities" />
+            </div>
+          </div>
+          <div className="slide-15-right">
+            <img src="/images/backgrounds/15.jpg" alt="Waterfall in nature" className="slide-15-bg" />
+            <div className="slide-15-text">
+              <h2 className="slide-15-title">Supports Holistic<br />Development:</h2>
+              <p className="slide-15-subtitle">Focusing on head, heart,<br />and hands.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Slide 16: Connects children with Nature */}
+      <section className="slide slide-16">
+        <div className="slide-16-layout">
+          <div className="slide-16-left">
+            <div className="nature-connect-photo">
+              <img src="/images/presentation/16.jpg" alt="Children watering plants" />
+            </div>
+          </div>
+          <div className="slide-16-right">
+            <img src="/images/backgrounds/16.jpg" alt="Sprouting plants" className="slide-16-bg" />
+            <div className="slide-16-text">
+              <h2 className="slide-16-title">Connects children<br />with Nature:</h2>
+              <p className="slide-16-subtitle">Cultivating a deep<br />appreciation for the<br />environment.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Slide 17: Builds Social-Emotional Skills */}
+      <section className="slide slide-17">
+        <div className="slide-17-layout">
+          <div className="slide-17-left">
+            <div className="social-skills-photo">
+              <img src="/images/presentation/17.jpg" alt="Children playing outdoors" />
+            </div>
+          </div>
+          <div className="slide-17-right">
+            <img src="/images/backgrounds/17.jpg" alt="Nature scene" className="slide-17-bg" />
+            <div className="slide-17-text">
+              <h2 className="slide-17-title">Builds Social-<br />Emotional Skills:</h2>
+              <p className="slide-17-subtitle">Through cooperative play<br />and gentle guidance.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Slide 18: Experienced & Caring Educators */}
+      <section className="slide slide-18">
+        <div className="slide-18-layout">
+          <div className="slide-18-left">
+            <div className="educators-photo">
+              <img src="/images/presentation/18.jpg" alt="Children with teachers in circle" />
+            </div>
+          </div>
+          <div className="slide-18-right">
+            <img src="/images/backgrounds/18.jpg" alt="Garden path" className="slide-18-bg" />
+            <div className="slide-18-text">
+              <h2 className="slide-18-title">Experienced &<br />Caring Educators:</h2>
+              <p className="slide-18-subtitle">Our teachers are dedicated<br />to creating a warm,<br />supportive atmosphere.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Slide 19: Summer Camp Schedule */}
+      <section className="slide slide-19">
+        <div className="schedule-container">
+          <h2 className="schedule-title">SUMMER CAMP</h2>
+          <h3 className="schedule-subtitle">Week 1: June 10 - 14, 2024</h3>
+          <div className="schedule-grid">
+            <img src="/images/presentation/19.jpg" alt="Summer camp weekly schedule" />
+          </div>
+        </div>
+      </section>
+      
       {/* Slide 20: For Our Growing Adventurers */}
       <section className="slide slide-20">
         <div className="adventurers-layout">
