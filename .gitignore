@@ -57,3 +57,5 @@ WORKING.md
 
 # Reference images (large files)
 /references/
+# Local Netlify folder
+.netlify
