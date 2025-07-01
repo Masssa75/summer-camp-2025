@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Solutions for Summer Camp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .solution {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+        .solution.recommended {
+            border-color: #4CAF50;
+            background-color: #f1f8f4;
+        }
+        .video-demo {
+            margin: 20px 0;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .step {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 Working Video Solutions for Your Summer Camp Site</h1>
+        
+        <div class="warning">
+            <strong>Why Instagram embeds failed:</strong> Instagram restricts iframe embedding and requires their JavaScript SDK, which often gets blocked by browsers and ad blockers. Their embed API is also inconsistent.
+        </div>
+
+        <div class="solution recommended">
+            <h2>✅ Solution 1: Download & Self-Host (RECOMMENDED)</h2>
+            <p><strong>Best for:</strong> Full control, no external dependencies, best performance</p>
+            
+            <h3>Step 1: Download the Instagram video</h3>
+            <div class="step">
+                <p>Use one of these tools:</p>
+                <ul>
+                    <li><strong>yt-dlp</strong> (command line): <code>yt-dlp "https://www.instagram.com/reel/C8Cp5VvvNG6/"</code></li>
+                    <li><strong>4K Video Downloader</strong> (GUI app)</li>
+                    <li><strong>Online tools</strong>: saveinsta.app, instasave.org</li>
+                </ul>
+            </div>
+
+            <h3>Step 2: Optimize for web</h3>
+            <div class="code-block">
+# Compress the video (reduces size by 60-80%)
+ffmpeg -i instagram-video.mp4 -c:v libx264 -crf 28 -preset fast -an camp-activity.mp4
+
+# Create a mobile version
+ffmpeg -i instagram-video.mp4 -vf scale=720:-1 -c:v libx264 -crf 30 -an camp-activity-mobile.mp4
+            </div>
+
+            <h3>Step 3: Use in your site</h3>
+            <div class="code-block">
+&lt;BackgroundVideo 
+  src="/videos/camp-activity.mp4"
+  mobileSrc="/videos/camp-activity-mobile.mp4"
+  poster="/images/camp-activity-poster.jpg"
+/&gt;
+            </div>
+
+            <div class="video-demo">
+                <video controls muted autoplay loop playsinline>
+                    <source src="https://cdn.coverr.co/videos/coverr-kids-playing-in-the-park-7996/1080p.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="solution">
+            <h2>📤 Solution 2: Upload to Video Hosting Service</h2>
+            <p><strong>Best for:</strong> Easy management, automatic optimization, analytics</p>
+            
+            <h3>Option A: Cloudinary (Free tier: 25GB/month)</h3>
+            <div class="step">
+                <ol>
+                    <li>Sign up at cloudinary.com</li>
+                    <li>Upload your video</li>
+                    <li>Get the optimized URL</li>
+                </ol>
+                <div class="code-block">
+// Cloudinary URL with automatic optimization
+https://res.cloudinary.com/your-cloud/video/upload/q_auto,f_auto/v1234/camp-video.mp4
+                </div>
+            </div>
+
+            <h3>Option B: Vimeo (Clean player, no ads)</h3>
+            <div class="step">
+                <ol>
+                    <li>Upload to Vimeo</li>
+                    <li>Set privacy to "Hide from Vimeo"</li>
+                    <li>Use their embed code or direct link</li>
+                </ol>
+            </div>
+
+            <h3>Option C: YouTube (Unlisted)</h3>
+            <div class="step">
+                <ol>
+                    <li>Upload as unlisted</li>
+                    <li>Use YouTube's embed</li>
+                    <li>Note: Shows YouTube branding</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="solution">
+            <h2>🔗 Solution 3: Direct Link from Instagram</h2>
+            <p><strong>Limitations:</strong> Not reliable, may break, no autoplay</p>
+            
+            <div class="warning">
+                <strong>Not recommended for production!</strong> Instagram CDN URLs change frequently and may stop working.
+            </div>
+
+            <p>If you must use Instagram's CDN directly:</p>
+            <div class="step">
+                <ol>
+                    <li>Open Instagram video in browser</li>
+                    <li>Right-click → Inspect Element</li>
+                    <li>Network tab → Filter by "mp4"</li>
+                    <li>Find the .mp4 URL (usually from scontent-*.cdninstagram.com)</li>
+                    <li>Copy and use that URL (temporary solution only!)</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="success">
+            <h2>🚀 Quick Implementation for Your Camp Site</h2>
+            <p>Here's what I recommend for your summer camp:</p>
+            <ol>
+                <li><strong>Download 5-10 key videos</strong> from your Instagram</li>
+                <li><strong>Optimize them</strong> using the ffmpeg commands above</li>
+                <li><strong>Host on Cloudinary</strong> (free) or in your public folder</li>
+                <li><strong>Use the BackgroundVideo component</strong> I created</li>
+            </ol>
+        </div>
+
+        <div class="solution">
+            <h2>📱 Working Example with Free Stock Videos</h2>
+            <p>These videos will definitely work on your site:</p>
+            
+            <div class="code-block">
+// Kids playing (perfect for hero section)
+&lt;BackgroundVideo src="https://cdn.coverr.co/videos/coverr-kids-playing-in-the-park-7996/1080p.mp4" /&gt;
+
+// Swimming pool (for activities section)
+&lt;BackgroundVideo src="https://cdn.coverr.co/videos/coverr-swimming-pool-from-above-9473/1080p.mp4" /&gt;
+
+// Nature/outdoor (for adventure section)
+&lt;BackgroundVideo src="https://cdn.coverr.co/videos/coverr-forest-path-1569/1080p.mp4" /&gt;
+
+// Campfire (for evening activities)
+&lt;BackgroundVideo src="https://cdn.coverr.co/videos/coverr-campfire-1573/1080p.mp4" /&gt;
+            </div>
+
+            <p>Free stock video sources:</p>
+            <ul>
+                <li><strong>Coverr.co</strong> - Great quality, no attribution needed</li>
+                <li><strong>Pexels Videos</strong> - Large selection</li>
+                <li><strong>Pixabay</strong> - Completely free</li>
+                <li><strong>Videvo</strong> - Mix of free and paid</li>
+            </ul>
+        </div>
+
+        <div class="solution">
+            <h2>🛠 Troubleshooting Video Issues</h2>
+            
+            <h3>Video won't autoplay?</h3>
+            <ul>
+                <li>Must be muted: <code>&lt;video muted autoplay&gt;</code></li>
+                <li>Add playsinline for iOS: <code>&lt;video muted autoplay playsinline&gt;</code></li>
+                <li>Some browsers block autoplay - provide a play button fallback</li>
+            </ul>
+
+            <h3>Video looks pixelated?</h3>
+            <ul>
+                <li>Increase bitrate: Use <code>-crf 23</code> instead of <code>-crf 28</code></li>
+                <li>Check source quality - can't enhance low-quality originals</li>
+                <li>Use 1080p for hero sections, 720p for smaller elements</li>
+            </ul>
+
+            <h3>Page loads slowly?</h3>
+            <ul>
+                <li>Lazy load videos: Use the LazyBackgroundVideo component</li>
+                <li>Compress more: Target 5MB for hero, 2MB for others</li>
+                <li>Use poster images while videos load</li>
+                <li>Consider CDN hosting instead of self-hosting</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Example of testing if a video URL works
+        function testVideoUrl(url) {
+            const video = document.createElement('video');
+            video.src = url;
+            video.muted = true;
+            
+            video.onloadedmetadata = () => {
+                console.log('✅ Video URL works:', url);
+            };
+            
+            video.onerror = () => {
+                console.error('❌ Video URL failed:', url);
+            };
+            
+            video.load();
+        }
+
+        // Test some URLs
+        console.log('Testing video URLs...');
+        testVideoUrl('https://cdn.coverr.co/videos/coverr-kids-playing-in-the-park-7996/1080p.mp4');
+    </script>
+</body>
+</html>

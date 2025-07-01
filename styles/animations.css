@@ -1,0 +1,17 @@
+/* Animation utilities for staggered effects */
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
+
+/* Ensure elements start hidden for fade-in animations */
+.animate-fade-in-up {
+  opacity: 0;
+}

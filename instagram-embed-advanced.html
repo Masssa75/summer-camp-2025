@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Video Embed - Advanced Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .method {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .method h2 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        /* Option 1: Responsive container with aspect ratio */
+        .responsive-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .responsive-container::before {
+            content: "";
+            display: block;
+            padding-top: 177.78%; /* 9:16 aspect ratio */
+        }
+        .responsive-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Option 2: Fixed dimensions with overflow hidden */
+        .fixed-container {
+            width: 300px;
+            height: 533px; /* 9:16 ratio */
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 0 auto;
+            position: relative;
+            background: #000;
+        }
+        .fixed-container iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 710px;
+            border: none;
+        }
+        
+        /* Option 3: Scaled iframe */
+        .scaled-container {
+            width: 350px;
+            height: 622px;
+            overflow: hidden;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .scaled-container iframe {
+            width: 400px;
+            height: 710px;
+            border: none;
+            transform: scale(0.875);
+            transform-origin: top left;
+        }
+        
+        /* Option 4: Minimal embed parameters */
+        .minimal-container {
+            width: 340px;
+            height: 605px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .minimal-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        code {
+            background-color: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .alternative {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Instagram Video Embed - Advanced Options</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Note:</strong> Instagram actively restricts iframe embedding for security and control reasons. These methods may work intermittently or stop working as Instagram updates their policies.
+        </div>
+
+        <div class="methods-grid">
+            <div class="method">
+                <h2>Option 1: Responsive Container</h2>
+                <p>Uses padding-top trick for maintaining aspect ratio</p>
+                <div class="responsive-container">
+                    <iframe src="https://www.instagram.com/reel/C8Cp5VvvNG6/embed" allowtransparency="true" scrolling="no"></iframe>
+                </div>
+            </div>
+
+            <div class="method">
+                <h2>Option 2: Cropped Container</h2>
+                <p>Hides black bars by cropping the iframe</p>
+                <div class="fixed-container">
+                    <iframe src="https://www.instagram.com/reel/C8Cp5VvvNG6/embed" allowtransparency="true" scrolling="no"></iframe>
+                </div>
+            </div>
+
+            <div class="method">
+                <h2>Option 3: Scaled Down</h2>
+                <p>Scales the entire iframe to fit better</p>
+                <div class="scaled-container">
+                    <iframe src="https://www.instagram.com/reel/C8Cp5VvvNG6/embed" allowtransparency="true" scrolling="no"></iframe>
+                </div>
+            </div>
+
+            <div class="method">
+                <h2>Option 4: Minimal Parameters</h2>
+                <p>Simplified embed URL</p>
+                <div class="minimal-container">
+                    <iframe src="https://www.instagram.com/p/C8Cp5VvvNG6/embed/captioned/" allowtransparency="true" scrolling="no"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="alternative">
+            <h2>🎯 Better Alternatives for Production</h2>
+            
+            <h3>1. Download & Self-Host</h3>
+            <p>Use tools like <code>yt-dlp</code> to download the video and host it yourself:</p>
+            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto;">
+# Install yt-dlp
+brew install yt-dlp
+
+# Download Instagram video
+yt-dlp "https://www.instagram.com/reel/C8Cp5VvvNG6/"
+
+# Then use HTML5 video
+&lt;video controls width="350" height="622"&gt;
+  &lt;source src="your-video.mp4" type="video/mp4"&gt;
+&lt;/video&gt;</pre>
+
+            <h3>2. Use Video CDN Services</h3>
+            <ul>
+                <li><strong>Cloudinary</strong> - Free tier, automatic optimization</li>
+                <li><strong>Mux</strong> - Professional video hosting</li>
+                <li><strong>Bunny CDN</strong> - Affordable video streaming</li>
+                <li><strong>AWS S3 + CloudFront</strong> - Scalable but more complex</li>
+            </ul>
+
+            <h3>3. YouTube Instead</h3>
+            <p>Upload to YouTube and use their cleaner embed:</p>
+            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto;">
+&lt;iframe 
+  width="350" 
+  height="622" 
+  src="https://www.youtube.com/embed/VIDEO_ID" 
+  frameborder="0" 
+  allowfullscreen&gt;
+&lt;/iframe&gt;</pre>
+
+            <h3>4. Next.js Video Component</h3>
+            <p>For your React app, create a proper video component:</p>
+            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto;">
+const VideoPlayer = ({ src, poster }) => (
+  &lt;video
+    controls
+    playsInline
+    className="w-full h-auto rounded-lg shadow-lg"
+    poster={poster}
+  &gt;
+    &lt;source src={src} type="video/mp4" /&gt;
+  &lt;/video&gt;
+);</pre>
+        </div>
+    </div>
+</body>
+</html>

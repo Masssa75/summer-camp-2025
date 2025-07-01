@@ -89,23 +89,40 @@ When you need detailed information, check these files:
 ## Current Project State
 
 ### ✅ What's Working & Deployed
-[TO BE FILLED: What features are actually live?]
+- **Homepage with age-based content switching** - Mini Camp (3-6) and Explorer Camp (7-13) content
+- **Multi-child registration form** - Parents can register multiple children in one submission
+- **Expandable images** - All content images can be clicked to view full-screen
+- **Responsive navigation** - Top nav with age group selector and register button
+- **Contact section** - Phone, email, and map integration
+- **Schedule tables** - Weekly camp schedules with pastel colors and larger fonts
+- **Photo carousels** - Activity photo galleries with navigation dots
+- **WhatsApp integration** - Click-to-chat functionality
 
 ### 🚧 Partially Implemented
-[TO BE FILLED: What's built but not complete?]
+- **Supabase integration** - Database schema created but no backend API endpoints yet
+- **Payment processing** - Registration form ready but no payment gateway
+- **Email notifications** - Form submissions stored but no email sending
 
 ### 📋 Planned But Not Started
-[TO BE FILLED: What's in the roadmap?]
+- **Admin dashboard** - View and manage registrations
+- **Email confirmation system** - Automated emails after registration
+- **Payment integration** - Stripe or local payment gateway
+- **Multi-language support** - Thai/English toggle
+- **Registration status tracking** - Check registration and payment status
 
 ---
 
 ## Critical Context
 
 ### Database Gotchas
-[TO BE FILLED: Project-specific database quirks]
+- **Registration table** - Stores parent and child info together (denormalized for simplicity)
+- **weeks_selected** - PostgreSQL array field storing week numbers (1-7)
+- **Storage buckets** - 'registration-documents' bucket must have public access for passport uploads
+- **Boolean fields** - has_insurance, photo_permission, terms_acknowledged, all_statements_true
 
 ### Authentication
-[TO BE FILLED: Auth implementation details]
+- **No user auth yet** - Registration is public, no login required
+- **Admin access** - Planned but not implemented
 
 ### Environment Variables
 All sensitive values are stored in `.env` file (never commit this!)
@@ -119,7 +136,7 @@ All sensitive values are stored in `.env` file (never commit this!)
 - `DEV_LOGIN_PASSWORD`
 
 **Project-specific**:
-[TO BE FILLED: Additional required keys]
+- `NEXT_PUBLIC_WHATSAPP_NUMBER` - WhatsApp number for contact (currently hardcoded as +66989124218)
 
 **Optional**:
 - `GEMINI_API_KEY` (for AI features)
@@ -152,12 +169,66 @@ npx tsc --noEmit
 ---
 
 ## Important URLs
-- **Supabase**: [Project URL]
-- **GitHub**: [Repository URL]
-- **Netlify**: [Netlify app URL]
-- **Live Site**: [Production URL]
+- **Supabase**: https://supabase.com/dashboard/project/xunccqdrybxpwcvafvag
+- **GitHub**: https://github.com/Masssa75/summer-camp-2025
+- **Netlify**: https://app.netlify.com/sites/warm-hamster-50f715
+- **Live Site**: https://warm-hamster-50f715.netlify.app
+
+---
+
+## Key Components & Patterns
+
+### Registration Flow
+- **MultiChildRegistrationForm** - Main registration component
+  - Parents fill info once, then add multiple children
+  - Each child can have different camp type (Mini/Explorer) and weeks
+  - Files uploaded to Supabase Storage
+  - Form data saved to 'registrations' table
+
+### UI Components
+- **ExpandableImage** - Click any image to view full-screen
+- **PhotoCarousel** - Scrollable photo galleries with dot navigation
+- **TopNavigation** - Fixed header with age toggle and register button
+- **PageContent** - Switches between MiniContent and ExplorerContent
+
+### Styling Patterns
+- CSS modules in `/app/styles/`
+- Tailwind for utility classes
+- CSS variables for brand colors:
+  ```css
+  --green-primary: #7a9a3b
+  --green-secondary: #a8c545
+  --green-dark: #5a7a2b
+  --green-light: #e8f5e9
+  ```
+
+### Image Organization
+- Backgrounds: `/public/references/backgrounds/`
+- Camp photos: `/public/references/Summer Camp Presentation Images/`
+- Logo: `/public/references/Logo Only.png`
 
 ---
 
 ## Session Handoff Notes
-[TO BE FILLED: Any specific context from recent work]
+
+### Recent Changes (2025-07-01)
+1. **Multi-child registration** - Replaced individual child forms with a single form that allows adding multiple children
+2. **Fixed build errors** - Removed unused ExplorerRegistrationForm and MiniRegistrationForm components
+3. **UI improvements**:
+   - Schedule tables now have larger fonts (1.1rem) and pastel colors
+   - Registration form layout adjusted (nationality/school fields left, English slider right)
+   - All content images are now expandable on click
+4. **Database updates** - Added has_insurance and all_statements_true boolean fields
+
+### Known Issues
+- No email notifications after registration
+- No payment processing integration
+- No admin dashboard to view registrations
+- Registration success only shows on frontend, no email confirmation
+
+### Next Priorities
+1. Set up email notifications using Supabase Edge Functions or external service
+2. Add payment gateway integration (consider local Thai payment options)
+3. Create admin dashboard for registration management
+4. Add proper error handling and loading states
+5. Implement registration confirmation/status page
