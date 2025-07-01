@@ -115,105 +115,80 @@ body {
   display: block;
 }
 
-/* Slide 2 - Waldorf-Inspired with collage */
+/* Slide 2 - Simple Layout */
 .slide-2 {
+  padding: 0;
+  height: 100vh;
+}
+
+.slide-2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+/* Left side - Background with text */
+.slide-2-left {
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-2-bg {
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.slide-2-title {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  z-index: 10;
+}
+
+.slide-2-title h2 {
+  color: white;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 0.9;
+  text-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+  letter-spacing: 2px;
+  font-family: 'Patrick Hand', cursive;
+}
+
+/* Right side - Camp photos */
+.slide-2-right {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
   background: var(--green-primary);
 }
 
-.slide-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  max-width: 1400px;
+.slide-2-photo {
   width: 100%;
-  padding: 2rem;
-  align-items: center;
-}
-
-.left-section {
-  position: relative;
-}
-
-.main-image-container {
-  position: relative;
-  width: 100%;
-  height: 450px;
+  max-width: 400px;
   overflow: hidden;
-  margin-bottom: -100px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
 }
 
-.main-bg {
+.slide-2-photo:hover {
+  transform: scale(1.05);
+}
+
+.slide-2-photo img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.overlay-title {
-  position: relative;
-  color: white;
-  font-size: clamp(3rem, 5vw, 4.5rem);
-  font-weight: 900;
-  line-height: 1;
-  margin-left: 2rem;
-}
-
-.right-section {
-  position: relative;
-  padding: 2rem;
-}
-
-.image-collage {
-  position: relative;
-  height: 500px;
-}
-
-.collage-item {
-  position: absolute;
-  overflow: hidden;
-  background: white;
-  padding: 8px;
-}
-
-.collage-item img {
-  width: 100%;
-  height: 100%;
+  height: 180px;
   object-fit: cover;
   display: block;
-}
-
-.rounded-1 {
-  width: 250px;
-  height: 180px;
-  border-radius: 100px 100px 20px 20px;
-  top: 0;
-  right: 50px;
-}
-
-.rounded-2 {
-  width: 220px;
-  height: 180px;
-  border-radius: 20px 100px 100px 20px;
-  top: 200px;
-  right: 0;
-}
-
-.rounded-3 {
-  width: 280px;
-  height: 200px;
-  border-radius: 100px 20px 100px 20px;
-  bottom: 0;
-  left: 0;
-}
-
-.green-circle {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: white;
-  border-radius: 50%;
-  bottom: -150px;
-  right: -150px;
-  z-index: -1;
 }
 
 /* Slide 3 - Youngest Explorers */
@@ -998,7 +973,8 @@ body {
   .features-layout,
   .nature-split,
   .adventurers-layout,
-  .contact-layout {
+  .contact-layout,
+  .slide-2-grid {
     grid-template-columns: 1fr;
   }
   
@@ -1121,5 +1097,27 @@ body {
   
   .body-text-white {
     font-size: 1.1rem;
+  }
+  
+  /* Slide 2 mobile */
+  .slide-2-grid {
+    grid-template-rows: 1fr 1fr;
+  }
+  
+  .slide-2-title {
+    bottom: 40px;
+    left: 40px;
+  }
+  
+  .slide-2-title h2 {
+    font-size: 48px;
+  }
+  
+  .slide-2-right {
+    padding: 20px;
+  }
+  
+  .slide-2-photo {
+    max-width: 100%;
   }
 }

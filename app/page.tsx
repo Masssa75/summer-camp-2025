@@ -28,29 +28,23 @@ export default function HomePage() {
 
       {/* Slide 2: Waldorf-Inspired Summer Camp */}
       <section className="slide slide-2">
-        <div className="slide-content">
-          <div className="left-section">
-            <div className="main-image-container">
-              <img src="/images/backgrounds/2.jpg" alt="Phuket lagoon" className="main-bg" />
+        <div className="slide-2-grid">
+          <div className="slide-2-left">
+            <img src="/images/backgrounds/2.jpg" alt="" className="slide-2-bg" />
+            <div className="slide-2-title">
+              <h2>Waldorf-Inspired<br />Summer Camp:</h2>
             </div>
-            <h2 className="overlay-title">
-              Waldorf-Inspired<br />
-              Summer Camp:
-            </h2>
           </div>
-          <div className="right-section">
-            <div className="image-collage">
-              <div className="collage-item rounded-1">
-                <img src="/images/presentation/2.jpg" alt="Children at table" />
-              </div>
-              <div className="collage-item rounded-2">
-                <img src="/images/presentation/2.jpg" alt="Children activities" />
-              </div>
-              <div className="collage-item rounded-3">
-                <img src="/images/presentation/2.jpg" alt="Outdoor play" />
-              </div>
+          <div className="slide-2-right">
+            <div className="slide-2-photo">
+              <img src="/images/Summer Camp Presentation Images/2.jpg" alt="Children painting at camp" />
             </div>
-            <div className="green-circle"></div>
+            <div className="slide-2-photo">
+              <img src="/images/Summer Camp Presentation Images/5.jpg" alt="Child drawing at camp" />
+            </div>
+            <div className="slide-2-photo">
+              <img src="/images/Summer Camp Presentation Images/3.jpg" alt="Outdoor activities at camp" />
+            </div>
           </div>
         </div>
       </section>
