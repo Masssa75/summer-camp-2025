@@ -1,5 +1,6 @@
 import './styles/carousel-brochure.css'
 import PhotoCarousel from '@/components/PhotoCarousel'
+import InteractiveLanding from '@/components/InteractiveLanding'
 
 export default function HomePage() {
   return (
@@ -18,6 +19,8 @@ export default function HomePage() {
             <span>SUMMER</span>
             <span>CAMP</span>
           </h1>
+          
+          <InteractiveLanding />
         </div>
       </section>
 
@@ -44,7 +47,7 @@ export default function HomePage() {
       </section>
 
       {/* Slide 3: For Our Youngest Explorers */}
-      <section className="slide slide-3">
+      <section className="slide slide-3" id="mini-section">
         <div className="background-layer">
           <img src="/references/backgrounds/3.jpg" alt="Forest background" />
           <div className="background-overlay"></div>
@@ -393,7 +396,7 @@ export default function HomePage() {
       </section>
 
       {/* Slide 19: Summer Camp Schedule */}
-      <section className="slide slide-19">
+      <section className="slide slide-19" id="schedule-section">
         <div className="background-layer">
           <img src="/references/backgrounds/19.jpg" alt="Nature/greenery" />
           <div className="background-overlay green-tint"></div>
@@ -482,7 +485,7 @@ export default function HomePage() {
       </section>
 
       {/* Slide 20: For Our Growing Adventurers */}
-      <section className="slide slide-20">
+      <section className="slide slide-20" id="explorer-section">
         <div className="background-layer">
           <img src="/references/backgrounds/20.jpg" alt="Dense forest canopy" />
           <div className="background-overlay green-tint"></div>
@@ -982,7 +985,7 @@ export default function HomePage() {
       </section>
       
       {/* Slide 41: Contact */}
-      <section className="slide slide-contact">
+      <section className="slide slide-contact" id="contact-section">
         <div className="background-layer">
           <img src="/references/backgrounds/41.jpg" alt="Camp facility" />
           <div className="background-overlay dark"></div>

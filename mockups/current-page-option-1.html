@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 1: Add Sticky Header + Age Cards Below Title</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Bubblegum+Sans&family=Fredoka:wght@300;400;500;600;700&display=swap');
+        
+        /* Keep existing styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Fredoka', 'Quicksand', 'Comic Sans MS', cursive, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* NEW: Sticky Header */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-logo { height: 40px; }
+        
+        .header-nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover { color: #7A9A3B; }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .whatsapp-btn { background: #25D366; color: white; }
+        .telegram-btn { background: #0088cc; color: white; }
+        .register-btn { background: #FF6B6B; color: white; }
+        
+        .action-btn:hover { transform: scale(1.05); }
+        
+        /* Existing slide styles */
+        .slide {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .background-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        
+        .background-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+        
+        .slide-1 {
+            background: #7A9A3B;
+            position: relative;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo-image {
+            width: 300px;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+            margin-bottom: 1rem;
+        }
+        
+        .logo-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-title {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-title span {
+            display: block;
+            font-size: clamp(3.5rem, 9vw, 7rem);
+            line-height: 0.85;
+            font-family: 'Bubblegum Sans', 'Fredoka', cursive;
+            font-weight: 400;
+            color: white;
+            text-shadow: 
+                3px 3px 0 #7A9A3B,
+                6px 6px 0 rgba(122, 154, 59, 0.5),
+                0 0 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* NEW: Age Group Selection Cards */
+        .age-group-selection {
+            display: flex;
+            gap: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .age-group-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .age-group-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .age-group-card.mini { border-left: 6px solid #FF6B6B; }
+        .age-group-card.explorer { border-left: 6px solid #4ECDC4; }
+        
+        .age-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .age-title {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .age-range {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .age-description {
+            color: #777;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .explore-button {
+            background: linear-gradient(45deg, #7A9A3B, #8BA85E);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .explore-button:hover {
+            transform: scale(1.05);
+        }
+        
+        /* NEW: Floating Action Buttons */
+        .floating-actions {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .fab:hover { transform: scale(1.1); }
+        .fab.whatsapp { background: #25D366; color: white; }
+        .fab.register { background: #FF6B6B; color: white; }
+        
+        @media (max-width: 768px) {
+            .sticky-header { padding: 10px 15px; }
+            .header-nav { display: none; }
+            .header-actions { gap: 10px; }
+            .action-btn { padding: 6px 12px; font-size: 0.8rem; }
+            .age-group-selection { flex-direction: column; gap: 20px; }
+            .content-wrapper { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW: Sticky Header -->
+    <header class="sticky-header">
+        <img src="/references/Logo Only.png" alt="Logo" class="header-logo">
+        
+        <nav class="header-nav">
+            <a href="#mini" class="nav-link">Mini Camp (3-6)</a>
+            <a href="#explorer" class="nav-link">Adventure Camp (7-13)</a>
+            <a href="#schedule" class="nav-link">Schedule</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+        
+        <div class="header-actions">
+            <a href="#" class="action-btn whatsapp-btn">📱 WhatsApp</a>
+            <a href="#" class="action-btn telegram-btn">✈️ Telegram</a>
+            <a href="#" class="action-btn register-btn">📝 Register</a>
+        </div>
+    </header>
+
+    <!-- Existing Slide 1: Title Page -->
+    <section class="slide slide-1">
+        <div class="background-layer">
+            <img src="/references/backgrounds/1.jpg" alt="Phuket coastline" />
+        </div>
+        <div class="content-wrapper">
+            <div class="logo-container">
+                <img src="/references/Logo Only.png" alt="The Waldorf Phuket Logo" class="logo-image" />
+                <span class="logo-text">The Waldorf Phuket</span>
+            </div>
+            <h1 class="hero-title">
+                <span>SUMMER</span>
+                <span>CAMP</span>
+            </h1>
+            
+            <!-- NEW: Age Group Selection Cards -->
+            <div class="age-group-selection">
+                <div class="age-group-card mini" onclick="scrollToSection('mini')">
+                    <div class="age-icon">🎨</div>
+                    <h3 class="age-title">Mini Explorers</h3>
+                    <p class="age-range">Ages 3-6</p>
+                    <p class="age-description">
+                        Gentle rhythms, creative play, and nurturing care in our youngest group.
+                    </p>
+                    <button class="explore-button">Explore Mini Camp</button>
+                </div>
+                
+                <div class="age-group-card explorer" onclick="scrollToSection('explorer')">
+                    <div class="age-icon">🏕️</div>
+                    <h3 class="age-title">Young Adventurers</h3>
+                    <p class="age-range">Ages 7-13</p>
+                    <p class="age-description">
+                        Exciting adventures, skill-building, and cultural immersion.
+                    </p>
+                    <button class="explore-button">Explore Adventure Camp</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Floating Action Buttons -->
+    <div class="floating-actions">
+        <a href="#" class="fab whatsapp">📱</a>
+        <a href="#" class="fab register">📝</a>
+    </div>
+
+    <script>
+        function scrollToSection(type) {
+            // This would scroll to the appropriate section
+            console.log('Scrolling to', type, 'section');
+        }
+    </script>
+</body>
+</html>

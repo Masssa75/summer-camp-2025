@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 2: Centered with Navigation Menu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Bubblegum+Sans&family=Fredoka:wght@300;400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(45deg, #7A9A3B 0%, #8BA85E 50%, #4ECDC4 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 20px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+        
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-nav img { height: 50px; }
+        .logo-nav span { font-size: 1.2rem; font-weight: 600; color: #7A9A3B; }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover { color: #7A9A3B; }
+        
+        .nav-cta {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .cta-btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-primary { background: #FF6B6B; color: white; }
+        .cta-secondary { background: #25D366; color: white; }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 100px;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><circle fill="rgba(255,255,255,0.1)" cx="200" cy="200" r="100"/><circle fill="rgba(255,255,255,0.1)" cx="800" cy="300" r="80"/><circle fill="rgba(255,255,255,0.1)" cx="1000" cy="600" r="120"/></svg>');
+            z-index: -1;
+        }
+        
+        .hero-logo {
+            width: 250px;
+            height: 250px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .hero-title {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 5rem;
+            color: white;
+            text-shadow: 3px 3px 0 #333, 6px 6px 0 rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 50px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        /* Age Selection */
+        .age-selection {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .age-option {
+            padding: 20px 40px;
+            border-radius: 40px;
+            background: transparent;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .age-option:hover { background: rgba(122, 154, 59, 0.1); }
+        .age-option.active { background: #7A9A3B; color: white; }
+        
+        /* Quick Info Cards */
+        .quick-info {
+            display: flex;
+            gap: 30px;
+            max-width: 800px;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            flex: 1;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .info-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .info-text {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* Contact Bubbles */
+        .contact-bubbles {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1000;
+        }
+        
+        .bubble {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+        
+        .bubble.whatsapp { background: linear-gradient(45deg, #25D366, #128C7E); color: white; }
+        .bubble.telegram { background: linear-gradient(45deg, #0088cc, #0077b5); color: white; }
+        .bubble.register { background: linear-gradient(45deg, #FF6B6B, #ee5a52); color: white; }
+        
+        @media (max-width: 768px) {
+            .nav-container { padding: 0 15px; }
+            .nav-links { display: none; }
+            .hero-title { font-size: 3rem; }
+            .quick-info { flex-direction: column; gap: 20px; max-width: 90%; }
+            .contact-bubbles { right: 15px; }
+            .bubble { width: 60px; height: 60px; font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <div class="logo-nav">
+                <img src="/references/Logo Only.png" alt="Logo">
+                <span>The Waldorf Phuket</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#mini">Mini Camp (3-6)</a></li>
+                <li><a href="#explorer">Adventure Camp (7-13)</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <a href="#" class="cta-btn cta-secondary">📱 Chat</a>
+                <a href="#" class="cta-btn cta-primary">📝 Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-logo">
+            <span style="color: #7A9A3B; font-size: 3rem;">🌱</span>
+        </div>
+        
+        <h1 class="hero-title">SUMMER CAMP 2025</h1>
+        <p class="hero-subtitle">Waldorf-Inspired Adventures in Paradise</p>
+        
+        <div class="age-selection">
+            <button class="age-option active" onclick="selectAge('mini')">
+                🎨 Mini Explorers (3-6)
+            </button>
+            <button class="age-option" onclick="selectAge('explorer')">
+                🏕️ Young Adventurers (7-13)
+            </button>
+        </div>
+        
+        <div class="quick-info">
+            <div class="info-card">
+                <div class="info-icon">🌿</div>
+                <div class="info-title">Nature-Based Learning</div>
+                <div class="info-text">Outdoor adventures and environmental education</div>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🎭</div>
+                <div class="info-title">Creative Expression</div>
+                <div class="info-text">Arts, crafts, music, and imaginative play</div>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🤝</div>
+                <div class="info-title">Social Development</div>
+                <div class="info-text">Building friendships and cooperation skills</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Bubbles -->
+    <div class="contact-bubbles">
+        <a href="#" class="bubble whatsapp" title="WhatsApp">📱</a>
+        <a href="#" class="bubble telegram" title="Telegram">✈️</a>
+        <a href="#" class="bubble register" title="Register">📝</a>
+    </div>
+
+    <script>
+        function selectAge(type) {
+            document.querySelectorAll('.age-option').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            console.log('Selected age group:', type);
+        }
+    </script>
+</body>
+</html>
