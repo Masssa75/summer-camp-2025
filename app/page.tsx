@@ -4,6 +4,7 @@ import { useState } from 'react'
 import './styles/carousel-brochure.css'
 import TopNavigation from '@/components/TopNavigation'
 import PageContent from '@/components/PageContent'
+import { MapPin, Phone, Mail } from 'lucide-react'
 
 export default function HomePage() {
   const [selectedAge, setSelectedAge] = useState<'mini' | 'explorer'>('mini')
@@ -73,28 +74,34 @@ export default function HomePage() {
               <div className="contact-layout">
                 <div className="contact-info-section">
                   <div className="contact-item">
-                    <div className="contact-icon">📍</div>
+                    <div className="contact-icon">
+                      <MapPin size={24} />
+                    </div>
                     <div className="contact-details">
                       <h3>Location</h3>
                       <p>255 Soi Cherngtalay 6, Choeng Thale,<br/>Thalang District, Phuket 83110</p>
                     </div>
                   </div>
                   
-                  <div className="contact-item">
-                    <div className="contact-icon">📱</div>
+                  <a href="tel:+66989124218" className="contact-item contact-link">
+                    <div className="contact-icon">
+                      <Phone size={24} />
+                    </div>
                     <div className="contact-details">
                       <h3>Phone</h3>
                       <p>+66 98 912 4218</p>
                     </div>
-                  </div>
+                  </a>
                   
-                  <div className="contact-item">
-                    <div className="contact-icon">✉️</div>
+                  <a href="mailto:info@waldorfphuket.com" className="contact-item contact-link">
+                    <div className="contact-icon">
+                      <Mail size={24} />
+                    </div>
                     <div className="contact-details">
                       <h3>Email</h3>
                       <p>info@waldorfphuket.com</p>
                     </div>
-                  </div>
+                  </a>
                 </div>
                 
                 <div className="map-section">

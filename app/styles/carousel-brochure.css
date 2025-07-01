@@ -1066,7 +1066,6 @@ p {
 }
 
 .contact-icon {
-  font-size: 1.5rem;
   flex-shrink: 0;
   width: 40px;
   height: 40px;
@@ -1075,6 +1074,7 @@ p {
   justify-content: center;
   background: var(--green-light);
   border-radius: 50%;
+  color: var(--green-primary);
 }
 
 .contact-details h3 {
@@ -1088,6 +1088,31 @@ p {
   color: #666;
   font-size: 1rem;
   line-height: 1.5;
+}
+
+/* Clickable Contact Links */
+a.contact-link {
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+a.contact-link:hover {
+  transform: translateX(10px);
+}
+
+a.contact-link:hover .contact-icon {
+  background: var(--green-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+a.contact-link:hover .contact-details h3 {
+  color: var(--green-primary);
+}
+
+a.contact-link:hover .contact-details p {
+  color: var(--green-dark);
 }
 
 /* Map Section */
@@ -1370,7 +1395,11 @@ p {
   .contact-icon {
     width: 35px;
     height: 35px;
-    font-size: 1.2rem;
+  }
+  
+  /* Disable hover transform on mobile */
+  a.contact-link:hover {
+    transform: none;
   }
   
   .contact-details h3 {
