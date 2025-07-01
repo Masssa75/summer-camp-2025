@@ -929,6 +929,27 @@ p {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  gap: 20px;
+}
+
+/* Logo in navigation */
+.nav-logo {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-logo img {
+  height: 35px;
+  width: auto;
 }
 
 .nav-age-selector {
@@ -1044,7 +1065,8 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
-  align-items: start;
+  align-items: stretch;
+  height: 420px;
 }
 
 .contact-info-section {
@@ -1052,6 +1074,9 @@ p {
   border-radius: 20px;
   padding: 40px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .contact-item {
@@ -1121,7 +1146,7 @@ a.contact-link:hover .contact-details p {
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  height: 400px;
+  height: 100%;
 }
 
 .map-section iframe {
@@ -1171,8 +1196,22 @@ a.contact-link:hover .contact-details p {
   }
   
   .nav-container {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
+  }
+  
+  .nav-logo {
+    order: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+  
+  .nav-logo img {
+    height: 30px;
   }
   
   .nav-age-selector {
@@ -1381,6 +1420,7 @@ a.contact-link:hover .contact-details p {
   .contact-layout {
     grid-template-columns: 1fr;
     gap: 30px;
+    height: auto;
   }
   
   .contact-info-section {

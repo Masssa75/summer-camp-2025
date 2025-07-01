@@ -28,6 +28,9 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
     // Scroll to appropriate section based on nav item
     let targetId = ''
     switch (section) {
+      case 'top':
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        return
       case 'mini':
         targetId = 'mini-section'
         break
@@ -62,6 +65,11 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
   return (
     <nav className="top-navigation">
       <div className="nav-container">
+        {/* Logo */}
+        <button className="nav-logo" onClick={(e) => handleNavClick('top', e)}>
+          <img src="/references/Logo Only.png" alt="The Waldorf Phuket" />
+        </button>
+        
         {/* Age Group Selector */}
         <div className="nav-age-selector">
           <button 
