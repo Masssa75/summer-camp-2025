@@ -377,6 +377,53 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Slide 23: Exciting Field Trips */}
+      <section className="slide slide-23">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/23.jpg" alt="Forest waterfall" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="field-trips-content">
+            <div className="field-photo">
+              <img src="/images/presentation/23.jpg" alt="Field trip activities" />
+            </div>
+            <div className="field-text">
+              <h2 className="green-title-large">EXCITING FIELD TRIPS:</h2>
+              <p className="white-text-lg">
+                Discover local wonders and<br />
+                expand horizons with<br />
+                engaging excursions (e.g.,<br />
+                local nature parks,<br />
+                traditional craft centers).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 24: Authentic Thai Cooking */}
+      <section className="slide slide-24">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/24.jpg" alt="Beach and islands" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="cooking-content">
+            <div className="cooking-photo">
+              <img src="/images/presentation/24.jpg" alt="Thai cooking class" />
+            </div>
+            <div className="cooking-text">
+              <h2 className="white-title">AUTHENTIC THAI<br />COOKING:</h2>
+              <p className="white-text-lg">
+                Hands-on culinary<br />
+                experiences, learning to<br />
+                prepare delicious and<br />
+                traditional Thai dishes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Slide 25: Muay Thai */}
       <section className="slide slide-25">
         <div className="slide-bg-image">
@@ -396,6 +443,50 @@ export default function HomePage() {
                 through engaging, age-<br />
                 appropriate sessions.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 34: Cultivate Creativity & Innovation */}
+      <section className="slide slide-34">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/1.jpg" alt="Beach view" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="cultivate-content">
+            <div className="cultivate-text">
+              <h2 className="green-title-large">CULTIVATE CREATIVITY<br />& INNOVATION:</h2>
+              <p className="white-text-lg">
+                Moving beyond templates to<br />
+                original thought and<br />
+                expression.
+              </p>
+            </div>
+            <div className="cultivate-photo">
+              <img src="/images/presentation/34.jpg" alt="Creative activities" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 36: Strengthen Social Bonds */}
+      <section className="slide slide-36">
+        <div className="slide-bg-image">
+          <img src="/images/backgrounds/36.jpg" alt="Coastal view" />
+        </div>
+        <div className="slide-content-overlay">
+          <div className="social-bonds-content">
+            <div className="social-text">
+              <h2 className="white-title">STRENGTHEN<br />SOCIAL BONDS:</h2>
+              <p className="white-text-lg">
+                Through collaborative<br />
+                projects and shared<br />
+                adventures.
+              </p>
+            </div>
+            <div className="social-photo">
+              <img src="/images/presentation/36.jpg" alt="Children collaborating" />
             </div>
           </div>
         </div>
