@@ -4,7 +4,7 @@ import { useState } from 'react'
 import './styles/carousel-brochure.css'
 import TopNavigation from '@/components/TopNavigation'
 import PageContent from '@/components/PageContent'
-import InstagramVideo from '@/components/InstagramVideo'
+import VideoEmbed from '@/components/VideoEmbed'
 import { MapPin, Phone, Mail } from 'lucide-react'
 
 export default function HomePage() {
@@ -42,11 +42,9 @@ export default function HomePage() {
               </h1>
             </div>
             <div className="hero-video">
-              <InstagramVideo 
-                url="https://www.instagram.com/reel/DDlZTTih95c/"
+              <VideoEmbed 
+                instagramUrl="https://www.instagram.com/reel/DDlZTTih95c/"
                 caption="Take a journey through our beautiful campus"
-                width={400}
-                height={500}
               />
             </div>
           </div>

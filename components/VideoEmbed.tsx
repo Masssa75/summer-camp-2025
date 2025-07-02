@@ -1,48 +1,161 @@
-'use client';
+'use client'
+
+import { useState } from 'react'
+import { Play } from 'lucide-react'
 
 interface VideoEmbedProps {
-  platform: 'youtube' | 'instagram' | 'vimeo';
-  videoId: string;
-  title?: string;
-  aspectRatio?: '16:9' | '9:16' | '1:1';
+  instagramUrl: string
+  thumbnailUrl?: string
+  caption?: string
+  className?: string
 }
 
 export default function VideoEmbed({ 
-  platform, 
-  videoId, 
-  title = 'Embedded video',
-  aspectRatio = '16:9' 
+  instagramUrl, 
+  thumbnailUrl,
+  caption, 
+  className = '' 
 }: VideoEmbedProps) {
-  const aspectRatioClasses = {
-    '16:9': 'pb-[56.25%]',
-    '9:16': 'pb-[177.78%]',
-    '1:1': 'pb-[100%]'
-  };
+  const [showVideo, setShowVideo] = useState(false)
+  
+  // Extract post ID from Instagram URL
+  const match = instagramUrl.match(/\/(p|reel)\/([A-Za-z0-9_-]+)/)
+  const postId = match ? match[2] : ''
+  
+  // Default thumbnail if none provided
+  const defaultThumbnail = '/references/Summer Camp Presentation Images/campus-thumbnail.jpg'
+  const thumbnail = thumbnailUrl || defaultThumbnail
 
-  const getEmbedUrl = () => {
-    switch (platform) {
-      case 'youtube':
-        return `https://www.youtube.com/embed/${videoId}`;
-      case 'vimeo':
-        return `https://player.vimeo.com/video/${videoId}`;
-      case 'instagram':
-        // Instagram requires the full post URL
-        return `https://www.instagram.com/p/${videoId}/embed`;
-    }
-  };
+  const handlePlayClick = () => {
+    // Open Instagram in new tab since embed has limitations
+    window.open(instagramUrl, '_blank', 'noopener,noreferrer')
+  }
 
   return (
-    <div className="w-full">
-      <div className={`relative ${aspectRatioClasses[aspectRatio]} overflow-hidden rounded-lg bg-gray-100`}>
-        <iframe
-          src={getEmbedUrl()}
-          title={title}
-          className="absolute top-0 left-0 w-full h-full"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+    <div className={`video-embed-container ${className}`}>
+      <div className="video-wrapper">
+        {!showVideo ? (
+          <div className="video-thumbnail" onClick={handlePlayClick}>
+            <img 
+              src={thumbnail} 
+              alt="Campus tour video" 
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
+            <div className="play-overlay">
+              <button className="play-button">
+                <Play size={40} fill="white" />
+              </button>
+              <p className="play-text">Watch Campus Tour</p>
+            </div>
+          </div>
+        ) : (
+          <iframe
+            src={`https://www.instagram.com/p/${postId}/embed`}
+            width="100%"
+            height="500"
+            frameBorder="0"
+            scrolling="no"
+            allowTransparency={true}
+            style={{
+              background: 'white',
+              border: 'none',
+              overflow: 'hidden'
+            }}
+          />
+        )}
       </div>
+      {caption && (
+        <p className="video-caption">
+          {caption}
+        </p>
+      )}
+      <style jsx>{`
+        .video-embed-container {
+          width: 100%;
+          max-width: 400px;
+        }
+        
+        .video-wrapper {
+          position: relative;
+          width: 100%;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          background: #000;
+        }
+        
+        .video-thumbnail {
+          position: relative;
+          width: 100%;
+          height: 500px;
+          cursor: pointer;
+          overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+          transition: transform 0.3s ease;
+        }
+        
+        .video-thumbnail:hover img {
+          transform: scale(1.05);
+        }
+        
+        .play-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: rgba(0, 0, 0, 0.4);
+          transition: background 0.3s ease;
+        }
+        
+        .video-thumbnail:hover .play-overlay {
+          background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .play-button {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.9);
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-bottom: 20px;
+        }
+        
+        .play-button:hover {
+          transform: scale(1.1);
+          background: white;
+        }
+        
+        .play-text {
+          color: white;
+          font-size: 1.2rem;
+          font-weight: 600;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .video-caption {
+          margin-top: 15px;
+          text-align: center;
+          font-size: 14px;
+          color: #666;
+          font-style: italic;
+        }
+      `}</style>
     </div>
-  );
+  )
 }
