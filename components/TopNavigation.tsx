@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Palette, Tent, Calendar, Phone, FileEdit, MessageCircle, Shield } from 'lucide-react'
+import { Palette, Tent, Calendar, Phone, FileEdit, MessageCircle } from 'lucide-react'
 
 interface TopNavigationProps {
   onAgeGroupSelect?: (ageGroup: 'mini' | 'explorer') => void
@@ -56,9 +56,6 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
       case 'whatsapp':
         window.open('https://wa.me/+66989124218', '_blank')
         return
-      case 'admin':
-        window.location.href = '/admin'
-        return
     }
     
     const element = document.getElementById(targetId)
@@ -110,10 +107,6 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
           <a href="#register" className="nav-link register-btn" onClick={(e) => handleNavClick('register', e)}>
             <FileEdit size={14} />
             <span>Register</span>
-          </a>
-          <a href="#admin" className="nav-link" onClick={(e) => handleNavClick('admin', e)}>
-            <Shield size={14} />
-            <span>Admin</span>
           </a>
         </div>
       </div>
