@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - With Logo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cover-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Logo styles */
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: url('../public/references/Logo Only.png') center/contain no-repeat;
+            display: inline-block;
+        }
+        
+        .logo-white {
+            filter: brightness(0) invert(1);
+        }
+        
+        /* Option 1: Logo + Title at bottom */
+        .bottom-combo {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.7) 50%, transparent);
+            color: white;
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+        
+        .bottom-combo h1 {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-top: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        /* Option 2: Logo top left, title bottom */
+        .logo-corner {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.9);
+            padding: 8px;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .logo-corner .logo {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .title-simple {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 30px 20px 20px;
+            text-align: center;
+        }
+        
+        .title-simple h1 {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        /* Option 3: Logo and title in white bar */
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .top-bar .logo {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .top-bar h1 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #7a9a3b;
+            line-height: 1.2;
+        }
+        
+        /* Option 4: Floating badge with logo */
+        .badge-combo {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            padding: 15px 20px;
+            border-radius: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .badge-combo .logo {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .badge-combo h1 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #7a9a3b;
+        }
+        
+        /* Option 5: Logo centered above title */
+        .center-stack {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(122, 154, 59, 0.95), rgba(122, 154, 59, 0.85) 50%, transparent);
+            color: white;
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+        
+        .center-stack .logo {
+            margin-bottom: 10px;
+        }
+        
+        .center-stack h1 {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .best-pick {
+            background: #e8f5e9;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: #5a7a2b;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">Full Day Kids Care - With Logo Options</h1>
+    
+    <div class="grid">
+        <!-- Option 1: Logo + Title Together at Bottom -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/4.jpg" alt="Caregiver with kids">
+                <div class="bottom-combo">
+                    <div class="logo logo-white"></div>
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label"><span class="best-pick">CLASSIC</span> Logo above title</p>
+        </div>
+        
+        <!-- Option 2: Logo Corner + Title Bottom -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/10.jpg" alt="Caregiver with kids">
+                <div class="logo-corner">
+                    <div class="logo"></div>
+                </div>
+                <div class="title-simple">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Corner logo placement</p>
+        </div>
+        
+        <!-- Option 3: Top Bar with Logo + Title -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1.jpg" alt="Caregiver with kids">
+                <div class="top-bar">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label"><span class="best-pick">CLEAN</span> Top bar design</p>
+        </div>
+        
+        <!-- Option 4: Floating Badge -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/13.jpg" alt="Caregiver with kids">
+                <div class="badge-combo">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Modern badge style</p>
+        </div>
+        
+        <!-- Option 5: Green Overlay -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/14.jpg" alt="Caregiver with kids">
+                <div class="center-stack">
+                    <div class="logo logo-white"></div>
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Brand color overlay</p>
+        </div>
+        
+        <!-- Option 6: Minimal Corner Logo -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/15.jpg" alt="Caregiver with kids">
+                <div class="logo-corner">
+                    <div class="logo"></div>
+                </div>
+                <div class="title-simple">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Subtle branding</p>
+        </div>
+        
+        <!-- Option 7: Classic Bottom -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/16.jpg" alt="Caregiver with kids">
+                <div class="bottom-combo">
+                    <div class="logo logo-white"></div>
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Traditional layout</p>
+        </div>
+        
+        <!-- Option 8: Top Bar Variation -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/19.jpg" alt="Caregiver with kids">
+                <div class="top-bar">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Professional header</p>
+        </div>
+        
+        <!-- Option 9: Badge Style -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/20.jpg" alt="Caregiver with kids">
+                <div class="badge-combo">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label"><span class="best-pick">MODERN</span> Floating design</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">Logo Placement Options</h2>
+        <p style="line-height: 1.6; color: #666;">
+            <strong>Five different logo approaches:</strong><br>
+            1. <strong>Classic bottom</strong> - Logo above title on gradient<br>
+            2. <strong>Corner logo</strong> - Subtle top corner placement<br>
+            3. <strong>Top bar</strong> - Clean horizontal header<br>
+            4. <strong>Floating badge</strong> - Modern pill-shaped design<br>
+            5. <strong>Brand overlay</strong> - Using green brand colors<br><br>
+            
+            The logo adds credibility and brand recognition while keeping the focus on the caregiver images.
+        </p>
+    </div>
+</body>
+</html>

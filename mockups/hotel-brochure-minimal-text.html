@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - Minimal Text, Maximum Image</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cover-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Title at bottom with subtle gradient */
+        .title-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 20px 10px 15px;
+            text-align: center;
+        }
+        
+        .title-bottom h1 {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        /* Alternative: Title at top with white background */
+        .title-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            padding: 12px 10px;
+            text-align: center;
+        }
+        
+        .title-top h1 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #7a9a3b;
+            line-height: 1.2;
+        }
+        
+        /* Alternative: Minimal overlay */
+        .title-minimal {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .title-minimal h1 {
+            display: inline-block;
+            background: rgba(255,255,255,0.9);
+            color: #7a9a3b;
+            padding: 12px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">Minimal Text - Focus on Caregiver Images</h1>
+    
+    <div class="grid">
+        <!-- Option 1: Title at bottom -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/4.jpg" alt="Caregiver with kids">
+                <div class="title-bottom">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 4 - Bottom title</p>
+        </div>
+        
+        <!-- Option 2: Title at top -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/10.jpg" alt="Caregiver with kids">
+                <div class="title-top">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 10 - Top title</p>
+        </div>
+        
+        <!-- Option 3: Minimal badge -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1.jpg" alt="Caregiver with kids">
+                <div class="title-minimal">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 11-1 - Badge style</p>
+        </div>
+        
+        <!-- Option 4 -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/13.jpg" alt="Caregiver with kids">
+                <div class="title-bottom">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 13</p>
+        </div>
+        
+        <!-- Option 5 -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/14.jpg" alt="Caregiver with kids">
+                <div class="title-top">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 14</p>
+        </div>
+        
+        <!-- Option 6 -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/15.jpg" alt="Caregiver with kids">
+                <div class="title-minimal">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 15</p>
+        </div>
+        
+        <!-- Option 7 -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/16.jpg" alt="Caregiver with kids">
+                <div class="title-bottom">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 16</p>
+        </div>
+        
+        <!-- Option 8 -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/19.jpg" alt="Caregiver with kids">
+                <div class="title-top">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 19</p>
+        </div>
+        
+        <!-- Option 9 -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/20.jpg" alt="Caregiver with kids">
+                <div class="title-bottom">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+            </div>
+            <p class="image-label">Image 20</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">Minimal Design Notes</h2>
+        <p style="line-height: 1.6; color: #666;">
+            <strong>Three title placement options:</strong><br>
+            • <strong>Bottom with gradient</strong> - Classic, easy to read<br>
+            • <strong>Top with white bar</strong> - Clean, professional<br>
+            • <strong>Floating badge</strong> - Modern, minimal<br><br>
+            
+            <strong>Benefits of minimal text:</strong><br>
+            • Images tell the story<br>
+            • Caregiver presence builds trust<br>
+            • Less cluttered in brochure racks<br>
+            • Universal appeal (less language barrier)
+        </p>
+    </div>
+</body>
+</html>
