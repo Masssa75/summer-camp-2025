@@ -220,9 +220,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
           ? await uploadFile(child.childPassportFile, `${timestamp}_${child.id}_passport`)
           : null
         
-        const { error: dbError } = await supabase
-          .from('registrations')
-          .insert({
+        const registrationData = {
             email: parentData.email,
             child_name: child.childName,
             nick_name: child.nickName,
@@ -250,13 +248,20 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
             how_did_you_find: parentData.howDidYouFind,
             terms_acknowledged: parentData.termsAcknowledged,
             all_statements_true: parentData.allStatementsTrue
-          })
+          }
+        
+        console.log('Submitting registration data:', registrationData)
+        
+        const { error: dbError } = await supabase
+          .from('registrations')
+          .insert(registrationData)
         
         if (dbError) throw dbError
       }
       
       setSuccess(true)
     } catch (err) {
+      console.error('Registration error:', err)
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)
