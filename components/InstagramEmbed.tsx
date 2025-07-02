@@ -13,19 +13,31 @@ export default function InstagramEmbed({ url, caption, className = '' }: Instagr
 
   useEffect(() => {
     // Load Instagram embed script
-    if (window.instgrm) {
-      window.instgrm.Embeds.process()
-    } else {
-      const script = document.createElement('script')
-      script.src = '//www.instagram.com/embed.js'
-      script.async = true
-      script.onload = () => {
-        if (window.instgrm) {
-          window.instgrm.Embeds.process()
-        }
+    const loadInstagramEmbed = () => {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process()
       }
-      document.body.appendChild(script)
     }
+
+    // Check if script already exists
+    const existingScript = document.querySelector('script[src="https://www.instagram.com/embed.js"]')
+    
+    if (!existingScript) {
+      const script = document.createElement('script')
+      script.src = 'https://www.instagram.com/embed.js'
+      script.async = true
+      script.defer = true
+      script.onload = loadInstagramEmbed
+      document.body.appendChild(script)
+    } else {
+      // If script exists, just process embeds
+      loadInstagramEmbed()
+    }
+
+    // Process embeds after a delay to ensure DOM is ready
+    const timer = setTimeout(loadInstagramEmbed, 1000)
+
+    return () => clearTimeout(timer)
   }, [url])
 
   // Extract the post ID from the URL
@@ -45,7 +57,7 @@ export default function InstagramEmbed({ url, caption, className = '' }: Instagr
       <blockquote
         ref={embedRef}
         className="instagram-media"
-        data-instgrm-captioned
+        data-instgrm-captioned={true}
         data-instgrm-permalink={url}
         data-instgrm-version="14"
         style={{
@@ -59,25 +71,7 @@ export default function InstagramEmbed({ url, caption, className = '' }: Instagr
           padding: '0',
           width: 'calc(100% - 2px)'
         }}
-      >
-        <div style={{ padding: '16px' }}>
-          <a
-            href={url}
-            style={{
-              background: '#FFFFFF',
-              lineHeight: '0',
-              padding: '0 0',
-              textAlign: 'center',
-              textDecoration: 'none',
-              width: '100%'
-            }}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View this post on Instagram
-          </a>
-        </div>
-      </blockquote>
+      />
       {caption && (
         <p className="instagram-caption" style={{ marginTop: '10px', textAlign: 'center', fontSize: '14px', color: '#666' }}>
           {caption}
