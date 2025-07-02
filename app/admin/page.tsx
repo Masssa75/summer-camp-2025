@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink, Trash2 } from 'lucide-react'
+import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink, Trash2, MoreVertical } from 'lucide-react'
 import './admin.css'
 
 // Telegram Bot Configuration
@@ -31,6 +31,7 @@ export default function AdminPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [registrationToDelete, setRegistrationToDelete] = useState<any>(null)
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null)
 
   const loadRegistrations = async () => {
     try {
@@ -160,16 +161,19 @@ export default function AdminPage() {
       if (!target.closest('.notification-container')) {
         setShowNotificationMenu(false)
       }
+      if (!target.closest('.action-menu-container')) {
+        setOpenMenuId(null)
+      }
     }
 
-    if (showNotificationMenu) {
+    if (showNotificationMenu || openMenuId) {
       document.addEventListener('mousedown', handleClickOutside)
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [showNotificationMenu])
+  }, [showNotificationMenu, openMenuId])
 
   // Close modal on escape key
   useEffect(() => {
@@ -516,17 +520,28 @@ export default function AdminPage() {
                         >
                           View
                         </button>
-                        <button 
-                          className="delete-btn"
-                          onClick={() => handleDelete(reg)}
-                          disabled={deletingId === reg.id}
-                        >
-                          {deletingId === reg.id ? (
-                            <span className="spinner-small"></span>
-                          ) : (
-                            <Trash2 size={16} />
+                        <div className="action-menu-container">
+                          <button 
+                            className="action-menu-btn"
+                            onClick={() => setOpenMenuId(openMenuId === reg.id ? null : reg.id)}
+                          >
+                            <MoreVertical size={18} />
+                          </button>
+                          {openMenuId === reg.id && (
+                            <div className="action-menu">
+                              <button 
+                                className="action-menu-item delete"
+                                onClick={() => {
+                                  handleDelete(reg)
+                                  setOpenMenuId(null)
+                                }}
+                              >
+                                <Trash2 size={16} />
+                                Delete
+                              </button>
+                            </div>
                           )}
-                        </button>
+                        </div>
                       </div>
                     </td>
                   </tr>
