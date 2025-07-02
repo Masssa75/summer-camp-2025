@@ -40,7 +40,7 @@ export default function AdminPage() {
     
     // For development, allow specific user IDs
     const allowedIds: number[] = [
-      // Add your Telegram user ID here for testing
+      123456789, // Test admin user ID from test-auth
     ]
     
     // Check if user is in admin_users table or allowed list
