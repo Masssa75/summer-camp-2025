@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X } from 'lucide-react'
+import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink } from 'lucide-react'
 import './admin.css'
 
 // Telegram Bot Configuration
@@ -614,6 +614,91 @@ export default function AdminPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Documents Section */}
+                {(selectedRegistration.child_passport_url || 
+                  selectedRegistration.parent_passport_1_url || 
+                  selectedRegistration.parent_passport_2_url) && (
+                  <div className="detail-section">
+                    <h3>Uploaded Documents</h3>
+                    <div className="documents-grid">
+                      {selectedRegistration.child_passport_url && (
+                        <div className="document-item">
+                          <label>Child's Passport:</label>
+                          <div className="document-actions">
+                            <a 
+                              href={selectedRegistration.child_passport_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="document-link"
+                            >
+                              <ExternalLink size={16} />
+                              View Document
+                            </a>
+                            <a 
+                              href={selectedRegistration.child_passport_url} 
+                              download
+                              className="document-download"
+                            >
+                              <Download size={16} />
+                              Download
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {selectedRegistration.parent_passport_1_url && (
+                        <div className="document-item">
+                          <label>Parent 1 Passport:</label>
+                          <div className="document-actions">
+                            <a 
+                              href={selectedRegistration.parent_passport_1_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="document-link"
+                            >
+                              <ExternalLink size={16} />
+                              View Document
+                            </a>
+                            <a 
+                              href={selectedRegistration.parent_passport_1_url} 
+                              download
+                              className="document-download"
+                            >
+                              <Download size={16} />
+                              Download
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {selectedRegistration.parent_passport_2_url && (
+                        <div className="document-item">
+                          <label>Parent 2 Passport:</label>
+                          <div className="document-actions">
+                            <a 
+                              href={selectedRegistration.parent_passport_2_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="document-link"
+                            >
+                              <ExternalLink size={16} />
+                              View Document
+                            </a>
+                            <a 
+                              href={selectedRegistration.parent_passport_2_url} 
+                              download
+                              className="document-download"
+                            >
+                              <Download size={16} />
+                              Download
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
