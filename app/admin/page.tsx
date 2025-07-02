@@ -135,6 +135,12 @@ export default function AdminPage() {
           <h1>Admin Access</h1>
           <p>Please sign in with Telegram to access the admin panel</p>
           <div id="telegram-widget"></div>
+          {process.env.NEXT_PUBLIC_ALLOW_DEV_LOGIN === 'true' && (
+            <div className="test-login-link">
+              <p>or</p>
+              <a href="/test-auth" className="test-auth-link">Use Test Login</a>
+            </div>
+          )}
         </div>
       </div>
     )
