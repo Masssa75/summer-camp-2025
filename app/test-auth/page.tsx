@@ -16,15 +16,8 @@ export default function TestAuthPage() {
     setLoading(true)
 
     try {
-      // Check if dev login is allowed
-      if (process.env.NEXT_PUBLIC_ALLOW_DEV_LOGIN !== 'true') {
-        setError('Test login is disabled')
-        setLoading(false)
-        return
-      }
-
       // For simplicity, we'll just check the password and create a mock Telegram user
-      if (password === process.env.NEXT_PUBLIC_DEV_LOGIN_PASSWORD || password === 'test123') {
+      if (password === 'test123') {
         // Create a mock Telegram user
         const mockTelegramUser = {
           id: 123456789,
