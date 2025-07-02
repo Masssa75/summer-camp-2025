@@ -22,6 +22,8 @@ export default function AdminPage() {
   const [user, setUser] = useState<TelegramUser | null>(null)
   const [loading, setLoading] = useState(true)
   const [registrations, setRegistrations] = useState<any[]>([])
+  const [showNotificationMenu, setShowNotificationMenu] = useState(false)
+  const [telegramConnected, setTelegramConnected] = useState(false)
 
   const loadRegistrations = async () => {
     try {
@@ -37,6 +39,32 @@ export default function AdminPage() {
     }
   }
 
+  const checkTelegramConnection = async () => {
+    if (user) {
+      try {
+        const response = await fetch('/api/admin/telegram-status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ telegram_id: user.id })
+        })
+        if (response.ok) {
+          const { connected } = await response.json()
+          setTelegramConnected(connected)
+        }
+      } catch (error) {
+        console.error('Error checking Telegram connection:', error)
+      }
+    }
+  }
+
+  const connectTelegram = () => {
+    const botUsername = TELEGRAM_BOT_USERNAME
+    const message = `Hello! I'm an admin for Summer Camp 2025. My Telegram ID is ${user?.id}. Please add me to receive registration notifications.`
+    const encodedMessage = encodeURIComponent(message)
+    const telegramUrl = `https://t.me/${botUsername}?start=admin_${user?.id}&text=${encodedMessage}`
+    window.open(telegramUrl, '_blank')
+  }
+
   const verifyAdminUser = async (telegramUser: TelegramUser) => {
     const supabase = createClient()
     
@@ -50,6 +78,7 @@ export default function AdminPage() {
     if (allowedIds.includes(telegramUser.id) || process.env.NEXT_PUBLIC_ALLOW_DEV_LOGIN === 'true') {
       setUser(telegramUser)
       loadRegistrations()
+      checkTelegramConnection()
     } else {
       // Try to check admin_users table if it exists
       try {
@@ -63,17 +92,20 @@ export default function AdminPage() {
         if (!error && data) {
           setUser(telegramUser)
           loadRegistrations()
+          checkTelegramConnection()
         } else {
           // Allow for development
           console.warn('User not in admin list, allowing for development')
           setUser(telegramUser)
           loadRegistrations()
+          checkTelegramConnection()
         }
       } catch (err) {
         // Table doesn't exist, allow for development
         console.warn('Admin users table not found, allowing for development')
         setUser(telegramUser)
         loadRegistrations()
+        checkTelegramConnection()
       }
     }
     
@@ -96,6 +128,7 @@ export default function AdminPage() {
       localStorage.setItem('telegram_user', JSON.stringify(telegramUser))
       setUser(telegramUser)
       loadRegistrations()
+      checkTelegramConnection()
     }
 
     return () => {
@@ -104,6 +137,24 @@ export default function AdminPage() {
       }
     }
   }, [])
+
+  // Close notification menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      if (!target.closest('.notification-container')) {
+        setShowNotificationMenu(false)
+      }
+    }
+
+    if (showNotificationMenu) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showNotificationMenu])
 
   // Separate useEffect for loading Telegram widget
   useEffect(() => {
@@ -168,6 +219,54 @@ export default function AdminPage() {
         <div className="header-content">
           <h1>Summer Camp Admin</h1>
           <div className="user-info">
+            {/* Notification Bell */}
+            <div className="notification-container">
+              <button 
+                onClick={() => setShowNotificationMenu(!showNotificationMenu)}
+                className={`notification-bell ${telegramConnected ? 'connected' : 'disconnected'}`}
+                title={telegramConnected ? 'Telegram notifications enabled' : 'Connect Telegram for notifications'}
+              >
+                <Bell size={20} />
+                {!telegramConnected && <span className="notification-dot"></span>}
+              </button>
+              
+              {showNotificationMenu && (
+                <div className="notification-menu">
+                  <div className="notification-header">
+                    <Bell size={16} />
+                    <span>Notifications</span>
+                  </div>
+                  
+                  <div className="telegram-status">
+                    {telegramConnected ? (
+                      <div className="status-connected">
+                        <div className="status-indicator connected"></div>
+                        <span>Telegram connected</span>
+                      </div>
+                    ) : (
+                      <div className="status-disconnected">
+                        <div className="status-indicator disconnected"></div>
+                        <span>Telegram not connected</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {!telegramConnected && (
+                    <button onClick={connectTelegram} className="connect-telegram-btn">
+                      Connect TG
+                    </button>
+                  )}
+                  
+                  <div className="notification-info">
+                    <p>Get notified instantly when new registrations come in!</p>
+                    {telegramConnected && (
+                      <p className="telegram-id">Your ID: {user.id}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+            
             {user.photo_url && (
               <img src={user.photo_url} alt={user.first_name} className="user-avatar" />
             )}
