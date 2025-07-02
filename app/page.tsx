@@ -4,7 +4,7 @@ import { useState } from 'react'
 import './styles/carousel-brochure.css'
 import TopNavigation from '@/components/TopNavigation'
 import PageContent from '@/components/PageContent'
-import IsolatedInstagramEmbed from '@/components/IsolatedInstagramEmbed'
+// import IsolatedInstagramEmbed from '@/components/IsolatedInstagramEmbed'
 import { MapPin, Phone, Mail } from 'lucide-react'
 
 export default function HomePage() {
@@ -41,9 +41,7 @@ export default function HomePage() {
                 <span>CAMP</span>
               </h1>
             </div>
-            <div className="hero-video">
-              <IsolatedInstagramEmbed />
-            </div>
+            {/* Video removed for now */}
           </div>
         </section>
 
