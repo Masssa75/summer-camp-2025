@@ -24,14 +24,16 @@ export default function AdminPage() {
   const [registrations, setRegistrations] = useState<any[]>([])
 
   const loadRegistrations = async () => {
-    const supabase = createClient()
-    const { data, error } = await supabase
-      .from('registrations')
-      .select('*')
-      .order('created_at', { ascending: false })
-
-    if (!error && data) {
-      setRegistrations(data)
+    try {
+      const response = await fetch('/api/admin/registrations')
+      if (response.ok) {
+        const { registrations } = await response.json()
+        setRegistrations(registrations || [])
+      } else {
+        console.error('Failed to load registrations:', response.statusText)
+      }
+    } catch (error) {
+      console.error('Error loading registrations:', error)
     }
   }
 
@@ -205,7 +207,15 @@ export default function AdminPage() {
         </div>
 
         <div className="registrations-section">
-          <h2>Recent Registrations</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2>Recent Registrations</h2>
+            <button 
+              onClick={loadRegistrations}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            >
+              Refresh
+            </button>
+          </div>
           <div className="registrations-table">
             <table>
               <thead>
