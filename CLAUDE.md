@@ -137,6 +137,9 @@ All sensitive values are stored in `.env` file (never commit this!)
 
 **Project-specific**:
 - `NEXT_PUBLIC_WHATSAPP_NUMBER` - WhatsApp number for contact (currently hardcoded as +66989124218)
+- `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` - Telegram bot username for login (e.g., WaldorfPhuketBot)
+- `TELEGRAM_BOT_TOKEN` - Telegram bot token for sending notifications
+- `TELEGRAM_ADMIN_CHAT_ID` - Telegram chat/group ID for admin notifications
 
 **Optional**:
 - `GEMINI_API_KEY` (for AI features)

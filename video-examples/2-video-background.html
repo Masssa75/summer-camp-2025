@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Integration - Floating Video Background</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #7a9a3b 0%, #a8c545 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .floating-videos {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .video-bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .video-bubble:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .video-bubble:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+        
+        .video-bubble:nth-child(3) {
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(2deg); }
+            50% { transform: translateY(0) rotate(-2deg); }
+            75% { transform: translateY(20px) rotate(1deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 60px;
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+        }
+        
+        h1 {
+            font-size: 5rem;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+        
+        .subtitle {
+            font-size: 2rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 20px 40px;
+            background: white;
+            color: #7a9a3b;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .main-video {
+            position: absolute;
+            top: 50%;
+            right: -100px;
+            transform: translateY(-50%);
+            width: 400px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="floating-videos">
+            <div class="video-bubble">
+                <iframe src="https://www.instagram.com/p/DDlZTTih95c/embed" width="300" height="400" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <h1>Summer Camp 2025</h1>
+            <p class="subtitle">Discover • Learn • Grow</p>
+            <a href="#register" class="cta-button">Join the Adventure</a>
+        </div>
+        
+        <div class="main-video">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DDlZTTih95c/" data-instgrm-version="14"></blockquote>
+        </div>
+    </section>
+    
+    <script async src="//www.instagram.com/embed.js"></script>
+</body>
+</html>

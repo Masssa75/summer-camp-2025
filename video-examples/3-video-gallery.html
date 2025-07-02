@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Integration - Hero with Video Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #7a9a3b 0%, #a8c545 50%, #f5f5f5 50%);
+            padding: 40px 20px;
+        }
+        
+        .hero-header {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: -100px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        .video-card:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        .video-title {
+            padding: 20px;
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            z-index: 20;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .video-card:first-child {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            
+            .video-gallery {
+                grid-template-columns: 1fr;
+                margin-top: -50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="hero-header">
+            <h1>Summer Camp 2025</h1>
+            <p class="subtitle">Experience the Magic Through Our Videos</p>
+        </div>
+        
+        <div class="video-gallery">
+            <div class="video-card">
+                <span class="featured-badge">Featured</span>
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DDlZTTih95c/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; margin: 0; width:100%; max-width:100%;">
+                </blockquote>
+                <div class="video-title">Campus Tour - Explore Our Beautiful Facilities</div>
+            </div>
+            
+            <div class="video-card">
+                <div style="padding:20px; text-align:center; color:#999;">
+                    <p>Video Placeholder</p>
+                    <p style="font-size:3rem;">📹</p>
+                </div>
+                <div class="video-title">Daily Activities</div>
+            </div>
+            
+            <div class="video-card">
+                <div style="padding:20px; text-align:center; color:#999;">
+                    <p>Video Placeholder</p>
+                    <p style="font-size:3rem;">📹</p>
+                </div>
+                <div class="video-title">Student Testimonials</div>
+            </div>
+        </div>
+    </section>
+    
+    <script async src="//www.instagram.com/embed.js"></script>
+</body>
+</html>
