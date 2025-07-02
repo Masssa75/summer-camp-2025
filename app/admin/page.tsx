@@ -20,6 +20,47 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [registrations, setRegistrations] = useState<any[]>([])
 
+  const loadRegistrations = async () => {
+    const supabase = createClient()
+    const { data, error } = await supabase
+      .from('registrations')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (!error && data) {
+      setRegistrations(data)
+    }
+  }
+
+  const verifyAdminUser = async (telegramUser: TelegramUser) => {
+    const supabase = createClient()
+    
+    // For development, allow specific user IDs
+    const allowedIds: number[] = [
+      // Add your Telegram user ID here for testing
+    ]
+    
+    // Check if user is in admin_users table or allowed list
+    const { data, error } = await supabase
+      .from('admin_users')
+      .select('*')
+      .eq('telegram_id', telegramUser.id)
+      .eq('is_active', true)
+      .single()
+    
+    if (!error && data || allowedIds.includes(telegramUser.id)) {
+      setUser(telegramUser)
+      loadRegistrations()
+    } else {
+      // For now, allow all users in development
+      console.warn('User not in admin list, allowing for development')
+      setUser(telegramUser)
+      loadRegistrations()
+    }
+    
+    setLoading(false)
+  }
+
   useEffect(() => {
     // Check if user is logged in
     const telegramUser = localStorage.getItem('telegram_user')
@@ -54,50 +95,11 @@ export default function AdminPage() {
     }
 
     return () => {
-      delete window.onTelegramAuth
+      if (window.onTelegramAuth) {
+        delete window.onTelegramAuth
+      }
     }
-  }, [user])
-
-  const verifyAdminUser = async (telegramUser: TelegramUser) => {
-    const supabase = createClient()
-    
-    // For development, allow specific user IDs
-    const allowedIds = [
-      // Add your Telegram user ID here for testing
-    ]
-    
-    // Check if user is in admin_users table or allowed list
-    const { data, error } = await supabase
-      .from('admin_users')
-      .select('*')
-      .eq('telegram_id', telegramUser.id)
-      .eq('is_active', true)
-      .single()
-    
-    if (!error && data || allowedIds.includes(telegramUser.id)) {
-      setUser(telegramUser)
-      loadRegistrations()
-    } else {
-      // For now, allow all users in development
-      console.warn('User not in admin list, allowing for development')
-      setUser(telegramUser)
-      loadRegistrations()
-    }
-    
-    setLoading(false)
-  }
-
-  const loadRegistrations = async () => {
-    const supabase = createClient()
-    const { data, error } = await supabase
-      .from('registrations')
-      .select('*')
-      .order('created_at', { ascending: false })
-
-    if (!error && data) {
-      setRegistrations(data)
-    }
-  }
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('telegram_user')
@@ -219,6 +221,6 @@ export default function AdminPage() {
 // Add TypeScript declaration for window
 declare global {
   interface Window {
-    onTelegramAuth: (user: TelegramUser) => void
+    onTelegramAuth?: (user: TelegramUser) => void
   }
 }
