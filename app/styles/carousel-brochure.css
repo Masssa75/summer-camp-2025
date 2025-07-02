@@ -232,10 +232,9 @@ p {
 
 /* Hero with Video Layout */
 .slide-1 .hero-with-video {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  display: flex;
   align-items: center;
+  justify-content: center;
   max-width: 1400px;
   width: 100%;
   padding: 40px;
@@ -1537,8 +1536,6 @@ a.contact-link:hover .contact-details p {
   
   /* Hero video responsive */
   .slide-1 .hero-with-video {
-    grid-template-columns: 1fr;
-    gap: 30px;
     padding: 20px;
   }
   
