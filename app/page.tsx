@@ -4,6 +4,7 @@ import { useState } from 'react'
 import './styles/carousel-brochure.css'
 import TopNavigation from '@/components/TopNavigation'
 import PageContent from '@/components/PageContent'
+import InstagramEmbed from '@/components/InstagramEmbed'
 import { MapPin, Phone, Mail } from 'lucide-react'
 
 export default function HomePage() {
@@ -24,20 +25,28 @@ export default function HomePage() {
     <>
       <TopNavigation onAgeGroupSelect={handleAgeGroupChange} />
       <main className={`brochure-container ${isTransitioning ? 'transitioning' : ''}`}>
-        {/* Slide 1: Title Page */}
+        {/* Slide 1: Title Page with Video */}
         <section className="slide slide-1">
           <div className="background-layer">
             <img src="/references/backgrounds/1.jpg" alt="Phuket coastline" />
           </div>
-          <div className="content-wrapper">
-            <div className="logo-container">
-              <img src="/references/Logo Only.png" alt="The Waldorf Phuket Logo" className="logo-image" />
-              <span className="logo-text">The Waldorf Phuket</span>
+          <div className="content-wrapper hero-with-video">
+            <div className="hero-left">
+              <div className="logo-container">
+                <img src="/references/Logo Only.png" alt="The Waldorf Phuket Logo" className="logo-image" />
+                <span className="logo-text">The Waldorf Phuket</span>
+              </div>
+              <h1 className="hero-title">
+                <span>SUMMER</span>
+                <span>CAMP</span>
+              </h1>
             </div>
-            <h1 className="hero-title">
-              <span>SUMMER</span>
-              <span>CAMP</span>
-            </h1>
+            <div className="hero-video">
+              <InstagramEmbed 
+                url="https://www.instagram.com/reel/DDlZTTih95c/"
+                caption="Take a journey through our beautiful campus"
+              />
+            </div>
           </div>
         </section>
 
