@@ -1,11 +1,8 @@
-import { createServerClient } from '@supabase/ssr'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
 export function createClient() {
-  return createServerClient(
+  return createSupabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    {
-      cookies: {} // Server actions don't need cookie handling
-    }
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
 }
