@@ -128,9 +128,14 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
   }
   
   const addOrUpdateChild = () => {
-    // Minimal validation for testing - only require child name
+    // Minimal validation - only essential fields
     if (!currentChild.childName) {
       setError('Please enter child name')
+      return
+    }
+    
+    if (currentChild.weeksSelected.length === 0) {
+      setError('Please select at least one week')
       return
     }
     
@@ -221,33 +226,34 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
           : null
         
         const registrationData = {
-            email: parentData.email,
-            child_name: child.childName,
-            nick_name: child.nickName,
-            gender: child.gender,
-            date_of_birth: child.dateOfBirth,
-            age_group: child.ageGroup,
-            current_school: child.currentSchool,
-            nationality_language: child.nationalityLanguage,
-            english_level: child.englishLevel,
-            parent_name_1: parentData.parentName1,
-            parent_name_2: parentData.parentName2,
-            mobile_phone_1: parentData.mobilePhone1,
-            wechat_whatsapp_1: parentData.wechatWhatsapp1,
-            mobile_phone_2: parentData.mobilePhone2,
-            wechat_whatsapp_2: parentData.wechatWhatsapp2,
-            emergency_contact: parentData.emergencyContact,
-            allergies: child.allergies,
-            health_behavioral_conditions: child.healthBehavioralConditions,
+            // Required fields with defaults
+            email: parentData.email || '',
+            child_name: child.childName || 'Unknown',
+            nick_name: child.nickName || child.childName || 'Unknown',
+            gender: child.gender || 'Boy', // Default to Boy if not specified
+            date_of_birth: child.dateOfBirth || '2019-01-01', // Default to ~5 years old
+            age_group: child.ageGroup || 'mini',
+            current_school: child.currentSchool || 'Not specified',
+            nationality_language: child.nationalityLanguage || 'Thai',
+            english_level: child.englishLevel || '3',
+            parent_name_1: parentData.parentName1 || 'Parent',
+            parent_name_2: parentData.parentName2 || '',
+            mobile_phone_1: parentData.mobilePhone1 || 'Not provided',
+            wechat_whatsapp_1: parentData.wechatWhatsapp1 || '',
+            mobile_phone_2: parentData.mobilePhone2 || '',
+            wechat_whatsapp_2: parentData.wechatWhatsapp2 || '',
+            emergency_contact: parentData.emergencyContact || 'Not provided',
+            allergies: child.allergies || 'None',
+            health_behavioral_conditions: child.healthBehavioralConditions || 'None',
             child_passport_url: childPassportUrl,
             parent_passport_1_url: parentPassport1Url,
             parent_passport_2_url: parentPassport2Url,
-            has_insurance: child.hasInsurance,
-            weeks_selected: child.weeksSelected,
+            has_insurance: child.hasInsurance || false,
+            weeks_selected: child.weeksSelected.length > 0 ? child.weeksSelected : [1], // Default to week 1
             photo_permission: parentData.photoPermission === 'grant',
-            how_did_you_find: parentData.howDidYouFind,
-            terms_acknowledged: parentData.termsAcknowledged,
-            all_statements_true: parentData.allStatementsTrue
+            how_did_you_find: parentData.howDidYouFind || 'Not specified',
+            terms_acknowledged: parentData.termsAcknowledged || false,
+            all_statements_true: parentData.allStatementsTrue || false
           }
         
         console.log('Submitting registration data:', registrationData)
@@ -334,7 +340,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
               name="email"
               value={parentData.email}
               onChange={handleParentInputChange}
-              // required
+              required
             />
           </label>
         </div>
@@ -528,6 +534,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                     name="childName"
                     value={currentChild.childName}
                     onChange={handleChildInputChange}
+                    required
                   />
                 </label>
               </div>

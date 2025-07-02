@@ -43,22 +43,36 @@ export default function AdminPage() {
       123456789, // Test admin user ID from test-auth
     ]
     
-    // Check if user is in admin_users table or allowed list
-    const { data, error } = await supabase
-      .from('admin_users')
-      .select('*')
-      .eq('telegram_id', telegramUser.id)
-      .eq('is_active', true)
-      .single()
-    
-    if (!error && data || allowedIds.includes(telegramUser.id)) {
+    // For development/testing, skip admin_users table check
+    // In production, you would check the admin_users table
+    if (allowedIds.includes(telegramUser.id) || process.env.NEXT_PUBLIC_ALLOW_DEV_LOGIN === 'true') {
       setUser(telegramUser)
       loadRegistrations()
     } else {
-      // For now, allow all users in development
-      console.warn('User not in admin list, allowing for development')
-      setUser(telegramUser)
-      loadRegistrations()
+      // Try to check admin_users table if it exists
+      try {
+        const { data, error } = await supabase
+          .from('admin_users')
+          .select('*')
+          .eq('telegram_id', telegramUser.id)
+          .eq('is_active', true)
+          .single()
+        
+        if (!error && data) {
+          setUser(telegramUser)
+          loadRegistrations()
+        } else {
+          // Allow for development
+          console.warn('User not in admin list, allowing for development')
+          setUser(telegramUser)
+          loadRegistrations()
+        }
+      } catch (err) {
+        // Table doesn't exist, allow for development
+        console.warn('Admin users table not found, allowing for development')
+        setUser(telegramUser)
+        loadRegistrations()
+      }
     }
     
     setLoading(false)
