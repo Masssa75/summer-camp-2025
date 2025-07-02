@@ -5,6 +5,9 @@ import { createClient } from '@/utils/supabase/client'
 import { Shield, LogOut, Users, FileText, Bell } from 'lucide-react'
 import './admin.css'
 
+// Telegram Bot Configuration
+const TELEGRAM_BOT_USERNAME = process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME || 'Bamboo_Valley_Admin_Bot'
+
 interface TelegramUser {
   id: number
   first_name: string
@@ -72,21 +75,6 @@ export default function AdminPage() {
       setLoading(false)
     }
 
-    // Add Telegram widget script
-    const script = document.createElement('script')
-    script.src = 'https://telegram.org/js/telegram-widget.js?22'
-    script.setAttribute('data-telegram-login', process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME || 'WaldorfPhuketBot')
-    script.setAttribute('data-size', 'large')
-    script.setAttribute('data-radius', '10')
-    script.setAttribute('data-onauth', 'onTelegramAuth(user)')
-    script.setAttribute('data-request-access', 'write')
-    script.async = true
-
-    const widgetContainer = document.getElementById('telegram-widget')
-    if (widgetContainer && !user) {
-      widgetContainer.appendChild(script)
-    }
-
     // Define global function for Telegram auth callback
     window.onTelegramAuth = (telegramUser: TelegramUser) => {
       localStorage.setItem('telegram_user', JSON.stringify(telegramUser))
@@ -100,6 +88,29 @@ export default function AdminPage() {
       }
     }
   }, [])
+
+  // Separate useEffect for loading Telegram widget
+  useEffect(() => {
+    if (!loading && !user) {
+      // Add Telegram widget script
+      const script = document.createElement('script')
+      script.src = 'https://telegram.org/js/telegram-widget.js?22'
+      script.setAttribute('data-telegram-login', TELEGRAM_BOT_USERNAME)
+      script.setAttribute('data-size', 'large')
+      script.setAttribute('data-radius', '10')
+      script.setAttribute('data-onauth', 'onTelegramAuth(user)')
+      script.setAttribute('data-request-access', 'write')
+      script.async = true
+
+      const widgetContainer = document.getElementById('telegram-widget')
+      if (widgetContainer) {
+        console.log('Adding Telegram widget with bot:', TELEGRAM_BOT_USERNAME)
+        widgetContainer.appendChild(script)
+      } else {
+        console.error('Telegram widget container not found')
+      }
+    }
+  }, [loading, user])
 
   const handleLogout = () => {
     localStorage.removeItem('telegram_user')
