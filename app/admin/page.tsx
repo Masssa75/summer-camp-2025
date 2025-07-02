@@ -251,11 +251,28 @@ export default function AdminPage() {
                     )}
                   </div>
                   
-                  {!telegramConnected && (
+                  {!telegramConnected ? (
                     <button onClick={connectTelegram} className="connect-telegram-btn">
                       Connect TG
                     </button>
+                  ) : (
+                    <button 
+                      onClick={checkTelegramConnection} 
+                      className="refresh-status-btn"
+                      title="Refresh connection status"
+                    >
+                      Refresh Status
+                    </button>
                   )}
+                  
+                  {/* Always show a refresh button for manual checking */}
+                  <button 
+                    onClick={checkTelegramConnection} 
+                    className="refresh-connection-btn"
+                    title="Check connection status"
+                  >
+                    🔄 Check Status
+                  </button>
                   
                   <div className="notification-info">
                     <p>Get notified instantly when new registrations come in!</p>

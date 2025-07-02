@@ -248,6 +248,44 @@
   transform: translateY(-1px);
 }
 
+.refresh-connection-btn {
+  width: 100%;
+  background: #7a9a3b;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+}
+
+.refresh-connection-btn:hover {
+  background: #5a7a2b;
+  transform: translateY(-1px);
+}
+
+.refresh-status-btn {
+  width: 100%;
+  background: #f5f5f5;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+}
+
+.refresh-status-btn:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
 .notification-info {
   border-top: 1px solid #e0e0e0;
   padding-top: 15px;
