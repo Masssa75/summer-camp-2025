@@ -71,10 +71,9 @@ export async function getAdminTelegramIds(): Promise<number[]> {
   // 3. Check the logs or use @userinfobot to get your ID
   
   const hardcodedAdmins: number[] = [
-    // Add real admin Telegram IDs here
-    // Note: Replace with actual admin IDs as they connect to the bot
+    // Real admin Telegram IDs
+    5089502326, // Marc - Connected via bot
     123456789, // Test admin (placeholder)
-    // TODO: Add your actual Telegram ID here when you connect
   ]
 
   // Return the list even if empty (webhook will handle the case)
