@@ -97,6 +97,8 @@ When you need detailed information, check these files:
 - **Schedule tables** - Weekly camp schedules with pastel colors and larger fonts
 - **Photo carousels** - Activity photo galleries with navigation dots
 - **WhatsApp integration** - Click-to-chat functionality
+- **Admin Dashboard** - View registrations at /admin (Telegram or test login)
+- **Test Admin Authentication** - Password-based login for AI testing (password: test123)
 
 ### 🚧 Partially Implemented
 - **Supabase integration** - Database schema created but no backend API endpoints yet
@@ -104,11 +106,11 @@ When you need detailed information, check these files:
 - **Email notifications** - Form submissions stored but no email sending
 
 ### 📋 Planned But Not Started
-- **Admin dashboard** - View and manage registrations
 - **Email confirmation system** - Automated emails after registration
 - **Payment integration** - Stripe or local payment gateway
 - **Multi-language support** - Thai/English toggle
 - **Registration status tracking** - Check registration and payment status
+- **Telegram notifications** - Send admin notifications when new registrations arrive
 
 ---
 
@@ -121,8 +123,9 @@ When you need detailed information, check these files:
 - **Boolean fields** - has_insurance, photo_permission, terms_acknowledged, all_statements_true
 
 ### Authentication
-- **No user auth yet** - Registration is public, no login required
-- **Admin access** - Planned but not implemented
+- **Public registration** - No login required for parents to register
+- **Admin access** - Telegram authentication with @Bamboo_Valley_Admin_Bot
+- **Test admin login** - Available at /test-auth with password: test123 (for AI testing)
 
 ### Environment Variables
 All sensitive values are stored in `.env` file (never commit this!)
@@ -148,8 +151,30 @@ All sensitive values are stored in `.env` file (never commit this!)
 
 ---
 
-## Test Users
-[TO BE FILLED: Test user details]
+## Test Users & Authentication
+
+### 🔐 Test Admin Access (IMPORTANT FOR AI TESTING)
+**Purpose**: Allows AI assistants to test password-protected features without Telegram
+
+**How to use**:
+1. Go to https://phuketsummercamp.com/admin
+2. Click "Use Test Login" link (appears below Telegram widget)
+3. Enter password: `test123`
+4. You're now logged in as Test Admin
+
+**Test User Details**:
+- Name: Test Admin
+- Telegram ID: 123456789
+- Username: testadmin
+- Access: Full admin dashboard
+
+**When to use this**:
+- Testing admin features
+- Verifying form submissions appear in dashboard
+- Testing any password-protected pages
+- Checking admin-only functionality
+
+**Note**: This only works when `NEXT_PUBLIC_ALLOW_DEV_LOGIN=true` is set in environment variables (already configured)
 
 ---
 
