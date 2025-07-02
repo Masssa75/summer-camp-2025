@@ -373,8 +373,8 @@
 }
 
 .notification-actions button {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border: none;
   background: #f0f0f0;
   border-radius: 4px;
@@ -382,8 +382,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
   transition: all 0.3s;
+  color: #666;
 }
 
 .mark-read-btn:hover {

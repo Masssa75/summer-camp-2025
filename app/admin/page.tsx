@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { Shield, LogOut, Users, FileText, Bell } from 'lucide-react'
+import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X } from 'lucide-react'
 import './admin.css'
 
 // Telegram Bot Configuration
@@ -81,9 +81,8 @@ export default function AdminPage() {
     // In production, you would check the admin_users table
     if (allowedIds.includes(telegramUser.id) || process.env.NEXT_PUBLIC_ALLOW_DEV_LOGIN === 'true') {
       setUser(telegramUser)
-      loadRegistrations()
-      loadRecentNotifications()
-      checkTelegramConnection()
+      await loadRegistrations()
+      await loadRecentNotifications()
     } else {
       // Try to check admin_users table if it exists
       try {
@@ -96,24 +95,21 @@ export default function AdminPage() {
         
         if (!error && data) {
           setUser(telegramUser)
-          loadRegistrations()
-          loadRecentNotifications()
-          checkTelegramConnection()
+          await loadRegistrations()
+          await loadRecentNotifications()
         } else {
           // Allow for development
           console.warn('User not in admin list, allowing for development')
           setUser(telegramUser)
-          loadRegistrations()
-          loadRecentNotifications()
-          checkTelegramConnection()
+          await loadRegistrations()
+          await loadRecentNotifications()
         }
       } catch (err) {
         // Table doesn't exist, allow for development
         console.warn('Admin users table not found, allowing for development')
         setUser(telegramUser)
-        loadRegistrations()
-        loadRecentNotifications()
-        checkTelegramConnection()
+        await loadRegistrations()
+        await loadRecentNotifications()
       }
     }
     
@@ -146,6 +142,13 @@ export default function AdminPage() {
       }
     }
   }, [])
+
+  // Check Telegram connection after user is set
+  useEffect(() => {
+    if (user) {
+      checkTelegramConnection()
+    }
+  }, [user])
 
   // Close notification menu when clicking outside
   useEffect(() => {
@@ -359,7 +362,7 @@ export default function AdminPage() {
                                   className="mark-read-btn"
                                   title="Mark as read"
                                 >
-                                  ✓
+                                  <Check size={14} />
                                 </button>
                               )}
                               <button
@@ -367,14 +370,14 @@ export default function AdminPage() {
                                 className="view-notification-btn"
                                 title="View details"
                               >
-                                👁
+                                <Eye size={14} />
                               </button>
                               <button
                                 onClick={() => deleteNotification(notification.id)}
                                 className="delete-notification-btn"
                                 title="Delete"
                               >
-                                ×
+                                <X size={14} />
                               </button>
                             </div>
                           </div>
@@ -386,7 +389,7 @@ export default function AdminPage() {
                   {!telegramConnected && (
                     <div className="telegram-connection-footer">
                       <button onClick={connectTelegram} className="connect-telegram-footer-btn">
-                        📱 Connect Telegram for instant notifications
+                        Connect Telegram for instant notifications
                       </button>
                     </div>
                   )}
