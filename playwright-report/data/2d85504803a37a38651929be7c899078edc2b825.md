@@ -1,0 +1,108 @@
+# Page snapshot
+
+```yaml
+- alert
+- navigation:
+  - button "The Waldorf Phuket":
+    - img "The Waldorf Phuket"
+  - button "Mini (3-6)"
+  - button "Explorer (7-13)"
+  - link "Schedule":
+    - /url: "#schedule"
+  - link "Contact":
+    - /url: "#contact"
+  - link "WhatsApp":
+    - /url: "#whatsapp"
+  - link "Register":
+    - /url: "#register"
+- heading "Summer Camp 2025 Registration" [level=1]
+- button "Mini Camp (3-6 years)"
+- button "Explorer Camp (7-13 years)"
+- heading "Weekly Fee Per Child" [level=3]
+- strong: "Early Bird (by April 15, 2025):"
+- text: 13,000 baht
+- strong: "Regular (after April 15, 2025):"
+- text: 15,000 baht
+- link "Read Terms and Conditions":
+  - /url: https://docs.google.com/document/d/1xTQy-ptHGNuBc3TNmCF54ZdkB9BOeLm0dzSNmVv-aws/edit?usp=sharing
+- heading "Parent/Guardian Information" [level=3]
+- text: Email *
+- textbox "Email *": notification.test.1751455139234@example.com
+- text: Parent Name 1 *
+- textbox "Parent Name 1 *": Notification Test Parent
+- text: Parent Name 2 *
+- textbox "Parent Name 2 *"
+- text: Parent 1 Passport Copy *
+- button "Parent 1 Passport Copy * Choose file"
+- text: Choose file Parent 2 Passport Copy *
+- button "Parent 2 Passport Copy * Choose file"
+- text: Choose file Mobile Phone 1 * (Thai number if available)
+- textbox "Mobile Phone 1 * (Thai number if available)": +66 98 912 4218
+- text: WeChat/WhatsApp ID 1 *
+- textbox "WeChat/WhatsApp ID 1 *"
+- text: Mobile Phone 2 * (Thai number if available)
+- textbox "Mobile Phone 2 * (Thai number if available)"
+- text: WeChat/WhatsApp ID 2 *
+- textbox "WeChat/WhatsApp ID 2 *"
+- text: Emergency Contact * (Name and Thai phone number)
+- textbox "Emergency Contact * (Name and Thai phone number)": Emergency Test Contact
+- heading "Children Information" [level=3]
+- heading "Add Child" [level=4]
+- text: Child Name *
+- textbox "Child Name *": Notification Test Child 1751455139234
+- text: Nick Name *
+- textbox "Nick Name *"
+- text: Camp Type *
+- radio "Mini Camp (3-6 years)"
+- text: Mini Camp (3-6 years)
+- radio "Explorer Camp (7-13 years)" [checked]
+- text: Explorer Camp (7-13 years) Gender *
+- radio "Girl"
+- text: Girl
+- radio "Boy"
+- text: Boy Date of Birth *
+- textbox "Date of Birth *"
+- text: Child's Passport Copy
+- button "Child's Passport Copy Choose file (optional)"
+- text: Choose file (optional)
+- heading "Select Weeks *" [level=5]
+- 'checkbox "Week 1: June 30 - July 4, 2025"'
+- text: "Week 1: June 30 - July 4, 2025"
+- 'checkbox "Week 2: July 7 - 11, 2025"'
+- text: "Week 2: July 7 - 11, 2025"
+- 'checkbox "Week 3: July 14 - 18, 2025"'
+- text: "Week 3: July 14 - 18, 2025"
+- 'checkbox "Week 4: July 21 - 25, 2025"'
+- text: "Week 4: July 21 - 25, 2025"
+- 'checkbox "Week 5: July 28 - August 1, 2025"'
+- text: "Week 5: July 28 - August 1, 2025"
+- 'checkbox "Week 6: August 4 - 8, 2025"'
+- text: "Week 6: August 4 - 8, 2025"
+- 'checkbox "Week 7: August 11 - 15, 2025"'
+- text: "Week 7: August 11 - 15, 2025 Nationality and Language *"
+- textbox "Nationality and Language *"
+- text: Current School *
+- textbox "Current School *"
+- text: Child's Level of English
+- 'slider "Child''s Level of English 1 Beginner 2 Basic 3 Intermediate 4 Good 5 Fluent Level: 3"': "3"
+- text: "1 Beginner 2 Basic 3 Intermediate 4 Good 5 Fluent Level: 3 Child's Allergies (if any) *"
+- textbox "Child's Allergies (if any) *"
+- text: Health or Behavioral Conditions *
+- textbox "Health or Behavioral Conditions *"
+- checkbox "I confirm that my child has valid insurance coverage for the duration of the camp *"
+- text: I confirm that my child has valid insurance coverage for the duration of the camp *
+- button "Cancel"
+- button "Save Child"
+- heading "Additional Information" [level=3]
+- text: Photo/Video Permission * Our school likes to celebrate your child's work and achievements. Images may appear in printed publications, electronic presentations, on our website, and social media.
+- radio "Grant permission"
+- text: Grant permission
+- radio "Do not grant permission"
+- text: Do not grant permission How did you find out about us? *
+- textbox "How did you find out about us? *"
+- checkbox "I acknowledge that I have read and understood the terms and conditions of the Waldorf Phuket Summer Camp, and I understand that the Waldorf Phuket does not provide insurance for participants. *"
+- text: I acknowledge that I have read and understood the terms and conditions of the Waldorf Phuket Summer Camp, and I understand that the Waldorf Phuket does not provide insurance for participants. *
+- checkbox "I confirm that all information provided above is true and accurate to the best of my knowledge. *"
+- text: I confirm that all information provided above is true and accurate to the best of my knowledge. *
+- button "Submit Registration for 0 Children" [disabled]
+```

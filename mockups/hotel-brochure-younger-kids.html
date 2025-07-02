@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - Full Day Kids Care - Younger Kids Focus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cover {
+            width: 210px;
+            height: 297px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.8) 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .tagline {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+        
+        .schedule {
+            font-size: 16px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .best-picks {
+            background: #e8f5e9;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: #5a7a2b;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">Full Day Kids Care - Image Options for Younger Kids (3-6)</h1>
+    
+    <div class="grid">
+        <!-- Option 1: Original image - Kids doing crafts/activities -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/1.jpg" alt="Kids Activities">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label"><span class="best-picks">TOP PICK</span> Table activities - Shows care & learning</p>
+        </div>
+        
+        <!-- Option 2: Art/Creative activities -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/15.jpg" alt="Art Activities">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label">Creative arts - Shows hands-on activities</p>
+        </div>
+        
+        <!-- Option 3: Swimming/Water play -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/8.jpg" alt="Swimming">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label"><span class="best-picks">TOP PICK</span> Water play - Shows fun & safety</p>
+        </div>
+        
+        <!-- Option 4: Indoor play/Learning -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/11.jpg" alt="Indoor Activities">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label">Indoor play - Shows structured environment</p>
+        </div>
+        
+        <!-- Option 5: Group activities -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/13.jpg" alt="Group Fun">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label">Group activities - Shows social interaction</p>
+        </div>
+        
+        <!-- Option 6: Learning/Educational -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/16.jpg" alt="Learning">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label">Educational play - Shows learning focus</p>
+        </div>
+        
+        <!-- Option 7: Happy faces/Close-up -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/20.jpg" alt="Happy Kids">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label"><span class="best-picks">TOP PICK</span> Happy faces - Shows joy & trust</p>
+        </div>
+        
+        <!-- Option 8: Outdoor/Nature -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/23.jpg" alt="Nature Activities">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label">Nature exploration - Shows outdoor adventures</p>
+        </div>
+        
+        <!-- Option 9: Mixed activities -->
+        <div>
+            <div class="cover">
+                <img src="../public/references/Summer Camp Presentation Images/19.jpg" alt="Various Activities">
+                <div class="overlay">
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Real Thai adventures<br>they'll never forget</p>
+                    <div class="schedule">Monday-Friday<br>8:30-3:30</div>
+                </div>
+            </div>
+            <p class="image-label">Mixed activities - Shows variety</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">Image Analysis for Younger Kids (3-6)</h2>
+        <p style="line-height: 1.6; color: #666;">
+            <strong>Best images for hotel parents:</strong><br>
+            • <strong>Image 1, 8, 20:</strong> Show happy, engaged younger children in safe environments<br>
+            • <strong>Clear activities:</strong> Parents can see exactly what kids will be doing<br>
+            • <strong>Professional setting:</strong> Shows structured care, not just play<br>
+            • <strong>Mixed indoor/outdoor:</strong> Demonstrates variety and weather flexibility<br><br>
+            
+            <strong>Key visual elements that work:</strong><br>
+            • Younger children clearly visible (3-6 age range)<br>
+            • Adult supervision visible or implied<br>
+            • Clean, safe environments<br>
+            • Active engagement (not passive sitting)<br>
+            • Natural lighting showing real moments
+        </p>
+    </div>
+</body>
+</html>

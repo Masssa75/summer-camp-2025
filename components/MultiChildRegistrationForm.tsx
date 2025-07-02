@@ -52,12 +52,6 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
     allStatementsTrue: false
   })
   
-  // Parent passport files
-  const [parentFiles, setParentFiles] = useState({
-    parentPassport1: null as File | null,
-    parentPassport2: null as File | null
-  })
-  
   // Children array
   const [children, setChildren] = useState<ChildData[]>([])
   
@@ -120,12 +114,6 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
     }
   }
   
-  const handleParentFileChange = (e: React.ChangeEvent<HTMLInputElement>, fileType: 'parentPassport1' | 'parentPassport2') => {
-    const file = e.target.files?.[0]
-    if (file) {
-      setParentFiles(prev => ({ ...prev, [fileType]: file }))
-    }
-  }
   
   const addOrUpdateChild = () => {
     // Minimal validation - only essential fields
@@ -210,14 +198,6 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
       const supabase = createClient()
       const timestamp = Date.now()
       
-      // Upload parent passports
-      const parentPassport1Url = parentFiles.parentPassport1
-        ? await uploadFile(parentFiles.parentPassport1, `${timestamp}_parent1_passport`)
-        : null
-      const parentPassport2Url = parentFiles.parentPassport2
-        ? await uploadFile(parentFiles.parentPassport2, `${timestamp}_parent2_passport`)
-        : null
-      
       // Submit registration for each child
       for (const child of children) {
         // Upload child passport if exists
@@ -246,8 +226,8 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
             allergies: child.allergies || 'None',
             health_behavioral_conditions: child.healthBehavioralConditions || 'None',
             child_passport_url: childPassportUrl,
-            parent_passport_1_url: parentPassport1Url,
-            parent_passport_2_url: parentPassport2Url,
+            parent_passport_1_url: null,
+            parent_passport_2_url: null,
             has_insurance: child.hasInsurance || false,
             weeks_selected: child.weeksSelected.length > 0 ? child.weeksSelected : [1], // Default to week 1
             photo_permission: parentData.photoPermission === 'grant',
@@ -384,39 +364,6 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 onChange={handleParentInputChange}
                 // required
               />
-            </label>
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
-            <label>
-              Parent 1 Passport Copy *
-              <div className="file-input">
-                <input
-                  type="file"
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  onChange={(e) => handleParentFileChange(e, 'parentPassport1')}
-                  // required
-                />
-                <Upload size={20} />
-                <span>{parentFiles.parentPassport1?.name || 'Choose file'}</span>
-              </div>
-            </label>
-          </div>
-          <div className="form-group">
-            <label>
-              Parent 2 Passport Copy *
-              <div className="file-input">
-                <input
-                  type="file"
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  onChange={(e) => handleParentFileChange(e, 'parentPassport2')}
-                  // required
-                />
-                <Upload size={20} />
-                <span>{parentFiles.parentPassport2?.name || 'Choose file'}</span>
-              </div>
             </label>
           </div>
         </div>
