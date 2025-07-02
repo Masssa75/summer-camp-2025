@@ -1,0 +1,113 @@
+# Page snapshot
+
+```yaml
+- navigation:
+  - button "The Waldorf Phuket":
+    - img "The Waldorf Phuket"
+  - button "Mini (3-6)"
+  - button "Explorer (7-13)"
+  - link "Schedule":
+    - /url: "#schedule"
+  - link "Contact":
+    - /url: "#contact"
+  - link "WhatsApp":
+    - /url: "#whatsapp"
+  - link "Register":
+    - /url: "#register"
+- main:
+  - img "Phuket coastline"
+  - img "The Waldorf Phuket Logo"
+  - text: The Waldorf Phuket
+  - heading "SUMMER CAMP" [level=1]
+  - iframe
+  - paragraph: Take a journey through our beautiful campus
+  - img "Lagoon with boat"
+  - heading "Waldorf-Inspired Summer Camp:" [level=1]
+  - img "Children painting"
+  - img "Child drawing"
+  - img "Outdoor shelter"
+  - img "Forest background"
+  - heading "For Our Youngest Explorers (AGES 3-6)" [level=2]
+  - text: Discover the Magic of Childhood This Summer
+  - paragraph: Our Waldorf-inspired Mini Group offers a nurturing haven where childhood blossoms at its own pace.
+  - img "Children playing in sandbox"
+  - img "Green leaves"
+  - heading "A Summer of Wonder, Just for Them" [level=2]
+  - img "Child drawing"
+  - img "Child activity"
+  - img "Child with crafts"
+  - img "Outdoor activity"
+  - img "Ocean view"
+  - heading "Gentle Rhythms & Predictable Days:" [level=2]
+  - paragraph: A consistent flow of activities that respects your child's natural need for security and ease.
+  - img "Children on playground"
+  - img "Beach scene"
+  - heading "Loving Animal Care:" [level=2]
+  - paragraph: Gentle interactions and learning to care for our animals, fostering empathy and responsibility.
+  - img "Children with animals"
+  - img "Limestone cliffs"
+  - heading "Joyful Cooking & Baking:" [level=2]
+  - paragraph: Simple, hands-on culinary experiences, from kneading dough to preparing wholesome snacks.
+  - img "Children cooking"
+  - img "Bamboo forest"
+  - heading "Imaginative Free Play:" [level=2]
+  - paragraph: Abundant time for creative play in a natural setting, fostering self-direction and social skills.
+  - img "Children playing"
+  - img "Beach scene"
+  - heading "Storytelling & Puppetry:" [level=2]
+  - paragraph: Enriching tales that ignite the imagination and nurture a love for language.
+  - img "Story time"
+  - img "Beach with palm trees"
+  - heading "Nature's Classroom:" [level=2]
+  - paragraph: Daily outdoor adventures, exploring the wonders of the natural world through sensory experiences.
+  - img "Nature exploration"
+  - img "Ocean view"
+  - heading "Handwork & Practical Arts:" [level=2]
+  - paragraph: Simple, joyful activities like sewing, finger knitting, or painting with natural pigments.
+  - img "Handwork activities"
+  - img "Hillside view"
+  - heading "Nourishing Snacks & Peaceful Moments:" [level=2]
+  - paragraph: Wholesome, organic snacks and quiet times for rest and reflection.
+  - img "Snack preparation"
+  - img "Forest landscape"
+  - heading "Why choose The Waldorf Phuket Summer Camp for your little ones?" [level=2]
+  - img "Natural playground"
+  - img "Child with blocks"
+  - heading "Fosters Creativity & Imagination:" [level=2]
+  - paragraph: We believe in nurturing the inner world of the child.
+  - img "Waterfall in forest"
+  - heading "Supports Holistic Development:" [level=2]
+  - paragraph: Focusing on head, heart, and hands.
+  - img "Children doing art activities"
+  - img "Close-up of seedlings in soil"
+  - heading "Connects children with Nature:" [level=2]
+  - paragraph: Cultivating a deep appreciation for the environment.
+  - img "Children watering plants in garden"
+  - img "Waterfall and ferns"
+  - heading "Builds Social-Emotional Skills:" [level=2]
+  - paragraph: Through cooperative play and gentle guidance.
+  - img "Children playing together"
+  - img "Tropical beach with trees"
+  - heading "Experienced & Caring Educators:" [level=2]
+  - paragraph: Our teachers are dedicated to creating a warm, supportive atmosphere.
+  - img "Teacher with children in circle"
+  - img "Nature/greenery"
+  - heading "Summer Camp Schedule" [level=2]
+  - text: 8:15 - 9:00 9:00 - 10:30 10:30 - 11:00 11:00 - 12:00 12:00 - 1:00 1:00 - 2:00 2:00 - 3:30 3:30 - 4:00 4:00 - 4:30 Monday Arrival & Free Play Handwork & Crafts Morning Snack Outdoor Play Lunch Rest Time Story & Music Afternoon Snack Departure Tuesday Arrival & Free Play Cooking & Baking Morning Snack Nature Walk Lunch Rest Time Art & Painting Afternoon Snack Departure Wednesday Arrival & Free Play Animal Care Morning Snack Garden Work Lunch Rest Time Puppetry & Drama Afternoon Snack Departure Thursday Arrival & Free Play Sensory Play Morning Snack Outdoor Adventures Lunch Rest Time Movement & Games Afternoon Snack Departure Friday Arrival & Free Play Weekly Celebration Morning Snack Free Choice Activities Lunch Rest Time Week Review & Sharing Afternoon Snack Departure
+  - img "Big Buddha Phuket aerial view"
+  - heading "Every Summer, A Thousand Memories Are Waiting to Be Made" [level=2]
+  - img "Camp facility"
+  - heading "CONTACT US" [level=2]
+  - heading "Location" [level=3]
+  - paragraph: 255 Soi Cherngtalay 6, Choeng Thale, Thalang District, Phuket 83110
+  - link "Phone +66 98 912 4218":
+    - /url: tel:+66989124218
+    - heading "Phone" [level=3]
+    - paragraph: +66 98 912 4218
+  - link "Email info@waldorfphuket.com":
+    - /url: mailto:info@waldorfphuket.com
+    - heading "Email" [level=3]
+    - paragraph: info@waldorfphuket.com
+  - iframe
+- alert
+```
