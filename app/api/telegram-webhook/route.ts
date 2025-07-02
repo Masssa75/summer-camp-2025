@@ -32,20 +32,36 @@ export async function POST(request: Request) {
 
     console.log(`Telegram message from ${userName} (ID: ${userId}):`, text)
 
+    // Log this user ID for potential admin setup
+    await fetch('/api/admin/add-telegram-id', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ telegram_id: userId, name: userName })
+    }).catch(() => {}) // Don't fail if this doesn't work
+
     // If user sends /start or asks for help
     if (text === '/start' || text.toLowerCase().includes('help')) {
       const welcomeMessage = `
-🏕️ <b>Summer Camp Admin Bot</b>
+🏕️ <b>Welcome to Summer Camp Admin Bot!</b>
 
-Hello ${userName}! 
+Hello ${userName}! 👋
+
+✅ <b>Successfully connected!</b>
 
 Your Telegram ID is: <code>${userId}</code>
 
-This bot sends notifications for new summer camp registrations. If you're an admin, please share your Telegram ID with the system administrator to receive notifications.
+🔔 <b>What happens next?</b>
+• You'll receive instant notifications when new camp registrations come in
+• Each notification includes child details, parent info, and a link to the admin dashboard
+• Your admin status will show as "connected" in the dashboard
 
-Commands:
-• <b>/start</b> - Show this message
+💡 <b>Available Commands:</b>
+• <b>/start</b> - Show this welcome message
 • <b>/id</b> - Get your Telegram ID
+• <b>/help</b> - Show help information
+
+🎯 <b>Ready to receive notifications!</b>
+Try submitting a test registration to see how it works.
       `.trim()
 
       await sendTelegramMessage(chatId, welcomeMessage)
