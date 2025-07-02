@@ -24,6 +24,8 @@ export default function AdminPage() {
   const [registrations, setRegistrations] = useState<any[]>([])
   const [showNotificationMenu, setShowNotificationMenu] = useState(false)
   const [telegramConnected, setTelegramConnected] = useState(false)
+  const [selectedRegistration, setSelectedRegistration] = useState<any>(null)
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false)
 
   const loadRegistrations = async () => {
     try {
@@ -156,6 +158,23 @@ export default function AdminPage() {
     }
   }, [showNotificationMenu])
 
+  // Close modal on escape key
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && showRegistrationModal) {
+        closeRegistrationModal()
+      }
+    }
+
+    if (showRegistrationModal) {
+      document.addEventListener('keydown', handleEscape)
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [showRegistrationModal])
+
   // Separate useEffect for loading Telegram widget
   useEffect(() => {
     if (!loading && !user) {
@@ -183,6 +202,16 @@ export default function AdminPage() {
     localStorage.removeItem('telegram_user')
     setUser(null)
     setRegistrations([])
+  }
+
+  const viewRegistration = (registration: any) => {
+    setSelectedRegistration(registration)
+    setShowRegistrationModal(true)
+  }
+
+  const closeRegistrationModal = () => {
+    setSelectedRegistration(null)
+    setShowRegistrationModal(false)
   }
 
   if (loading) {
@@ -359,7 +388,12 @@ export default function AdminPage() {
                     <td>{reg.email}</td>
                     <td>{reg.weeks_selected?.join(', ') || 'N/A'}</td>
                     <td>
-                      <button className="view-btn">View</button>
+                      <button 
+                        className="view-btn"
+                        onClick={() => viewRegistration(reg)}
+                      >
+                        View
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -371,6 +405,136 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
+
+      {/* Registration Detail Modal */}
+      {showRegistrationModal && selectedRegistration && (
+        <div className="modal-overlay" onClick={closeRegistrationModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Registration Details</h2>
+              <button className="modal-close" onClick={closeRegistrationModal}>
+                ×
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <div className="registration-details">
+                <div className="detail-section">
+                  <h3>Child Information</h3>
+                  <div className="detail-grid">
+                    <div className="detail-item">
+                      <label>Child Name:</label>
+                      <span>{selectedRegistration.child_name}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Nick Name:</label>
+                      <span>{selectedRegistration.nick_name || 'N/A'}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Gender:</label>
+                      <span>{selectedRegistration.gender}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Date of Birth:</label>
+                      <span>{selectedRegistration.date_of_birth}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Age Group:</label>
+                      <span className={`badge ${selectedRegistration.age_group}`}>
+                        {selectedRegistration.age_group === 'mini' ? 'Mini Camp (3-6)' : 'Explorer Camp (7-13)'}
+                      </span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Current School:</label>
+                      <span>{selectedRegistration.current_school}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Nationality & Language:</label>
+                      <span>{selectedRegistration.nationality_language}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>English Level:</label>
+                      <span>{selectedRegistration.english_level}/5</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Selected Weeks:</label>
+                      <span>{selectedRegistration.weeks_selected?.join(', ') || 'N/A'}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="detail-section">
+                  <h3>Parent Information</h3>
+                  <div className="detail-grid">
+                    <div className="detail-item">
+                      <label>Parent 1:</label>
+                      <span>{selectedRegistration.parent_name_1}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Parent 2:</label>
+                      <span>{selectedRegistration.parent_name_2 || 'N/A'}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Email:</label>
+                      <span>{selectedRegistration.email}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Mobile 1:</label>
+                      <span>{selectedRegistration.mobile_phone_1}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Mobile 2:</label>
+                      <span>{selectedRegistration.mobile_phone_2 || 'N/A'}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>WeChat/WhatsApp 1:</label>
+                      <span>{selectedRegistration.wechat_whatsapp_1 || 'N/A'}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>WeChat/WhatsApp 2:</label>
+                      <span>{selectedRegistration.wechat_whatsapp_2 || 'N/A'}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Emergency Contact:</label>
+                      <span>{selectedRegistration.emergency_contact}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="detail-section">
+                  <h3>Health & Additional Information</h3>
+                  <div className="detail-grid">
+                    <div className="detail-item">
+                      <label>Allergies:</label>
+                      <span>{selectedRegistration.allergies}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Health/Behavioral Conditions:</label>
+                      <span>{selectedRegistration.health_behavioral_conditions}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Has Insurance:</label>
+                      <span>{selectedRegistration.has_insurance ? 'Yes' : 'No'}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Photo Permission:</label>
+                      <span>{selectedRegistration.photo_permission ? 'Granted' : 'Not granted'}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>How did you find us:</label>
+                      <span>{selectedRegistration.how_did_you_find}</span>
+                    </div>
+                    <div className="detail-item">
+                      <label>Registration Date:</label>
+                      <span>{new Date(selectedRegistration.created_at).toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
