@@ -128,9 +128,9 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
   }
   
   const addOrUpdateChild = () => {
-    // Validate child data
-    if (!currentChild.childName || !currentChild.gender || !currentChild.dateOfBirth || currentChild.weeksSelected.length === 0) {
-      setError('Please fill in all required child information and select at least one week')
+    // Minimal validation for testing - only require child name
+    if (!currentChild.childName) {
+      setError('Please enter child name')
       return
     }
     
@@ -329,7 +329,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
               name="email"
               value={parentData.email}
               onChange={handleParentInputChange}
-              required
+              // required
             />
           </label>
         </div>
@@ -343,7 +343,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 name="parentName1"
                 value={parentData.parentName1}
                 onChange={handleParentInputChange}
-                required
+                // required
               />
             </label>
           </div>
@@ -355,7 +355,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 name="parentName2"
                 value={parentData.parentName2}
                 onChange={handleParentInputChange}
-                required
+                // required
               />
             </label>
           </div>
@@ -370,7 +370,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                   type="file"
                   accept=".pdf,.jpg,.jpeg,.png"
                   onChange={(e) => handleParentFileChange(e, 'parentPassport1')}
-                  required
+                  // required
                 />
                 <Upload size={20} />
                 <span>{parentFiles.parentPassport1?.name || 'Choose file'}</span>
@@ -385,7 +385,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                   type="file"
                   accept=".pdf,.jpg,.jpeg,.png"
                   onChange={(e) => handleParentFileChange(e, 'parentPassport2')}
-                  required
+                  // required
                 />
                 <Upload size={20} />
                 <span>{parentFiles.parentPassport2?.name || 'Choose file'}</span>
@@ -403,7 +403,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 name="mobilePhone1"
                 value={parentData.mobilePhone1}
                 onChange={handleParentInputChange}
-                required
+                // required
               />
             </label>
           </div>
@@ -415,7 +415,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 name="wechatWhatsapp1"
                 value={parentData.wechatWhatsapp1}
                 onChange={handleParentInputChange}
-                required
+                // required
               />
             </label>
           </div>
@@ -430,7 +430,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 name="mobilePhone2"
                 value={parentData.mobilePhone2}
                 onChange={handleParentInputChange}
-                required
+                // required
               />
             </label>
           </div>
@@ -442,7 +442,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 name="wechatWhatsapp2"
                 value={parentData.wechatWhatsapp2}
                 onChange={handleParentInputChange}
-                required
+                // required
               />
             </label>
           </div>
@@ -456,7 +456,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
               name="emergencyContact"
               value={parentData.emergencyContact}
               onChange={handleParentInputChange}
-              required
+              // required
             />
           </label>
         </div>
@@ -787,7 +787,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 value="grant"
                 checked={parentData.photoPermission === 'grant'}
                 onChange={handleParentInputChange}
-                required
+                // required
               />
               Grant permission
             </label>
@@ -798,7 +798,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
                 value="deny"
                 checked={parentData.photoPermission === 'deny'}
                 onChange={handleParentInputChange}
-                required
+                // required
               />
               Do not grant permission
             </label>
@@ -814,7 +814,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
               value={parentData.howDidYouFind}
               onChange={handleParentInputChange}
               placeholder="Please specify"
-              required
+              // required
             />
           </label>
         </div>
@@ -827,7 +827,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
             name="termsAcknowledged"
             checked={parentData.termsAcknowledged}
             onChange={handleParentInputChange}
-            required
+            // required
           />
           <span>
             I acknowledge that I have read and understood the terms and conditions 
@@ -842,7 +842,7 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
             name="allStatementsTrue"
             checked={parentData.allStatementsTrue}
             onChange={handleParentInputChange}
-            required
+            // required
           />
           <span>
             I confirm that all information provided above is true and accurate to the best of my knowledge. *
