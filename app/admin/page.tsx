@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink } from 'lucide-react'
+import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink, Trash2 } from 'lucide-react'
 import './admin.css'
 
 // Telegram Bot Configuration
@@ -28,6 +28,9 @@ export default function AdminPage() {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false)
   const [recentNotifications, setRecentNotifications] = useState<any[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [registrationToDelete, setRegistrationToDelete] = useState<any>(null)
 
   const loadRegistrations = async () => {
     try {
@@ -271,6 +274,40 @@ export default function AdminPage() {
     setUnreadCount(0)
   }
 
+  const handleDelete = (registration: any) => {
+    setRegistrationToDelete(registration)
+    setShowDeleteConfirm(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!registrationToDelete) return
+    
+    setDeletingId(registrationToDelete.id)
+    try {
+      const response = await fetch(`/api/admin/registrations/${registrationToDelete.id}`, {
+        method: 'DELETE'
+      })
+      
+      if (response.ok) {
+        // Remove from local state
+        setRegistrations(prev => prev.filter(r => r.id !== registrationToDelete.id))
+        // Also remove from notifications if exists
+        setRecentNotifications(prev => prev.filter(n => n.registration?.id !== registrationToDelete.id))
+        console.log('Registration deleted successfully')
+      } else {
+        console.error('Failed to delete registration')
+        alert('Failed to delete registration. Please try again.')
+      }
+    } catch (error) {
+      console.error('Error deleting registration:', error)
+      alert('An error occurred while deleting the registration.')
+    } finally {
+      setDeletingId(null)
+      setShowDeleteConfirm(false)
+      setRegistrationToDelete(null)
+    }
+  }
+
   if (loading) {
     return (
       <div className="admin-loading">
@@ -472,12 +509,25 @@ export default function AdminPage() {
                     <td>{reg.email}</td>
                     <td>{reg.weeks_selected?.join(', ') || 'N/A'}</td>
                     <td>
-                      <button 
-                        className="view-btn"
-                        onClick={() => viewRegistration(reg)}
-                      >
-                        View
-                      </button>
+                      <div className="action-buttons">
+                        <button 
+                          className="view-btn"
+                          onClick={() => viewRegistration(reg)}
+                        >
+                          View
+                        </button>
+                        <button 
+                          className="delete-btn"
+                          onClick={() => handleDelete(reg)}
+                          disabled={deletingId === reg.id}
+                        >
+                          {deletingId === reg.id ? (
+                            <span className="spinner-small"></span>
+                          ) : (
+                            <Trash2 size={16} />
+                          )}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -699,6 +749,49 @@ export default function AdminPage() {
                     </div>
                   </div>
                 )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirm && registrationToDelete && (
+        <div className="modal-overlay" onClick={() => setShowDeleteConfirm(false)}>
+          <div className="modal-content delete-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Confirm Deletion</h2>
+              <button className="modal-close" onClick={() => setShowDeleteConfirm(false)}>
+                ×
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <div className="delete-warning">
+                <Trash2 size={48} className="delete-icon" />
+                <p>Are you sure you want to delete this registration?</p>
+                <div className="delete-details">
+                  <strong>Child:</strong> {registrationToDelete.child_name}<br />
+                  <strong>Parent:</strong> {registrationToDelete.parent_name_1}<br />
+                  <strong>Email:</strong> {registrationToDelete.email}
+                </div>
+                <p className="delete-note">This action cannot be undone.</p>
+              </div>
+              
+              <div className="delete-actions">
+                <button 
+                  className="cancel-btn" 
+                  onClick={() => setShowDeleteConfirm(false)}
+                >
+                  Cancel
+                </button>
+                <button 
+                  className="confirm-delete-btn" 
+                  onClick={confirmDelete}
+                  disabled={deletingId !== null}
+                >
+                  {deletingId ? 'Deleting...' : 'Delete Registration'}
+                </button>
               </div>
             </div>
           </div>

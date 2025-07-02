@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Camp 2025 - Tri-fold Brochure Mockup 3 - Clean & Modern</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .brochure-container {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+        }
+        
+        /* Outside panels */
+        .outside {
+            display: flex;
+            width: 630px;
+            height: 297px;
+        }
+        
+        .panel {
+            width: 210px;
+            height: 297px;
+            position: relative;
+            overflow: hidden;
+            border-right: 1px dashed #ddd;
+        }
+        
+        .panel:last-child {
+            border-right: none;
+        }
+        
+        /* Back Cover - Simple & Clean */
+        .back-cover {
+            background: #7a9a3b;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .back-cover h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            background: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #333;
+            border-radius: 10px;
+        }
+        
+        .contact-info {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        /* Back Flap - Schedule */
+        .back-flap {
+            padding: 25px;
+            background: #f8f8f8;
+        }
+        
+        .schedule-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .schedule-header h3 {
+            color: #7a9a3b;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .schedule-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .week-grid {
+            display: grid;
+            gap: 8px;
+        }
+        
+        .week-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 5px;
+            font-size: 13px;
+            border-left: 3px solid #a8c545;
+        }
+        
+        .week-item strong {
+            color: #5a7a2b;
+        }
+        
+        /* Front Cover - Hero Image with Text */
+        .front-cover {
+            position: relative;
+            padding: 0;
+        }
+        
+        .cover-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+        }
+        
+        .cover-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: white;
+            padding: 30px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        
+        .cover-content h1 {
+            color: #7a9a3b;
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+        
+        .cover-content .tagline {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        
+        .age-badges {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .age-badge {
+            background: #e8f5e9;
+            color: #5a7a2b;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .urgent-ribbon {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(15deg);
+            font-weight: bold;
+            font-size: 11px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Inside panels */
+        .inside {
+            display: flex;
+            width: 630px;
+            height: 297px;
+        }
+        
+        /* Inside Left - Activities with images */
+        .activities-panel {
+            padding: 25px;
+            background: #fff;
+        }
+        
+        .activities-panel h2 {
+            color: #7a9a3b;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .activity-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .activity-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        .activity-info h4 {
+            color: #5a7a2b;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        
+        .activity-info p {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        /* Inside Center - Photo Gallery */
+        .gallery-panel {
+            padding: 15px;
+            background: #f0f0f0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            height: 100%;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .gallery-item.featured {
+            grid-column: span 2;
+        }
+        
+        /* Inside Right - Pricing & Registration */
+        .info-panel {
+            padding: 25px;
+            background: #fff8e1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-panel h2 {
+            color: #f57c00;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .price-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .price-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #5a7a2b;
+            margin-bottom: 5px;
+        }
+        
+        .price-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .included-list {
+            font-size: 12px;
+            line-height: 1.8;
+            color: #666;
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .included-list li {
+            list-style: none;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .included-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #7a9a3b;
+            font-weight: bold;
+        }
+        
+        .cta-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 30px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <h2 style="margin-bottom: 20px;">Mockup 3: Clean & Modern Layout</h2>
+    
+    <!-- Outside of brochure -->
+    <div class="brochure-container">
+        <div class="outside">
+            <!-- Back Cover -->
+            <div class="panel back-cover">
+                <h3>Start Your Adventure</h3>
+                <div class="qr-code">[QR CODE]</div>
+                <div class="contact-info">
+                    <p style="margin-bottom: 10px;">phuketsummercamp.com</p>
+                    <p style="font-size: 20px;">📱 +66 98 912 4218</p>
+                    <p style="font-size: 14px; margin-top: 5px;">WhatsApp Welcome!</p>
+                </div>
+            </div>
+            
+            <!-- Back Flap -->
+            <div class="panel back-flap">
+                <div class="schedule-header">
+                    <h3>2025 Sessions</h3>
+                    <p>Monday - Friday<br>8:30 AM - 3:30 PM</p>
+                </div>
+                <div class="week-grid">
+                    <div class="week-item">
+                        <strong>Week 1</strong>
+                        <span>Jun 9-13</span>
+                    </div>
+                    <div class="week-item">
+                        <strong>Week 2</strong>
+                        <span>Jun 16-20</span>
+                    </div>
+                    <div class="week-item">
+                        <strong>Week 3</strong>
+                        <span>Jun 23-27</span>
+                    </div>
+                    <div class="week-item">
+                        <strong>Week 4</strong>
+                        <span>Jun 30-Jul 4</span>
+                    </div>
+                    <div class="week-item">
+                        <strong>Week 5</strong>
+                        <span>Jul 7-11</span>
+                    </div>
+                    <div class="week-item">
+                        <strong>Week 6</strong>
+                        <span>Jul 14-18</span>
+                    </div>
+                    <div class="week-item">
+                        <strong>Week 7</strong>
+                        <span>Jul 21-25</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Front Cover -->
+            <div class="panel front-cover">
+                <img src="../public/references/Summer Camp Presentation Images/21.jpg" alt="Happy Kids" class="cover-image">
+                <div class="cover-content">
+                    <img src="../public/references/Logo Only.png" alt="Logo" class="logo">
+                    <h1>Summer Camp 2025</h1>
+                    <p class="tagline">Waldorf-Inspired Adventures</p>
+                    <div class="age-badges">
+                        <span class="age-badge">Ages 3-6</span>
+                        <span class="age-badge">Ages 7-13</span>
+                    </div>
+                </div>
+                <div class="urgent-ribbon">ONLY 5 WEEKS LEFT!</div>
+            </div>
+        </div>
+    </div>
+    
+    <h3 style="margin-bottom: 20px;">Inside Panels (when opened)</h3>
+    
+    <!-- Inside of brochure -->
+    <div class="brochure-container">
+        <div class="inside">
+            <!-- Left Inside - Activities -->
+            <div class="panel activities-panel">
+                <h2>Daily Adventures</h2>
+                
+                <div class="activity-row">
+                    <img src="../public/references/Summer Camp Presentation Images/15.jpg" alt="Arts" class="activity-image">
+                    <div class="activity-info">
+                        <h4>Creative Arts</h4>
+                        <p>Painting, crafts, music & imaginative play</p>
+                    </div>
+                </div>
+                
+                <div class="activity-row">
+                    <img src="../public/references/Summer Camp Presentation Images/8.jpg" alt="Swimming" class="activity-image">
+                    <div class="activity-info">
+                        <h4>Water Activities</h4>
+                        <p>Swimming lessons & water games</p>
+                    </div>
+                </div>
+                
+                <div class="activity-row">
+                    <img src="../public/references/Summer Camp Presentation Images/23.jpg" alt="Nature" class="activity-image">
+                    <div class="activity-info">
+                        <h4>Nature Exploration</h4>
+                        <p>Beach walks, gardening & outdoor discovery</p>
+                    </div>
+                </div>
+                
+                <div class="activity-row">
+                    <img src="../public/references/Summer Camp Presentation Images/17.jpg" alt="Games" class="activity-image">
+                    <div class="activity-info">
+                        <h4>Active Play</h4>
+                        <p>Sports, team games & adventure challenges</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Center Inside - Photo Gallery -->
+            <div class="panel gallery-panel">
+                <div class="gallery-grid">
+                    <div class="gallery-item featured">
+                        <img src="../public/references/Summer Camp Presentation Images/22.jpg" alt="Camp Fun" class="gallery-image">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="../public/references/Summer Camp Presentation Images/11.jpg" alt="Activities" class="gallery-image">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="../public/references/Summer Camp Presentation Images/16.jpg" alt="Learning" class="gallery-image">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="../public/references/Summer Camp Presentation Images/20.jpg" alt="Friends" class="gallery-image">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="../public/references/Summer Camp Presentation Images/13.jpg" alt="Fun" class="gallery-image">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Inside - Pricing & Info -->
+            <div class="panel info-panel">
+                <h2>Simple Pricing</h2>
+                
+                <div class="price-card">
+                    <div class="price-amount">฿4,900</div>
+                    <div class="price-label">per week</div>
+                </div>
+                
+                <ul class="included-list">
+                    <li>All activities & materials</li>
+                    <li>Healthy snacks & lunch</li>
+                    <li>Accident insurance</li>
+                    <li>Camp t-shirt</li>
+                    <li>Professional care</li>
+                    <li>Weekly photos</li>
+                </ul>
+                
+                <div class="cta-button">
+                    Register Online Today!
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

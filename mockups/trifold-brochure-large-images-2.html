@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Camp 2025 - Tri-fold Brochure - Large Images Version 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .brochure-container {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+        }
+        
+        /* Outside panels */
+        .outside {
+            display: flex;
+            width: 630px;
+            height: 297px;
+        }
+        
+        .panel {
+            width: 210px;
+            height: 297px;
+            position: relative;
+            overflow: hidden;
+            border-right: 1px dashed #ddd;
+        }
+        
+        .panel:last-child {
+            border-right: none;
+        }
+        
+        /* Back Cover - Minimal with large image */
+        .back-cover {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .back-cover-top {
+            height: 70%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .back-cover-top img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .back-cover-bottom {
+            height: 30%;
+            background: #7a9a3b;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .back-cover-bottom h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        /* Back Flap - Image collage style */
+        .back-flap {
+            padding: 0;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 2px;
+            background: #f0f0f0;
+        }
+        
+        .flap-image-row {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .flap-image-row img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .flap-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px;
+            font-size: 11px;
+            text-align: center;
+        }
+        
+        /* Front Cover - Magazine style */
+        .front-cover {
+            padding: 0;
+            position: relative;
+        }
+        
+        .magazine-layout {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .magazine-image {
+            width: 100%;
+            height: 75%;
+            object-fit: cover;
+        }
+        
+        .magazine-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .magazine-header h1 {
+            color: #7a9a3b;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .magazine-header p {
+            color: #666;
+            font-size: 11px;
+        }
+        
+        .magazine-footer {
+            height: 25%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+        }
+        
+        .age-pill {
+            background: #e8f5e9;
+            color: #5a7a2b;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .urgent-circle {
+            width: 60px;
+            height: 60px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
+        /* Inside panels */
+        .inside {
+            display: flex;
+            width: 630px;
+            height: 297px;
+        }
+        
+        /* Inside Left - Hero image with list */
+        .left-inside {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .left-hero-image {
+            height: 65%;
+            position: relative;
+        }
+        
+        .left-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .activities-list {
+            height: 35%;
+            background: #f8f8f8;
+            padding: 15px;
+        }
+        
+        .activities-list h4 {
+            color: #7a9a3b;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .activity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .activity-icon {
+            font-size: 14px;
+        }
+        
+        /* Center Inside - Photo mosaic */
+        .center-inside {
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 2px;
+            background: #ddd;
+        }
+        
+        .mosaic-cell {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mosaic-cell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .mosaic-cell.wide {
+            grid-column: span 2;
+        }
+        
+        .mosaic-cell.tall {
+            grid-row: span 2;
+        }
+        
+        /* Right Inside - Pricing hero */
+        .right-inside {
+            padding: 0;
+            position: relative;
+        }
+        
+        .pricing-hero {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .pricing-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .price-display {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .price-display h2 {
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+        
+        .price-display p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .qr-white {
+            width: 60px;
+            height: 60px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .contact-white {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="margin-bottom: 20px;">Large Images Version 2: Magazine Style Layout</h2>
+    
+    <!-- Outside of brochure -->
+    <div class="brochure-container">
+        <div class="outside">
+            <!-- Back Cover -->
+            <div class="panel back-cover">
+                <div class="back-cover-top">
+                    <img src="../public/references/Summer Camp Presentation Images/11.jpg" alt="Fun Activities">
+                </div>
+                <div class="back-cover-bottom">
+                    <h4>Join the Adventure!</h4>
+                    <p style="font-size: 12px;">📱 +66 98 912 4218</p>
+                </div>
+            </div>
+            
+            <!-- Back Flap -->
+            <div class="panel back-flap">
+                <div class="flap-image-row">
+                    <img src="../public/references/Summer Camp Presentation Images/13.jpg" alt="Activities">
+                    <div class="flap-overlay">Week 1-2: June 9-20</div>
+                </div>
+                <div class="flap-image-row">
+                    <img src="../public/references/Summer Camp Presentation Images/16.jpg" alt="Learning">
+                    <div class="flap-overlay">Week 3-4: June 23 - July 4</div>
+                </div>
+                <div class="flap-image-row">
+                    <img src="../public/references/Summer Camp Presentation Images/19.jpg" alt="Fun">
+                    <div class="flap-overlay">Week 5-7: July 7-25</div>
+                </div>
+            </div>
+            
+            <!-- Front Cover -->
+            <div class="panel front-cover">
+                <div class="magazine-layout">
+                    <img src="../public/references/Summer Camp Presentation Images/1.jpg" alt="Cover Image" class="magazine-image">
+                    <div class="magazine-header">
+                        <h1>SUMMER CAMP</h1>
+                        <p>2025 • WALDORF PHUKET</p>
+                    </div>
+                    <div class="magazine-footer">
+                        <span class="age-pill">Ages 3-13</span>
+                        <div class="urgent-circle">LAST<br>5 SPOTS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <h3 style="margin-bottom: 20px;">Inside Panels (when opened)</h3>
+    
+    <!-- Inside of brochure -->
+    <div class="brochure-container">
+        <div class="inside">
+            <!-- Left Inside -->
+            <div class="panel left-inside">
+                <div class="left-hero-image">
+                    <img src="../public/references/Summer Camp Presentation Images/21.jpg" alt="Camp Life">
+                </div>
+                <div class="activities-list">
+                    <h4>Daily Adventures</h4>
+                    <div class="activity-grid">
+                        <div class="activity-item">
+                            <span class="activity-icon">🎨</span>
+                            <span>Creative Arts</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🏊</span>
+                            <span>Swimming</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🌿</span>
+                            <span>Nature Walks</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🎵</span>
+                            <span>Music & Dance</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🍳</span>
+                            <span>Cooking Fun</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🏖️</span>
+                            <span>Beach Games</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Center Inside -->
+            <div class="panel center-inside">
+                <div class="mosaic-cell wide">
+                    <img src="../public/references/Summer Camp Presentation Images/8.jpg" alt="Swimming">
+                </div>
+                <div class="mosaic-cell">
+                    <img src="../public/references/Summer Camp Presentation Images/15.jpg" alt="Arts">
+                </div>
+                <div class="mosaic-cell">
+                    <img src="../public/references/Summer Camp Presentation Images/17.jpg" alt="Play">
+                </div>
+                <div class="mosaic-cell">
+                    <img src="../public/references/Summer Camp Presentation Images/23.jpg" alt="Nature">
+                </div>
+                <div class="mosaic-cell">
+                    <img src="../public/references/Summer Camp Presentation Images/20.jpg" alt="Friends">
+                </div>
+            </div>
+            
+            <!-- Right Inside -->
+            <div class="panel right-inside">
+                <img src="../public/references/Summer Camp Presentation Images/22.jpg" alt="Happy Kids" class="pricing-hero">
+                <div class="pricing-overlay">
+                    <div class="price-display">
+                        <h2>฿4,900</h2>
+                        <p>per week</p>
+                    </div>
+                    <p style="font-size: 12px; line-height: 1.6; margin-bottom: 20px;">
+                        All Inclusive Package<br>
+                        Snacks • Lunch • Activities<br>
+                        Materials • Insurance
+                    </p>
+                    <div class="qr-white">[QR]</div>
+                    <div class="contact-white">phuketsummercamp.com</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
