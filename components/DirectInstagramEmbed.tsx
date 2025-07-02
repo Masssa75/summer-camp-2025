@@ -51,7 +51,6 @@ export default function DirectInstagramEmbed({ reelId, className = '' }: DirectI
           frameBorder="0" 
           scrolling="no" 
           allowTransparency={true}
-          allowFullScreen={true}
         />
       </div>
       
