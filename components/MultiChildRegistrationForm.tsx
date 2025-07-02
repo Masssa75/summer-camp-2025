@@ -263,6 +263,22 @@ export default function MultiChildRegistrationForm({ initialAgeGroup = 'explorer
           .insert(registrationData)
         
         if (dbError) throw dbError
+
+        // Send Telegram notification to admins (don't wait for it)
+        fetch('/api/notifications/new-registration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            child_name: registrationData.child_name,
+            email: registrationData.email,
+            age_group: registrationData.age_group,
+            weeks_selected: registrationData.weeks_selected,
+            parent_name_1: registrationData.parent_name_1,
+            created_at: new Date().toISOString()
+          })
+        }).catch(error => {
+          console.warn('Failed to send admin notification:', error)
+        })
       }
       
       setSuccess(true)
