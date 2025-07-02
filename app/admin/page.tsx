@@ -26,6 +26,8 @@ export default function AdminPage() {
   const [telegramConnected, setTelegramConnected] = useState(false)
   const [selectedRegistration, setSelectedRegistration] = useState<any>(null)
   const [showRegistrationModal, setShowRegistrationModal] = useState(false)
+  const [recentNotifications, setRecentNotifications] = useState<any[]>([])
+  const [unreadCount, setUnreadCount] = useState(0)
 
   const loadRegistrations = async () => {
     try {
@@ -80,6 +82,7 @@ export default function AdminPage() {
     if (allowedIds.includes(telegramUser.id) || process.env.NEXT_PUBLIC_ALLOW_DEV_LOGIN === 'true') {
       setUser(telegramUser)
       loadRegistrations()
+      loadRecentNotifications()
       checkTelegramConnection()
     } else {
       // Try to check admin_users table if it exists
@@ -94,12 +97,14 @@ export default function AdminPage() {
         if (!error && data) {
           setUser(telegramUser)
           loadRegistrations()
+          loadRecentNotifications()
           checkTelegramConnection()
         } else {
           // Allow for development
           console.warn('User not in admin list, allowing for development')
           setUser(telegramUser)
           loadRegistrations()
+          loadRecentNotifications()
           checkTelegramConnection()
         }
       } catch (err) {
@@ -107,6 +112,7 @@ export default function AdminPage() {
         console.warn('Admin users table not found, allowing for development')
         setUser(telegramUser)
         loadRegistrations()
+        loadRecentNotifications()
         checkTelegramConnection()
       }
     }
@@ -130,6 +136,7 @@ export default function AdminPage() {
       localStorage.setItem('telegram_user', JSON.stringify(telegramUser))
       setUser(telegramUser)
       loadRegistrations()
+      loadRecentNotifications()
       checkTelegramConnection()
     }
 
@@ -214,6 +221,53 @@ export default function AdminPage() {
     setShowRegistrationModal(false)
   }
 
+  const loadRecentNotifications = async () => {
+    try {
+      const response = await fetch('/api/admin/registrations')
+      if (response.ok) {
+        const { registrations } = await response.json()
+        // Use recent registrations as notifications
+        const recent = registrations.slice(0, 5).map((reg: any) => ({
+          id: reg.id,
+          title: 'New Registration',
+          message: `${reg.child_name} registered for ${reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'}`,
+          created_at: reg.created_at,
+          child_name: reg.child_name,
+          parent_email: reg.email,
+          is_read: false, // For now, assume all are unread
+          registration: reg
+        }))
+        setRecentNotifications(recent)
+        setUnreadCount(recent.length)
+      }
+    } catch (error) {
+      console.error('Error loading notifications:', error)
+    }
+  }
+
+  const markNotificationAsRead = (notificationId: string) => {
+    setRecentNotifications(prev => 
+      prev.map(notif => 
+        notif.id === notificationId ? { ...notif, is_read: true } : notif
+      )
+    )
+    setUnreadCount(prev => Math.max(0, prev - 1))
+  }
+
+  const deleteNotification = (notificationId: string) => {
+    setRecentNotifications(prev => 
+      prev.filter(notif => notif.id !== notificationId)
+    )
+    setUnreadCount(prev => Math.max(0, prev - 1))
+  }
+
+  const markAllAsRead = () => {
+    setRecentNotifications(prev => 
+      prev.map(notif => ({ ...notif, is_read: true }))
+    )
+    setUnreadCount(0)
+  }
+
   if (loading) {
     return (
       <div className="admin-loading">
@@ -252,63 +306,90 @@ export default function AdminPage() {
             <div className="notification-container">
               <button 
                 onClick={() => setShowNotificationMenu(!showNotificationMenu)}
-                className={`notification-bell ${telegramConnected ? 'connected' : 'disconnected'}`}
-                title={telegramConnected ? 'Telegram notifications enabled' : 'Connect Telegram for notifications'}
+                className="notification-bell"
+                title="View notifications"
               >
                 <Bell size={20} />
-                {!telegramConnected && <span className="notification-dot"></span>}
+                {unreadCount > 0 && (
+                  <span className="notification-badge">{unreadCount}</span>
+                )}
               </button>
               
               {showNotificationMenu && (
                 <div className="notification-menu">
                   <div className="notification-header">
-                    <Bell size={16} />
-                    <span>Notifications</span>
+                    <div className="notification-title">
+                      <Bell size={16} />
+                      <span>Notifications</span>
+                    </div>
+                    {unreadCount > 0 && (
+                      <button 
+                        onClick={markAllAsRead} 
+                        className="mark-all-read-btn"
+                        title="Mark all as read"
+                      >
+                        Mark all read
+                      </button>
+                    )}
                   </div>
                   
-                  <div className="telegram-status">
-                    {telegramConnected ? (
-                      <div className="status-connected">
-                        <div className="status-indicator connected"></div>
-                        <span>Telegram connected</span>
+                  <div className="notifications-list">
+                    {recentNotifications.length === 0 ? (
+                      <div className="no-notifications">
+                        <p>No recent notifications</p>
                       </div>
                     ) : (
-                      <div className="status-disconnected">
-                        <div className="status-indicator disconnected"></div>
-                        <span>Telegram not connected</span>
-                      </div>
+                      recentNotifications.map((notification) => (
+                        <div 
+                          key={notification.id} 
+                          className={`notification-item ${notification.is_read ? 'read' : 'unread'}`}
+                        >
+                          <div className="notification-content">
+                            <div className="notification-main">
+                              <h4>{notification.title}</h4>
+                              <p>{notification.message}</p>
+                              <span className="notification-time">
+                                {new Date(notification.created_at).toLocaleString()}
+                              </span>
+                            </div>
+                            <div className="notification-actions">
+                              {!notification.is_read && (
+                                <button
+                                  onClick={() => markNotificationAsRead(notification.id)}
+                                  className="mark-read-btn"
+                                  title="Mark as read"
+                                >
+                                  ✓
+                                </button>
+                              )}
+                              <button
+                                onClick={() => viewRegistration(notification.registration)}
+                                className="view-notification-btn"
+                                title="View details"
+                              >
+                                👁
+                              </button>
+                              <button
+                                onClick={() => deleteNotification(notification.id)}
+                                className="delete-notification-btn"
+                                title="Delete"
+                              >
+                                ×
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))
                     )}
                   </div>
                   
-                  {!telegramConnected ? (
-                    <button onClick={connectTelegram} className="connect-telegram-btn">
-                      Connect TG
-                    </button>
-                  ) : (
-                    <button 
-                      onClick={checkTelegramConnection} 
-                      className="refresh-status-btn"
-                      title="Refresh connection status"
-                    >
-                      Refresh Status
-                    </button>
+                  {!telegramConnected && (
+                    <div className="telegram-connection-footer">
+                      <button onClick={connectTelegram} className="connect-telegram-footer-btn">
+                        📱 Connect Telegram for instant notifications
+                      </button>
+                    </div>
                   )}
-                  
-                  {/* Always show a refresh button for manual checking */}
-                  <button 
-                    onClick={checkTelegramConnection} 
-                    className="refresh-connection-btn"
-                    title="Check connection status"
-                  >
-                    🔄 Check Status
-                  </button>
-                  
-                  <div className="notification-info">
-                    <p>Get notified instantly when new registrations come in!</p>
-                    {telegramConnected && (
-                      <p className="telegram-id">Your ID: {user.id}</p>
-                    )}
-                  </div>
                 </div>
               )}
             </div>
