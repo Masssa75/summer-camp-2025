@@ -64,14 +64,24 @@ export async function sendTelegramMessage(chatId: number, message: string): Prom
  * Get list of admin Telegram IDs who should receive notifications
  */
 export async function getAdminTelegramIds(): Promise<number[]> {
-  // For now, return hardcoded admin IDs
-  // TODO: In production, fetch from admin_users table
+  // TODO: Replace with real admin Telegram IDs
+  // Instructions to get your Telegram ID:
+  // 1. Start a chat with @Bamboo_Valley_Admin_Bot
+  // 2. Send any message
+  // 3. Check the logs or use @userinfobot to get your ID
+  
   const hardcodedAdmins: number[] = [
-    123456789, // Test admin from admin page
     // Add real admin Telegram IDs here
+    // Example: 987654321,
   ]
 
-  // TODO: Add database query to get admin users
+  // Skip empty list to prevent errors
+  if (hardcodedAdmins.length === 0) {
+    console.warn('No admin Telegram IDs configured for notifications')
+    return []
+  }
+
+  // TODO: Add database query to get admin users when admin_users table is properly set up
   // const supabase = createClient()
   // const { data: admins } = await supabase
   //   .from('admin_users')
