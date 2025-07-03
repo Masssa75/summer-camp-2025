@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - True Split Screen Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cover-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* True split screen - horizontal split at rack line */
+        .split-horizontal {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Top section - VISIBLE in rack (65% of height) */
+        .top-visible {
+            height: 65%;
+            position: relative;
+            display: flex;
+        }
+        
+        /* Left side of top section */
+        .top-left {
+            width: 50%;
+            background: #5a7a2b;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px;
+        }
+        
+        .top-left h1 {
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
+        
+        /* Right side of top section */
+        .top-right {
+            width: 50%;
+            overflow: hidden;
+        }
+        
+        .top-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Bottom section - HIDDEN in rack (35% of height) */
+        .bottom-hidden {
+            height: 35%;
+            background: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+            margin-bottom: 10px;
+        }
+        
+        .credentials {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .qr-code {
+            width: 50px;
+            height: 50px;
+            background: #333;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            color: white;
+        }
+        
+        /* Variations */
+        .top-left.green { background: #5a7a2b; }
+        .top-left.dark-green { background: #4a6a1b; }
+        .top-left.sage { background: #7a9a3b; }
+        
+        /* Different split ratios */
+        .split-40-60 .top-left { width: 40%; }
+        .split-40-60 .top-right { width: 60%; }
+        
+        .split-60-40 .top-left { width: 60%; }
+        .split-60-40 .top-right { width: 40%; }
+        
+        /* Full width image version */
+        .full-image .top-visible {
+            flex-direction: column;
+        }
+        
+        .full-image .image-section {
+            height: 75%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .full-image .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .full-image .title-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .full-image .title-overlay h1 {
+            display: inline-block;
+            background: rgba(255,255,255,0.95);
+            color: #5a7a2b;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Rack line indicator */
+        .rack-line {
+            position: absolute;
+            top: 65%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ff0000;
+            opacity: 0.5;
+            z-index: 10;
+        }
+        
+        .rack-label {
+            position: absolute;
+            top: calc(65% + 5px);
+            right: 5px;
+            font-size: 10px;
+            color: #ff0000;
+            background: white;
+            padding: 2px 5px;
+            z-index: 10;
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">True Split Screen Design - Using 11-1 copy.jpg</h1>
+    
+    <div class="grid">
+        <!-- Version 1: Classic 50/50 split -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="split-horizontal">
+                    <div class="top-visible">
+                        <div class="top-left green">
+                            <h1>Full Day<br>Kids Care</h1>
+                        </div>
+                        <div class="top-right">
+                            <img src="../References/img/11-1 copy.jpg" alt="Caregiver with child">
+                        </div>
+                    </div>
+                    <div class="bottom-hidden">
+                        <div class="logo"></div>
+                        <p class="credentials">Professional Licensed Caregivers<br>Hotel Pickup Available</p>
+                        <div class="qr-code">⬚</div>
+                    </div>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">50/50 split</p>
+        </div>
+        
+        <!-- Version 2: 40/60 more image -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="split-horizontal split-40-60">
+                    <div class="top-visible">
+                        <div class="top-left dark-green">
+                            <h1>Full Day<br>Kids Care</h1>
+                        </div>
+                        <div class="top-right">
+                            <img src="../References/img/11-1 copy.jpg" alt="Caregiver with child">
+                        </div>
+                    </div>
+                    <div class="bottom-hidden">
+                        <div class="logo"></div>
+                        <p class="credentials">8:30 AM - 3:30 PM<br>Monday - Friday</p>
+                        <div class="qr-code">⬚</div>
+                    </div>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">40/60 - more image</p>
+        </div>
+        
+        <!-- Version 3: 60/40 more text -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="split-horizontal split-60-40">
+                    <div class="top-visible">
+                        <div class="top-left sage">
+                            <h1>Full Day<br>Kids Care</h1>
+                        </div>
+                        <div class="top-right">
+                            <img src="../References/img/11-1 copy.jpg" alt="Caregiver with child">
+                        </div>
+                    </div>
+                    <div class="bottom-hidden">
+                        <div class="logo"></div>
+                        <p class="credentials">Beyond Hotel Kids Clubs<br>Real Adventures for Ages 3-13</p>
+                        <div class="qr-code">⬚</div>
+                    </div>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">60/40 - more text</p>
+        </div>
+        
+        <!-- Version 4: Full width image with overlay -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="split-horizontal full-image">
+                    <div class="top-visible">
+                        <div class="image-section">
+                            <img src="../References/img/11-1 copy.jpg" alt="Caregiver with child">
+                            <div class="title-overlay">
+                                <h1>Full Day Kids Care</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-hidden">
+                        <div class="logo"></div>
+                        <p class="credentials">Professional Licensed Caregivers<br>WhatsApp: +66 98 912 4218</p>
+                        <div class="qr-code">⬚</div>
+                    </div>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">Full image with overlay</p>
+        </div>
+        
+        <!-- Version 5: Clean 50/50 -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="split-horizontal">
+                    <div class="top-visible">
+                        <div class="top-left green">
+                            <h1>Full Day<br>Kids Care</h1>
+                        </div>
+                        <div class="top-right">
+                            <img src="../References/img/11-1 copy.jpg" alt="Caregiver with child">
+                        </div>
+                    </div>
+                    <div class="bottom-hidden">
+                        <p class="credentials">Trusted by Parents<br>Safe & Fun Environment<br>Qualified Teachers</p>
+                        <div class="qr-code">⬚</div>
+                    </div>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">No logo version</p>
+        </div>
+        
+        <!-- Version 6: Minimal split -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="split-horizontal split-40-60">
+                    <div class="top-visible">
+                        <div class="top-left sage">
+                            <h1 style="font-size: 18px;">Full Day<br>Kids<br>Care</h1>
+                        </div>
+                        <div class="top-right">
+                            <img src="../References/img/11-1 copy.jpg" alt="Caregiver with child">
+                        </div>
+                    </div>
+                    <div class="bottom-hidden">
+                        <p class="credentials">phuketsummercamp.com</p>
+                    </div>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">Ultra minimal</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">True Split Screen Strategy</h2>
+        <p style="line-height: 1.6; color: #666;">
+            <strong>Above the rack line (visible):</strong><br>
+            • "Full Day Kids Care" title on colored panel<br>
+            • Beautiful caregiver/child image using 11-1 copy.jpg<br>
+            • Clean, professional, eye-catching<br><br>
+            
+            <strong>Below the rack line (hidden):</strong><br>
+            • Logo and credentials<br>
+            • Contact information<br>
+            • QR code for easy registration<br>
+            • Only visible when brochure is picked up
+        </p>
+    </div>
+</body>
+</html>

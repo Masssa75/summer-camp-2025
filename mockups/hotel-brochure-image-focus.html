@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - Image Focus Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cover-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Title overlay at top of image */
+        .title-overlay {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .title-overlay h1 {
+            display: inline-block;
+            background: rgba(255,255,255,0.95);
+            color: #5a7a2b;
+            padding: 15px 25px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+        
+        /* Alternative: Title on white bar */
+        .title-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .title-bar h1 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #5a7a2b;
+            line-height: 1.2;
+        }
+        
+        /* Alternative: Title on green bar */
+        .title-green {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(122, 154, 59, 0.95);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .title-green h1 {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
+        /* Bottom info panel (hidden in rack) */
+        .bottom-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #5a7a2b;
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        
+        .bottom-info .logo {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto 10px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+            filter: brightness(0) invert(1);
+        }
+        
+        .bottom-info p {
+            font-size: 11px;
+            line-height: 1.5;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .bottom-info .qr-code {
+            width: 50px;
+            height: 50px;
+            background: white;
+            margin: 10px auto 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+        
+        /* Alternative bottom styles */
+        .bottom-simple {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .bottom-simple p {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        
+        /* Rack simulation */
+        .rack-line {
+            position: absolute;
+            bottom: 120px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ff0000;
+            opacity: 0.5;
+            z-index: 10;
+        }
+        
+        .rack-label {
+            position: absolute;
+            bottom: 125px;
+            right: 5px;
+            font-size: 10px;
+            color: #ff0000;
+            background: white;
+            padding: 2px 5px;
+            z-index: 10;
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">Image-First Design - Title at Top, Info Hidden Below</h1>
+    
+    <div class="grid">
+        <!-- Version 1: Floating title badge -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/4.jpg" alt="Caregiver with kids">
+                <div class="title-overlay">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <div class="logo"></div>
+                    <p>Professional Licensed Caregivers<br>
+                    Hotel Pickup Available<br>
+                    8:30 AM - 3:30 PM</p>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Floating badge style</p>
+        </div>
+        
+        <!-- Version 2: White bar at top -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/10.jpg" alt="Caregiver with kids">
+                <div class="title-bar">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <div class="logo"></div>
+                    <p>Trusted by Parents<br>
+                    Qualified Teachers<br>
+                    Ages 3-13</p>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Clean white header</p>
+        </div>
+        
+        <!-- Version 3: Green bar at top -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1.jpg" alt="Caregiver with kids">
+                <div class="title-green">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-simple">
+                    <p>Professional caregivers • Hotel pickup<br>
+                    Lunch included • Beach activities<br>
+                    Register: phuketsummercamp.com</p>
+                </div>
+            </div>
+            <p class="image-label">Brand color header</p>
+        </div>
+        
+        <!-- Version 4: Minimal floating -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/13.jpg" alt="Caregiver with kids">
+                <div class="title-overlay">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-simple">
+                    <p>Beyond hotel kids clubs<br>
+                    Real adventures for ages 3-13<br>
+                    WhatsApp: +66 98 912 4218</p>
+                </div>
+            </div>
+            <p class="image-label">Minimal top, info bottom</p>
+        </div>
+        
+        <!-- Version 5: Just title and image -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/14.jpg" alt="Caregiver with kids">
+                <div class="title-bar">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">Ultra minimal</p>
+        </div>
+        
+        <!-- Version 6: Badge with shadow -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/15.jpg" alt="Caregiver with kids">
+                <div class="title-overlay">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <p>Monday - Friday<br>
+                    8:30 AM - 3:30 PM<br>
+                    Professional Staff • Safe Environment</p>
+                </div>
+            </div>
+            <p class="image-label">Focus on schedule</p>
+        </div>
+        
+        <!-- Version 7: Clean and simple -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/16.jpg" alt="Caregiver with kids">
+                <div class="title-green">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <div class="logo"></div>
+                    <p>Hotel Pickup • Lunch Included<br>
+                    Swimming • Beach • Nature • Arts</p>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Activities listed</p>
+        </div>
+        
+        <!-- Version 8: White header variant -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/19.jpg" alt="Caregiver with kids">
+                <div class="title-bar">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-simple">
+                    <p>Give your kids the best day in Phuket<br>
+                    while you enjoy your vacation</p>
+                </div>
+            </div>
+            <p class="image-label">Parent benefit focus</p>
+        </div>
+        
+        <!-- Version 9: Floating badge centered -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/20.jpg" alt="Caregiver with kids">
+                <div class="title-overlay">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <div class="logo"></div>
+                    <p>Professional Licensed Caregivers</p>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Centered design</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">Image-First Strategy</h2>
+        <p style="line-height: 1.6; color: #666;">
+            <strong>What's visible in rack:</strong><br>
+            • Beautiful caregiver/children image<br>
+            • Clear "Full Day Kids Care" title<br>
+            • Nothing else needed!<br><br>
+            
+            <strong>Hidden below rack line:</strong><br>
+            • Logo, contact info, QR code<br>
+            • Features and benefits<br>
+            • These details only matter AFTER they pick it up
+        </p>
+    </div>
+</body>
+</html>

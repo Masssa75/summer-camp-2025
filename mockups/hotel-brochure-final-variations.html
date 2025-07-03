@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - Final Design Variations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cover-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Background image */
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Top section with title */
+        .top-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 130px;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.95) 0%, 
+                rgba(0,0,0,0.85) 50%, 
+                rgba(0,0,0,0.5) 85%, 
+                transparent 100%);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 20px;
+        }
+        
+        .top-section h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            line-height: 1.1;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Bottom section (hidden in rack) */
+        .bottom-section {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 25px 20px 20px;
+            text-align: center;
+        }
+        
+        .bottom-section p {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .bottom-section .highlight {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .activities {
+            font-size: 12px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .activities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .activity-item {
+            font-size: 12px;
+            padding: 2px 0;
+        }
+        
+        .qr-code {
+            width: 55px;
+            height: 55px;
+            background: white;
+            margin: 0 auto;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: black;
+        }
+        
+        /* Rack line indicator */
+        .rack-line {
+            position: absolute;
+            top: 65%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ff0000;
+            opacity: 0.5;
+            z-index: 10;
+        }
+        
+        .rack-label {
+            position: absolute;
+            top: calc(65% + 5px);
+            right: 5px;
+            font-size: 10px;
+            color: #ff0000;
+            background: white;
+            padding: 2px 5px;
+            z-index: 10;
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        /* Icon style */
+        .with-icons .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .icon {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">Final Design - Bottom Text Variations</h1>
+    
+    <div class="grid">
+        <!-- Version 1: Activities Focus -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <div class="activities">
+                        • Animal Care & Feeding<br>
+                        • Organic Garden Cooking<br>
+                        • Nature & Farm Activities
+                    </div>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Activities focus</p>
+        </div>
+        
+        <!-- Version 2: Learning Outcomes -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <div class="activities">
+                        Kids Learn:<br>
+                        • Responsibility with Animals<br>
+                        • Garden to Table Cooking<br>
+                        • Environmental Care
+                    </div>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Learning focus</p>
+        </div>
+        
+        <!-- Version 3: Adventure List -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <div class="activities">
+                        Daily Adventures:<br>
+                        • Beach Exploration<br>
+                        • Animal Encounters<br>
+                        • Creative Cooking
+                    </div>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Adventure theme</p>
+        </div>
+        
+        <!-- Version 4: Simple Icons -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section with-icons">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <div class="activities-list">
+                        <div class="activity-item">
+                            <span class="icon">🐰</span> Animal Care
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">🌱</span> Garden Activities
+                        </div>
+                        <div class="activity-item">
+                            <span class="icon">👩‍🍳</span> Cooking Classes
+                        </div>
+                    </div>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">With icons</p>
+        </div>
+        
+        <!-- Version 5: Skills Development -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <div class="activities">
+                        Developing:<br>
+                        • Life Skills Through Farming<br>
+                        • Creativity in the Kitchen<br>
+                        • Connection with Nature
+                    </div>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Skills development</p>
+        </div>
+        
+        <!-- Version 6: Hands-On Focus -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <div class="activities">
+                        Hands-On Experiences:<br>
+                        • Feed & Care for Animals<br>
+                        • Harvest & Cook Together<br>
+                        • Explore Beach & Nature
+                    </div>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Hands-on theme</p>
+        </div>
+        
+        <!-- Version 7: Ultra Simple -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <p style="font-size: 14px; margin: 15px 0;">
+                        Animals • Cooking • Nature
+                    </p>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Ultra simple</p>
+        </div>
+        
+        <!-- Version 8: Experience Based -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <div class="activities">
+                        Real Experiences:<br>
+                        • Rabbit & Chicken Care<br>
+                        • Pizza Making & Baking<br>
+                        • Beach & Garden Play
+                    </div>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Specific activities</p>
+        </div>
+        
+        <!-- Version 9: Educational Focus -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="top-section">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-section">
+                    <p class="highlight">Professional Licensed Caregivers</p>
+                    <div class="activities">
+                        Educational Fun:<br>
+                        • Animal Biology & Care<br>
+                        • Sustainable Farming<br>
+                        • Culinary Arts for Kids
+                    </div>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Educational angle</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">Bottom Section Variations</h2>
+        <p style="line-height: 1.6; color: #666;">
+            All versions include:<br>
+            • <strong>"Professional Licensed Caregivers"</strong> as the primary trust element<br>
+            • <strong>QR code</strong> for easy registration<br>
+            • <strong>2-3 key activities</strong> showing what kids do<br><br>
+            
+            Different approaches tested:<br>
+            • Activities focus (what they do)<br>
+            • Learning outcomes (what they gain)<br>
+            • Specific experiences (concrete examples)<br>
+            • Icons for visual appeal<br>
+            • Educational benefits
+        </p>
+    </div>
+</body>
+</html>

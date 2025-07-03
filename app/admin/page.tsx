@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink, Trash2, MoreVertical } from 'lucide-react'
+import EditableTimetable from '@/components/admin/EditableTimetable'
 import './admin.css'
 
 // Telegram Bot Configuration
@@ -553,6 +554,9 @@ export default function AdminPage() {
             )}
           </div>
         </div>
+        
+        {/* Editable Timetable Section */}
+        <EditableTimetable />
       </div>
 
       {/* Registration Detail Modal */}

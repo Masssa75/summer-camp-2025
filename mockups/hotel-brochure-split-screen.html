@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - Split Screen Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cover-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+        }
+        
+        /* Split screen layout */
+        .left-panel {
+            width: 50%;
+            height: 100%;
+            background: #5a7a2b;
+            color: white;
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+        
+        .right-panel {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .right-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Logo styles */
+        .logo {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 15px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+            filter: brightness(0) invert(1);
+        }
+        
+        /* Typography */
+        .left-panel h1 {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+        
+        .tagline {
+            font-size: 11px;
+            line-height: 1.5;
+            opacity: 0.9;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* QR Code */
+        .qr-section {
+            margin-top: auto;
+        }
+        
+        .qr-code {
+            width: 60px;
+            height: 60px;
+            background: white;
+            margin: 0 auto 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        
+        .qr-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+        
+        /* Variations */
+        .left-panel.green {
+            background: #5a7a2b;
+        }
+        
+        .left-panel.dark-green {
+            background: #4a6a1b;
+        }
+        
+        .left-panel.sage {
+            background: #7a9a3b;
+        }
+        
+        .left-panel.white {
+            background: white;
+            color: #5a7a2b;
+        }
+        
+        .left-panel.white .logo {
+            filter: none;
+        }
+        
+        .left-panel.white .qr-code {
+            background: #f0f0f0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        /* Full width versions */
+        .cover.full-width .left-panel {
+            width: 100%;
+        }
+        
+        .cover.full-width .right-panel {
+            display: none;
+        }
+        
+        /* 70/30 split */
+        .cover.wide-image .left-panel {
+            width: 35%;
+        }
+        
+        .cover.wide-image .right-panel {
+            width: 65%;
+        }
+        
+        .cover.wide-image .left-panel h1 {
+            font-size: 14px;
+        }
+        
+        .cover.wide-image .tagline {
+            font-size: 10px;
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">Split Screen Brochure Design</h1>
+    
+    <div class="grid">
+        <!-- Version 1: Classic 50/50 Green -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="left-panel green">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        Professional<br>
+                        Licensed<br>
+                        Caregivers<br>
+                        Trusted by<br>
+                        Parents
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Info &<br>Registration</p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../References/img/4.jpg" alt="Caregiver with kids">
+                </div>
+            </div>
+            <p class="image-label">Classic 50/50 split</p>
+        </div>
+        
+        <!-- Version 2: Dark Green -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="left-panel dark-green">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        Hotel Pickup<br>
+                        Available<br>
+                        <br>
+                        8:30 AM -<br>
+                        3:30 PM
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Learn More</p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../References/img/10.jpg" alt="Caregiver with kids">
+                </div>
+            </div>
+            <p class="image-label">Darker green variant</p>
+        </div>
+        
+        <!-- Version 3: Sage Green -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="left-panel sage">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        Beyond Hotel<br>
+                        Kids Clubs<br>
+                        <br>
+                        Real Adventures<br>
+                        Ages 3-13
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Register Now</p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../References/img/13.jpg" alt="Caregiver with kids">
+                </div>
+            </div>
+            <p class="image-label">Lighter sage green</p>
+        </div>
+        
+        <!-- Version 4: White Panel -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="left-panel white">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        Professional<br>
+                        Licensed<br>
+                        Caregivers<br>
+                        Trusted by<br>
+                        Parents
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Info &<br>Registration</p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../References/img/15.jpg" alt="Caregiver with kids">
+                </div>
+            </div>
+            <p class="image-label">Clean white panel</p>
+        </div>
+        
+        <!-- Version 5: Wide Image 35/65 -->
+        <div class="cover-wrapper">
+            <div class="cover wide-image">
+                <div class="left-panel green">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        Safe<br>
+                        Fun<br>
+                        Professional
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Info</p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../References/img/20.jpg" alt="Caregiver with kids">
+                </div>
+            </div>
+            <p class="image-label">More image space</p>
+        </div>
+        
+        <!-- Version 6: Full Panel (no image) -->
+        <div class="cover-wrapper">
+            <div class="cover full-width">
+                <div class="left-panel green">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        Professional<br>
+                        Licensed<br>
+                        Caregivers<br>
+                        <br>
+                        Hotel Pickup<br>
+                        Lunch Included<br>
+                        <br>
+                        Monday-Friday<br>
+                        8:30 AM - 3:30 PM
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Info &<br>Registration</p>
+                    </div>
+                </div>
+            </div>
+            <p class="image-label">Text only version</p>
+        </div>
+        
+        <!-- Version 7: Feature Focus -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="left-panel dark-green">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        ✓ Hotel Pickup<br>
+                        ✓ Lunch Included<br>
+                        ✓ Qualified Staff<br>
+                        ✓ Beach Activities<br>
+                        ✓ Ages 3-13
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Details</p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../References/img/16.jpg" alt="Caregiver with kids">
+                </div>
+            </div>
+            <p class="image-label">With checkmarks</p>
+        </div>
+        
+        <!-- Version 8: Minimal Text -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="left-panel sage">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        <br><br>
+                        Professional<br>
+                        Caregivers
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Learn More</p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../References/img/19.jpg" alt="Caregiver with kids">
+                </div>
+            </div>
+            <p class="image-label">Minimal text</p>
+        </div>
+        
+        <!-- Version 9: Trust Building -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <div class="left-panel green">
+                    <div>
+                        <div class="logo"></div>
+                        <h1>Full Day<br>Kids Care</h1>
+                    </div>
+                    <div class="tagline">
+                        "Best decision<br>
+                        of our vacation!"<br>
+                        <br>
+                        - Sarah M.<br>
+                        Resort Guest
+                    </div>
+                    <div class="qr-section">
+                        <div class="qr-code">⬚</div>
+                        <p class="qr-label">Join Us</p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../References/img/11-1.jpg" alt="Caregiver with kids">
+                </div>
+            </div>
+            <p class="image-label">With testimonial</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">Split Screen Design Benefits</h2>
+        <p style="line-height: 1.6; color: #666;">
+            <strong>Why this works:</strong><br>
+            • Clear brand panel always visible<br>
+            • QR code for easy registration<br>
+            • Professional look builds trust<br>
+            • Image shows real caregivers<br>
+            • All info visible even in racks<br><br>
+            
+            <strong>Color options:</strong><br>
+            • Standard green (#5a7a2b)<br>
+            • Dark green (#4a6a1b)<br>
+            • Sage green (#7a9a3b)<br>
+            • Clean white
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - Black Fade Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cover-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Background image */
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Version 1: Top fade to black */
+        .fade-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.95) 0%, 
+                rgba(0,0,0,0.85) 30%, 
+                rgba(0,0,0,0.5) 70%, 
+                transparent 100%);
+            padding-top: 15px;
+            text-align: center;
+        }
+        
+        .fade-top h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Version 2: Full height black fade */
+        .fade-full {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.9) 0%, 
+                rgba(0,0,0,0.3) 40%, 
+                rgba(0,0,0,0.3) 60%, 
+                rgba(0,0,0,0.85) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px 20px 20px;
+        }
+        
+        .fade-full h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            line-height: 1.2;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Version 3: Solid black bar at top */
+        .solid-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.9);
+            padding: 15px 20px;
+            text-align: center;
+        }
+        
+        .solid-top h1 {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            line-height: 1.2;
+        }
+        
+        /* Version 4: Minimal fade */
+        .fade-minimal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.85) 0%, 
+                rgba(0,0,0,0.6) 50%, 
+                transparent 100%);
+            padding-top: 15px;
+            text-align: center;
+        }
+        
+        .fade-minimal h1 {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            line-height: 1.2;
+        }
+        
+        /* Version 5: Corner fade */
+        .fade-corner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: radial-gradient(ellipse at top center, 
+                rgba(0,0,0,0.9) 0%, 
+                rgba(0,0,0,0.7) 40%, 
+                transparent 80%);
+            padding-top: 15px;
+            text-align: center;
+        }
+        
+        .fade-corner h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Bottom info (hidden in rack) */
+        .bottom-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        
+        .bottom-info .logo {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto 10px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+            filter: brightness(0) invert(1);
+        }
+        
+        .bottom-info p {
+            font-size: 11px;
+            line-height: 1.5;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .bottom-info .qr-code {
+            width: 50px;
+            height: 50px;
+            background: white;
+            margin: 10px auto 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            color: black;
+        }
+        
+        /* Rack line indicator */
+        .rack-line {
+            position: absolute;
+            top: 65%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ff0000;
+            opacity: 0.5;
+            z-index: 10;
+        }
+        
+        .rack-label {
+            position: absolute;
+            top: calc(65% + 5px);
+            right: 5px;
+            font-size: 10px;
+            color: #ff0000;
+            background: white;
+            padding: 2px 5px;
+            z-index: 10;
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">Black Fade Design - Title at Very Top</h1>
+    
+    <div class="grid">
+        <!-- Version 1: Strong top fade -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="fade-top">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <div class="logo"></div>
+                    <p>Professional Licensed Caregivers<br>Hotel Pickup Available<br>8:30 AM - 3:30 PM</p>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Strong gradient fade</p>
+        </div>
+        
+        <!-- Version 2: Full height fade -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="fade-full">
+                    <h1>Full Day<br>Kids Care</h1>
+                    <div>
+                        <p style="font-size: 11px; color: white; opacity: 0.9; margin-bottom: 10px;">Professional Licensed Caregivers<br>Hotel Pickup Available</p>
+                        <div class="qr-code">⬚</div>
+                    </div>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">Full height gradient</p>
+        </div>
+        
+        <!-- Version 3: Solid black bar -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="solid-top">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <p>Professional Licensed Caregivers<br>Ages 3-13 • Mon-Fri<br>WhatsApp: +66 98 912 4218</p>
+                </div>
+            </div>
+            <p class="image-label">Solid black bar</p>
+        </div>
+        
+        <!-- Version 4: Minimal fade -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="fade-minimal">
+                    <h1>Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">Subtle fade</p>
+        </div>
+        
+        <!-- Version 5: Corner fade effect -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="fade-corner">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <div class="logo"></div>
+                    <p>Beyond Hotel Kids Clubs</p>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Radial fade</p>
+        </div>
+        
+        <!-- Version 6: Extra bold title -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="fade-top" style="padding-top: 10px;">
+                    <h1 style="font-size: 28px;">Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <p>Trusted by Parents<br>Safe & Fun Environment</p>
+                    <div class="qr-code">⬚</div>
+                </div>
+            </div>
+            <p class="image-label">Extra large title</p>
+        </div>
+        
+        <!-- Version 7: Ultra minimal -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="fade-minimal" style="height: 80px; padding-top: 12px;">
+                    <h1 style="font-size: 20px;">Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">Ultra minimal</p>
+        </div>
+        
+        <!-- Version 8: Strong contrast -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="fade-top" style="background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.3) 80%, transparent 100%);">
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+                <div class="bottom-info">
+                    <p>8:30 AM - 3:30 PM<br>Monday - Friday</p>
+                </div>
+            </div>
+            <p class="image-label">High contrast</p>
+        </div>
+        
+        <!-- Version 9: Clean and simple -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing">
+                <div class="solid-top" style="background: rgba(0,0,0,0.85); padding: 12px 20px;">
+                    <h1 style="font-size: 24px;">Full Day Kids Care</h1>
+                </div>
+                <div class="rack-line"></div>
+                <div class="rack-label">Rack edge</div>
+            </div>
+            <p class="image-label">Clean & simple</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">Black Fade Strategy</h2>
+        <p style="line-height: 1.6; color: #666;">
+            <strong>Design benefits:</strong><br>
+            • Title pushed to very top for maximum visibility<br>
+            • Black fade/overlay ensures text readability<br>
+            • Kids playing image from 11-1 copy.jpg still visible<br>
+            • Hidden section below rack line for additional info<br><br>
+            
+            <strong>Variations include:</strong><br>
+            • Different gradient intensities<br>
+            • Solid vs. fade backgrounds<br>
+            • Various title sizes<br>
+            • Minimal to full information layouts
+        </p>
+    </div>
+</body>
+</html>

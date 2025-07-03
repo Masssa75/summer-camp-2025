@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Day Kids Care - Final Brochure Variations</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .brochure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+        
+        .brochure {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        
+        /* Ensure all hero images are properly sized and cropped */
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .version-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+            z-index: 100;
+            border-radius: 3px;
+        }
+        
+        /* Version 1: Clean top banner with QR */
+        .v1 .top-banner {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .v1 .left-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .v1 .logo {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 8px;
+        }
+        
+        .v1 .text-content h1 {
+            margin: 0;
+            font-size: 18px;
+            color: #2c5530;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .v1 .text-content .tagline {
+            color: #e65100;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        
+        .v1 .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 1;
+        }
+        
+        /* Version 2: Centered design with overlay */
+        .v2 {
+            position: relative;
+        }
+        
+        /* v2 .hero-image inherits from global .hero-image styles */
+        
+        .v2 .overlay-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .v2 .logo {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 10px;
+        }
+        
+        .v2 h1 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            color: #2c5530;
+            font-weight: 700;
+        }
+        
+        .v2 .tagline {
+            color: #e65100;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        /* Version 3: Split design */
+        .v3 {
+            display: flex;
+        }
+        
+        .v3 .left-panel {
+            width: 45%;
+            background: #2c5530;
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .v3 .logo {
+            width: 35px;
+            height: 35px;
+            margin-bottom: 10px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .v3 h1 {
+            font-size: 16px;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
+        }
+        
+        .v3 .tagline {
+            font-size: 10px;
+            color: #90ee90;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+        
+        .v3 .right-panel {
+            width: 55%;
+        }
+        
+        /* v3 .hero-image inherits from global .hero-image styles */
+        
+        /* Version 4: Bottom-heavy design */
+        .v4 .hero-image {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+        }
+        
+        .v4 .bottom-content {
+            height: 30%;
+            background: white;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .v4 .logo {
+            width: 35px;
+            height: 35px;
+            margin: 0 auto 8px;
+        }
+        
+        .v4 h1 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: #2c5530;
+            font-weight: 700;
+        }
+        
+        .v4 .tagline {
+            color: #e65100;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .v4 .qr-corner {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 8px;
+        }
+        
+        /* Version 5: Bold header strip */
+        .v5 .header-strip {
+            background: #e65100;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .v5 .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .v5 .logo {
+            width: 35px;
+            height: 35px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .v5 h1 {
+            font-size: 16px;
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .v5 .sub-strip {
+            background: #2c5530;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .v5 .hero-image {
+            width: 100%;
+            height: calc(100% - 90px);
+            object-fit: cover;
+        }
+        
+        .v5 .qr-floating {
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Version 6: Corner badge style */
+        .v6 {
+            position: relative;
+        }
+        
+        .v6 .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .v6 .corner-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            background: white;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+            padding: 15px;
+        }
+        
+        .v6 .logo {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 8px;
+        }
+        
+        .v6 h1 {
+            font-size: 14px;
+            color: #2c5530;
+            margin: 0 0 5px 0;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        
+        .v6 .tagline {
+            font-size: 9px;
+            color: #e65100;
+            font-weight: 600;
+        }
+        
+        .v6 .qr-opposite {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 5px;
+            border-radius: 8px;
+        }
+        
+        /* QR Code styles */
+        .qr-code {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        
+        .qr-code::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="10" y="10" width="30" height="30" fill="black"/><rect x="60" y="10" width="30" height="30" fill="black"/><rect x="10" y="60" width="30" height="30" fill="black"/><rect x="20" y="20" width="10" height="10" fill="white"/><rect x="70" y="20" width="10" height="10" fill="white"/><rect x="20" y="70" width="10" height="10" fill="white"/><rect x="45" y="10" width="10" height="10" fill="black"/><rect x="10" y="45" width="10" height="10" fill="black"/><rect x="45" y="45" width="10" height="10" fill="black"/><rect x="60" y="45" width="10" height="10" fill="black"/><rect x="75" y="45" width="10" height="10" fill="black"/><rect x="45" y="60" width="10" height="10" fill="black"/><rect x="45" y="75" width="10" height="10" fill="black"/><rect x="60" y="60" width="15" height="15" fill="black"/><rect x="80" y="70" width="10" height="20" fill="black"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+        
+        .qr-label {
+            font-size: 9px;
+            text-align: center;
+            margin-top: 3px;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        /* Visible fold line indicator */
+        .fold-line {
+            position: absolute;
+            top: 33%;
+            left: 0;
+            right: 0;
+            border-top: 2px dashed #ff0000;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        /* Logo */
+        .logo {
+            background: url('../public/references/Logo Only.png') no-repeat center;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 40px;">Full Day Kids Care - Final Brochure Designs</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 40px;">Using camp logo and actual images - Red line shows display stand visibility</p>
+        
+        <div class="brochure-grid">
+            <!-- Version 1: Clean top banner -->
+            <div class="brochure v1">
+                <div class="version-label">Version 1</div>
+                <div class="fold-line"></div>
+                <div class="top-banner">
+                    <div class="logo"></div>
+                    <div class="text-content">
+                        <h1>Full Day Kids Care</h1>
+                        <div class="tagline">Professional Licensed Caregivers</div>
+                    </div>
+                    <div class="qr-container">
+                        <div class="qr-code"></div>
+                        <div class="qr-label">LEARN MORE</div>
+                    </div>
+                </div>
+                <img src="../public/references/backgrounds/8.jpg" alt="Kids at camp" class="hero-image">
+            </div>
+            
+            <!-- Version 2: Centered overlay -->
+            <div class="brochure v2">
+                <div class="version-label">Version 2</div>
+                <div class="fold-line"></div>
+                <img src="../public/references/backgrounds/9.jpg" alt="Kids playing" class="hero-image">
+                <div class="overlay-content">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                    <div class="tagline">Professional Licensed Caregivers</div>
+                    <div class="qr-container">
+                        <div class="qr-code"></div>
+                        <div class="qr-label">REGISTER NOW</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Version 3: Split design -->
+            <div class="brochure v3">
+                <div class="version-label">Version 3</div>
+                <div class="fold-line"></div>
+                <div class="left-panel">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                    <div class="tagline">Professional Licensed Caregivers<br>Trusted by Parents</div>
+                    <div class="qr-container">
+                        <div class="qr-code" style="border-color: white;"></div>
+                        <div class="qr-label" style="color: white;">INFO & REGISTRATION</div>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <img src="../public/references/backgrounds/14.jpg" alt="Kids activities" class="hero-image">
+                </div>
+            </div>
+            
+            <!-- Version 4: Bottom-heavy -->
+            <div class="brochure v4">
+                <div class="version-label">Version 4</div>
+                <div class="fold-line"></div>
+                <img src="../public/references/backgrounds/8.jpg" alt="Kids at camp" class="hero-image">
+                <div class="qr-corner">
+                    <div class="qr-code"></div>
+                    <div class="qr-label">SCAN ME</div>
+                </div>
+                <div class="bottom-content">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                    <div class="tagline">Professional Licensed Caregivers</div>
+                </div>
+            </div>
+            
+            <!-- Version 5: Bold header -->
+            <div class="brochure v5">
+                <div class="version-label">Version 5</div>
+                <div class="fold-line"></div>
+                <div class="header-strip">
+                    <div class="header-content">
+                        <div class="logo"></div>
+                        <h1>FULL DAY KIDS CARE</h1>
+                    </div>
+                </div>
+                <div class="sub-strip">Professional Licensed Caregivers</div>
+                <img src="../public/references/backgrounds/9.jpg" alt="Kids playing" class="hero-image">
+                <div class="qr-floating">
+                    <div class="qr-code"></div>
+                    <div class="qr-label">MORE INFO</div>
+                </div>
+            </div>
+            
+            <!-- Version 6: Corner badge -->
+            <div class="brochure v6">
+                <div class="version-label">Version 6</div>
+                <div class="fold-line"></div>
+                <img src="../public/references/backgrounds/14.jpg" alt="Kids activities" class="hero-image">
+                <div class="corner-content">
+                    <div class="logo"></div>
+                    <h1>Full Day<br>Kids Care</h1>
+                    <div class="tagline">Professional<br>Licensed Caregivers</div>
+                </div>
+                <div class="qr-opposite">
+                    <div class="qr-code"></div>
+                    <div class="qr-label">REGISTER</div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: white; border-radius: 8px;">
+            <h2>Design Features:</h2>
+            <ul>
+                <li>All designs ensure key information (logo, title, professional caregivers message) is in the top 1/3 for display stand visibility</li>
+                <li>QR codes are prominently placed and easily scannable</li>
+                <li>Uses actual camp photos showing children engaged in activities</li>
+                <li>Consistent use of brand colors (green #2c5530 and orange #e65100)</li>
+                <li>Clear hierarchy of information with professional caregivers message prominent</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

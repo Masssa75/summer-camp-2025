@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Brochure - Top Placement Designs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cover-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover {
+            width: 198px;
+            height: 420px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Version 1: Clean white bar at top */
+        .top-bar-clean {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .top-bar-clean .logo {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 10px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+        }
+        
+        .top-bar-clean h1 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #7a9a3b;
+            line-height: 1.2;
+        }
+        
+        /* Version 2: With professional tagline */
+        .top-bar-pro {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .top-bar-pro .logo {
+            width: 35px;
+            height: 35px;
+            margin: 0 auto 8px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+        }
+        
+        .top-bar-pro h1 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #7a9a3b;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+        
+        .top-bar-pro .tagline {
+            font-size: 11px;
+            color: #666;
+            font-weight: normal;
+        }
+        
+        /* Version 3: Dark overlay at top */
+        .top-dark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.6) 70%, transparent);
+            color: white;
+            padding: 20px 15px 40px;
+            text-align: center;
+        }
+        
+        .top-dark .logo {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 10px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+            filter: brightness(0) invert(1);
+        }
+        
+        .top-dark h1 {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Version 4: Green brand bar */
+        .top-green {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(122, 154, 59, 0.95);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        
+        .top-green .logo {
+            width: 35px;
+            height: 35px;
+            margin: 0 auto 8px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+            filter: brightness(0) invert(1);
+        }
+        
+        .top-green h1 {
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+        
+        .top-green .tagline {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+        
+        /* Version 5: Minimal with key info */
+        .top-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .top-info .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .top-info .logo {
+            width: 30px;
+            height: 30px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+        }
+        
+        .top-info h1 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #7a9a3b;
+        }
+        
+        .top-info .details {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .image-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        /* Simulated rack coverage */
+        .rack-cover {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255,0,0,0.1),
+                rgba(255,0,0,0.1) 10px,
+                rgba(255,0,0,0.05) 10px,
+                rgba(255,0,0,0.05) 20px
+            );
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff0000;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 30px;">Top Placement Designs - Visible in Brochure Racks</h1>
+    
+    <div class="grid">
+        <!-- Version 1: Simple & Clean -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/10.jpg" alt="Caregiver with kids">
+                <div class="top-bar-clean">
+                    <div class="logo"></div>
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">Clean & Simple</p>
+        </div>
+        
+        <!-- Version 2: With Professional Tagline -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/13.jpg" alt="Caregiver with kids">
+                <div class="top-bar-pro">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Professional caregivers</p>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">With tagline</p>
+        </div>
+        
+        <!-- Version 3: Dark Overlay -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/15.jpg" alt="Caregiver with kids">
+                <div class="top-dark">
+                    <div class="logo"></div>
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">Dark gradient top</p>
+        </div>
+        
+        <!-- Version 4: Green Brand Color -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/4.jpg" alt="Caregiver with kids">
+                <div class="top-green">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Qualified teachers • Safe environment</p>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">Brand color header</p>
+        </div>
+        
+        <!-- Version 5: Horizontal Layout -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/20.jpg" alt="Caregiver with kids">
+                <div class="top-info">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <h1>Full Day Kids Care</h1>
+                    </div>
+                    <p class="details">Professional caregivers • 8:30-3:30</p>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">Compact with info</p>
+        </div>
+        
+        <!-- Version 6: Bold & Simple -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/11-1.jpg" alt="Caregiver with kids">
+                <div class="top-bar-clean">
+                    <div class="logo"></div>
+                    <h1>Full Day<br>Kids Care</h1>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">Maximum visibility</p>
+        </div>
+        
+        <!-- Version 7: Trust Building -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/16.jpg" alt="Caregiver with kids">
+                <div class="top-bar-pro">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Trusted by hotel families</p>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">Trust message</p>
+        </div>
+        
+        <!-- Version 8: Feature Focus -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/19.jpg" alt="Caregiver with kids">
+                <div class="top-green">
+                    <div class="logo"></div>
+                    <h1>Full Day Kids Care</h1>
+                    <p class="tagline">Hotel pickup • Lunch included</p>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">Key features</p>
+        </div>
+        
+        <!-- Version 9: Premium Feel -->
+        <div class="cover-wrapper">
+            <div class="cover">
+                <img src="../References/img/14.jpg" alt="Caregiver with kids">
+                <div class="top-info">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <h1>Full Day Kids Care</h1>
+                    </div>
+                    <p class="details">Beyond hotel kids clubs</p>
+                </div>
+                <div class="rack-cover">Hidden in rack</div>
+            </div>
+            <p class="image-label">Premium positioning</p>
+        </div>
+    </div>
+    
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px;">
+        <h2 style="color: #7a9a3b; margin-bottom: 15px;">Top Placement Strategy</h2>
+        <p style="line-height: 1.6; color: #666;">
+            <strong>Why top placement matters:</strong><br>
+            • Bottom 1/3 often hidden in brochure racks<br>
+            • Logo and title need to be immediately visible<br>
+            • Key trust messages should be at eye level<br><br>
+            
+            <strong>Tagline options included:</strong><br>
+            • "Professional caregivers"<br>
+            • "Qualified teachers • Safe environment"<br>
+            • "Trusted by hotel families"<br>
+            • "Hotel pickup • Lunch included"<br>
+            • "Beyond hotel kids clubs"
+        </p>
+    </div>
+</body>
+</html>
