@@ -89,62 +89,40 @@
             color: white;
             padding: 15px;
             display: flex;
-            align-items: stretch;
+            align-items: center;
             justify-content: space-between;
             gap: 10px;
         }
         
-        .text-content {
+        .left-container {
             flex: 1;
             text-align: left;
-            padding-right: 10px;
         }
         
-        .text-content .title {
+        .left-container .title {
             font-weight: bold;
             font-size: 11px;
             margin-bottom: 6px;
             color: white;
         }
         
-        .text-content .activities {
+        .left-container .activities {
             font-size: 9px;
             line-height: 1.4;
             color: rgba(255,255,255,0.9);
         }
         
-        .text-content .activities div {
+        .left-container .activities div {
             margin-bottom: 2px;
         }
         
-        .qr-section {
+        .right-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 5px 0;
+            justify-content: center;
         }
         
-        .qr-section img {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            display: block;
-        }
-        
-        .pickup-text {
-            font-size: 10px;
-            color: white;
-            text-align: center;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-        
-        .pickup-text .icon {
-            font-size: 16px;
-            display: block;
-            margin-bottom: 2px;
-        }
         
         .qr-code {
             width: 40px;
@@ -395,7 +373,7 @@
                     <h1>Full Day<br>Child Care</h1>
                 </div>
                 <div class="bottom-section">
-                    <div class="text-content">
+                    <div class="left-container">
                         <div class="title">Licensed Kindergarten & Caregivers</div>
                         <div class="activities">
                             <div>Animal Care</div>
@@ -403,15 +381,15 @@
                             <div>Nature & Farm Activities</div>
                         </div>
                     </div>
-                    <div class="qr-section">
-                        <div class="pickup-text" style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
-                            <span class="icon" style="font-size: 16px;">🚐</span>
-                            <div style="text-align: left; line-height: 1.2;">
-                                <div style="font-size: 9px;">Incl.</div>
-                                <div style="font-size: 9px;">Pickup</div>
+                    <div class="right-container">
+                        <div class="pickup-info" style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px;">
+                            <span style="font-size: 16px;">🚐</span>
+                            <div style="font-size: 9px; line-height: 1.2;">
+                                <div>Incl.</div>
+                                <div>Pickup</div>
                             </div>
                         </div>
-                        <img src="../References/QR Daycare.jpg" alt="QR Code">
+                        <img src="../References/QR Daycare.jpg" alt="QR Code" style="width: 70px; height: 70px;">
                     </div>
                 </div>
             </div>

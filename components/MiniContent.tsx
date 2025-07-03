@@ -449,6 +449,7 @@ export default function MiniContent() {
               ) : timetable.length > 0 ? (
                 <div className="schedule-grid">
                   <div className="time-column">
+                    <div className="time-header"></div>
                     {timetable.map(slot => (
                       <div key={slot.id} className="time-slot">{slot.time}</div>
                     ))}
