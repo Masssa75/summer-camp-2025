@@ -37,13 +37,17 @@ You have COMPLETE autonomous control:
 - ✅ Can run ANY Supabase CLI command
 - ✅ Can modify schema, RLS policies, functions
 - ✅ Can access service role for admin operations
-```bash
-# If not installed:
-npm install -g supabase
+- ✅ Can run migrations autonomously via Management API
 
-# You can do:
-npx supabase db push
-npx supabase db execute --sql "YOUR SQL"
+```bash
+# Run migrations without database password:
+npm run db:migrate supabase/migrations/your_migration.sql
+
+# Example:
+npm run db:migrate supabase/migrations/20241103_create_camp_settings.sql
+
+# Verify tables:
+node scripts/verify-camp-settings.js
 ```
 
 **Netlify**:

@@ -12,7 +12,8 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "auto-update": "node scripts/auto-update.js",
-    "dev-auto": "concurrently \"npm run dev\" \"npm run auto-update\""
+    "dev-auto": "concurrently \"npm run dev\" \"npm run auto-update\"",
+    "db:migrate": "node scripts/run-supabase-migration.js"
   },
   "dependencies": {
     "@supabase/ssr": "^0.6.1",

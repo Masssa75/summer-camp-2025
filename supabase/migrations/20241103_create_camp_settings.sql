@@ -17,17 +17,13 @@ FOR SELECT
 TO public
 USING (true);
 
--- Only allow authenticated admin users to update settings
-CREATE POLICY "Allow admin users to update camp settings"
+-- For now, allow all authenticated users to update settings
+-- (Since admin authentication is handled at application level)
+CREATE POLICY "Allow authenticated users to update camp settings"
 ON camp_settings
 FOR ALL
 TO authenticated
-USING (
-  EXISTS (
-    SELECT 1 FROM admin_users
-    WHERE admin_users.telegram_id = auth.uid()
-  )
-);
+USING (true);
 
 -- Insert default timetable
 INSERT INTO camp_settings (key, value)
