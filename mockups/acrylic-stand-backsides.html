@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acrylic Stand A6 - Backside Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .acrylic-stand {
+            /* A6: 105 x 148mm, using 2x scale for better viewing */
+            width: 210px;
+            height: 296px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Option 1: Daily Schedule */
+        .option1 {
+            background: #fef9f3;
+            padding: 20px 15px;
+            height: 100%;
+            font-family: "Comic Sans MS", cursive;
+        }
+        
+        .option1 h2 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d4380d;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed #f5ede5;
+            font-size: 11px;
+        }
+        
+        .schedule-time {
+            font-weight: bold;
+            color: #d4380d;
+            min-width: 50px;
+        }
+        
+        .schedule-activity {
+            flex: 1;
+            color: #666;
+        }
+        
+        /* Option 2: Contact Card Style */
+        .option2 {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 25px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+        }
+        
+        .option2 .logo-large {
+            width: 80px;
+            height: 80px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+            margin-bottom: 10px;
+        }
+        
+        .option2 h3 {
+            font-size: 18px;
+            color: #2d3436;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info {
+            font-size: 12px;
+            line-height: 1.8;
+            color: #2d3436;
+        }
+        
+        .contact-info div {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        /* Option 3: What Makes Us Special */
+        .option3 {
+            background: linear-gradient(to bottom, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 20px;
+            height: 100%;
+        }
+        
+        .option3 h2 {
+            font-size: 18px;
+            color: #2e7d32;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .special-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 10px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .special-icon {
+            font-size: 20px;
+        }
+        
+        .special-text {
+            flex: 1;
+        }
+        
+        .special-title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 2px;
+        }
+        
+        .special-desc {
+            color: #666;
+            font-size: 9px;
+        }
+        
+        /* Option 4: Pricing & Packages */
+        .option4 {
+            background: #f3e5f5;
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .option4 h2 {
+            font-size: 18px;
+            color: #6a1b9a;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .price-box {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .price-title {
+            font-size: 12px;
+            color: #6a1b9a;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .price-amount {
+            font-size: 16px;
+            color: #4a148c;
+            font-weight: bold;
+        }
+        
+        .price-detail {
+            font-size: 9px;
+            color: #999;
+            margin-top: 3px;
+        }
+        
+        .bottom-note {
+            margin-top: auto;
+            text-align: center;
+            font-size: 9px;
+            color: #666;
+            padding-top: 10px;
+        }
+        
+        /* Option 5: Photo Collage */
+        .option5 {
+            background: #fff3e0;
+            padding: 15px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .option5 h2 {
+            font-size: 16px;
+            color: #e65100;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .photo-placeholder {
+            background: #ffccbc;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #bf360c;
+            text-align: center;
+            padding: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .photo-placeholder::after {
+            content: "📸";
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.2;
+        }
+        
+        .bottom-tagline {
+            text-align: center;
+            font-size: 11px;
+            color: #e65100;
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+        }
+        
+        .version-label {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="margin-bottom: 30px; color: #333;">Backside Design Options for A6 Acrylic Stand</h1>
+    
+    <div class="container">
+        <!-- Option 1: Daily Schedule -->
+        <div>
+            <div class="acrylic-stand">
+                <div class="option1">
+                    <h2>Our Fun Day! 🌟</h2>
+                    <div class="schedule-item">
+                        <span class="schedule-time">9:00</span>
+                        <span class="schedule-activity">Morning Circle Time</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">10:00</span>
+                        <span class="schedule-activity">Snack & Play</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">10:30</span>
+                        <span class="schedule-activity">Animal Care & Garden</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">11:30</span>
+                        <span class="schedule-activity">Story Time</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">11:45</span>
+                        <span class="schedule-activity">Organic Lunch</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">12:30</span>
+                        <span class="schedule-activity">Nap/Quiet Time</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">13:30</span>
+                        <span class="schedule-activity">Art & Crafts</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-time">14:30</span>
+                        <span class="schedule-activity">Afternoon Snack</span>
+                    </div>
+                    <div class="schedule-item" style="border-bottom: none;">
+                        <span class="schedule-time">15:00</span>
+                        <span class="schedule-activity">Home Time!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="version-label">Option 1: Daily Schedule</div>
+        </div>
+        
+        <!-- Option 2: Contact Card -->
+        <div>
+            <div class="acrylic-stand">
+                <div class="option2">
+                    <div>
+                        <div class="logo-large"></div>
+                        <h3>The Waldorf Phuket</h3>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div>
+                            <span>📍</span>
+                            <span>Phuket, Thailand</span>
+                        </div>
+                        <div>
+                            <span>📞</span>
+                            <span>+66 98 912 4218</span>
+                        </div>
+                        <div>
+                            <span>🌐</span>
+                            <span>waldorfphuket.com</span>
+                        </div>
+                        <div>
+                            <span>📧</span>
+                            <span>info@waldorfphuket.com</span>
+                        </div>
+                        <div>
+                            <span>⏰</span>
+                            <span>Mon-Fri 9am-3pm</span>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 10px; color: #636e72; margin-top: 10px;">
+                        Licensed Kindergarten #34/2568
+                    </div>
+                </div>
+            </div>
+            <div class="version-label">Option 2: Contact Information</div>
+        </div>
+        
+        <!-- Option 3: What Makes Us Special -->
+        <div>
+            <div class="acrylic-stand">
+                <div class="option3">
+                    <h2>What Makes Us Special</h2>
+                    
+                    <div class="special-item">
+                        <div class="special-icon">👩‍🏫</div>
+                        <div class="special-text">
+                            <div class="special-title">Licensed Teachers</div>
+                            <div class="special-desc">Waldorf-certified educators</div>
+                        </div>
+                    </div>
+                    
+                    <div class="special-item">
+                        <div class="special-icon">🌿</div>
+                        <div class="special-text">
+                            <div class="special-title">Nature-Based</div>
+                            <div class="special-desc">2 acres of gardens & animals</div>
+                        </div>
+                    </div>
+                    
+                    <div class="special-item">
+                        <div class="special-icon">🥗</div>
+                        <div class="special-text">
+                            <div class="special-title">Organic Meals</div>
+                            <div class="special-desc">Farm-to-table daily lunch</div>
+                        </div>
+                    </div>
+                    
+                    <div class="special-item">
+                        <div class="special-icon">📵</div>
+                        <div class="special-text">
+                            <div class="special-title">Screen-Free</div>
+                            <div class="special-desc">Hands-on learning only</div>
+                        </div>
+                    </div>
+                    
+                    <div class="special-item">
+                        <div class="special-icon">👦👧</div>
+                        <div class="special-text">
+                            <div class="special-title">Small Groups</div>
+                            <div class="special-desc">Max 15 children</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="version-label">Option 3: Our Special Features</div>
+        </div>
+        
+        <!-- Option 4: Pricing -->
+        <div>
+            <div class="acrylic-stand">
+                <div class="option4">
+                    <h2>Simple Pricing</h2>
+                    
+                    <div class="price-box">
+                        <div class="price-title">Daily Rate</div>
+                        <div class="price-amount">฿2,900</div>
+                        <div class="price-detail">9am - 3pm</div>
+                    </div>
+                    
+                    <div class="price-box">
+                        <div class="price-title">Weekly Package</div>
+                        <div class="price-amount">฿13,000</div>
+                        <div class="price-detail">Save ฿1,500!</div>
+                    </div>
+                    
+                    <div class="price-box">
+                        <div class="price-title">Monthly Pass</div>
+                        <div class="price-amount">฿48,000</div>
+                        <div class="price-detail">Best value!</div>
+                    </div>
+                    
+                    <div class="bottom-note">
+                        ✨ All inclusive pricing ✨<br>
+                        Lunch, snacks, materials & activities<br>
+                        No hidden fees!
+                    </div>
+                </div>
+            </div>
+            <div class="version-label">Option 4: Pricing Information</div>
+        </div>
+        
+        <!-- Option 5: Photo Memories -->
+        <div>
+            <div class="acrylic-stand">
+                <div class="option5">
+                    <h2>Happy Memories Every Day! 📸</h2>
+                    
+                    <div class="photo-grid">
+                        <div class="photo-placeholder">
+                            Animal<br>Friends
+                        </div>
+                        <div class="photo-placeholder">
+                            Garden<br>Adventures
+                        </div>
+                        <div class="photo-placeholder">
+                            Art &<br>Creativity
+                        </div>
+                        <div class="photo-placeholder">
+                            Outdoor<br>Play
+                        </div>
+                    </div>
+                    
+                    <div class="bottom-tagline">
+                        Join our loving community!<br>
+                        Where children bloom naturally 🌻
+                    </div>
+                </div>
+            </div>
+            <div class="version-label">Option 5: Photo Showcase</div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; font-size: 14px; color: #666; margin-top: 20px;">
+        <p><strong>A6 Acrylic Stand - Backside Options</strong></p>
+        <p>Actual size: 105 x 148mm (Displayed at 2x for preview)</p>
+    </div>
+</body>
+</html>

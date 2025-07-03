@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tent Card Display - Full Day Child Care</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* Common tent card sizes: A5 portrait (148mm x 210mm) or similar */
+        .tent-card {
+            width: 148mm;
+            height: 210mm;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .top-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.95) 0%, 
+                rgba(0,0,0,0.85) 50%, 
+                rgba(0,0,0,0.5) 85%, 
+                transparent 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .top-section h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            line-height: 1.1;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .bottom-section {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 35%;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            .tent-card {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tent-card">
+        <img src="../References/img/11-1 copy.jpg" alt="Kids playing" class="cover-image">
+        
+        <div class="top-section">
+            <h1>Full Day Child Care</h1>
+        </div>
+        
+        <div class="bottom-section">
+            <!-- Left side: Text -->
+            <div style="flex: 1;">
+                <div style="font-weight: bold; font-size: 14px; margin-bottom: 8px;">
+                    Licensed Kindergarten & Caregivers
+                </div>
+                <div style="font-size: 11px; line-height: 1.5; color: rgba(255,255,255,0.9);">
+                    <div>Animal Care</div>
+                    <div>Organic Cooking</div>
+                    <div>Nature & Farm Activities</div>
+                </div>
+            </div>
+            
+            <!-- Right side: QR Code with pickup info -->
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 11px;">
+                    <span style="font-size: 18px;">🚐</span>
+                    <div style="line-height: 1.2;">
+                        <div>Incl.</div>
+                        <div>Pickup</div>
+                    </div>
+                </div>
+                <img src="../References/QR Daycare.jpg" alt="QR Code" style="width: 80px; height: 80px; object-fit: contain;">
+            </div>
+        </div>
+    </div>
+    
+    <p style="margin-top: 20px; color: #666; font-size: 14px;">
+        Display Card for Acrylic Stand Holder - A5 Portrait (148mm x 210mm)
+    </p>
+</body>
+</html>

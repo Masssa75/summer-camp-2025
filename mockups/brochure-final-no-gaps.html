@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brochure Final - No Gaps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .brochure-container {
+            display: flex;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .panel {
+            width: 198px;
+            height: 420px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Back panel styles */
+        .back-panel {
+            background: #5a7a2b;
+            color: white;
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            height: 100%;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 12px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+            filter: brightness(0) invert(1);
+        }
+        
+        /* Image panel styles */
+        .image-panel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            text-align: center;
+        }
+        
+        .image-caption h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .image-caption p {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+        
+        /* Cover styles */
+        .cover {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .top-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 130px;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.95) 0%, 
+                rgba(0,0,0,0.85) 50%, 
+                rgba(0,0,0,0.5) 85%, 
+                transparent 100%);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 20px;
+        }
+        
+        .top-section h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            line-height: 1.1;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .bottom-section {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="brochure-container">
+        <!-- Panel 1: Back Cover -->
+        <div class="panel">
+            <div class="back-panel">
+                <div>
+                    <div class="logo"></div>
+                    <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 6px; line-height: 1.2;">
+                        Full Day<br>Child Care
+                    </h2>
+                    <p style="font-size: 11px; opacity: 0.9;">Licensed Kindergarten & Caregivers</p>
+                </div>
+                
+                <div style="font-size: 10px; line-height: 1.6; margin: 15px 0;">
+                    <div>Phuket, Thailand</div>
+                    <div>+66 98 912 4218</div>
+                    <div>Mon-Fri 9am-3pm</div>
+                    <div>Ages 3-13</div>
+                </div>
+                
+                <div style="width: 100%; text-align: center; margin-top: auto;">
+                    <p style="font-size: 13px; font-weight: bold; margin: 0;">phuketsummercamp.com</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Panel 2: Beautiful Image -->
+        <div class="panel">
+            <div class="image-panel">
+                <img src="../References/img/Photoshopped/IMG_5996.JPG" alt="Children playing">
+                <div class="image-caption">
+                    <h3>Real Adventures</h3>
+                    <p>Every day is a new discovery</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Panel 3: Front Cover -->
+        <div class="panel">
+            <div class="cover">
+                <img src="../References/img/11-1 copy.jpg" alt="Kids playing" class="cover-image">
+                
+                <div class="top-section">
+                    <h1>Full Day<br>Child Care</h1>
+                </div>
+                
+                <div class="bottom-section">
+                    <!-- Left side: Text -->
+                    <div style="flex: 1;">
+                        <div style="font-weight: bold; font-size: 11px; margin-bottom: 6px;">
+                            Licensed Kindergarten & Caregivers
+                        </div>
+                        <div style="font-size: 9px; line-height: 1.4; color: rgba(255,255,255,0.9);">
+                            <div>Animal Care</div>
+                            <div>Organic Cooking</div>
+                            <div>Nature & Farm Activities</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right side: QR Code -->
+                    <div style="display: flex; align-items: center;">
+                        <img src="../References/QR Daycare.jpg" alt="QR Code" style="width: 70px; height: 70px; object-fit: contain;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Label for inside panels -->
+    <div style="text-align: center; margin: 40px 0 20px; font-size: 14px; color: #666; font-weight: bold;">
+        INSIDE (Visible when opened)
+    </div>
+    
+    <!-- Inside panels -->
+    <div class="brochure-container">
+        <!-- Panel 4: Daily Schedule -->
+        <div class="panel">
+            <div style="background: #fef9f3; padding: 20px 15px; height: 100%;">
+                <h2 style="font-size: 20px; font-weight: bold; color: #4a6a3b; text-align: center; margin-bottom: 15px;">
+                    A Day With Us
+                </h2>
+                
+                <div style="font-size: 11px;">
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5ede5;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">9:00</span>
+                        <span style="flex: 1; color: #333;">Welcome & Morning Circle</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5ede5;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">10:00</span>
+                        <span style="flex: 1; color: #333;">Free Play & Snack</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5ede5;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">10:30</span>
+                        <span style="flex: 1; color: #333;">Outdoor Play, Animals & Garden</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5ede5;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">11:30</span>
+                        <span style="flex: 1; color: #333;">Story Time</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5ede5;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">11:45</span>
+                        <span style="flex: 1; color: #333;">Lunch, Dishes & Brush Teeth</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5ede5;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">12:30</span>
+                        <span style="flex: 1; color: #333;">Nap/Quiet Time</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5ede5;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">13:30</span>
+                        <span style="flex: 1; color: #333;">Craft Activity</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5ede5;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">14:30</span>
+                        <span style="flex: 1; color: #333;">Free Play & Snack</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                        <span style="font-weight: bold; color: #4a6a3b; min-width: 60px;">15:00</span>
+                        <span style="flex: 1; color: #333;">Pickup Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Panel 5: What's Included & Info -->
+        <div class="panel">
+            <div style="background: #e8f5e9; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="font-size: 14px; font-weight: bold; color: #4a6a3b; margin-bottom: 8px;">What's Included</h3>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; color: #666;">
+                                <span style="font-size: 14px;">🥗</span>
+                                <span>Organic lunch (farm-grown)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; color: #666;">
+                                <span style="font-size: 14px;">🎨</span>
+                                <span>All materials & supplies</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; color: #666;">
+                                <span style="font-size: 14px;">👩‍🏫</span>
+                                <span>Licensed caregivers</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; color: #666;">
+                                <span style="font-size: 14px;">📸</span>
+                                <span>Daily photo updates</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="font-size: 14px; font-weight: bold; color: #4a6a3b; margin-bottom: 8px;">Why Choose Us?</h3>
+                        <p style="font-size: 10px; line-height: 1.5; color: #666;">
+                            • Small groups (max 15 kids)<br>
+                            • Waldorf-inspired approach<br>
+                            • Beautiful farm location<br>
+                            • Screen-free environment<br>
+                            • Bilingual staff
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="background: white; padding: 8px; border-radius: 8px;">
+                        <p style="font-size: 14px; color: #5a7a2b; font-weight: bold; margin: 0;">
+                            ฿2,900 per day
+                        </p>
+                        <p style="font-size: 12px; color: #5a7a2b; margin: 0;">
+                            5 weekdays: ฿13,000
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Panel 6: Another Beautiful Image -->
+        <div class="panel">
+            <div class="image-panel">
+                <img src="../References/img/Photoshopped/PANA8828.jpg" alt="Happy children">
+                <div class="image-caption">
+                    <h3>Happy Kids</h3>
+                    <p>Making memories that last</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
