@@ -24,7 +24,7 @@ export default function MiniContent() {
 
   const fetchTimetable = async () => {
     try {
-      const response = await fetch('/api/timetable')
+      const response = await fetch('/api/timetable?type=mini')
       if (response.ok) {
         const { timetable } = await response.json()
         if (timetable) {

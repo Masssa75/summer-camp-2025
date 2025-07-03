@@ -1,14 +1,18 @@
 import { createClient } from '@/utils/supabase/server'
-import { NextResponse } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const supabase = createClient()
+    const searchParams = request.nextUrl.searchParams
+    const type = searchParams.get('type') || 'mini'
+    
+    const key = type === 'explorer' ? 'explorer_timetable' : 'mini_timetable'
     
     const { data, error } = await supabase
       .from('camp_settings')
       .select('value')
-      .eq('key', 'timetable')
+      .eq('key', key)
       .single()
 
     if (error) {

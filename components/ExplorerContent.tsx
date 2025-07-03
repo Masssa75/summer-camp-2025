@@ -1,6 +1,63 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import PhotoCarousel from '@/components/PhotoCarousel'
 
+interface TimeSlot {
+  id: string
+  time: string
+  monday: string
+  tuesday: string
+  wednesday: string
+  thursday: string
+  friday: string
+}
+
 export default function ExplorerContent() {
+  const [timetable, setTimetable] = useState<TimeSlot[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchTimetable()
+  }, [])
+
+  const fetchTimetable = async () => {
+    try {
+      const response = await fetch('/api/timetable?type=explorer')
+      if (response.ok) {
+        const { timetable } = await response.json()
+        if (timetable) {
+          setTimetable(timetable)
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching timetable:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const getActivityClass = (activity: string) => {
+    const activityLower = activity.toLowerCase()
+    if (activityLower.includes('arrival') || activityLower.includes('departure')) return 'arrival'
+    if (activityLower.includes('snack') || activityLower.includes('break')) return 'snack'
+    if (activityLower.includes('lunch')) return 'lunch'
+    if (activityLower.includes('rest') || activityLower.includes('quiet')) return 'rest'
+    if (activityLower.includes('stem')) return 'stem'
+    if (activityLower.includes('sport') || activityLower.includes('swim')) return 'outdoor'
+    if (activityLower.includes('art') || activityLower.includes('craft')) return 'art'
+    if (activityLower.includes('drama') || activityLower.includes('theatre')) return 'drama'
+    if (activityLower.includes('science') || activityLower.includes('lab')) return 'science'
+    if (activityLower.includes('tech') || activityLower.includes('coding')) return 'tech'
+    if (activityLower.includes('music') || activityLower.includes('dance')) return 'music'
+    if (activityLower.includes('nature') || activityLower.includes('environmental')) return 'nature'
+    if (activityLower.includes('team') || activityLower.includes('challenge')) return 'challenge'
+    if (activityLower.includes('adventure')) return 'adventure'
+    if (activityLower.includes('creative') || activityLower.includes('workshop')) return 'creative'
+    if (activityLower.includes('showcase') || activityLower.includes('celebration')) return 'celebration'
+    if (activityLower.includes('reflection') || activityLower.includes('circle')) return 'review'
+    return ''
+  }
   return (
     <>
       {/* Slide 20: For Our Growing Adventurers */}
@@ -411,79 +468,101 @@ export default function ExplorerContent() {
           <div className="centered-content">
             <h2 className="section-title-white">Summer Camp Schedule - Explorers (Ages 7-13)</h2>
             <div className="schedule-container">
-              <div className="schedule-grid">
-                <div className="time-column">
-                  <div className="time-slot">8:45 - 9:15</div>
-                  <div className="time-slot">9:15 - 11:00</div>
-                  <div className="time-slot">11:00 - 11:30</div>
-                  <div className="time-slot">11:30 - 12:30</div>
-                  <div className="time-slot">12:30 - 1:30</div>
-                  <div className="time-slot">1:30 - 3:00</div>
-                  <div className="time-slot">3:00 - 3:30</div>
-                  <div className="time-slot">3:30 - 4:30</div>
-                  <div className="time-slot">4:30 - 5:00</div>
+              {loading ? (
+                <div className="schedule-loading">Loading schedule...</div>
+              ) : timetable.length > 0 ? (
+                <div className="schedule-grid">
+                  <div className="time-column">
+                    {timetable.map(slot => (
+                      <div key={slot.id} className="time-slot">{slot.time}</div>
+                    ))}
+                  </div>
+                  {['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].map(day => (
+                    <div key={day} className="day-column">
+                      <div className="day-header">{day.charAt(0).toUpperCase() + day.slice(1)}</div>
+                      {timetable.map(slot => (
+                        <div key={slot.id} className={`activity ${getActivityClass(slot[day as keyof TimeSlot] as string)}`}>
+                          {slot[day as keyof TimeSlot]}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-                <div className="day-column">
-                  <div className="day-header">Monday</div>
-                  <div className="activity arrival">Morning Circle</div>
-                  <div className="activity cooking">Thai Cooking</div>
-                  <div className="activity snack">Morning Break</div>
-                  <div className="activity outdoor">Beach Adventures</div>
-                  <div className="activity lunch">Lunch</div>
-                  <div className="activity handwork">Bushcraft Skills</div>
-                  <div className="activity snack">Afternoon Break</div>
-                  <div className="activity art">Art & Reflection</div>
-                  <div className="activity departure">Departure</div>
+              ) : (
+                <div className="schedule-grid">
+                  <div className="time-column">
+                    <div className="time-slot">8:00 - 8:45</div>
+                    <div className="time-slot">8:45 - 10:15</div>
+                    <div className="time-slot">10:15 - 10:45</div>
+                    <div className="time-slot">10:45 - 12:00</div>
+                    <div className="time-slot">12:00 - 1:00</div>
+                    <div className="time-slot">1:00 - 2:00</div>
+                    <div className="time-slot">2:00 - 3:30</div>
+                    <div className="time-slot">3:30 - 4:00</div>
+                    <div className="time-slot">4:00 - 4:30</div>
+                  </div>
+                  <div className="day-column">
+                    <div className="day-header">Monday</div>
+                    <div className="activity arrival">Arrival & Morning Circle</div>
+                    <div className="activity stem">STEM Activities</div>
+                    <div className="activity snack">Morning Snack</div>
+                    <div className="activity adventure">Adventure Activities</div>
+                    <div className="activity lunch">Lunch</div>
+                    <div className="activity rest">Quiet Time/Reading</div>
+                    <div className="activity creative">Creative Workshop</div>
+                    <div className="activity snack">Afternoon Snack</div>
+                    <div className="activity departure">Reflection & Departure</div>
+                  </div>
+                  <div className="day-column">
+                    <div className="day-header">Tuesday</div>
+                    <div className="activity arrival">Arrival & Morning Circle</div>
+                    <div className="activity art">Arts & Crafts</div>
+                    <div className="activity snack">Morning Snack</div>
+                    <div className="activity drama">Drama & Theatre</div>
+                    <div className="activity lunch">Lunch</div>
+                    <div className="activity rest">Quiet Time/Reading</div>
+                    <div className="activity science">Science Lab</div>
+                    <div className="activity snack">Afternoon Snack</div>
+                    <div className="activity departure">Reflection & Departure</div>
+                  </div>
+                  <div className="day-column">
+                    <div className="day-header">Wednesday</div>
+                    <div className="activity arrival">Arrival & Morning Circle</div>
+                    <div className="activity outdoor">Sports & Games</div>
+                    <div className="activity snack">Morning Snack</div>
+                    <div className="activity outdoor">Swimming</div>
+                    <div className="activity lunch">Lunch</div>
+                    <div className="activity rest">Quiet Time/Reading</div>
+                    <div className="activity music">Music & Dance</div>
+                    <div className="activity snack">Afternoon Snack</div>
+                    <div className="activity departure">Reflection & Departure</div>
+                  </div>
+                  <div className="day-column">
+                    <div className="day-header">Thursday</div>
+                    <div className="activity arrival">Arrival & Morning Circle</div>
+                    <div className="activity nature">Nature Exploration</div>
+                    <div className="activity snack">Morning Snack</div>
+                    <div className="activity tech">Coding & Tech</div>
+                    <div className="activity lunch">Lunch</div>
+                    <div className="activity rest">Quiet Time/Reading</div>
+                    <div className="activity nature">Environmental Project</div>
+                    <div className="activity snack">Afternoon Snack</div>
+                    <div className="activity departure">Reflection & Departure</div>
+                  </div>
+                  <div className="day-column">
+                    <div className="day-header">Friday</div>
+                    <div className="activity arrival">Arrival & Morning Circle</div>
+                    <div className="activity challenge">Weekly Challenge</div>
+                    <div className="activity snack">Morning Snack</div>
+                    <div className="activity challenge">Team Building</div>
+                    <div className="activity lunch">Lunch</div>
+                    <div className="activity rest">Quiet Time/Reading</div>
+                    <div className="activity celebration">Showcase Prep</div>
+                    <div className="activity snack">Afternoon Snack</div>
+                    <div className="activity departure">Reflection & Departure</div>
+                  </div>
                 </div>
-                <div className="day-column">
-                  <div className="day-header">Tuesday</div>
-                  <div className="activity arrival">Morning Circle</div>
-                  <div className="activity nature">Field Trip</div>
-                  <div className="activity snack">Travel Break</div>
-                  <div className="activity garden">Exploration</div>
-                  <div className="activity lunch">Lunch</div>
-                  <div className="activity movement">Muay Thai</div>
-                  <div className="activity snack">Afternoon Break</div>
-                  <div className="activity story">Stories & Songs</div>
-                  <div className="activity departure">Departure</div>
-                </div>
-                <div className="day-column">
-                  <div className="day-header">Wednesday</div>
-                  <div className="activity arrival">Morning Circle</div>
-                  <div className="activity handwork">Handcrafts</div>
-                  <div className="activity snack">Morning Break</div>
-                  <div className="activity animals">Nature Connection</div>
-                  <div className="activity lunch">Lunch</div>
-                  <div className="activity outdoor">Team Challenges</div>
-                  <div className="activity snack">Afternoon Break</div>
-                  <div className="activity puppet">Creative Expression</div>
-                  <div className="activity departure">Departure</div>
-                </div>
-                <div className="day-column">
-                  <div className="day-header">Thursday</div>
-                  <div className="activity arrival">Morning Circle</div>
-                  <div className="activity art">Artistic Immersion</div>
-                  <div className="activity snack">Morning Break</div>
-                  <div className="activity movement">Sports & Games</div>
-                  <div className="activity lunch">Lunch</div>
-                  <div className="activity sensory">Discovery Projects</div>
-                  <div className="activity snack">Afternoon Break</div>
-                  <div className="activity review">Reflection Circle</div>
-                  <div className="activity departure">Departure</div>
-                </div>
-                <div className="day-column">
-                  <div className="day-header">Friday</div>
-                  <div className="activity arrival">Morning Circle</div>
-                  <div className="activity celebration">Adventure Day</div>
-                  <div className="activity snack">Adventure Break</div>
-                  <div className="activity free">Exploration</div>
-                  <div className="activity lunch">Lunch</div>
-                  <div className="activity outdoor">Celebration Prep</div>
-                  <div className="activity snack">Afternoon Break</div>
-                  <div className="activity review">Week Celebration</div>
-                  <div className="activity departure">Departure</div>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

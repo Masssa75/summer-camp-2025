@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { Save, Edit2, X, Check } from 'lucide-react'
+import { Save, Edit2, X, Check, Users, Baby } from 'lucide-react'
 
 interface TimeSlot {
   id: string
@@ -14,7 +14,7 @@ interface TimeSlot {
   friday: string
 }
 
-const defaultTimetable: TimeSlot[] = [
+const defaultMiniTimetable: TimeSlot[] = [
   { id: '1', time: '8:15 - 9:00', monday: 'Arrival & Free Play', tuesday: 'Arrival & Free Play', wednesday: 'Arrival & Free Play', thursday: 'Arrival & Free Play', friday: 'Arrival & Free Play' },
   { id: '2', time: '9:00 - 10:30', monday: 'Handwork & Crafts', tuesday: 'Cooking & Baking', wednesday: 'Animal Care', thursday: 'Sensory Play', friday: 'Weekly Celebration' },
   { id: '3', time: '10:30 - 11:00', monday: 'Morning Snack', tuesday: 'Morning Snack', wednesday: 'Morning Snack', thursday: 'Morning Snack', friday: 'Morning Snack' },
@@ -26,34 +26,55 @@ const defaultTimetable: TimeSlot[] = [
   { id: '9', time: '4:00 - 4:30', monday: 'Departure', tuesday: 'Departure', wednesday: 'Departure', thursday: 'Departure', friday: 'Departure' }
 ]
 
+const defaultExplorerTimetable: TimeSlot[] = [
+  { id: '1', time: '8:00 - 8:45', monday: 'Arrival & Morning Circle', tuesday: 'Arrival & Morning Circle', wednesday: 'Arrival & Morning Circle', thursday: 'Arrival & Morning Circle', friday: 'Arrival & Morning Circle' },
+  { id: '2', time: '8:45 - 10:15', monday: 'STEM Activities', tuesday: 'Arts & Crafts', wednesday: 'Sports & Games', thursday: 'Nature Exploration', friday: 'Weekly Challenge' },
+  { id: '3', time: '10:15 - 10:45', monday: 'Morning Snack', tuesday: 'Morning Snack', wednesday: 'Morning Snack', thursday: 'Morning Snack', friday: 'Morning Snack' },
+  { id: '4', time: '10:45 - 12:00', monday: 'Adventure Activities', tuesday: 'Drama & Theatre', wednesday: 'Swimming', thursday: 'Coding & Tech', friday: 'Team Building' },
+  { id: '5', time: '12:00 - 1:00', monday: 'Lunch', tuesday: 'Lunch', wednesday: 'Lunch', thursday: 'Lunch', friday: 'Lunch' },
+  { id: '6', time: '1:00 - 2:00', monday: 'Quiet Time/Reading', tuesday: 'Quiet Time/Reading', wednesday: 'Quiet Time/Reading', thursday: 'Quiet Time/Reading', friday: 'Quiet Time/Reading' },
+  { id: '7', time: '2:00 - 3:30', monday: 'Creative Workshop', tuesday: 'Science Lab', wednesday: 'Music & Dance', thursday: 'Environmental Project', friday: 'Showcase Prep' },
+  { id: '8', time: '3:30 - 4:00', monday: 'Afternoon Snack', tuesday: 'Afternoon Snack', wednesday: 'Afternoon Snack', thursday: 'Afternoon Snack', friday: 'Afternoon Snack' },
+  { id: '9', time: '4:00 - 4:30', monday: 'Reflection & Departure', tuesday: 'Reflection & Departure', wednesday: 'Reflection & Departure', thursday: 'Reflection & Departure', friday: 'Reflection & Departure' }
+]
+
 export default function EditableTimetable() {
-  const [timetable, setTimetable] = useState<TimeSlot[]>(defaultTimetable)
+  const [activeTab, setActiveTab] = useState<'mini' | 'explorer'>('mini')
+  const [miniTimetable, setMiniTimetable] = useState<TimeSlot[]>(defaultMiniTimetable)
+  const [explorerTimetable, setExplorerTimetable] = useState<TimeSlot[]>(defaultExplorerTimetable)
   const [editingCell, setEditingCell] = useState<{ row: string, day: string } | null>(null)
   const [editValue, setEditValue] = useState('')
   const [saving, setSaving] = useState(false)
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
   const supabase = createClient()
 
-  // Load timetable from database
+  // Load timetables from database
   useEffect(() => {
-    loadTimetable()
+    loadTimetables()
   }, [])
 
-  const loadTimetable = async () => {
+  const loadTimetables = async () => {
     try {
-      const { data, error } = await supabase
+      // Load mini timetable
+      const { data: miniData, error: miniError } = await supabase
         .from('camp_settings')
         .select('value')
-        .eq('key', 'timetable')
+        .eq('key', 'mini_timetable')
         .single()
 
-      if (error) {
-        console.error('Error loading timetable:', error)
-        return
+      if (!miniError && miniData?.value) {
+        setMiniTimetable(miniData.value)
       }
 
-      if (data?.value) {
-        setTimetable(data.value)
+      // Load explorer timetable
+      const { data: explorerData, error: explorerError } = await supabase
+        .from('camp_settings')
+        .select('value')
+        .eq('key', 'explorer_timetable')
+        .single()
+
+      if (!explorerError && explorerData?.value) {
+        setExplorerTimetable(explorerData.value)
       }
     } catch (error) {
       console.error('Error:', error)
@@ -63,11 +84,14 @@ export default function EditableTimetable() {
   const saveTimetable = async () => {
     setSaving(true)
     try {
+      const currentTimetable = activeTab === 'mini' ? miniTimetable : explorerTimetable
+      const key = activeTab === 'mini' ? 'mini_timetable' : 'explorer_timetable'
+      
       const { error } = await supabase
         .from('camp_settings')
         .upsert({
-          key: 'timetable',
-          value: timetable,
+          key,
+          value: currentTimetable,
           updated_at: new Date().toISOString()
         })
 
@@ -98,14 +122,20 @@ export default function EditableTimetable() {
   const saveCell = () => {
     if (!editingCell) return
 
-    const updatedTimetable = timetable.map(slot => {
+    const currentTimetable = activeTab === 'mini' ? miniTimetable : explorerTimetable
+    const updatedTimetable = currentTimetable.map(slot => {
       if (slot.id === editingCell.row) {
         return { ...slot, [editingCell.day]: editValue }
       }
       return slot
     })
 
-    setTimetable(updatedTimetable)
+    if (activeTab === 'mini') {
+      setMiniTimetable(updatedTimetable)
+    } else {
+      setExplorerTimetable(updatedTimetable)
+    }
+    
     setEditingCell(null)
     setEditValue('')
   }
@@ -114,10 +144,12 @@ export default function EditableTimetable() {
     return editingCell?.row === rowId && editingCell?.day === day
   }
 
+  const currentTimetable = activeTab === 'mini' ? miniTimetable : explorerTimetable
+
   return (
     <div className="timetable-container">
       <div className="timetable-header">
-        <h2>Summer Camp Timetable</h2>
+        <h2>Summer Camp Timetables</h2>
         <div className="timetable-actions">
           {lastSaved && (
             <span className="last-saved">
@@ -135,6 +167,23 @@ export default function EditableTimetable() {
         </div>
       </div>
 
+      <div className="tab-container">
+        <button
+          className={`tab-button ${activeTab === 'mini' ? 'active' : ''}`}
+          onClick={() => setActiveTab('mini')}
+        >
+          <Baby size={18} />
+          Mini Camp (Ages 3-6)
+        </button>
+        <button
+          className={`tab-button ${activeTab === 'explorer' ? 'active' : ''}`}
+          onClick={() => setActiveTab('explorer')}
+        >
+          <Users size={18} />
+          Explorer Camp (Ages 7-13)
+        </button>
+      </div>
+
       <div className="timetable-wrapper">
         <table className="editable-timetable">
           <thead>
@@ -148,7 +197,7 @@ export default function EditableTimetable() {
             </tr>
           </thead>
           <tbody>
-            {timetable.map(slot => (
+            {currentTimetable.map(slot => (
               <tr key={slot.id}>
                 <td className="time-cell">{slot.time}</td>
                 {['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].map(day => (
@@ -198,6 +247,40 @@ export default function EditableTimetable() {
           padding: 24px;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
           margin-bottom: 32px;
+        }
+
+        .tab-container {
+          display: flex;
+          gap: 8px;
+          margin-bottom: 24px;
+          border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-button {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 20px;
+          background: none;
+          border: none;
+          border-bottom: 3px solid transparent;
+          color: #666;
+          font-size: 15px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+          margin-bottom: -2px;
+        }
+
+        .tab-button:hover {
+          color: #333;
+          background: #f5f5f5;
+        }
+
+        .tab-button.active {
+          color: #2c5530;
+          border-bottom-color: #2c5530;
+          background: #f0f7f0;
         }
 
         .timetable-header {

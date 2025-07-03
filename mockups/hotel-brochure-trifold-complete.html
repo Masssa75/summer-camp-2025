@@ -87,11 +87,11 @@
             height: 120px;
             background: rgba(0,0,0,0.9);
             color: white;
-            padding: 20px;
+            padding: 15px;
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: space-between;
-            gap: 15px;
+            gap: 10px;
         }
         
         .text-content {
@@ -118,14 +118,32 @@
         }
         
         .qr-section {
-            position: relative;
-            width: 70px;
-            height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 0;
         }
         
         .qr-section img {
             width: 70px;
             height: 70px;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .pickup-text {
+            font-size: 10px;
+            color: white;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .pickup-text .icon {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 2px;
         }
         
         .qr-code {
@@ -386,8 +404,12 @@
                         </div>
                     </div>
                     <div class="qr-section">
-                        <div style="font-size: 9px; color: white; margin-bottom: 6px; text-align: center;">
-                            <span style="font-size: 11px;">🚐</span> Pickup Included
+                        <div class="pickup-text" style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
+                            <span class="icon" style="font-size: 16px;">🚐</span>
+                            <div style="text-align: left; line-height: 1.2;">
+                                <div style="font-size: 9px;">Incl.</div>
+                                <div style="font-size: 9px;">Pickup</div>
+                            </div>
                         </div>
                         <img src="../References/QR Daycare.jpg" alt="QR Code">
                     </div>
