@@ -39,16 +39,29 @@ You have COMPLETE autonomous control:
 - ✅ Can access service role for admin operations
 - ✅ Can run migrations autonomously via Management API
 
+### 🔥 Database Migration System (NO PASSWORDS NEEDED!)
+
+We have a custom migration system that uses the Supabase Management API. You can run migrations without database passwords!
+
 ```bash
-# Run migrations without database password:
+# Run any migration file:
 npm run db:migrate supabase/migrations/your_migration.sql
 
-# Example:
+# Example - already run but showing syntax:
 npm run db:migrate supabase/migrations/20241103_create_camp_settings.sql
 
-# Verify tables:
+# Verify tables exist:
 node scripts/verify-camp-settings.js
+
+# Create new migration:
+1. Create file: supabase/migrations/YYYYMMDD_description.sql
+2. Write your SQL (CREATE TABLE, policies, etc.)
+3. Run it: npm run db:migrate supabase/migrations/YYYYMMDD_description.sql
 ```
+
+**How it works**: The `scripts/run-supabase-migration.js` uses the `SUPABASE_ACCESS_TOKEN` from `.env.local` to execute SQL via the Management API. No database password needed!
+
+**If migration fails**: The script will show the error and provide a direct link to run it manually in the Supabase dashboard.
 
 **Netlify**:
 - ✅ Full deployment access
@@ -103,6 +116,8 @@ When you need detailed information, check these files:
 - **WhatsApp integration** - Click-to-chat functionality
 - **Admin Dashboard** - View registrations at /admin (Telegram or test login)
 - **Test Admin Authentication** - Password-based login for AI testing (password: test123)
+- **Editable Timetable** - Admins can edit the camp schedule in the dashboard, changes reflect on public site
+- **Telegram Notifications** - Admins receive instant notifications for new registrations
 
 ### 🚧 Partially Implemented
 - **Supabase integration** - Database schema created but no backend API endpoints yet
@@ -125,6 +140,12 @@ When you need detailed information, check these files:
 - **weeks_selected** - PostgreSQL array field storing week numbers (1-7)
 - **Storage buckets** - 'registration-documents' bucket must have public access for passport uploads
 - **Boolean fields** - has_insurance, photo_permission, terms_acknowledged, all_statements_true
+
+### Database Tables
+- **registrations** - Main table for camp registrations (parent + child info)
+- **admin_users** - Stores authorized Telegram users for admin access
+- **admin_notifications** - Tracks notifications sent to admins
+- **camp_settings** - Key-value store for camp configuration (includes editable timetable)
 
 ### Authentication
 - **Public registration** - No login required for parents to register
