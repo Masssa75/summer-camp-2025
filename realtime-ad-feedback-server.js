@@ -91,7 +91,7 @@ app.post('/api/feedback/message', async (req, res) => {
 });
 
 // WebSocket server
-const wss = new WebSocket.Server({ port: 9055 });
+const wss = new WebSocket.Server({ port: 7778 });
 
 const clients = new Set();
 
@@ -128,7 +128,7 @@ function broadcast(data) {
 loadInitialData().then(() => {
     app.listen(port, () => {
         console.log(`Feedback server running at http://localhost:${port}`);
-        console.log(`WebSocket server running on port 9055`);
+        console.log(`WebSocket server running on port 7778`);
         console.log('\nTo use:');
         console.log('1. Open interactive-ad-selector-realtime.html in your browser');
         console.log('2. I can poll the /api/feedback endpoint to see your selections');
