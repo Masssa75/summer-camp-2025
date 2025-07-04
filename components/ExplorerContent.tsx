@@ -474,7 +474,7 @@ export default function ExplorerContent() {
               ) : timetable.length > 0 ? (
                 <div className="schedule-grid">
                   <div className="time-column">
-                    <div className="time-header"></div>
+                    <div className="time-header">&nbsp;</div>
                     {timetable.map(slot => (
                       <div key={slot.id} className="time-slot">{slot.time}</div>
                     ))}
@@ -493,7 +493,7 @@ export default function ExplorerContent() {
               ) : (
                 <div className="schedule-grid">
                   <div className="time-column">
-                    <div className="time-header"></div>
+                    <div className="time-header">&nbsp;</div>
                     <div className="time-slot">8:00 - 8:45</div>
                     <div className="time-slot">8:45 - 10:15</div>
                     <div className="time-slot">10:15 - 10:45</div>

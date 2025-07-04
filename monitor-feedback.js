@@ -72,7 +72,7 @@ ws.on('close', () => {
 
 // Also poll REST API periodically for full state
 function checkFullState() {
-    http.get('http://localhost:3001/api/feedback', (res) => {
+    http.get('http://localhost:8080/api/feedback', (res) => {
         let data = '';
         res.on('data', chunk => data += chunk);
         res.on('end', () => {

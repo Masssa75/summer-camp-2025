@@ -450,7 +450,7 @@ export default function MiniContent() {
               ) : timetable.length > 0 ? (
                 <div className="schedule-grid">
                   <div className="time-column">
-                    <div className="time-header"></div>
+                    <div className="time-header">&nbsp;</div>
                     {timetable.map(slot => (
                       <div key={slot.id} className="time-slot">{slot.time}</div>
                     ))}
@@ -469,7 +469,7 @@ export default function MiniContent() {
               ) : (
                 <div className="schedule-grid">
                   <div className="time-column">
-                    <div className="time-header"></div>
+                    <div className="time-header">&nbsp;</div>
                     <div className="time-slot">8:15 - 9:00</div>
                     <div className="time-slot">9:00 - 10:30</div>
                     <div className="time-slot">10:30 - 11:00</div>
