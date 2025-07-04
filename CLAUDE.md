@@ -206,17 +206,37 @@ All sensitive values are stored in `.env` file (never commit this!)
 ## Quick Commands
 
 ```bash
-# Check deployment
-node scripts/check-deployment.js
+# Test with Playwright (headless)
+npx playwright test
 
-# Test with Playwright
+# Test with Playwright (headed - see browser)
 npx playwright test --headed
 
 # Run Supabase migrations
-npx supabase db push
+npm run db:migrate supabase/migrations/your_migration.sql
 
 # Check TypeScript
 npx tsc --noEmit
+
+# Build locally
+npm run build
+
+# Check Netlify deployment status (requires NETLIFY_AUTH_TOKEN)
+export NETLIFY_AUTH_TOKEN=nfp_fi8Q61oLAnGC7pRXPYnCYECz71Gh2QHW9c70
+curl -s -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" "https://api.netlify.com/api/v1/sites/9720022b-8cdc-44ac-a855-5ec15dd6746b/deploys?per_page=1" | jq '.[0] | {state: .state, created_at: .created_at}'
+```
+
+### Headless Browser Testing Pattern
+When testing deployed changes, always use this pattern:
+```javascript
+const { chromium } = require('playwright');
+(async () => {
+  const browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.goto('https://phuketsummercamp.com', { waitUntil: 'networkidle' });
+  // Your test code here
+  await browser.close();
+})();
 ```
 
 ---
@@ -264,27 +284,36 @@ npx tsc --noEmit
 
 ## Session Handoff Notes
 
-### Recent Changes (2025-07-02)
-1. **Multi-child registration** - Replaced individual child forms with a single form that allows adding multiple children
-2. **Fixed build errors** - Removed unused ExplorerRegistrationForm and MiniRegistrationForm components
-3. **UI improvements**:
-   - Schedule tables now have larger fonts (1.1rem) and pastel colors
-   - Registration form layout adjusted (nationality/school fields left, English slider right)
-   - All content images are now expandable on click
-4. **Database updates** - Added has_insurance and all_statements_true boolean fields
+### Recent Changes (2025-07-04)
+1. **Fixed schedule grid alignment issues**:
+   - Added ScheduleGridAdjuster component for dynamic row height adjustment
+   - Fixed TypeScript errors with proper type assertions
+   - Added non-breaking space (`&nbsp;`) to empty time-header cells
+   - Increased min-height to 70px for both time-header and day-header cells
+   - All header cells now align perfectly at 70px height
+
+2. **Marketing materials created**:
+   - Trifold brochure with sunny yellow design
+   - A6 acrylic stand cards (front and back designs)
+   - Multiple color variations for marketing materials
+   - Set up redirect from /daycare to home page
+
+3. **Build and deployment fixes**:
+   - Resolved TypeScript compilation errors in ScheduleGridAdjuster
+   - Fixed Netlify deployment failures
+   - Verified deployments using Netlify API
 
 ### Known Issues
 - No email notifications after registration
 - No payment processing integration
-- No admin dashboard to view registrations
 - Registration success only shows on frontend, no email confirmation
 
 ### Next Priorities
 1. Set up email notifications using Supabase Edge Functions or external service
 2. Add payment gateway integration (consider local Thai payment options)
-3. Create admin dashboard for registration management
-4. Add proper error handling and loading states
-5. Implement registration confirmation/status page
+3. Add proper error handling and loading states
+4. Implement registration confirmation/status page
+5. Test all functionality with headless browser automation
 
 ---
 
