@@ -663,6 +663,16 @@ p {
   font-size: 1.2rem;
 }
 
+.time-header {
+  padding: 15px 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  background: #c5d9c0;
+}
+
 .activity {
   color: #333;
   font-size: 1.05rem;
