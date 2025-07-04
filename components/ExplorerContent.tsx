@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import PhotoCarousel from '@/components/PhotoCarousel'
+import ScheduleGridAdjuster from '@/components/ScheduleGridAdjuster'
 
 interface TimeSlot {
   id: string
@@ -565,6 +566,7 @@ export default function ExplorerContent() {
                   </div>
                 </div>
               )}
+              <ScheduleGridAdjuster />
             </div>
           </div>
         </div>

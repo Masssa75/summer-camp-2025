@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import ExpandableImage from '@/components/ExpandableImage'
+import ScheduleGridAdjuster from '@/components/ScheduleGridAdjuster'
 
 interface TimeSlot {
   id: string
@@ -541,6 +542,7 @@ export default function MiniContent() {
                   </div>
                 </div>
               )}
+              <ScheduleGridAdjuster />
             </div>
           </div>
         </div>
