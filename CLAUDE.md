@@ -285,3 +285,44 @@ npx tsc --noEmit
 3. Create admin dashboard for registration management
 4. Add proper error handling and loading states
 5. Implement registration confirmation/status page
+
+---
+
+## Facebook/Instagram Ads Tools & Learnings
+
+### Recent Session (2025-07-04)
+Created interactive tools for Facebook/Instagram ad copy testing and refinement:
+
+#### Ad Copy Testing Tools Created:
+1. **phuket-camp-ad-options.html** - Initial catalog of 30 ad variations
+   - Categories: Luxury/Relaxation, Educational, Summer Camp, Problem/Solution
+   - Structured format: Primary Text, Headline, Description
+
+2. **ad-feedback-standalone.html** - Interactive feedback tool (Round 1)
+   - Delete functionality (ads disappear when deleted)
+   - Comment bubbles for specific feedback
+   - Export functionality to share feedback data
+   - LocalStorage persistence for saving progress
+
+3. **ad-feedback-round2.html** - Refined feedback tool (Round 2)
+   - 20 new ads based on Round 1 feedback
+   - Focus shift to "holiday childcare for vacationing parents"
+   - Added overall feedback section
+   - Categories: Holiday, Direct, Freedom
+
+#### Key Learnings from Ad Testing:
+- **What didn't work**: Educational content, complex messaging, "enrichment" focus
+- **What worked**: Simple summer camp angle, direct benefits, problem/solution format
+- **Critical insight**: Focus on "parents who want a holiday with full day child care" not just camp
+- **Winning message**: Full day childcare (8am-5pm) that lets parents enjoy their vacation
+
+#### Abandoned Technical Experiments:
+- **WebSocket server** (realtime-ad-feedback-server.js) - Too complex for simple feedback
+- **AI auto-responder** (ai-auto-responder.js) - Not needed for this use case
+- **Continuous monitor** (ai-continuous-monitor.js) - Overkill for feedback collection
+
+#### Facebook Ads Strategy:
+- Start with engagement campaign ($10/day) to build social proof
+- Target affluent parents with children 3-6 who can afford $500/week
+- Use text-only ads initially (expert recommendation)
+- Test different angles through multiple ad variations
