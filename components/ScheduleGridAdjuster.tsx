@@ -38,6 +38,9 @@ export default function ScheduleGridAdjuster() {
           if (height > maxHeight) maxHeight = height
         })
         
+        // Round up to nearest pixel to avoid sub-pixel differences
+        maxHeight = Math.ceil(maxHeight)
+        
         // Apply max height to all cells in row
         rowCells.forEach(cell => {
           cell.style.height = `${maxHeight}px`

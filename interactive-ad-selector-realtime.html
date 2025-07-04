@@ -207,7 +207,31 @@
         }
         
         .ad-card.deleted {
-            opacity: 0.3;
+            opacity: 0.5;
+            position: relative;
+        }
+        
+        .ad-card.deleted::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,0,0,0.1) 10px,
+                rgba(255,0,0,0.1) 20px
+            );
+            pointer-events: none;
+        }
+        
+        .ad-card.deleted .ad-text,
+        .ad-card.deleted .ad-headline {
+            text-decoration: line-through;
+            opacity: 0.7;
         }
         
         .ad-id {
@@ -333,6 +357,10 @@
                     <div style="font-size: 14px; color: #65676b;">Selected</div>
                 </div>
                 <div class="stat">
+                    <div class="stat-number" id="deletedCount">0</div>
+                    <div style="font-size: 14px; color: #65676b;">Deleted</div>
+                </div>
+                <div class="stat">
                     <div class="stat-number" id="feedbackCount">0</div>
                     <div style="font-size: 14px; color: #65676b;">Feedback</div>
                 </div>
@@ -353,6 +381,7 @@
             <button class="filter-btn" data-filter="camp">🏕️ Camp (5)</button>
             <button class="filter-btn" data-filter="problem">❓ Problem (5)</button>
             <button class="filter-btn" data-filter="selected">✅ Selected</button>
+            <button class="filter-btn" data-filter="deleted">🗑️ Deleted</button>
         </div>
         
         <div class="ads-grid" id="adsContainer">
@@ -437,8 +466,9 @@
             { id: 30, category: 'educational', text: "January-July 2025 dates available...", headline: "Limited Spots", description: "Reserve now" }
         ];
         
-        // Track selections
+        // Track selections and deletions
         let selections = new Map();
+        let deletions = new Map();
         
         // Connect WebSocket
         function connectWebSocket() {
