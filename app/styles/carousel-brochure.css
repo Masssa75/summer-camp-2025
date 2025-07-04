@@ -664,6 +664,7 @@ p {
   color: #2d4a2b;
   font-weight: 700;
   font-size: 1.2rem;
+  min-height: 70px;
 }
 
 .time-header {
@@ -672,7 +673,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 60px;
+  min-height: 70px;
   background: #c5d9c0;
 }
 
