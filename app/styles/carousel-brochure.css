@@ -604,8 +604,7 @@ p {
 }
 
 .schedule-grid {
-  display: grid;
-  grid-template-columns: 140px repeat(5, 1fr);
+  display: flex;
   gap: 3px;
   min-height: 700px;
   min-width: 1000px;
@@ -613,32 +612,27 @@ p {
 
 .time-column,
 .day-column {
-  display: contents;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-/* Time slots styling */
-.time-header,
-.time-slot {
+.time-column {
+  min-width: 140px;
+  width: 140px;
   background: #e8f0e5;
+  border-radius: 12px 0 0 12px;
+  flex-shrink: 0;
 }
 
-/* First column border radius */
-.time-header:first-child,
-.time-column > .time-slot:first-of-type {
-  border-radius: 12px 0 0 0;
+.day-column {
+  flex: 1;
+  min-width: 160px;
+  flex-shrink: 0;
 }
 
-.time-column > .time-slot:last-of-type {
-  border-radius: 0 0 0 12px;
-}
-
-/* Last column border radius */
-.day-column:last-child > .day-header {
-  border-radius: 0 12px 0 0;
-}
-
-.day-column:last-child > .activity:last-child {
-  border-radius: 0 0 12px 0;
+.day-column:last-child {
+  border-radius: 0 10px 10px 0;
 }
 
 .time-slot,
@@ -655,6 +649,7 @@ p {
   min-height: 60px;
   word-wrap: break-word;
   white-space: normal;
+  flex: 1;
 }
 
 .time-slot {
