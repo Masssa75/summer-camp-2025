@@ -72,12 +72,20 @@ export default function ScheduleGridAdjuster() {
     }
 
     // Run on mount and window resize
-    adjustRowHeights()
+    // Add a small delay to ensure DOM is fully rendered
+    setTimeout(adjustRowHeights, 100)
+    
+    // Also run after a longer delay to catch any late-loading content
+    setTimeout(adjustRowHeights, 500)
+    setTimeout(adjustRowHeights, 1000)
+    
     window.addEventListener('resize', adjustRowHeights)
     
     // Also run when fonts load
     if (document.fonts) {
-      document.fonts.ready.then(adjustRowHeights)
+      document.fonts.ready.then(() => {
+        setTimeout(adjustRowHeights, 100)
+      })
     }
 
     return () => {

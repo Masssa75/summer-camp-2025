@@ -4,7 +4,7 @@ const http = require('http');
 console.log('🚀 Starting feedback monitor...\n');
 
 // Connect to WebSocket
-const ws = new WebSocket('ws://localhost:3002');
+const ws = new WebSocket('ws://localhost:9055');
 
 // Track feedback
 let lastUpdate = null;

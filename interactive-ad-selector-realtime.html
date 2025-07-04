@@ -430,7 +430,7 @@
         let ws;
         let reconnectInterval;
         const API_URL = 'http://localhost:3001/api';
-        const WS_URL = 'ws://localhost:3002';
+        const WS_URL = 'ws://localhost:9055';
         
         // Ad data (simplified for realtime demo)
         const ads = [
@@ -528,9 +528,15 @@
             container.innerHTML = '';
             
             const filtered = ads.filter(ad => {
+                // Show only deleted ads when viewing deleted filter
+                if (filter === 'deleted') return deletions.has(ad.id);
+                
+                // Hide deleted ads from all other views
+                if (deletions.has(ad.id)) return false;
+                
+                // Normal filtering
                 if (filter === 'all') return true;
                 if (filter === 'selected') return selections.has(ad.id);
-                if (filter === 'deleted') return deletions.has(ad.id);
                 return ad.category === filter;
             });
             

@@ -10,6 +10,14 @@ const port = 3001;
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// Enable CORS for the frontend
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    next();
+});
+
 // Store feedback in memory (could use a database in production)
 let feedbackData = {
     ads: [],
@@ -83,7 +91,7 @@ app.post('/api/feedback/message', async (req, res) => {
 });
 
 // WebSocket server
-const wss = new WebSocket.Server({ port: 3002 });
+const wss = new WebSocket.Server({ port: 9055 });
 
 const clients = new Set();
 
@@ -120,7 +128,7 @@ function broadcast(data) {
 loadInitialData().then(() => {
     app.listen(port, () => {
         console.log(`Feedback server running at http://localhost:${port}`);
-        console.log(`WebSocket server running on port 3002`);
+        console.log(`WebSocket server running on port 9055`);
         console.log('\nTo use:');
         console.log('1. Open interactive-ad-selector-realtime.html in your browser');
         console.log('2. I can poll the /api/feedback endpoint to see your selections');
