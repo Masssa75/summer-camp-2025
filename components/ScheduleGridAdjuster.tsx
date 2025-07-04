@@ -13,6 +13,29 @@ export default function ScheduleGridAdjuster() {
       
       if (!timeColumn || dayColumns.length === 0) return
 
+      // First, adjust header row
+      const timeHeader = timeColumn.querySelector('.time-header')
+      const dayHeaders = Array.from(dayColumns).map(col => col.querySelector('.day-header')).filter(Boolean)
+      
+      if (timeHeader && dayHeaders.length > 0) {
+        // Find max header height
+        let maxHeaderHeight = 0
+        const headerCells = [timeHeader, ...dayHeaders]
+        
+        headerCells.forEach(cell => {
+          cell.style.height = 'auto'
+          const height = cell.getBoundingClientRect().height
+          if (height > maxHeaderHeight) maxHeaderHeight = height
+        })
+        
+        maxHeaderHeight = Math.ceil(maxHeaderHeight)
+        
+        // Apply to all headers
+        headerCells.forEach(cell => {
+          cell.style.height = `${maxHeaderHeight}px`
+        })
+      }
+
       // Get all rows (skip header row)
       const rowCount = timeColumn.querySelectorAll('.time-slot').length
       
