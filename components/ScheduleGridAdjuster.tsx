@@ -15,12 +15,14 @@ export default function ScheduleGridAdjuster() {
 
       // First, adjust header row
       const timeHeader = timeColumn.querySelector('.time-header')
-      const dayHeaders = Array.from(dayColumns).map(col => col.querySelector('.day-header')).filter(Boolean)
+      const dayHeaders = Array.from(dayColumns)
+        .map(col => col.querySelector('.day-header'))
+        .filter((header): header is HTMLElement => header !== null)
       
       if (timeHeader && dayHeaders.length > 0) {
         // Find max header height
         let maxHeaderHeight = 0
-        const headerCells = [timeHeader, ...dayHeaders]
+        const headerCells: HTMLElement[] = [timeHeader as HTMLElement, ...dayHeaders]
         
         headerCells.forEach(cell => {
           cell.style.height = 'auto'
@@ -41,16 +43,16 @@ export default function ScheduleGridAdjuster() {
       
       for (let i = 0; i < rowCount; i++) {
         // Get all cells in this row
-        const rowCells = []
+        const rowCells: HTMLElement[] = []
         
         // Add time slot
         const timeSlot = timeColumn.children[i + 1] // +1 to skip header
-        if (timeSlot) rowCells.push(timeSlot)
+        if (timeSlot instanceof HTMLElement) rowCells.push(timeSlot)
         
         // Add activity cells from each day
         dayColumns.forEach(column => {
           const cell = column.children[i + 1] // +1 to skip header
-          if (cell) rowCells.push(cell)
+          if (cell instanceof HTMLElement) rowCells.push(cell)
         })
         
         // Find max height in this row
