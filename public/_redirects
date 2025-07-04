@@ -1,3 +1,0 @@
-# Redirect /daycare to home page
-/daycare              /                   301
-/daycare/*            /                   301
