@@ -468,6 +468,7 @@ export default function MiniContent() {
               ) : (
                 <div className="schedule-grid">
                   <div className="time-column">
+                    <div className="time-header"></div>
                     <div className="time-slot">8:15 - 9:00</div>
                     <div className="time-slot">9:00 - 10:30</div>
                     <div className="time-slot">10:30 - 11:00</div>
