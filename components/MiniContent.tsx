@@ -535,7 +535,7 @@ export default function MiniContent() {
                     <div className="activity free">Free Choice Activities</div>
                     <div className="activity lunch">Lunch</div>
                     <div className="activity rest">Rest Time</div>
-                    <div className="activity review">Week Review & Sharing</div>
+                    <div className="activity review">Week Review</div>
                     <div className="activity snack">Afternoon Snack</div>
                     <div className="activity departure">Departure</div>
                   </div>

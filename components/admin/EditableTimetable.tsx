@@ -21,7 +21,7 @@ const defaultMiniTimetable: TimeSlot[] = [
   { id: '4', time: '11:00 - 12:00', monday: 'Outdoor Play', tuesday: 'Nature Walk', wednesday: 'Garden Work', thursday: 'Outdoor Adventures', friday: 'Free Choice Activities' },
   { id: '5', time: '12:00 - 1:00', monday: 'Lunch', tuesday: 'Lunch', wednesday: 'Lunch', thursday: 'Lunch', friday: 'Lunch' },
   { id: '6', time: '1:00 - 2:00', monday: 'Rest Time', tuesday: 'Rest Time', wednesday: 'Rest Time', thursday: 'Rest Time', friday: 'Rest Time' },
-  { id: '7', time: '2:00 - 3:30', monday: 'Story & Music', tuesday: 'Art & Painting', wednesday: 'Puppetry & Drama', thursday: 'Movement & Games', friday: 'Week Review & Sharing' },
+  { id: '7', time: '2:00 - 3:30', monday: 'Story & Music', tuesday: 'Art & Painting', wednesday: 'Puppetry & Drama', thursday: 'Movement & Games', friday: 'Week Review' },
   { id: '8', time: '3:30 - 4:00', monday: 'Afternoon Snack', tuesday: 'Afternoon Snack', wednesday: 'Afternoon Snack', thursday: 'Afternoon Snack', friday: 'Afternoon Snack' },
   { id: '9', time: '4:00 - 4:30', monday: 'Departure', tuesday: 'Departure', wednesday: 'Departure', thursday: 'Departure', friday: 'Departure' }
 ]
