@@ -34,6 +34,7 @@ export default function ScheduleGridAdjuster() {
         
         // Apply to all headers
         headerCells.forEach(cell => {
+          cell.style.minHeight = `${maxHeaderHeight}px`
           cell.style.height = `${maxHeaderHeight}px`
         })
       }
@@ -68,6 +69,7 @@ export default function ScheduleGridAdjuster() {
         
         // Apply max height to all cells in row
         rowCells.forEach(cell => {
+          cell.style.minHeight = `${maxHeight}px`
           cell.style.height = `${maxHeight}px`
         })
       }
