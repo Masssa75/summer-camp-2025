@@ -82,7 +82,6 @@ export default function RegistrationWorkflow() {
     amount: '',
     date: new Date().toISOString().split('T')[0],
     method: '',
-    reference: '',
     notes: ''
   })
 
@@ -254,7 +253,6 @@ export default function RegistrationWorkflow() {
           payment_amount: parseFloat(paymentForm.amount.replace(/[^0-9.-]+/g, '')),
           payment_date: paymentForm.date,
           payment_method: paymentForm.method,
-          payment_reference: paymentForm.reference,
           admin_notes: paymentForm.notes
         })
       })
@@ -268,8 +266,7 @@ export default function RegistrationWorkflow() {
                 payment_status: paymentForm.status as any,
                 payment_amount: parseFloat(paymentForm.amount.replace(/[^0-9.-]+/g, '')),
                 payment_date: paymentForm.date,
-                payment_method: paymentForm.method,
-                payment_reference: paymentForm.reference
+                payment_method: paymentForm.method
               }
             : r
         )
@@ -290,7 +287,6 @@ export default function RegistrationWorkflow() {
       amount: '',
       date: new Date().toISOString().split('T')[0],
       method: '',
-      reference: '',
       notes: ''
     })
     setSelectedRegistration(null)
@@ -640,7 +636,6 @@ export default function RegistrationWorkflow() {
                                   amount: reg.payment_amount ? `฿${reg.payment_amount}` : `฿${expectedAmount}`,
                                   date: reg.payment_date || new Date().toISOString().split('T')[0],
                                   method: reg.payment_method || '',
-                                  reference: reg.payment_reference || '',
                                   notes: reg.admin_notes || ''
                                 })
                                 setShowPaymentModal(true)
@@ -660,7 +655,6 @@ export default function RegistrationWorkflow() {
                                   amount: reg.payment_amount ? `฿${reg.payment_amount}` : `฿${expectedAmount}`,
                                   date: reg.payment_date || new Date().toISOString().split('T')[0],
                                   method: reg.payment_method || '',
-                                  reference: reg.payment_reference || '',
                                   notes: reg.admin_notes || ''
                                 })
                                 setShowPaymentModal(true)
@@ -680,7 +674,6 @@ export default function RegistrationWorkflow() {
                                   amount: reg.payment_amount ? `฿${reg.payment_amount}` : `฿${expectedAmount}`,
                                   date: reg.payment_date || new Date().toISOString().split('T')[0],
                                   method: reg.payment_method || '',
-                                  reference: reg.payment_reference || '',
                                   notes: reg.admin_notes || ''
                                 })
                                 setShowPaymentModal(true)
@@ -833,87 +826,79 @@ export default function RegistrationWorkflow() {
               </button>
             </div>
 
-            <div className="payment-info">
-              <div className="payment-child">{selectedRegistration.child_name}</div>
-              <div className="payment-details">
-                {selectedRegistration.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
-                Weeks {selectedRegistration.weeks_selected.join(', ')}
-              </div>
-              <div className="payment-expected">
-                Expected: ฿{calculatePrice(selectedRegistration).toLocaleString()}
-              </div>
-            </div>
-
             <form onSubmit={(e) => { e.preventDefault(); recordPayment() }}>
-              <div className="form-group">
-                <label>Payment Status *</label>
-                <select
-                  value={paymentForm.status}
-                  onChange={(e) => setPaymentForm({...paymentForm, status: e.target.value})}
-                  required
-                >
-                  <option value="pending">Pending Payment</option>
-                  <option value="paid">Full Payment Received</option>
-                  <option value="partial">Partial Payment</option>
-                  <option value="refunded">Refunded</option>
-                </select>
-              </div>
+              <div className="payment-modal-body">
+                <div className="payment-info">
+                  <div className="payment-child">{selectedRegistration.child_name}</div>
+                  <div className="payment-details">
+                    {selectedRegistration.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
+                    Weeks {selectedRegistration.weeks_selected.join(', ')}
+                  </div>
+                  <div className="payment-expected">
+                    Expected: ฿{calculatePrice(selectedRegistration).toLocaleString()}
+                  </div>
+                </div>
 
-              <div className="form-row">
                 <div className="form-group">
-                  <label>Amount Received *</label>
-                  <input
-                    type="text"
-                    value={paymentForm.amount}
-                    onChange={(e) => setPaymentForm({...paymentForm, amount: e.target.value})}
-                    placeholder="฿5,000"
+                  <label>Payment Status *</label>
+                  <select
+                    value={paymentForm.status}
+                    onChange={(e) => setPaymentForm({...paymentForm, status: e.target.value})}
                     required
+                  >
+                    <option value="pending">Pending Payment</option>
+                    <option value="paid">Full Payment Received</option>
+                    <option value="partial">Partial Payment</option>
+                    <option value="refunded">Refunded</option>
+                  </select>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Amount Received *</label>
+                    <input
+                      type="text"
+                      value={paymentForm.amount}
+                      onChange={(e) => setPaymentForm({...paymentForm, amount: e.target.value})}
+                      placeholder="฿5,000"
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Payment Date *</label>
+                    <input
+                      type="date"
+                      value={paymentForm.date}
+                      onChange={(e) => setPaymentForm({...paymentForm, date: e.target.value})}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>Payment Method *</label>
+                  <select
+                    value={paymentForm.method}
+                    onChange={(e) => setPaymentForm({...paymentForm, method: e.target.value})}
+                    required
+                  >
+                    <option value="">Select method...</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                    <option value="cash">Cash</option>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="promptpay">PromptPay</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Notes</label>
+                  <textarea
+                    value={paymentForm.notes}
+                    onChange={(e) => setPaymentForm({...paymentForm, notes: e.target.value})}
+                    rows={3}
+                    placeholder="Any additional notes..."
                   />
                 </div>
-                <div className="form-group">
-                  <label>Payment Date *</label>
-                  <input
-                    type="date"
-                    value={paymentForm.date}
-                    onChange={(e) => setPaymentForm({...paymentForm, date: e.target.value})}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>Payment Method *</label>
-                <select
-                  value={paymentForm.method}
-                  onChange={(e) => setPaymentForm({...paymentForm, method: e.target.value})}
-                  required
-                >
-                  <option value="">Select method...</option>
-                  <option value="bank_transfer">Bank Transfer</option>
-                  <option value="cash">Cash</option>
-                  <option value="credit_card">Credit Card</option>
-                  <option value="promptpay">PromptPay</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label>Transaction Reference</label>
-                <input
-                  type="text"
-                  value={paymentForm.reference}
-                  onChange={(e) => setPaymentForm({...paymentForm, reference: e.target.value})}
-                  placeholder="e.g., Transfer ref #12345"
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Notes</label>
-                <textarea
-                  value={paymentForm.notes}
-                  onChange={(e) => setPaymentForm({...paymentForm, notes: e.target.value})}
-                  rows={3}
-                  placeholder="Any additional notes..."
-                />
               </div>
 
               <div className="modal-footer">
