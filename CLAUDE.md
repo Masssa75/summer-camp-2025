@@ -310,36 +310,45 @@ const { chromium } = require('playwright');
 
 ## Session Handoff Notes
 
-### Recent Changes (2025-07-04)
-1. **Fixed schedule grid alignment issues**:
-   - Added ScheduleGridAdjuster component for dynamic row height adjustment
-   - Fixed TypeScript errors with proper type assertions
-   - Added non-breaking space (`&nbsp;`) to empty time-header cells
-   - Increased min-height to 70px for both time-header and day-header cells
-   - All header cells now align perfectly at 70px height
+### Recent Changes (2025-07-09)
+1. **Fixed Telegram notification system**:
+   - Moved from individual admin IDs to group-based notifications
+   - Added TELEGRAM_ADMIN_GROUP_ID environment variable
+   - Bot now sends notifications to admin group (-1002582721018)
+   - Removed "Connect Telegram" button from admin interface
 
-2. **Marketing materials created**:
-   - Trifold brochure with sunny yellow design
-   - A6 acrylic stand cards (front and back designs)
-   - Multiple color variations for marketing materials
-   - Set up redirect from /daycare to home page
+2. **Implemented complete registration workflow management**:
+   - Payment request → Payment recording → Confirmation workflow
+   - Organized registrations into Active, Completed, and Archived sections
+   - Active workflow shows max 10 entries with expand/collapse functionality
+   - Archive functionality for abandoned/cancelled registrations
+   - Real-time stats tracking (New, Awaiting Payment, Paid, Confirmed)
+   - Progress dots showing workflow stage for each registration
 
-3. **Build and deployment fixes**:
-   - Resolved TypeScript compilation errors in ScheduleGridAdjuster
-   - Fixed Netlify deployment failures
-   - Verified deployments using Netlify API
+3. **Database normalization and data import**:
+   - Created normalized schema: parents, students, enrollments, attendance, staff
+   - Imported 57 registrations from Google Sheets successfully
+   - Added tracking fields: payment_request_sent, confirmation_email_sent, payment_method, etc.
+   - Implemented deduplication strategies for parents (by email) and students (by name+DOB)
+
+4. **Current Issue - Dropdown Menu Not Working**:
+   - The "..." (MoreVertical) dropdown menu in workflow table doesn't open
+   - Menu contains important actions: Send Email, Send WhatsApp, Archive (Abandoned)
+   - onClick handler exists but not functioning properly
+   - Located in RegistrationWorkflow.tsx lines 496-526
 
 ### Known Issues
-- No email notifications after registration
+- **CRITICAL**: Dropdown menu ("...") in workflow table not opening (current issue)
+- No email notifications after registration (API endpoints exist but not implemented)
 - No payment processing integration
 - Registration success only shows on frontend, no email confirmation
 
 ### Next Priorities
-1. Set up email notifications using Supabase Edge Functions or external service
-2. Add payment gateway integration (consider local Thai payment options)
-3. Add proper error handling and loading states
-4. Implement registration confirmation/status page
-5. Test all functionality with headless browser automation
+1. **FIX DROPDOWN MENU** - Critical for workflow functionality
+2. Set up email notifications using Supabase Edge Functions or external service
+3. Add payment gateway integration (consider local Thai payment options)
+4. Build attendance tracking interface
+5. Create staff management system
 
 ---
 

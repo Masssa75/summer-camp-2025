@@ -75,6 +75,18 @@ export default function RegistrationWorkflow() {
     loadRegistrations()
   }, [])
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!event.target || !(event.target as Element).closest('.action-dropdown')) {
+        setOpenMenuId(null)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [])
+
   const loadRegistrations = async () => {
     try {
       const response = await fetch('/api/admin/registrations')
@@ -501,28 +513,26 @@ export default function RegistrationWorkflow() {
                               >
                                 <MoreVertical size={16} />
                               </button>
-                              {openMenuId === reg.id && (
-                                <div className="dropdown-menu">
-                                  <button className="dropdown-item">
-                                    <Mail size={14} />
-                                    Send Email
-                                  </button>
-                                  <button className="dropdown-item">
-                                    <Send size={14} />
-                                    Send WhatsApp
-                                  </button>
-                                  <button 
-                                    className="dropdown-item"
-                                    onClick={() => {
-                                      archiveRegistration(reg.id)
-                                      setOpenMenuId(null)
-                                    }}
-                                  >
-                                    <span>📦</span>
-                                    Archive (Abandoned)
-                                  </button>
-                                </div>
-                              )}
+                              <div className={`dropdown-menu ${openMenuId === reg.id ? 'active' : ''}`}>
+                                <button className="dropdown-item">
+                                  <Mail size={14} />
+                                  Send Email
+                                </button>
+                                <button className="dropdown-item">
+                                  <Send size={14} />
+                                  Send WhatsApp
+                                </button>
+                                <button 
+                                  className="dropdown-item"
+                                  onClick={() => {
+                                    archiveRegistration(reg.id)
+                                    setOpenMenuId(null)
+                                  }}
+                                >
+                                  <span>📦</span>
+                                  Archive (Abandoned)
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </td>

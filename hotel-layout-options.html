@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Layout Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .option {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .option-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(122, 154, 59, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        .divider {
+            height: 3px;
+            background: #7a9a3b;
+            margin: 0;
+        }
+        
+        /* Option 1: Centered Card */
+        .option-1 .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .option-1 .header {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .option-1 .subtext {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .hotel-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .discount-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            color: #7a9a3b;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .price-note {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Option 2: Split Layout */
+        .option-2 .content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .option-2 .left {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .option-2 .right {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            color: #333;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .option-2 .header {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .option-2 .subtext {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* Option 3: Bottom Overlay */
+        .option-3 .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 60px 40px 40px;
+            text-align: center;
+        }
+        
+        .option-3 .header {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .option-3 .hotel-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .option-3 .hotel-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .option-3 .hotel-details {
+            text-align: left;
+        }
+        
+        .option-3 .hotel-price {
+            text-align: right;
+        }
+        
+        /* Option 4: Top Corner */
+        .option-4 .content {
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            color: #333;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .option-4 .header {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        /* Option 5: Center Minimal */
+        .option-5 .content {
+            text-align: center;
+            max-width: 600px;
+        }
+        
+        .option-5 .header {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .option-5 .hotel-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .option-5 .hotel-name {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .option-5 .price {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+        
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .dot.active {
+            background: white;
+        }
+        
+        @media (max-width: 768px) {
+            .option-2 .content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .option-2 .left {
+                margin-bottom: 30px;
+            }
+            
+            .option-3 .hotel-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .option-3 .hotel-price {
+                text-align: center;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Option 1: Centered Card -->
+    <section class="option option-1" style="background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/b6/9a/0a/kora-beach-resort-phuket.jpg?w=1200&h=-1&s=1');">
+        <div class="option-label">Option 1: Centered Card</div>
+        <div class="overlay"></div>
+        <div class="content">
+            <h2 class="header">Stay at Amazing Partner Hotels</h2>
+            <p class="subtext">Special rates for camp families</p>
+            
+            <div class="card">
+                <div class="discount-badge">15% Camp Discount</div>
+                <h3 class="hotel-name">Kora Beach Resort</h3>
+                <div class="price">Starting at ฿8,500</div>
+                <div class="price-note">per night</div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn">← Previous</button>
+                <button class="nav-btn">Next →</button>
+            </div>
+            
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- Option 2: Split Layout -->
+    <section class="option option-2" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/279189395.jpg?k=d7b2d3e1a0b4c1b9e8f2e4a5b9e8f2e4a5b9e8f2e4a5b9e8f2e4a5b9e8f2e4a5&o=&hp=1');">
+        <div class="option-label">Option 2: Split Layout</div>
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="left">
+                <h2 class="header">Amazing Partner Hotels</h2>
+                <p class="subtext">Exclusive rates for camp families</p>
+            </div>
+            
+            <div class="right">
+                <div class="discount-badge">Camp Special</div>
+                <h3 class="hotel-name">Anantara Layan Resort</h3>
+                <div class="price">Starting at ฿12,500</div>
+                <div class="price-note">per night</div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn">← Prev</button>
+                    <button class="nav-btn">Next →</button>
+                </div>
+                
+                <div class="dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- Option 3: Bottom Overlay -->
+    <section class="option option-3" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/13871155.jpg?k=0e2b8e6d2b7a1c7d8e2b8e6d2b7a1c7d8e2b8e6d2b7a1c7d8e2b8e6d2b7a1c7d&o=&hp=1');">
+        <div class="option-label">Option 3: Bottom Overlay</div>
+        <div class="content">
+            <h2 class="header">Partner Hotels with Special Rates</h2>
+            
+            <div class="hotel-card">
+                <div class="hotel-info">
+                    <div class="hotel-details">
+                        <div class="discount-badge">20% Off</div>
+                        <h3 class="hotel-name">Banyan Tree Phuket</h3>
+                    </div>
+                    <div class="hotel-price">
+                        <div class="price">Starting at ฿18,000</div>
+                        <div class="price-note">per night</div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn">← Previous</button>
+                    <button class="nav-btn">Next →</button>
+                </div>
+                
+                <div class="dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- Option 4: Top Corner -->
+    <section class="option option-4" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/4845623.jpg?k=0b1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b&o=&hp=1');">
+        <div class="option-label">Option 4: Top Corner</div>
+        <div class="overlay"></div>
+        <h2 class="header">Partner Hotels</h2>
+        
+        <div class="content">
+            <div class="discount-badge">Camp Discount Available</div>
+            <h3 class="hotel-name">Dusit Thani Laguna</h3>
+            <div class="price">Starting at ฿9,500</div>
+            <div class="price-note">per night</div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn">← Prev</button>
+                <button class="nav-btn">Next →</button>
+            </div>
+            
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- Option 5: Center Minimal -->
+    <section class="option option-5" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/171538842.jpg?k=1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a&o=&hp=1');">
+        <div class="option-label">Option 5: Center Minimal</div>
+        <div class="overlay"></div>
+        <div class="content">
+            <h2 class="header">Amazing Partner Hotels</h2>
+            
+            <div class="hotel-card">
+                <div class="discount-badge">Special Camp Rate</div>
+                <h3 class="hotel-name">SAii Laguna Phuket</h3>
+                <div class="price">Starting at ฿7,500</div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn">← Previous</button>
+                <button class="nav-btn">Next →</button>
+            </div>
+            
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot active"></span>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
