@@ -379,75 +379,88 @@
         
         /* Kids Activities Section */
         .kids-section {
-            padding: 80px 20px;
-            background: #fff;
-            text-align: center;
-        }
-        
-        .kids-section h2 {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        
-        .kids-section p {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto 50px;
-        }
-        
-        .kids-carousel {
             position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        
-        .kids-slides {
+            min-height: 100vh;
             display: flex;
-            transition: transform 0.5s ease;
-            width: 600%;
-        }
-        
-        .kids-card {
-            width: 16.666%;
-            flex-shrink: 0;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .kids-image {
-            width: 100%;
-            height: 300px;
+            align-items: center;
+            justify-content: center;
             background-size: cover;
             background-position: center;
-            position: relative;
+            background-attachment: fixed;
+            overflow: hidden;
         }
         
-        .kids-info {
-            padding: 30px;
-            text-align: center;
-            flex-grow: 1;
+        .kids-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        
+        .kids-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            padding: 40px 20px;
+        }
+        
+        .kids-left {
+            flex: 1;
+            text-align: left;
+            color: white;
+        }
+        
+        .kids-left h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .kids-left p {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .kids-info-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            color: #333;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .age-badge {
+            background: #7a9a3b;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
         }
         
         .kids-activity {
-            font-size: 1.6rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
         .kids-description {
             color: #666;
             font-size: 1rem;
             line-height: 1.6;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .kids-benefits {
@@ -455,6 +468,7 @@
             flex-wrap: wrap;
             gap: 8px;
             justify-content: center;
+            margin-bottom: 25px;
         }
         
         .kids-benefit-tag {
@@ -464,6 +478,18 @@
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .kids-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .kids-left {
+                margin-bottom: 30px;
+                text-align: center;
+            }
         }
         
         @media (max-width: 768px) {
@@ -531,115 +557,35 @@
     </section>
 
     <!-- Kids Activities Section -->
-    <section class="kids-section">
-        <h2>What Your Kids Will Love</h2>
-        <p>Our summer camp offers engaging activities designed to keep children entertained, active, and learning throughout the day.</p>
-        
-        <div class="kids-carousel">
-            <div class="kids-slides" id="kidsSlides">
-                <!-- Swimming & Water Activities -->
-                <div class="kids-card">
-                    <div class="kids-image" style="background-image: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800');">
-                    </div>
-                    <div class="kids-info">
-                        <h3 class="kids-activity">Swimming & Water Fun</h3>
-                        <p class="kids-description">Safe, supervised swimming sessions with water games and pool activities perfect for all skill levels.</p>
-                        <div class="kids-benefits">
-                            <span class="kids-benefit-tag">Pool Games</span>
-                            <span class="kids-benefit-tag">Water Safety</span>
-                            <span class="kids-benefit-tag">All Levels</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Arts & Crafts -->
-                <div class="kids-card">
-                    <div class="kids-image" style="background-image: url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800');">
-                    </div>
-                    <div class="kids-info">
-                        <h3 class="kids-activity">Arts & Crafts</h3>
-                        <p class="kids-description">Creative projects including painting, drawing, and hands-on crafts that spark imagination and creativity.</p>
-                        <div class="kids-benefits">
-                            <span class="kids-benefit-tag">Creative Expression</span>
-                            <span class="kids-benefit-tag">Fine Motor Skills</span>
-                            <span class="kids-benefit-tag">Take Home Projects</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Sports & Games -->
-                <div class="kids-card">
-                    <div class="kids-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800');">
-                    </div>
-                    <div class="kids-info">
-                        <h3 class="kids-activity">Sports & Games</h3>
-                        <p class="kids-description">Fun team sports and interactive games that promote physical activity and social interaction.</p>
-                        <div class="kids-benefits">
-                            <span class="kids-benefit-tag">Team Building</span>
-                            <span class="kids-benefit-tag">Physical Activity</span>
-                            <span class="kids-benefit-tag">Social Skills</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Nature Exploration -->
-                <div class="kids-card">
-                    <div class="kids-image" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800');">
-                    </div>
-                    <div class="kids-info">
-                        <h3 class="kids-activity">Nature Exploration</h3>
-                        <p class="kids-description">Outdoor adventures and nature discovery activities that connect children with the beautiful Phuket environment.</p>
-                        <div class="kids-benefits">
-                            <span class="kids-benefit-tag">Outdoor Learning</span>
-                            <span class="kids-benefit-tag">Environmental Awareness</span>
-                            <span class="kids-benefit-tag">Adventure</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Music & Dance -->
-                <div class="kids-card">
-                    <div class="kids-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800');">
-                    </div>
-                    <div class="kids-info">
-                        <h3 class="kids-activity">Music & Dance</h3>
-                        <p class="kids-description">Musical activities and dance sessions that encourage rhythm, coordination, and self-expression.</p>
-                        <div class="kids-benefits">
-                            <span class="kids-benefit-tag">Rhythm & Coordination</span>
-                            <span class="kids-benefit-tag">Self Expression</span>
-                            <span class="kids-benefit-tag">Cultural Activities</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- STEM Activities -->
-                <div class="kids-card">
-                    <div class="kids-image" style="background-image: url('https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800');">
-                    </div>
-                    <div class="kids-info">
-                        <h3 class="kids-activity">STEM Learning</h3>
-                        <p class="kids-description">Science experiments and educational activities that make learning fun through hands-on discovery.</p>
-                        <div class="kids-benefits">
-                            <span class="kids-benefit-tag">Problem Solving</span>
-                            <span class="kids-benefit-tag">Critical Thinking</span>
-                            <span class="kids-benefit-tag">Hands-on Learning</span>
-                        </div>
-                    </div>
-                </div>
+    <section class="kids-section" id="kidsSection" style="background-image: url('References/img/Photoshopped/IMG_5996.JPG');">
+        <div class="kids-overlay"></div>
+        <div class="kids-content">
+            <div class="kids-left">
+                <h2>What Your Kids Will Love</h2>
+                <p>Real nature activities that make us different</p>
             </div>
             
-            <div class="carousel-nav">
-                <button class="nav-button" id="kidssPrevBtn" onclick="changeKidsSlide(-1)">← Previous</button>
-                <button class="nav-button" id="kidsNextBtn" onclick="changeKidsSlide(1)">Next →</button>
-            </div>
-            
-            <div class="carousel-dots" id="kidsDotsContainer">
-                <span class="dot active" onclick="goToKidsSlide(0)"></span>
-                <span class="dot" onclick="goToKidsSlide(1)"></span>
-                <span class="dot" onclick="goToKidsSlide(2)"></span>
-                <span class="dot" onclick="goToKidsSlide(3)"></span>
-                <span class="dot" onclick="goToKidsSlide(4)"></span>
-                <span class="dot" onclick="goToKidsSlide(5)"></span>
+            <div class="kids-info-card" id="kidsInfoCard">
+                <div class="age-badge">Ages 3-13</div>
+                <h3 class="kids-activity">Garden & Plant Care</h3>
+                <p class="kids-description">Children learn to nurture plants, understand nature cycles, and develop responsibility through hands-on gardening experiences.</p>
+                <div class="kids-benefits">
+                    <span class="kids-benefit-tag">Nature Connection</span>
+                    <span class="kids-benefit-tag">Responsibility</span>
+                    <span class="kids-benefit-tag">Life Skills</span>
+                </div>
+                
+                <div class="carousel-nav">
+                    <button class="nav-button" id="kidsPrevBtn" onclick="changeKidsSlide(-1)">← Prev</button>
+                    <button class="nav-button" id="kidsNextBtn" onclick="changeKidsSlide(1)">Next →</button>
+                </div>
+                
+                <div class="carousel-dots" id="kidsDotsContainer">
+                    <span class="dot active" onclick="goToKidsSlide(0)"></span>
+                    <span class="dot" onclick="goToKidsSlide(1)"></span>
+                    <span class="dot" onclick="goToKidsSlide(2)"></span>
+                    <span class="dot" onclick="goToKidsSlide(3)"></span>
+                </div>
             </div>
         </div>
     </section>
@@ -733,27 +679,76 @@
             updateSlide();
         }
         
+        // Kids Activities data
+        const kidsActivities = [
+            {
+                title: "Garden & Plant Care",
+                description: "Children learn to nurture plants, understand nature cycles, and develop responsibility through hands-on gardening experiences.",
+                benefits: ["Nature Connection", "Responsibility", "Life Skills"],
+                image: "References/img/Photoshopped/IMG_5996.JPG"
+            },
+            {
+                title: "Cooking & Food Preparation",
+                description: "Kids discover healthy eating and develop fine motor skills through safe, supervised cooking activities and food preparation.",
+                benefits: ["Healthy Eating", "Fine Motor Skills", "Independence"],
+                image: "References/img/Photoshopped/IMG_7112.JPG"
+            },
+            {
+                title: "Outdoor Play & Nature",
+                description: "Active outdoor time with nature exploration, fresh air activities, and unstructured play that builds confidence and social skills.",
+                benefits: ["Physical Activity", "Social Skills", "Confidence"],
+                image: "References/img/Photoshopped/IMG_7044.JPG"
+            },
+            {
+                title: "Creative Arts & Learning",
+                description: "Artistic expression through drawing, crafts, and creative projects that develop imagination and problem-solving skills.",
+                benefits: ["Creativity", "Problem Solving", "Self Expression"],
+                image: "public/references/Summer Camp Presentation Images/32.jpg"
+            }
+        ];
+        
         // Kids Carousel
         let currentKidsSlide = 0;
-        const totalKidsSlides = 6;
+        const totalKidsSlides = kidsActivities.length;
         
         function updateKidsSlide() {
-            const slides = document.getElementById('kidsSlides');
+            const kidsSection = document.getElementById('kidsSection');
+            const kidsInfoCard = document.getElementById('kidsInfoCard');
             const dots = document.querySelectorAll('#kidsDotsContainer .dot');
-            const prevBtn = document.getElementById('kidssPrevBtn');
+            const prevBtn = document.getElementById('kidsPrevBtn');
             const nextBtn = document.getElementById('kidsNextBtn');
             
-            // Update slide position
-            slides.style.transform = `translateX(-${currentKidsSlide * 16.666}%)`;
+            const currentActivity = kidsActivities[currentKidsSlide];
             
-            // Update dots
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentKidsSlide);
-            });
+            // Update background image
+            kidsSection.style.backgroundImage = `url('${currentActivity.image}')`;
             
-            // Update button states
-            prevBtn.disabled = currentKidsSlide === 0;
-            nextBtn.disabled = currentKidsSlide === totalKidsSlides - 1;
+            // Update activity info
+            kidsInfoCard.innerHTML = `
+                <div class="age-badge">Ages 3-13</div>
+                <h3 class="kids-activity">${currentActivity.title}</h3>
+                <p class="kids-description">${currentActivity.description}</p>
+                <div class="kids-benefits">
+                    ${currentActivity.benefits.map(benefit => `<span class="kids-benefit-tag">${benefit}</span>`).join('')}
+                </div>
+                
+                <div class="carousel-nav">
+                    <button class="nav-button" id="kidsPrevBtn" onclick="changeKidsSlide(-1)">← Prev</button>
+                    <button class="nav-button" id="kidsNextBtn" onclick="changeKidsSlide(1)">Next →</button>
+                </div>
+                
+                <div class="carousel-dots" id="kidsDotsContainer">
+                    ${kidsActivities.map((_, index) => `<span class="dot ${index === currentKidsSlide ? 'active' : ''}" onclick="goToKidsSlide(${index})"></span>`).join('')}
+                </div>
+            `;
+            
+            // Update button states after DOM update
+            setTimeout(() => {
+                const newPrevBtn = document.getElementById('kidsPrevBtn');
+                const newNextBtn = document.getElementById('kidsNextBtn');
+                if (newPrevBtn) newPrevBtn.disabled = currentKidsSlide === 0;
+                if (newNextBtn) newNextBtn.disabled = currentKidsSlide === totalKidsSlides - 1;
+            }, 0);
         }
         
         function changeKidsSlide(direction) {
@@ -768,25 +763,51 @@
             updateKidsSlide();
         }
         
-        // Auto-advance hotel carousel every 5 seconds
-        setInterval(() => {
-            if (currentSlide < totalSlides - 1) {
-                changeSlide(1);
-            } else {
-                currentSlide = 0;
-                updateSlide();
-            }
-        }, 5000);
+        // No auto-advance - user controls only
         
-        // Auto-advance kids carousel every 4 seconds
-        setInterval(() => {
-            if (currentKidsSlide < totalKidsSlides - 1) {
-                changeKidsSlide(1);
-            } else {
-                currentKidsSlide = 0;
-                updateKidsSlide();
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        function handleTouchStart(event) {
+            touchStartX = event.touches[0].clientX;
+        }
+        
+        function handleTouchMove(event) {
+            touchEndX = event.touches[0].clientX;
+        }
+        
+        function handleTouchEnd(event, carouselType) {
+            const swipeThreshold = 50; // Minimum swipe distance
+            const swipeDistance = touchStartX - touchEndX;
+            
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0) {
+                    // Swipe left - next slide
+                    if (carouselType === 'hotel') {
+                        changeSlide(1);
+                    } else if (carouselType === 'kids') {
+                        changeKidsSlide(1);
+                    }
+                } else {
+                    // Swipe right - previous slide
+                    if (carouselType === 'hotel') {
+                        changeSlide(-1);
+                    } else if (carouselType === 'kids') {
+                        changeKidsSlide(-1);
+                    }
+                }
             }
-        }, 4000);
+        }
+        
+        // Add touch event listeners
+        document.getElementById('hotelSection').addEventListener('touchstart', handleTouchStart);
+        document.getElementById('hotelSection').addEventListener('touchmove', handleTouchMove);
+        document.getElementById('hotelSection').addEventListener('touchend', (e) => handleTouchEnd(e, 'hotel'));
+        
+        document.getElementById('kidsSection').addEventListener('touchstart', handleTouchStart);
+        document.getElementById('kidsSection').addEventListener('touchmove', handleTouchMove);
+        document.getElementById('kidsSection').addEventListener('touchend', (e) => handleTouchEnd(e, 'kids'));
         
         // Initialize both carousels
         updateSlide();

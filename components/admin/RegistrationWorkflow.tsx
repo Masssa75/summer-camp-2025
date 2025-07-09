@@ -856,19 +856,202 @@ export default function RegistrationWorkflow() {
         </div>
       )}
 
-      {/* Details Modal - Reuse existing modal from admin page */}
+      {/* Details Modal */}
       {showDetailsModal && selectedRegistration && (
         <div className="modal-overlay" onClick={() => setShowDetailsModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-content registration-details-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h2>Registration Details</h2>
               <button className="close-btn" onClick={() => setShowDetailsModal(false)}>
                 <X size={24} />
               </button>
             </div>
-            {/* Add full registration details here */}
+            
             <div className="modal-body">
-              <pre>{JSON.stringify(selectedRegistration, null, 2)}</pre>
+              <div className="details-section">
+                <h3>Child Information</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <label>Full Name:</label>
+                    <span>{selectedRegistration.child_name}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Nickname:</label>
+                    <span>{selectedRegistration.nick_name || 'Not provided'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Gender:</label>
+                    <span>{selectedRegistration.gender || 'Not specified'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Date of Birth:</label>
+                    <span>{selectedRegistration.date_of_birth || 'Not provided'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Age Group:</label>
+                    <span>{selectedRegistration.age_group === 'mini' ? 'Mini Camp (3-6)' : 'Explorer Camp (7-13)'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Current School:</label>
+                    <span>{selectedRegistration.current_school || 'Not specified'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Nationality/Language:</label>
+                    <span>{selectedRegistration.nationality_language || 'Not specified'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>English Level:</label>
+                    <span>{selectedRegistration.english_level || 'Not specified'}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="details-section">
+                <h3>Parent Information</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <label>Parent 1 Name:</label>
+                    <span>{selectedRegistration.parent_name_1}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Parent 2 Name:</label>
+                    <span>{selectedRegistration.parent_name_2 || 'Not provided'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Email:</label>
+                    <span>{selectedRegistration.email}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Mobile Phone 1:</label>
+                    <span>{selectedRegistration.mobile_phone_1 || 'Not provided'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Mobile Phone 2:</label>
+                    <span>{selectedRegistration.mobile_phone_2 || 'Not provided'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>WeChat/WhatsApp 1:</label>
+                    <span>{selectedRegistration.wechat_whatsapp_1 || 'Not provided'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>WeChat/WhatsApp 2:</label>
+                    <span>{selectedRegistration.wechat_whatsapp_2 || 'Not provided'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Emergency Contact:</label>
+                    <span>{selectedRegistration.emergency_contact || 'Same as parent'}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="details-section">
+                <h3>Camp Information</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <label>Weeks Selected:</label>
+                    <span>Week {selectedRegistration.weeks_selected?.join(', Week ') || 'None'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Total Price:</label>
+                    <span>฿{calculatePrice(selectedRegistration).toLocaleString()}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Registration Date:</label>
+                    <span>{new Date(selectedRegistration.created_at).toLocaleDateString()}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="details-section">
+                <h3>Health & Safety</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <label>Allergies:</label>
+                    <span>{selectedRegistration.allergies || 'None'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Health/Behavioral Conditions:</label>
+                    <span>{selectedRegistration.health_behavioral_conditions || 'None'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Has Insurance:</label>
+                    <span>{selectedRegistration.has_insurance ? 'Yes' : 'No'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Photo Permission:</label>
+                    <span>{selectedRegistration.photo_permission ? 'Yes' : 'No'}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="details-section">
+                <h3>Payment Information</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <label>Payment Status:</label>
+                    <span className={`status-badge ${selectedRegistration.payment_status === 'paid' ? 'status-paid' : 'status-payment-pending'}`}>
+                      {selectedRegistration.payment_status || 'Pending'}
+                    </span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Amount Paid:</label>
+                    <span>{selectedRegistration.payment_amount ? `฿${selectedRegistration.payment_amount.toLocaleString()}` : 'Not paid'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Payment Date:</label>
+                    <span>{selectedRegistration.payment_date ? new Date(selectedRegistration.payment_date).toLocaleDateString() : 'Not paid'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Payment Method:</label>
+                    <span>{selectedRegistration.payment_method || 'Not specified'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Payment Reference:</label>
+                    <span>{selectedRegistration.payment_reference || 'Not provided'}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="details-section">
+                <h3>Workflow Status</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <label>Payment Request Sent:</label>
+                    <span>{selectedRegistration.payment_request_sent ? new Date(selectedRegistration.payment_request_sent).toLocaleDateString() : 'Not sent'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Confirmation Email Sent:</label>
+                    <span>{selectedRegistration.confirmation_email_sent ? new Date(selectedRegistration.confirmation_email_sent).toLocaleDateString() : 'Not sent'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Admin Notes:</label>
+                    <span>{selectedRegistration.admin_notes || 'None'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {(selectedRegistration.child_passport_url || selectedRegistration.parent_passport_1_url || selectedRegistration.parent_passport_2_url) && (
+                <div className="details-section">
+                  <h3>Documents</h3>
+                  <div className="document-links">
+                    {selectedRegistration.child_passport_url && (
+                      <a href={selectedRegistration.child_passport_url} target="_blank" rel="noopener noreferrer" className="document-link">
+                        📄 Child Passport
+                      </a>
+                    )}
+                    {selectedRegistration.parent_passport_1_url && (
+                      <a href={selectedRegistration.parent_passport_1_url} target="_blank" rel="noopener noreferrer" className="document-link">
+                        📄 Parent 1 Passport
+                      </a>
+                    )}
+                    {selectedRegistration.parent_passport_2_url && (
+                      <a href={selectedRegistration.parent_passport_2_url} target="_blank" rel="noopener noreferrer" className="document-link">
+                        📄 Parent 2 Passport
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
