@@ -69,6 +69,13 @@ p {
   height: auto !important;
 }
 
+/* Specific constraints for content sections */
+.content-wrapper .single-photo img {
+  max-height: 500px !important;
+  width: auto !important;
+  height: auto !important;
+}
+
 /* Base Slide */
 .slide {
   min-height: 100vh;
