@@ -270,7 +270,7 @@ export default function RegistrationWorkflow() {
   }
 
   const archiveRegistration = async (id: string) => {
-    if (!confirm('Are you sure you want to archive this registration?')) return
+    if (!confirm('Archive this registration as abandoned/cancelled?\n\nThis will move it out of the active workflow.')) return
 
     try {
       const response = await fetch(`/api/admin/registrations/${id}`, {
@@ -511,6 +511,16 @@ export default function RegistrationWorkflow() {
                                     <Send size={14} />
                                     Send WhatsApp
                                   </button>
+                                  <button 
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      archiveRegistration(reg.id)
+                                      setOpenMenuId(null)
+                                    }}
+                                  >
+                                    <span>📦</span>
+                                    Archive (Abandoned)
+                                  </button>
                                 </div>
                               )}
                             </div>
@@ -605,13 +615,6 @@ export default function RegistrationWorkflow() {
                           title="View Details"
                         >
                           <Eye size={16} />
-                        </button>
-                        <button
-                          className="action-btn archive"
-                          onClick={() => archiveRegistration(reg.id)}
-                          title="Archive"
-                        >
-                          📦
                         </button>
                       </div>
                     </td>
