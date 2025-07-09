@@ -1545,7 +1545,14 @@ a.contact-link:hover .contact-details p {
   
   /* Ensure all story cards in carousels respect viewport */
   .carousel-wrapper .story-card {
-    max-width: calc(100vw - 40px);
+    max-width: calc(100vw - 60px) !important;
+    min-width: calc(100vw - 60px) !important;
+  }
+  
+  /* Force carousel wrapper to not exceed viewport */
+  .carousel-wrapper {
+    max-width: 100vw !important;
+    padding: 0 15px !important;
   }
   
   .story-card img {
@@ -1751,5 +1758,14 @@ a.contact-link:hover .contact-details p {
   
   .instagram-video-container iframe {
     height: 400px !important;
+  }
+  
+  /* Final safety net - ensure nothing can cause horizontal scroll */
+  * {
+    max-width: 100vw !important;
+  }
+  
+  body {
+    overflow-x: hidden !important;
   }
 }
