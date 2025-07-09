@@ -459,9 +459,10 @@
         
         .kids-description {
             color: #666;
-            font-size: 1rem;
+            font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center;
         }
         
         .kids-benefits {
@@ -521,7 +522,14 @@
         /* Camp Programs Section */
         .camp-programs {
             padding: 80px 20px;
-            background: #f9f9f9;
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
         
         .programs-content {
@@ -531,9 +539,11 @@
         }
         
         .programs-content h2 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 50px;
             color: #333;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
         .programs-grid {
@@ -544,15 +554,18 @@
         }
         
         .program-card {
-            background: white;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
             padding: 40px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.8);
         }
         
         .program-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         
         .program-header {
@@ -603,19 +616,29 @@
         /* Schedule Section */
         .schedule-section {
             padding: 80px 20px;
-            background: white;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
         
         .schedule-content {
             max-width: 1000px;
             margin: 0 auto;
             text-align: center;
+            width: 100%;
         }
         
         .schedule-content h2 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 30px;
-            color: #333;
+            color: white;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         }
         
         .schedule-toggle {
@@ -642,10 +665,12 @@
         }
         
         .schedule-container {
-            background: #f9f9f9;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
             padding: 40px;
             overflow-x: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
         }
         
         .schedule-table {
@@ -900,11 +925,10 @@
         <div class="kids-content">
             <div class="kids-left">
                 <h2>Lifelong Lessons for Your Children</h2>
-                <p>Activities that make us different</p>
+                <p>Our Waldorf-inspired approach</p>
             </div>
             
             <div class="kids-info-card" id="kidsInfoCard">
-                <h3 class="kids-activity">Our Waldorf-Inspired Approach</h3>
                 <p class="kids-description">Our Waldorf-inspired camp teaches children through hands-on experiences with nature, creative arts, and practical life skills that foster independence and confidence.</p>
                 
                 <div class="carousel-nav">
@@ -1159,26 +1183,31 @@
         const kidsActivities = [
             {
                 headerTitle: "Lifelong Lessons for Your Children",
+                subtitle: "Our Waldorf-inspired approach",
                 description: "Our Waldorf-inspired camp teaches children through hands-on experiences with nature, creative arts, and practical life skills that foster independence and confidence.",
                 image: "References/img/Photoshopped/PANA8828.jpg"
             },
             {
                 headerTitle: "Garden & Plant Care",
+                subtitle: "Building responsibility and patience",
                 description: "Children learn to nurture plants, understand nature cycles, and develop responsibility through hands-on gardening experiences.",
                 image: "References/img/Photoshopped/IMG_5996.JPG"
             },
             {
                 headerTitle: "Cooking & Food Preparation",
+                subtitle: "Developing independence and healthy habits",
                 description: "Kids discover healthy eating and develop fine motor skills through safe, supervised cooking activities and food preparation.",
                 image: "References/img/Photoshopped/IMG_7112.JPG"
             },
             {
                 headerTitle: "Outdoor Play & Nature",
+                subtitle: "Fostering confidence and social connection",
                 description: "Active outdoor time with nature exploration, fresh air activities, and unstructured play that builds confidence and social skills.",
                 image: "References/img/Photoshopped/IMG_7044.JPG"
             },
             {
                 headerTitle: "Creative Arts & Learning",
+                subtitle: "Nurturing self-expression and creativity",
                 description: "Artistic expression through drawing, crafts, and creative projects that develop imagination and problem-solving skills.",
                 image: "public/references/Summer Camp Presentation Images/32.jpg"
             }
@@ -1191,6 +1220,8 @@
         function updateKidsSlide() {
             const kidsSection = document.getElementById('kidsSection');
             const kidsInfoCard = document.getElementById('kidsInfoCard');
+            const kidsHeader = document.querySelector('.kids-left h2');
+            const kidsSubtitle = document.querySelector('.kids-left p');
             const dots = document.querySelectorAll('#kidsDotsContainer .dot');
             const prevBtn = document.getElementById('kidsPrevBtn');
             const nextBtn = document.getElementById('kidsNextBtn');
@@ -1200,9 +1231,12 @@
             // Update background image
             kidsSection.style.backgroundImage = `url('${currentActivity.image}')`;
             
-            // Update activity info - without tags and age badges
+            // Update header title and subtitle
+            kidsHeader.textContent = currentActivity.headerTitle;
+            kidsSubtitle.textContent = currentActivity.subtitle;
+            
+            // Update activity info - only description in the white box
             kidsInfoCard.innerHTML = `
-                <h3 class="kids-activity">${currentActivity.title}</h3>
                 <p class="kids-description">${currentActivity.description}</p>
                 
                 <div class="carousel-nav">

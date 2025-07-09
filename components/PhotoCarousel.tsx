@@ -19,7 +19,8 @@ export default function PhotoCarousel({ photos, className = '' }: PhotoCarouselP
 
   const scrollToCard = (index: number) => {
     if (carouselRef.current) {
-      const scrollAmount = index * 440 // card width (400) + margin (40)
+      const cardWidth = window.innerWidth > 768 ? 640 : 440 // Responsive card width
+      const scrollAmount = index * cardWidth
       carouselRef.current.scrollTo({
         left: scrollAmount,
         behavior: 'smooth'
@@ -31,7 +32,7 @@ export default function PhotoCarousel({ photos, className = '' }: PhotoCarouselP
   const handleScroll = () => {
     if (carouselRef.current) {
       const scrollPosition = carouselRef.current.scrollLeft
-      const cardWidth = 440 // card width + margin
+      const cardWidth = window.innerWidth > 768 ? 640 : 440 // Responsive card width
       const newIndex = Math.round(scrollPosition / cardWidth)
       setActiveIndex(Math.min(Math.max(0, newIndex), photos.length - 1))
     }
