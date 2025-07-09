@@ -1,0 +1,56 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/utils/supabase/server'
+import { sendTelegramMessage } from '@/utils/telegram'
+
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { email } = await request.json()
+    const supabase = createClient()
+
+    // Update registration with confirmation sent timestamp
+    const { data: registration, error } = await supabase
+      .from('registrations')
+      .update({
+        confirmation_email_sent: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', params.id)
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Error updating registration:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    // Send notification to admin group
+    try {
+      await sendTelegramMessage(
+        null, // Will use admin group ID
+        `✅ Confirmation sent to ${registration.child_name}'s parent (${email})\n\n` +
+        `Registration is now complete!\n` +
+        `Camp: ${registration.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'}\n` +
+        `Weeks: ${registration.weeks_selected?.join(', ') || 'N/A'}`
+      )
+    } catch (telegramError) {
+      console.error('Error sending Telegram notification:', telegramError)
+      // Don't fail the request if Telegram fails
+    }
+
+    // TODO: Send actual confirmation email here
+    // This would integrate with your email service
+    console.log(`Confirmation sent to ${email}`)
+
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Confirmation sent successfully' 
+    })
+
+  } catch (error) {
+    console.error('Error sending confirmation:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}

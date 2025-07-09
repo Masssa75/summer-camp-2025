@@ -5,6 +5,7 @@ import { createClient } from '@/utils/supabase/client'
 import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink, Trash2, MoreVertical, Settings } from 'lucide-react'
 import EditableTimetable from '@/components/admin/EditableTimetable'
 import NotificationSettings from '@/components/NotificationSettings'
+import RegistrationWorkflow from '@/components/admin/RegistrationWorkflow'
 import './admin.css'
 
 // Telegram Bot Configuration
@@ -484,83 +485,8 @@ export default function AdminPage() {
           </div>
         </div>
 
-        <div className="registrations-section">
-          <div className="flex items-center justify-between mb-4">
-            <h2>Recent Registrations</h2>
-            <button 
-              onClick={loadRegistrations}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-            >
-              Refresh
-            </button>
-          </div>
-          <div className="registrations-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Child Name</th>
-                  <th>Age Group</th>
-                  <th>Parent</th>
-                  <th>Email</th>
-                  <th>Weeks</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {registrations.map((reg) => (
-                  <tr key={reg.id}>
-                    <td>{new Date(reg.created_at).toLocaleDateString()}</td>
-                    <td>{reg.child_name}</td>
-                    <td>
-                      <span className={`badge ${reg.age_group}`}>
-                        {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'}
-                      </span>
-                    </td>
-                    <td>{reg.parent_name_1}</td>
-                    <td>{reg.email}</td>
-                    <td>{reg.weeks_selected?.join(', ') || 'N/A'}</td>
-                    <td>
-                      <div className="action-buttons">
-                        <button 
-                          className="view-btn"
-                          onClick={() => viewRegistration(reg)}
-                        >
-                          View
-                        </button>
-                        <div className="action-menu-container">
-                          <button 
-                            className="action-menu-btn"
-                            onClick={() => setOpenMenuId(openMenuId === reg.id ? null : reg.id)}
-                          >
-                            <MoreVertical size={18} />
-                          </button>
-                          {openMenuId === reg.id && (
-                            <div className="action-menu">
-                              <button 
-                                className="action-menu-item delete"
-                                onClick={() => {
-                                  handleDelete(reg)
-                                  setOpenMenuId(null)
-                                }}
-                              >
-                                <Trash2 size={16} />
-                                Delete
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {registrations.length === 0 && (
-              <p className="no-data">No registrations yet</p>
-            )}
-          </div>
-        </div>
+        {/* Registration Workflow */}
+        <RegistrationWorkflow />
         
         {/* Editable Timetable Section */}
         <EditableTimetable />
