@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Facebook Carousel Ads - Phuket Summer Camp</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #e9ebee;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #1c1e21;
+            margin-bottom: 30px;
+        }
+        
+        /* Facebook Ad Styles */
+        .fb-ad-carousel {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+        
+        .fb-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e4e6eb;
+        }
+        .fb-profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #7a9a3b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        .fb-page-info {
+            flex: 1;
+        }
+        .fb-page-name {
+            font-weight: 600;
+            color: #1c1e21;
+            font-size: 15px;
+        }
+        .fb-sponsored {
+            color: #65676b;
+            font-size: 13px;
+        }
+        
+        .fb-primary-text {
+            padding: 12px 16px;
+            font-size: 15px;
+            line-height: 20px;
+            color: #1c1e21;
+        }
+        
+        /* Carousel Container */
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+        .carousel-card {
+            min-width: 100%;
+            background: #f0f2f5;
+        }
+        .carousel-image {
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+        .carousel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel-content {
+            padding: 16px;
+            background: white;
+        }
+        .carousel-headline {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #1c1e21;
+        }
+        .carousel-description {
+            font-size: 14px;
+            color: #65676b;
+            margin-bottom: 12px;
+        }
+        .carousel-cta {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #1877f2;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* Navigation Arrows */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            transition: background 0.2s;
+        }
+        .carousel-nav:hover {
+            background: white;
+        }
+        .carousel-nav.prev {
+            left: 10px;
+        }
+        .carousel-nav.next {
+            right: 10px;
+        }
+        .carousel-nav.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Carousel Dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            gap: 4px;
+            background: white;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #bcc0c4;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active {
+            background: #1877f2;
+        }
+        
+        /* Facebook Engagement */
+        .fb-engagement {
+            padding: 10px 16px;
+            border-top: 1px solid #e4e6eb;
+            border-bottom: 1px solid #e4e6eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #65676b;
+            font-size: 13px;
+        }
+        .fb-reactions {
+            display: flex;
+            align-items: center;
+        }
+        .reaction-icons {
+            display: flex;
+            margin-right: 8px;
+        }
+        .reaction-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            margin-right: -4px;
+            border: 2px solid white;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .like { background: #1877f2; color: white; }
+        .love { background: #f33e58; color: white; }
+        .wow { background: #f7b125; color: white; }
+        
+        /* Facebook Actions */
+        .fb-actions {
+            padding: 4px 16px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .fb-action {
+            padding: 8px 12px;
+            color: #65676b;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+        .fb-action:hover {
+            background: #f0f2f5;
+            border-radius: 4px;
+        }
+        
+        /* Option Sections */
+        .option-section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        .option-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1c1e21;
+            margin-bottom: 10px;
+        }
+        .option-desc {
+            color: #65676b;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Facebook Carousel Ads</h1>
+        
+        <!-- Option 1: Luxury Checklist -->
+        <div class="option-section">
+            <h2 class="option-title">Option 1: "Your Phuket Holiday Checklist"</h2>
+            <p class="option-desc">Simple, powerful checklist showing everything included in their dream vacation</p>
+            
+            <div class="fb-ad-carousel">
+                <div class="fb-header">
+                    <div class="fb-profile-pic">PS</div>
+                    <div class="fb-page-info">
+                        <div class="fb-page-name">Phuket Summer Camp</div>
+                        <div class="fb-sponsored">Sponsored · Targeting: Singapore & Bangkok</div>
+                    </div>
+                </div>
+                
+                <div class="fb-primary-text">
+                    ✨ Two weeks in Phuket where everyone gets their dream vacation:
+                </div>
+                
+                <div class="carousel-wrapper">
+                    <div class="carousel-container" id="carousel1">
+                        <div class="carousel-track">
+                            <!-- Card 1: Beach Clubs -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&q=80" alt="Beach clubs">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Private Beach Clubs ✓</div>
+                                    <div class="carousel-description">Finn's, Catch, Dream Beach Club waiting</div>
+                                    <a href="#" class="carousel-cta">Learn More</a>
+                                </div>
+                            </div>
+                            <!-- Card 2: Infinity Pool -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80" alt="Infinity pools">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Infinity Pool Villas ✓</div>
+                                    <div class="carousel-description">Wake up to paradise views daily</div>
+                                    <a href="#" class="carousel-cta">Learn More</a>
+                                </div>
+                            </div>
+                            <!-- Card 3: Spa -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" alt="Spa treatments">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Daily Spa Treatments ✓</div>
+                                    <div class="carousel-description">Uninterrupted relaxation time</div>
+                                    <a href="#" class="carousel-cta">Learn More</a>
+                                </div>
+                            </div>
+                            <!-- Card 4: Kids at Camp -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_7112.JPG" alt="Kids at summer camp">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Kids Happy at Camp 8-5 ✓</div>
+                                    <div class="carousel-description">Professional care, amazing activities Mon-Fri</div>
+                                    <a href="#" class="carousel-cta">Learn More</a>
+                                </div>
+                            </div>
+                            <!-- Card 5: Sunset Drinks -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80" alt="Sunset cocktails">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Sunset Cocktails ✓</div>
+                                    <div class="carousel-description">Happy hour starts whenever you want</div>
+                                    <a href="#" class="carousel-cta">Learn More</a>
+                                </div>
+                            </div>
+                            <!-- Card 6: Fine Dining -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="https://images.unsplash.com/photo-1544124065-9c2ff5e73e03?w=800&q=80" alt="Fine dining">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Romantic Dinners ✓</div>
+                                    <div class="carousel-description">Finally, dinners that start after 7pm</div>
+                                    <a href="#" class="carousel-cta">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-nav prev" data-carousel="carousel1">‹</button>
+                        <button class="carousel-nav next" data-carousel="carousel1">›</button>
+                    </div>
+                    <div class="carousel-dots" data-carousel="carousel1">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                        <span class="dot" data-slide="5"></span>
+                    </div>
+                </div>
+                
+                <div class="fb-engagement">
+                    <div class="fb-reactions">
+                        <div class="reaction-icons">
+                            <div class="reaction-icon like">👍</div>
+                            <div class="reaction-icon love">❤️</div>
+                            <div class="reaction-icon wow">😮</div>
+                        </div>
+                        <span>156</span>
+                    </div>
+                    <div>
+                        <span>32 comments • 28 shares</span>
+                    </div>
+                </div>
+                <div class="fb-actions">
+                    <div class="fb-action">👍 Like</div>
+                    <div class="fb-action">💬 Comment</div>
+                    <div class="fb-action">➡️ Share</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Option 2: Day by Day -->
+        <div class="option-section">
+            <h2 class="option-title">Option 2: "Your Week in Paradise"</h2>
+            <p class="option-desc">Shows what each day could look like with kids at camp</p>
+            
+            <div class="fb-ad-carousel">
+                <div class="fb-header">
+                    <div class="fb-profile-pic">PS</div>
+                    <div class="fb-page-info">
+                        <div class="fb-page-name">Phuket Summer Camp</div>
+                        <div class="fb-sponsored">Sponsored</div>
+                    </div>
+                </div>
+                
+                <div class="fb-primary-text">
+                    Your Phuket schedule when kids are happy at camp Mon-Fri:
+                </div>
+                
+                <div class="carousel-wrapper">
+                    <div class="carousel-container" id="carousel2">
+                        <div class="carousel-track">
+                            <!-- Monday -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_7113.JPG" alt="Kids having fun Monday">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Monday: Beach Club Day</div>
+                                    <div class="carousel-description">Drop kids 8am → Catch Beach Club all day</div>
+                                    <a href="#" class="carousel-cta">Book Your Week</a>
+                                </div>
+                            </div>
+                            <!-- Tuesday -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_7116.JPG" alt="Kids swimming Tuesday">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Tuesday: Island Hopping</div>
+                                    <div class="carousel-description">Kids at camp → You at Phi Phi Islands</div>
+                                    <a href="#" class="carousel-cta">Book Your Week</a>
+                                </div>
+                            </div>
+                            <!-- Wednesday -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_7117.JPG" alt="Kids activities Wednesday">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Wednesday: Spa Day</div>
+                                    <div class="carousel-description">Kids making art → You getting massages</div>
+                                    <a href="#" class="carousel-cta">Book Your Week</a>
+                                </div>
+                            </div>
+                            <!-- Thursday -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_7118.JPG" alt="Kids playing Thursday">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Thursday: Golf & Leisure</div>
+                                    <div class="carousel-description">Kids at sports → You at Blue Canyon</div>
+                                    <a href="#" class="carousel-cta">Book Your Week</a>
+                                </div>
+                            </div>
+                            <!-- Friday -->
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_7119.JPG" alt="Kids fun Friday">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">Friday: Shopping & Lunch</div>
+                                    <div class="carousel-description">Kids final party → You at Central Festival</div>
+                                    <a href="#" class="carousel-cta">Book Your Week</a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-nav prev" data-carousel="carousel2">‹</button>
+                        <button class="carousel-nav next" data-carousel="carousel2">›</button>
+                    </div>
+                    <div class="carousel-dots" data-carousel="carousel2">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                    </div>
+                </div>
+                
+                <div class="fb-engagement">
+                    <div class="fb-reactions">
+                        <div class="reaction-icons">
+                            <div class="reaction-icon like">👍</div>
+                            <div class="reaction-icon love">❤️</div>
+                        </div>
+                        <span>89</span>
+                    </div>
+                    <div>
+                        <span>18 comments • 15 shares</span>
+                    </div>
+                </div>
+                <div class="fb-actions">
+                    <div class="fb-action">👍 Like</div>
+                    <div class="fb-action">💬 Comment</div>
+                    <div class="fb-action">➡️ Share</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Option 3: Meanwhile -->
+        <div class="option-section">
+            <h2 class="option-title">Option 3: "Meanwhile..." (Split Experience)</h2>
+            <p class="option-desc">Shows what parents and kids are doing at the same time</p>
+            
+            <div class="fb-ad-carousel">
+                <div class="fb-header">
+                    <div class="fb-profile-pic">PS</div>
+                    <div class="fb-page-info">
+                        <div class="fb-page-name">Phuket Summer Camp</div>
+                        <div class="fb-sponsored">Sponsored</div>
+                    </div>
+                </div>
+                
+                <div class="fb-primary-text">
+                    Finally: Everyone gets the vacation they actually want 🏝️
+                </div>
+                
+                <div class="carousel-wrapper">
+                    <div class="carousel-container" id="carousel3">
+                        <div class="carousel-track">
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_5996.JPG" alt="Kids making friends">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">9am: You're at the spa</div>
+                                    <div class="carousel-description">Meanwhile: Kids are making slime & friends</div>
+                                    <a href="#" class="carousel-cta">See Schedule</a>
+                                </div>
+                            </div>
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_7044.JPG" alt="Kids at pool">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">11am: You're at beach club</div>
+                                    <div class="carousel-description">Meanwhile: Kids are swimming & playing</div>
+                                    <a href="#" class="carousel-cta">See Schedule</a>
+                                </div>
+                            </div>
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/This.JPG" alt="Kids at lunch">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">1pm: You're having wine</div>
+                                    <div class="carousel-description">Meanwhile: Kids enjoying pizza party</div>
+                                    <a href="#" class="carousel-cta">See Schedule</a>
+                                </div>
+                            </div>
+                            <div class="carousel-card">
+                                <div class="carousel-image">
+                                    <img src="References/img/Photoshopped/IMG_5319.JPG" alt="Kids doing crafts">
+                                </div>
+                                <div class="carousel-content">
+                                    <div class="carousel-headline">3pm: You're island hopping</div>
+                                    <div class="carousel-description">Meanwhile: Kids creating art masterpieces</div>
+                                    <a href="#" class="carousel-cta">See Schedule</a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-nav prev" data-carousel="carousel3">‹</button>
+                        <button class="carousel-nav next" data-carousel="carousel3">›</button>
+                    </div>
+                    <div class="carousel-dots" data-carousel="carousel3">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                    </div>
+                </div>
+                
+                <div class="fb-engagement">
+                    <div class="fb-reactions">
+                        <div class="reaction-icons">
+                            <div class="reaction-icon like">👍</div>
+                            <div class="reaction-icon love">❤️</div>
+                            <div class="reaction-icon wow">😮</div>
+                        </div>
+                        <span>124</span>
+                    </div>
+                    <div>
+                        <span>26 comments • 22 shares</span>
+                    </div>
+                </div>
+                <div class="fb-actions">
+                    <div class="fb-action">👍 Like</div>
+                    <div class="fb-action">💬 Comment</div>
+                    <div class="fb-action">➡️ Share</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carousel functionality
+        class Carousel {
+            constructor(carouselId) {
+                this.carousel = document.getElementById(carouselId);
+                this.track = this.carousel.querySelector('.carousel-track');
+                this.cards = this.carousel.querySelectorAll('.carousel-card');
+                this.prevBtn = this.carousel.querySelector('.prev');
+                this.nextBtn = this.carousel.querySelector('.next');
+                this.dots = document.querySelectorAll(`.carousel-dots[data-carousel="${carouselId}"] .dot`);
+                this.currentIndex = 0;
+                
+                this.init();
+            }
+            
+            init() {
+                this.prevBtn.addEventListener('click', () => this.prev());
+                this.nextBtn.addEventListener('click', () => this.next());
+                
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+                
+                this.updateButtons();
+                
+                // Touch support
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+                
+                this.carousel.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                });
+                
+                this.carousel.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    currentX = e.touches[0].clientX;
+                });
+                
+                this.carousel.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    const diff = startX - currentX;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) {
+                            this.next();
+                        } else {
+                            this.prev();
+                        }
+                    }
+                    isDragging = false;
+                });
+            }
+            
+            updateSlidePosition() {
+                this.track.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+            }
+            
+            updateDots() {
+                this.dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentIndex);
+                });
+            }
+            
+            updateButtons() {
+                this.prevBtn.classList.toggle('disabled', this.currentIndex === 0);
+                this.nextBtn.classList.toggle('disabled', this.currentIndex === this.cards.length - 1);
+            }
+            
+            prev() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.updateSlidePosition();
+                    this.updateDots();
+                    this.updateButtons();
+                }
+            }
+            
+            next() {
+                if (this.currentIndex < this.cards.length - 1) {
+                    this.currentIndex++;
+                    this.updateSlidePosition();
+                    this.updateDots();
+                    this.updateButtons();
+                }
+            }
+            
+            goToSlide(index) {
+                this.currentIndex = index;
+                this.updateSlidePosition();
+                this.updateDots();
+                this.updateButtons();
+            }
+        }
+        
+        // Initialize all carousels
+        document.addEventListener('DOMContentLoaded', () => {
+            new Carousel('carousel1');
+            new Carousel('carousel2');
+            new Carousel('carousel3');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waldorf Phuket - Facebook Carousel Ad</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #e9ebee;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #1c1e21;
+            margin-bottom: 30px;
+        }
+        
+        /* Facebook Ad Styles */
+        .fb-ad-carousel {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+        
+        .fb-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e4e6eb;
+        }
+        .fb-profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: url('../References/Logo Only.png') center/cover no-repeat, #7a9a3b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        .fb-page-info {
+            flex: 1;
+        }
+        .fb-page-name {
+            font-weight: 600;
+            color: #1c1e21;
+            font-size: 15px;
+        }
+        .fb-sponsored {
+            color: #65676b;
+            font-size: 13px;
+        }
+        
+        .fb-primary-text {
+            padding: 12px 16px;
+            font-size: 15px;
+            line-height: 20px;
+            color: #1c1e21;
+        }
+        
+        /* Carousel Container */
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+        .carousel-card {
+            min-width: 100%;
+            background: #f0f2f5;
+        }
+        .carousel-image {
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+        .carousel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel-content {
+            padding: 16px;
+            background: white;
+        }
+        .carousel-headline {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #1c1e21;
+        }
+        .carousel-description {
+            font-size: 14px;
+            color: #65676b;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .carousel-cta {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #1877f2;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* Navigation Arrows */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            transition: background 0.2s;
+        }
+        .carousel-nav:hover {
+            background: white;
+        }
+        .carousel-nav.prev {
+            left: 10px;
+        }
+        .carousel-nav.next {
+            right: 10px;
+        }
+        
+        /* Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+            z-index: 10;
+        }
+        .indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .indicator.active {
+            background: white;
+        }
+        
+        /* Facebook interactions */
+        .fb-interactions {
+            padding: 12px 16px;
+            border-top: 1px solid #e4e6eb;
+            display: flex;
+            justify-content: space-between;
+            color: #65676b;
+            font-size: 13px;
+        }
+        .fb-engagement {
+            display: flex;
+            gap: 16px;
+        }
+        
+        /* Website link */
+        .fb-link {
+            padding: 0 16px 12px;
+            font-size: 13px;
+            color: #65676b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Facebook Carousel Ad Preview</h1>
+        
+        <div class="fb-ad-carousel">
+            <!-- Facebook Header -->
+            <div class="fb-header">
+                <div class="fb-profile-pic"></div>
+                <div class="fb-page-info">
+                    <div class="fb-page-name">The Waldorf Phuket</div>
+                    <div class="fb-sponsored">Sponsored · 🌍</div>
+                </div>
+            </div>
+            
+            <!-- Primary Text -->
+            <div class="fb-primary-text">
+                🏖️ Enjoying your Phuket holiday but need quality childcare? Give your kids an adventure while you relax! 
+                <br><br>
+                ✨ Full day care 8am-5pm
+                🌿 Nature activities & animal care
+                👩‍🏫 Licensed kindergarten teachers
+                🥗 Organic meals included
+                
+                <br><br>Limited spaces available - Book now!
+            </div>
+            
+            <!-- Carousel -->
+            <div class="carousel-wrapper">
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Card 1 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/This.JPG" alt="Outdoor activities">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">Your Holiday, Their Adventure!</div>
+                                <div class="carousel-description">Professional childcare in a beautiful natural setting. Ages 2.5-10 welcome.</div>
+                                <a href="#" class="carousel-cta">Learn More</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/IMG_7119.JPG" alt="Farm activities">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">Daily Farm & Nature Activities</div>
+                                <div class="carousel-description">Kids feed animals, grow vegetables, and explore our tropical gardens.</div>
+                                <a href="#" class="carousel-cta">See Schedule</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 3 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/11-1 copy.jpg" alt="Group activities">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">Small Groups, Big Fun!</div>
+                                <div class="carousel-description">Maximum 15 children per group ensures personal attention for everyone.</div>
+                                <a href="#" class="carousel-cta">Check Availability</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 4 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/IMG_7112.JPG" alt="Indoor learning">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">Creative Indoor Activities</div>
+                                <div class="carousel-description">Art, music, storytelling and hands-on learning in air-conditioned comfort.</div>
+                                <a href="#" class="carousel-cta">View Gallery</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 5 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/PANA8828.jpg" alt="Beautiful campus">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">Safe Natural Environment</div>
+                                <div class="carousel-description">2 acres of secure gardens in peaceful Bangtao, just 10 mins from beaches.</div>
+                                <a href="#" class="carousel-cta">Get Directions</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 6 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/IMG_5996.JPG" alt="Happy children">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">Happy Kids, Happy Parents!</div>
+                                <div class="carousel-description">"Best decision of our holiday! Kids begged to go back every day." - Sarah M.</div>
+                                <a href="#" class="carousel-cta">Read Reviews</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 7 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/1e96fdf0-b91b-4989-a880-8c6cb0223b04.JPG" alt="Special activities">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">Unique Waldorf Experience</div>
+                                <div class="carousel-description">Cooking, gardening, crafts - skills they'll remember long after vacation.</div>
+                                <a href="#" class="carousel-cta">Our Philosophy</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 8 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/IMG_7118.jpg" alt="Learning together">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">International Friends</div>
+                                <div class="carousel-description">Children from around the world learn and play together in English.</div>
+                                <a href="#" class="carousel-cta">Join Us</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 9 -->
+                        <div class="carousel-card">
+                            <div class="carousel-image">
+                                <img src="../References/img/Photoshopped/10.jpg" alt="Register now">
+                            </div>
+                            <div class="carousel-content">
+                                <div class="carousel-headline">Limited Holiday Spaces!</div>
+                                <div class="carousel-description">WhatsApp +66 98 912 4218 or visit our website to secure your spot.</div>
+                                <a href="#" class="carousel-cta">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation -->
+                    <div class="carousel-nav prev" onclick="previousSlide()">‹</div>
+                    <div class="carousel-nav next" onclick="nextSlide()">›</div>
+                    
+                    <!-- Indicators -->
+                    <div class="carousel-indicators" id="indicators"></div>
+                </div>
+            </div>
+            
+            <!-- Website Link -->
+            <div class="fb-link">
+                waldorfphuket.com
+            </div>
+            
+            <!-- Facebook Interactions -->
+            <div class="fb-interactions">
+                <div class="fb-engagement">
+                    <span>👍😊❤️ 234</span>
+                    <span>47 comments</span>
+                    <span>12 shares</span>
+                </div>
+                <div>
+                    <span>Like · Comment · Share</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Second version with different primary text -->
+        <div class="fb-ad-carousel">
+            <!-- Facebook Header -->
+            <div class="fb-header">
+                <div class="fb-profile-pic"></div>
+                <div class="fb-page-info">
+                    <div class="fb-page-name">The Waldorf Phuket</div>
+                    <div class="fb-sponsored">Sponsored · 🌍</div>
+                </div>
+            </div>
+            
+            <!-- Primary Text - Alternative Version -->
+            <div class="fb-primary-text">
+                Parents visiting Phuket - finally enjoy that couples massage, beach day, or golf round you've been dreaming of! 🌴
+                <br><br>
+                Our licensed kindergarten offers full-day care (8am-5pm) with:
+                <br>• Organic farm-to-table meals 🥕
+                <br>• Animal care & nature play 🐰
+                <br>• Small groups (max 15 kids) 👦👧
+                <br>• Air-conditioned spaces 🏠
+                <br>• English-speaking certified teachers 👩‍🏫
+                <br><br>
+                📍 Bangtao - 10 mins from Laguna beaches
+                💰 2,000 THB/day (meals included)
+                📱 WhatsApp: +66 98 912 4218
+            </div>
+            
+            <!-- Same carousel content - using JavaScript to duplicate -->
+            <div class="carousel-wrapper">
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack2">
+                        <!-- Content will be duplicated via JavaScript -->
+                    </div>
+                    
+                    <!-- Navigation -->
+                    <div class="carousel-nav prev" onclick="previousSlide2()">‹</div>
+                    <div class="carousel-nav next" onclick="nextSlide2()">›</div>
+                    
+                    <!-- Indicators -->
+                    <div class="carousel-indicators" id="indicators2"></div>
+                </div>
+            </div>
+            
+            <!-- Website Link -->
+            <div class="fb-link">
+                waldorfphuket.com
+            </div>
+            
+            <!-- Facebook Interactions -->
+            <div class="fb-interactions">
+                <div class="fb-engagement">
+                    <span>👍😊❤️ 189</span>
+                    <span>31 comments</span>
+                    <span>8 shares</span>
+                </div>
+                <div>
+                    <span>Like · Comment · Share</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // First carousel
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const slides = track.children;
+        const totalSlides = slides.length;
+        const indicatorsContainer = document.getElementById('indicators');
+        
+        // Create indicators
+        for (let i = 0; i < totalSlides; i++) {
+            const indicator = document.createElement('div');
+            indicator.className = 'indicator';
+            if (i === 0) indicator.classList.add('active');
+            indicator.onclick = () => goToSlide(i);
+            indicatorsContainer.appendChild(indicator);
+        }
+        
+        const indicators = indicatorsContainer.children;
+        
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicators
+            for (let i = 0; i < indicators.length; i++) {
+                indicators[i].classList.toggle('active', i === currentSlide);
+            }
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+        
+        // Second carousel
+        let currentSlide2 = 0;
+        const track2 = document.getElementById('carouselTrack2');
+        const indicatorsContainer2 = document.getElementById('indicators2');
+        
+        // Duplicate carousel content
+        track2.innerHTML = track.innerHTML;
+        const slides2 = track2.children;
+        const totalSlides2 = slides2.length;
+        
+        // Create indicators for second carousel
+        for (let i = 0; i < totalSlides2; i++) {
+            const indicator = document.createElement('div');
+            indicator.className = 'indicator';
+            if (i === 0) indicator.classList.add('active');
+            indicator.onclick = () => goToSlide2(i);
+            indicatorsContainer2.appendChild(indicator);
+        }
+        
+        const indicators2 = indicatorsContainer2.children;
+        
+        function updateCarousel2() {
+            track2.style.transform = `translateX(-${currentSlide2 * 100}%)`;
+            
+            // Update indicators
+            for (let i = 0; i < indicators2.length; i++) {
+                indicators2[i].classList.toggle('active', i === currentSlide2);
+            }
+        }
+        
+        function nextSlide2() {
+            currentSlide2 = (currentSlide2 + 1) % totalSlides2;
+            updateCarousel2();
+        }
+        
+        function previousSlide2() {
+            currentSlide2 = (currentSlide2 - 1 + totalSlides2) % totalSlides2;
+            updateCarousel2();
+        }
+        
+        function goToSlide2(index) {
+            currentSlide2 = index;
+            updateCarousel2();
+        }
+        
+        // Touch support
+        function addSwipeSupport(element, nextFunc, prevFunc) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            element.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            element.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) nextFunc();
+                if (touchEndX > touchStartX + 50) prevFunc();
+            });
+        }
+        
+        addSwipeSupport(track, nextSlide, previousSlide);
+        addSwipeSupport(track2, nextSlide2, previousSlide2);
+    </script>
+</body>
+</html>

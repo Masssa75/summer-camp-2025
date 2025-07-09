@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Camp Poster - 70x100cm Version 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .poster {
+            width: 700px;
+            height: 1000px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .cover-image {
+            width: 100%;
+            height: 105%;
+            object-fit: cover;
+            position: absolute;
+            top: -20px;
+            left: 0;
+        }
+        
+        .top-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 235, 100, 0.95) 0%,
+                rgba(255, 235, 100, 0.85) 50%, 
+                rgba(255, 235, 100, 0.5) 85%, 
+                transparent 100%);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 20px;
+        }
+        
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+            margin-left: 20px;
+        }
+        
+        .top-logo {
+            width: 110px;
+            height: 110px;
+            background: url('../references/Logo Only.png') center/contain no-repeat;
+            flex-shrink: 0;
+        }
+        
+        .logo-text {
+            font-family: "Comic Sans MS", cursive;
+            font-size: 22px;
+            color: #d4380d;
+            font-weight: bold;
+            white-space: nowrap;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            font-family: "Comic Sans MS", cursive;
+            font-size: 80px;
+            font-weight: bold;
+            color: #d4380d;
+            line-height: 1.1;
+            text-align: center;
+            text-shadow: 3px 3px 6px rgba(255,255,255,0.8);
+        }
+        
+        .bottom-section {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 180px;
+            background: linear-gradient(to top,
+                rgba(173, 216, 230, 0.95) 0%,
+                rgba(173, 216, 230, 0.9) 100%);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            border-top: 8px dashed rgba(255,255,255,0.5);
+        }
+        
+        .info-text {
+            flex: 1;
+            color: #2c5530;
+        }
+        
+        .info-text .tagline {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #2c5530;
+        }
+        
+        .info-text .features {
+            font-size: 20px;
+            line-height: 1.3;
+            color: #3d6b42;
+        }
+        
+        .info-text .features div {
+            margin-bottom: 5px;
+        }
+        
+        .qr-container {
+            background: rgba(255,255,255,0.8);
+            padding: 12px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .qr-url {
+            font-size: 14px;
+            color: #5a7a2b;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .qr-container img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+        
+        /* New contact strip */
+        .contact-strip {
+            position: absolute;
+            bottom: 180px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 40px;
+            border-top: 3px solid #FFD700;
+            border-bottom: 3px solid #FFD700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+        
+        .phone-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .phone-display {
+            font-family: "Comic Sans MS", cursive;
+            font-size: 42px;
+            font-weight: bold;
+            color: #d4380d;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            white-space: nowrap;
+        }
+        
+        .phone-label {
+            font-size: 20px;
+            color: #5a7a2b;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .whatsapp-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        
+        .whatsapp-label {
+            font-size: 16px;
+            color: #25D366;
+            font-weight: bold;
+            font-family: "Comic Sans MS", cursive;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <img src="../references/img/11-1 copy.jpg" alt="Kids playing" class="cover-image">
+        
+        <div class="top-section">
+            <div class="logo-wrapper">
+                <div class="top-logo"></div>
+                <div class="logo-text">The Waldorf Phuket</div>
+            </div>
+            <h1>Full Day<br>Child Care</h1>
+        </div>
+        
+        <div class="contact-strip">
+            <div class="phone-section">
+                <div class="phone-label">Call or WhatsApp us:</div>
+                <div class="phone-display">📞 +66 98 912 4218</div>
+            </div>
+            <div class="whatsapp-qr">
+                <img src="../references/whatsapp qr code.jpg" alt="WhatsApp QR Code" style="width: 110px; height: 110px; object-fit: contain;">
+            </div>
+        </div>
+        
+        <div class="bottom-section">
+            <div class="info-text">
+                <div class="tagline">
+                    Licensed Kindergarten & Caregivers
+                </div>
+                <div class="features">
+                    <div>🌱 Animal Care</div>
+                    <div>🥕 Organic Cooking</div>
+                    <div>🌻 Nature & Farm Activities</div>
+                </div>
+            </div>
+            
+            <div class="qr-container">
+                <div class="qr-url">phuketsummercamp.com</div>
+                <img src="../references/White QR Code phuketsummercamp.jpg" alt="QR Code">
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

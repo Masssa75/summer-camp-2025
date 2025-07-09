@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waldorf Phuket - Full Day Child Care Carousel Ad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #e9ebee;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .carousel-container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            height: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            background: white;
+        }
+        
+        .slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .slide-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .top-banner {
+            background: linear-gradient(to bottom, 
+                rgba(255, 235, 100, 0.95) 0%,
+                rgba(255, 235, 100, 0.85) 50%, 
+                rgba(255, 235, 100, 0.5) 85%, 
+                transparent 100%);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: url('../References/Logo Only.png') center/contain no-repeat;
+        }
+        
+        .brand-text {
+            font-family: "Comic Sans MS", cursive;
+            font-size: 14px;
+            color: #d4380d;
+            font-weight: bold;
+        }
+        
+        .main-title {
+            font-family: "Comic Sans MS", cursive;
+            font-size: 42px;
+            font-weight: bold;
+            color: #d4380d;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+        }
+        
+        .bottom-banner {
+            background: linear-gradient(to top,
+                rgba(173, 216, 230, 0.95) 0%,
+                rgba(173, 216, 230, 0.9) 100%);
+            padding: 20px;
+            border-top: 5px dashed rgba(255,255,255,0.5);
+        }
+        
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .features {
+            flex: 1;
+        }
+        
+        .tagline {
+            font-weight: bold;
+            font-size: 16px;
+            color: #2c5530;
+            margin-bottom: 10px;
+        }
+        
+        .feature-list {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #3d6b42;
+        }
+        
+        .cta-section {
+            background: rgba(255,255,255,0.9);
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .cta-text {
+            font-size: 12px;
+            color: #5a7a2b;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .website {
+            font-size: 16px;
+            color: #d4380d;
+            font-weight: bold;
+        }
+        
+        /* Navigation */
+        .carousel-nav {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-dot.active {
+            background: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+        
+        .carousel-arrows {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            pointer-events: none;
+        }
+        
+        .arrow {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.3s;
+            font-size: 20px;
+            color: #333;
+        }
+        
+        .arrow:hover {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Ad preview info */
+        .ad-info {
+            margin-top: 20px;
+            text-align: center;
+            max-width: 600px;
+        }
+        
+        .ad-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .ad-specs {
+            background: #f5f6f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .ad-specs p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Special first slide styling */
+        .slide-1 .main-title {
+            font-size: 48px;
+        }
+        
+        .slide-1 .cta-section {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .slide-1 .cta-text,
+        .slide-1 .website {
+            color: white;
+        }
+        
+        /* Middle slides - focus on features */
+        .middle-slide .feature-list {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        /* Last slide - strong CTA */
+        .last-slide .cta-section {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+        }
+        
+        .last-slide .cta-text {
+            font-size: 14px;
+            color: white;
+        }
+        
+        .last-slide .website {
+            font-size: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Slide 1: Hook - Bright outdoor play -->
+                <div class="carousel-slide slide-1">
+                    <img src="../References/img/Photoshopped/This.JPG" alt="Children playing outdoors" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Full Day<br>Child Care</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">Your Holiday, Their Adventure!</div>
+                                    <div class="feature-list">
+                                        <div>🏖️ While you relax on the beach</div>
+                                        <div>🌟 Your kids have amazing fun</div>
+                                        <div>⏰ Full day 8am-5pm</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Book Now!</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2: Active outdoor learning -->
+                <div class="carousel-slide">
+                    <img src="../References/img/Photoshopped/IMG_7119.JPG" alt="Outdoor activities" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Nature & Farm<br>Activities</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">Daily Adventures Include:</div>
+                                    <div class="feature-list">
+                                        <div>🐰 Animal feeding & care</div>
+                                        <div>🌱 Organic gardening</div>
+                                        <div>🎨 Creative arts & crafts</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Learn More</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3: Group activities -->
+                <div class="carousel-slide middle-slide">
+                    <img src="../References/img/Photoshopped/11-1 copy.jpg" alt="Group activities" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Licensed<br>Kindergarten</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">Professional Care</div>
+                                    <div class="feature-list">
+                                        <div>👩‍🏫 Certified teachers</div>
+                                        <div>🏥 Safe environment</div>
+                                        <div>🍎 Organic meals included</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Ages 2.5-10</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4: Indoor learning -->
+                <div class="carousel-slide">
+                    <img src="../References/img/Photoshopped/IMG_7112.JPG" alt="Indoor activities" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Creative<br>Learning</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">Hands-On Education</div>
+                                    <div class="feature-list">
+                                        <div>🎨 Art & music</div>
+                                        <div>📚 Storytelling</div>
+                                        <div>🧩 Problem solving</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Waldorf Method</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 5: Beautiful campus -->
+                <div class="carousel-slide">
+                    <img src="../References/img/Photoshopped/PANA8828.jpg" alt="Campus view" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Beautiful<br>Campus</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">Safe & Natural Environment</div>
+                                    <div class="feature-list">
+                                        <div>🌴 Tropical gardens</div>
+                                        <div>🏞️ Outdoor classrooms</div>
+                                        <div>🦋 Nature playground</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Bangtao, Phuket</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 6: Happy moments -->
+                <div class="carousel-slide">
+                    <img src="../References/img/Photoshopped/IMG_5996.JPG" alt="Happy children" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Happy<br>Children</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">Where Kids Love to Be!</div>
+                                    <div class="feature-list">
+                                        <div>😊 New friends daily</div>
+                                        <div>🎉 Fun activities</div>
+                                        <div>💖 Caring teachers</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Join Us!</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 7: Unique activities -->
+                <div class="carousel-slide">
+                    <img src="../References/img/Photoshopped/1e96fdf0-b91b-4989-a880-8c6cb0223b04.JPG" alt="Special activities" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Unique<br>Experiences</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">More Than Daycare</div>
+                                    <div class="feature-list">
+                                        <div>🥕 Cooking classes</div>
+                                        <div>🌻 Farm to table</div>
+                                        <div>🎭 Drama & play</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Special Programs</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 8: Learning moments -->
+                <div class="carousel-slide">
+                    <img src="../References/img/Photoshopped/IMG_7118.jpg" alt="Learning together" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Learning<br>Together</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">Small Group Sizes</div>
+                                    <div class="feature-list">
+                                        <div>👥 Personal attention</div>
+                                        <div>🤝 Collaborative play</div>
+                                        <div>🌈 Inclusive environment</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Max 15 kids/group</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 9: Final CTA -->
+                <div class="carousel-slide last-slide">
+                    <img src="../References/img/Photoshopped/10.jpg" alt="Join us" class="slide-image">
+                    <div class="slide-content">
+                        <div class="top-banner">
+                            <div class="logo-section">
+                                <div class="logo"></div>
+                                <div class="brand-text">The Waldorf Phuket</div>
+                            </div>
+                            <h1 class="main-title">Register<br>Today!</h1>
+                        </div>
+                        <div class="bottom-banner">
+                            <div class="info-section">
+                                <div class="features">
+                                    <div class="tagline">Limited Spaces Available</div>
+                                    <div class="feature-list">
+                                        <div>📅 Flexible scheduling</div>
+                                        <div>💰 Affordable rates</div>
+                                        <div>📞 Call: +66 98 912 4218</div>
+                                    </div>
+                                </div>
+                                <div class="cta-section">
+                                    <div class="cta-text">Book Your Spot!</div>
+                                    <div class="website">waldorfphuket.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="carousel-nav" id="carouselNav"></div>
+            
+            <div class="carousel-arrows">
+                <div class="arrow" onclick="previousSlide()">‹</div>
+                <div class="arrow" onclick="nextSlide()">›</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="ad-info">
+        <h2>Facebook/Instagram Carousel Ad Preview</h2>
+        <div class="ad-specs">
+            <p><strong>Format:</strong> Carousel (9 cards)</p>
+            <p><strong>Dimensions:</strong> 1:1 (600x600px)</p>
+            <p><strong>Optimized for:</strong> Mobile viewing</p>
+            <p><strong>Strategy:</strong> Hook → Features → Social Proof → CTA</p>
+        </div>
+        <p style="color: #666; font-size: 14px;">
+            Swipe through to see how the story unfolds. First image grabs attention with outdoor play,
+            middle slides build trust with facilities and programs, final slide drives action with clear CTA.
+        </p>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        const track = document.getElementById('carouselTrack');
+        const navContainer = document.getElementById('carouselNav');
+        
+        // Create navigation dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot';
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(i);
+            navContainer.appendChild(dot);
+        }
+        
+        const dots = document.querySelectorAll('.nav-dot');
+        
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+        
+        // Auto-advance carousel every 5 seconds
+        setInterval(nextSlide, 5000);
+        
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        track.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        track.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) previousSlide();
+        }
+    </script>
+</body>
+</html>

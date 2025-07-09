@@ -1279,61 +1279,117 @@ a.contact-link:hover .contact-details p {
 }
 
 @media (max-width: 768px) {
+  /* Global image fixes for mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Fix any image containers */
+  .story-card img,
+  .activity-bubble img,
+  .photo-item img,
+  .background-layer img,
+  .expandable-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Fix photo carousel images specifically */
+  .photo-carousel img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Ensure single photo displays don't overflow */
+  .single-photo {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .single-photo .story-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
   /* Top Navigation Mobile Adjustments */
   .top-navigation {
-    padding: 8px 15px;
+    padding: 8px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
   }
   
   .nav-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    max-width: 100%;
   }
   
   .nav-logo {
     order: 0;
-    width: 100%;
+    width: auto;
     display: flex;
     justify-content: center;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
   
   .nav-logo img {
-    height: 30px;
+    height: 25px;
   }
   
   .nav-age-selector {
     order: 1;
     width: 100%;
-    max-width: 280px;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
   }
   
   .nav-links {
     order: 2;
-    flex-wrap: wrap;
+    display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
-    gap: 8px;
+    gap: 4px;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 0;
   }
   
   .nav-link {
-    font-size: 0.75rem;
-    padding: 6px 10px;
+    font-size: 0.7rem;
+    padding: 5px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: fit-content;
   }
   
-  /* Hide text on smallest screens, keep icons */
+  /* Show icons and text */
   .nav-link span {
-    display: none;
+    display: inline;
+    margin-left: 2px;
+  }
+  
+  .nav-link svg {
+    width: 14px;
+    height: 14px;
   }
   
   .nav-age-btn {
-    font-size: 0.75rem;
-    padding: 6px 10px;
+    font-size: 0.7rem;
+    padding: 5px 12px;
   }
   
   /* Add more top padding for mobile due to larger nav */
   body {
-    padding-top: 80px;
+    padding-top: 120px;
   }
   
   /* Interactive Landing Mobile Adjustments */
@@ -1400,6 +1456,42 @@ a.contact-link:hover .contact-details p {
     font-size: clamp(2rem, 6vw, 3.5rem);
   }
   
+  /* Fix hero section text overflow */
+  .hero-content,
+  .hero-left {
+    max-width: 100%;
+    padding: 20px;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .hero-with-video {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 15px;
+  }
+  
+  /* Ensure text doesn't overflow */
+  .text-content,
+  .centered-content,
+  .wonder-title,
+  .closing-title,
+  .header-content {
+    max-width: 100%;
+    padding: 0 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Fix any banner or highlight text */
+  .highlight-banner {
+    max-width: 100%;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
   .slide-1 .content-wrapper {
     padding: 20px;
   }
@@ -1417,29 +1509,62 @@ a.contact-link:hover .contact-details p {
     overflow-x: hidden;
   }
   
+  /* Photo carousel mobile fixes */
   .story-card {
-    min-width: 280px;
-    height: 350px;
+    min-width: 85vw;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 4/5;
+  }
+  
+  .story-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
   .carousel-wrapper {
-    padding: 0 30px;
-    gap: 20px;
+    padding: 0 20px;
+    gap: 15px;
+    max-width: 100vw;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Ensure carousel doesn't cause horizontal scroll */
+  .photo-carousel {
+    max-width: 100vw;
+    overflow: hidden;
+  }
+  
+  .carousel-container {
+    position: relative;
+    max-width: 100%;
   }
   
   .activity-grid {
     width: 100%;
+    max-width: 100%;
     height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 0 15px;
   }
   
   .activity-bubble {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  
+  .activity-bubble img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
   /* Mobile Map Adjustments */
@@ -1555,6 +1680,31 @@ a.contact-link:hover .contact-details p {
   
   .hero-video .instagram-video-container {
     max-width: 100%;
+  }
+  
+  /* General mobile overflow fixes */
+  .slide {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  .content-wrapper {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure all sections respect viewport width */
+  section {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Fix any absolute positioned elements */
+  .background-layer,
+  .background-overlay {
+    max-width: 100vw;
+    left: 0;
+    right: 0;
   }
   
   .instagram-video-container iframe {
