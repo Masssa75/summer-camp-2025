@@ -1527,7 +1527,7 @@ a.contact-link:hover .contact-details p {
   }
   
   .content-wrapper {
-    padding: 30px 20px;
+    padding: 60px 20px 30px;
     overflow-x: hidden;
   }
   
@@ -1582,10 +1582,11 @@ a.contact-link:hover .contact-details p {
     -webkit-overflow-scrolling: touch;
   }
   
-  /* Ensure carousel doesn't cause horizontal scroll */
+  /* Fix carousel positioning on mobile */
   .photo-carousel {
-    max-width: 100vw;
-    overflow: hidden;
+    margin-top: 30px !important;
+    max-width: 100vw !important;
+    overflow: hidden !important;
   }
   
   .carousel-container {
@@ -1793,6 +1794,7 @@ a.contact-link:hover .contact-details p {
     min-width: 100% !important;
     min-height: 100% !important;
     object-fit: cover !important;
+    object-position: center top !important;
   }
   
   body {
