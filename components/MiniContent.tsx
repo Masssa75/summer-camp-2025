@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import PhotoCarousel from '@/components/PhotoCarousel'
-import ExpandableImage from '@/components/ExpandableImage'
-import { GalleryProvider, GalleryImage } from '@/components/ExpandableImageGallery'
+import { GlobalGalleryImage } from '@/components/GlobalImageGallery'
 import ScheduleGridAdjuster from '@/components/ScheduleGridAdjuster'
 
 interface TimeSlot {
@@ -120,27 +119,20 @@ export default function MiniContent() {
           <div className="centered-content">
             <h2 className="wonder-title">A Summer of Wonder,<br/>Just for Them</h2>
             
-            <GalleryProvider images={[
-              { src: "/references/Summer Camp Presentation Images/5.jpg", alt: "Child drawing" },
-              { src: "/references/Summer Camp Presentation Images/6.jpg", alt: "Child activity" },
-              { src: "/references/Summer Camp Presentation Images/7.jpg", alt: "Child with crafts" },
-              { src: "/references/Summer Camp Presentation Images/8.jpg", alt: "Outdoor activity" }
-            ]}>
-              <div className="activity-grid">
-                <div className="activity-bubble top-left">
-                  <GalleryImage index={0} src="/references/Summer Camp Presentation Images/5.jpg" alt="Child drawing" />
-                </div>
-                <div className="activity-bubble top-right">
-                  <GalleryImage index={1} src="/references/Summer Camp Presentation Images/6.jpg" alt="Child activity" />
-                </div>
-                <div className="activity-bubble bottom-left">
-                  <GalleryImage index={2} src="/references/Summer Camp Presentation Images/7.jpg" alt="Child with crafts" />
-                </div>
-                <div className="activity-bubble bottom-right">
-                  <GalleryImage index={3} src="/references/Summer Camp Presentation Images/8.jpg" alt="Outdoor activity" />
-                </div>
+            <div className="activity-grid">
+              <div className="activity-bubble top-left">
+                <GlobalGalleryImage src="/references/Summer Camp Presentation Images/5.jpg" alt="Child drawing" />
               </div>
-            </GalleryProvider>
+              <div className="activity-bubble top-right">
+                <GlobalGalleryImage src="/references/Summer Camp Presentation Images/6.jpg" alt="Child activity" />
+              </div>
+              <div className="activity-bubble bottom-left">
+                <GlobalGalleryImage src="/references/Summer Camp Presentation Images/7.jpg" alt="Child with crafts" />
+              </div>
+              <div className="activity-bubble bottom-right">
+                <GlobalGalleryImage src="/references/Summer Camp Presentation Images/8.jpg" alt="Outdoor activity" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -344,7 +336,7 @@ export default function MiniContent() {
         
         <div className="content-wrapper slide-14-layout">
           <div className="slide-14-photo">
-            <ExpandableImage src="/references/Summer Camp Presentation Images/17.jpg" alt="Child with blocks" />
+            <GlobalGalleryImage src="/references/Summer Camp Presentation Images/17.jpg" alt="Child with blocks" />
           </div>
           
           <div className="slide-14-text">

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { GalleryProvider, GalleryImage } from './ExpandableImageGallery'
+import { GlobalGalleryImage } from './GlobalImageGallery'
 
 interface Photo {
   src: string
@@ -38,34 +38,32 @@ export default function PhotoCarousel({ photos, className = '' }: PhotoCarouselP
   }
 
   return (
-    <GalleryProvider images={photos}>
-      <div className={`photo-carousel ${className}`}>
-        <div 
-          ref={carouselRef}
-          className="carousel-wrapper"
-          onScroll={handleScroll}
-        >
-          {photos.map((photo, index) => (
-            <div key={index} className="story-card">
-              <div className="card-image">
-                <GalleryImage index={index} src={photo.src} alt={photo.alt} />
-              </div>
+    <div className={`photo-carousel ${className}`}>
+      <div 
+        ref={carouselRef}
+        className="carousel-wrapper"
+        onScroll={handleScroll}
+      >
+        {photos.map((photo, index) => (
+          <div key={index} className="story-card">
+            <div className="card-image">
+              <GlobalGalleryImage src={photo.src} alt={photo.alt} />
             </div>
+          </div>
+        ))}
+      </div>
+      
+      {photos.length > 1 && (
+        <div className="navigation-dots">
+          {photos.map((_, index) => (
+            <span
+              key={index}
+              className={`dot ${index === activeIndex ? 'active' : ''}`}
+              onClick={() => scrollToCard(index)}
+            />
           ))}
         </div>
-        
-        {photos.length > 1 && (
-          <div className="navigation-dots">
-            {photos.map((_, index) => (
-              <span
-                key={index}
-                className={`dot ${index === activeIndex ? 'active' : ''}`}
-                onClick={() => scrollToCard(index)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </GalleryProvider>
+      )}
+    </div>
   )
 }
