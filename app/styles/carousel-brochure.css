@@ -398,8 +398,11 @@ p {
 }
 
 .single-photo .story-card {
-  min-width: 500px;
-  height: 400px;
+  min-width: 100%;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5/4;
 }
 
 /* Slide 4 - Activity Grid */
@@ -1525,10 +1528,24 @@ a.contact-link:hover .contact-details p {
   
   /* Photo carousel mobile fixes */
   .story-card {
-    min-width: 85vw;
-    max-width: 320px;
+    min-width: 280px !important;
+    max-width: 85vw;
+    width: auto;
     height: auto;
     aspect-ratio: 4/5;
+  }
+  
+  /* Override single-photo specific styles on mobile */
+  .single-photo .story-card {
+    min-width: unset !important;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Ensure all story cards in carousels respect viewport */
+  .carousel-wrapper .story-card {
+    max-width: calc(100vw - 40px);
   }
   
   .story-card img {
