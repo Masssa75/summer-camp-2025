@@ -263,7 +263,7 @@ export default function MiniContent() {
           
           <PhotoCarousel 
             photos={[
-              { src: '/references/Summer Camp Presentation Images/11.jpg', alt: 'Nature exploration' }
+              { src: '/references/Summer Camp Presentation Images/14.jpg', alt: 'Nature exploration' }
             ]}
             className="feature-photo"
           />
