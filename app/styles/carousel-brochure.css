@@ -1556,6 +1556,14 @@ a.contact-link:hover .contact-details p {
   .carousel-wrapper {
     max-width: 100vw !important;
     padding: 0 15px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+  
+  /* Ensure horizontal scroll doesn't affect page width */
+  .photo-carousel {
+    overflow: hidden !important;
+    max-width: 100vw !important;
   }
   
   .story-card img {
