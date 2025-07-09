@@ -265,7 +265,7 @@ export default function MiniContent() {
             photos={[
               { src: '/references/Summer Camp Presentation Images/14.jpg', alt: 'Nature exploration' }
             ]}
-            className="feature-photo"
+            className="feature-photo nature-classroom-photo"
           />
         </div>
       </section>
