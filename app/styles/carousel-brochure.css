@@ -1789,7 +1789,7 @@ a.contact-link:hover .contact-details p {
   /* Background images need special handling to cover full height */
   .background-layer img {
     max-width: none !important;
-    width: auto !important;
+    width: 100% !important;
     height: 100% !important;
     min-width: 100% !important;
     min-height: 100% !important;
