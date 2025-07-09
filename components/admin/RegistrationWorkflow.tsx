@@ -310,6 +310,35 @@ export default function RegistrationWorkflow() {
     }
   }
 
+  const unarchiveRegistration = async (id: string) => {
+    if (!confirm('Unarchive this registration?\n\nThis will move it back to the active workflow.')) return
+
+    try {
+      const response = await fetch(`/api/admin/registrations/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          admin_notes: '',
+          archived_at: null
+        })
+      })
+
+      if (response.ok) {
+        // Update local state
+        const updatedRegs = registrations.map(r => 
+          r.id === id 
+            ? { ...r, admin_notes: '' }
+            : r
+        )
+        setRegistrations(updatedRegs)
+        calculateStats(updatedRegs)
+      }
+    } catch (error) {
+      console.error('Error unarchiving registration:', error)
+      alert('Failed to unarchive registration')
+    }
+  }
+
   const deleteRegistration = async (id: string) => {
     if (!confirm('Are you sure you want to delete this registration?')) return
 
@@ -365,6 +394,161 @@ export default function RegistrationWorkflow() {
           <div className="stat-label">Confirmed</div>
         </div>
       </div>
+
+      {/* Quick Links */}
+      <div className="workflow-links">
+        <button 
+          className="btn btn-secondary btn-sm"
+          onClick={() => setShowCompleted(!showCompleted)}
+        >
+          {showCompleted ? 'Hide' : 'Show'} Completed ({getCompletedRegistrations(registrations).length})
+        </button>
+        {getArchivedRegistrations(registrations).length > 0 && (
+          <button 
+            className="btn btn-secondary btn-sm"
+            onClick={() => setShowArchived(!showArchived)}
+          >
+            {showArchived ? 'Hide' : 'Show'} Archived ({getArchivedRegistrations(registrations).length})
+          </button>
+        )}
+      </div>
+
+      {/* Completed Section */}
+      {showCompleted && (
+        <div className="workflow-table-section">
+          <div className="section-header">
+            <h3>Completed Registrations</h3>
+            <p>Registrations that have been fully processed</p>
+          </div>
+          
+          <table className="workflow-table completed-table">
+            <thead>
+              <tr>
+                <th>Registration Info</th>
+                <th>Status</th>
+                <th>Completed Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {getCompletedRegistrations(registrations).map((reg) => {
+                const expectedAmount = calculatePrice(reg)
+                return (
+                  <tr key={reg.id}>
+                    <td>
+                      <div className="registration-info">
+                        <div className="child-name">{reg.child_name}</div>
+                        <div className="parent-name">
+                          {reg.parent_name_1} • {reg.mobile_phone_1}
+                        </div>
+                        <div className="camp-details">
+                          {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
+                          Weeks {reg.weeks_selected.join(', ')} • 
+                          ฿{expectedAmount.toLocaleString()}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className="status-badge status-complete">
+                        ✅ Complete
+                      </span>
+                    </td>
+                    <td>
+                      {reg.confirmation_email_sent && new Date(reg.confirmation_email_sent).toLocaleDateString()}
+                    </td>
+                    <td>
+                      <div className="action-buttons">
+                        <button
+                          className="action-btn view"
+                          onClick={() => {
+                            setSelectedRegistration(reg)
+                            setShowDetailsModal(true)
+                          }}
+                          title="View Details"
+                        >
+                          <Eye size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Archived Section */}
+      {showArchived && getArchivedRegistrations(registrations).length > 0 && (
+        <div className="workflow-table-section">
+          <div className="section-header">
+            <h3>Archived Registrations</h3>
+            <p>Registrations that were abandoned or cancelled</p>
+          </div>
+          
+          <table className="workflow-table archived-table">
+            <thead>
+              <tr>
+                <th>Registration Info</th>
+                <th>Status</th>
+                <th>Archived Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {getArchivedRegistrations(registrations).map((reg) => {
+                const expectedAmount = calculatePrice(reg)
+                return (
+                  <tr key={reg.id}>
+                    <td>
+                      <div className="registration-info">
+                        <div className="child-name">{reg.child_name}</div>
+                        <div className="parent-name">
+                          {reg.parent_name_1} • {reg.mobile_phone_1}
+                        </div>
+                        <div className="camp-details">
+                          {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
+                          Weeks {reg.weeks_selected.join(', ')} • 
+                          ฿{expectedAmount.toLocaleString()}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className="status-badge status-archived">
+                        📦 Archived
+                      </span>
+                    </td>
+                    <td>
+                      Date archived
+                    </td>
+                    <td>
+                      <div className="action-buttons">
+                        <button
+                          className="action-btn view"
+                          onClick={() => {
+                            setSelectedRegistration(reg)
+                            setShowDetailsModal(true)
+                          }}
+                          title="View Details"
+                        >
+                          <Eye size={16} />
+                        </button>
+                        <button
+                          className="action-btn unarchive"
+                          onClick={() => unarchiveRegistration(reg.id)}
+                          title="Unarchive"
+                        >
+                          <span>↩️</span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {/* Active Workflow Section */}
       <div className="workflow-table-section">
@@ -564,151 +748,6 @@ export default function RegistrationWorkflow() {
         })()}
       </div>
 
-      {/* Completed Section */}
-      <div className="workflow-table-section">
-        <div className="section-header">
-          <h3>
-            Completed Registrations ({getCompletedRegistrations(registrations).length})
-            <button 
-              className="btn btn-secondary btn-sm"
-              onClick={() => setShowCompleted(!showCompleted)}
-            >
-              {showCompleted ? 'Hide' : 'Show'}
-            </button>
-          </h3>
-        </div>
-        
-        {showCompleted && (
-          <table className="workflow-table completed-table">
-            <thead>
-              <tr>
-                <th>Registration Info</th>
-                <th>Status</th>
-                <th>Completed Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {getCompletedRegistrations(registrations).map((reg) => {
-                const expectedAmount = calculatePrice(reg)
-                return (
-                  <tr key={reg.id}>
-                    <td>
-                      <div className="registration-info">
-                        <div className="child-name">{reg.child_name}</div>
-                        <div className="parent-name">
-                          {reg.parent_name_1} • {reg.mobile_phone_1}
-                        </div>
-                        <div className="camp-details">
-                          {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
-                          Weeks {reg.weeks_selected.join(', ')} • 
-                          ฿{expectedAmount.toLocaleString()}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className="status-badge status-complete">
-                        ✅ Complete
-                      </span>
-                    </td>
-                    <td>
-                      {reg.confirmation_email_sent && new Date(reg.confirmation_email_sent).toLocaleDateString()}
-                    </td>
-                    <td>
-                      <div className="action-buttons">
-                        <button
-                          className="action-btn view"
-                          onClick={() => {
-                            setSelectedRegistration(reg)
-                            setShowDetailsModal(true)
-                          }}
-                          title="View Details"
-                        >
-                          <Eye size={16} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        )}
-      </div>
-
-      {/* Archived Section */}
-      {getArchivedRegistrations(registrations).length > 0 && (
-        <div className="workflow-table-section">
-          <div className="section-header">
-            <h3>
-              Archived ({getArchivedRegistrations(registrations).length})
-              <button 
-                className="btn btn-secondary btn-sm"
-                onClick={() => setShowArchived(!showArchived)}
-              >
-                {showArchived ? 'Hide' : 'Show'}
-              </button>
-            </h3>
-          </div>
-          
-          {showArchived && (
-            <table className="workflow-table archived-table">
-              <thead>
-                <tr>
-                  <th>Registration Info</th>
-                  <th>Status</th>
-                  <th>Archived Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {getArchivedRegistrations(registrations).map((reg) => {
-                  const expectedAmount = calculatePrice(reg)
-                  return (
-                    <tr key={reg.id}>
-                      <td>
-                        <div className="registration-info">
-                          <div className="child-name">{reg.child_name}</div>
-                          <div className="parent-name">
-                            {reg.parent_name_1} • {reg.mobile_phone_1}
-                          </div>
-                          <div className="camp-details">
-                            {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
-                            Weeks {reg.weeks_selected.join(', ')} • 
-                            ฿{expectedAmount.toLocaleString()}
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span className="status-badge status-archived">
-                          📦 Archived
-                        </span>
-                      </td>
-                      <td>
-                        Date archived
-                      </td>
-                      <td>
-                        <div className="action-buttons">
-                          <button
-                            className="action-btn view"
-                            onClick={() => {
-                              setSelectedRegistration(reg)
-                              setShowDetailsModal(true)
-                            }}
-                            title="View Details"
-                          >
-                            <Eye size={16} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          )}
-        </div>
-      )}
 
       {/* Payment Modal */}
       {showPaymentModal && selectedRegistration && (
