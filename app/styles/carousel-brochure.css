@@ -618,6 +618,20 @@ p {
   margin: 0 auto;
 }
 
+/* Fix white space issue in feature photos */
+.feature-photo .card-image {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-photo .card-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 /* Schedule Styles */
 .schedule-container {
   margin-top: 40px;
