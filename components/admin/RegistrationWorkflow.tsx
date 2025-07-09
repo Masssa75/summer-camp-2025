@@ -630,8 +630,64 @@ export default function RegistrationWorkflow() {
                         </td>
                         <td>
                           {reg.payment_status === 'paid' ? (
-                            <span className="status-badge status-paid">
+                            <span 
+                              className="status-badge status-paid editable-badge"
+                              onClick={() => {
+                                setSelectedRegistration(reg)
+                                setPaymentForm({
+                                  ...paymentForm,
+                                  status: reg.payment_status || 'pending',
+                                  amount: reg.payment_amount ? `฿${reg.payment_amount}` : `฿${expectedAmount}`,
+                                  date: reg.payment_date || new Date().toISOString().split('T')[0],
+                                  method: reg.payment_method || '',
+                                  reference: reg.payment_reference || '',
+                                  notes: reg.admin_notes || ''
+                                })
+                                setShowPaymentModal(true)
+                              }}
+                              title="Click to edit payment details"
+                            >
                               ✅ Paid {reg.payment_amount && `(฿${reg.payment_amount.toLocaleString()})`}
+                            </span>
+                          ) : reg.payment_status === 'partial' ? (
+                            <span 
+                              className="status-badge status-partial editable-badge"
+                              onClick={() => {
+                                setSelectedRegistration(reg)
+                                setPaymentForm({
+                                  ...paymentForm,
+                                  status: reg.payment_status || 'pending',
+                                  amount: reg.payment_amount ? `฿${reg.payment_amount}` : `฿${expectedAmount}`,
+                                  date: reg.payment_date || new Date().toISOString().split('T')[0],
+                                  method: reg.payment_method || '',
+                                  reference: reg.payment_reference || '',
+                                  notes: reg.admin_notes || ''
+                                })
+                                setShowPaymentModal(true)
+                              }}
+                              title="Click to edit payment details"
+                            >
+                              ⚠️ Partial {reg.payment_amount && `(฿${reg.payment_amount.toLocaleString()})`}
+                            </span>
+                          ) : reg.payment_status === 'refunded' ? (
+                            <span 
+                              className="status-badge status-refunded editable-badge"
+                              onClick={() => {
+                                setSelectedRegistration(reg)
+                                setPaymentForm({
+                                  ...paymentForm,
+                                  status: reg.payment_status || 'pending',
+                                  amount: reg.payment_amount ? `฿${reg.payment_amount}` : `฿${expectedAmount}`,
+                                  date: reg.payment_date || new Date().toISOString().split('T')[0],
+                                  method: reg.payment_method || '',
+                                  reference: reg.payment_reference || '',
+                                  notes: reg.admin_notes || ''
+                                })
+                                setShowPaymentModal(true)
+                              }}
+                              title="Click to edit payment details"
+                            >
+                              ↩️ Refunded {reg.payment_amount && `(฿${reg.payment_amount.toLocaleString()})`}
                             </span>
                           ) : reg.payment_request_sent ? (
                             <span 
@@ -769,7 +825,9 @@ export default function RegistrationWorkflow() {
         <div className="modal-overlay" onClick={() => setShowPaymentModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2 className="modal-title">Record Payment</h2>
+              <h2 className="modal-title">
+                {selectedRegistration.payment_status === 'paid' ? 'Edit Payment Details' : 'Record Payment'}
+              </h2>
               <button className="close-btn" onClick={() => setShowPaymentModal(false)}>
                 <X size={24} />
               </button>
@@ -794,6 +852,7 @@ export default function RegistrationWorkflow() {
                   onChange={(e) => setPaymentForm({...paymentForm, status: e.target.value})}
                   required
                 >
+                  <option value="pending">Pending Payment</option>
                   <option value="paid">Full Payment Received</option>
                   <option value="partial">Partial Payment</option>
                   <option value="refunded">Refunded</option>

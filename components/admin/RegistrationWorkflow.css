@@ -196,6 +196,33 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+/* Editable Badge */
+.editable-badge {
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.editable-badge:hover {
+  border-color: #7a9a3b;
+  background: #e8f5e9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(122, 154, 59, 0.2);
+}
+
+.editable-badge::after {
+  content: "✏️";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.editable-badge:hover::after {
+  opacity: 1;
+}
+
 .status-new {
   background: #e3f2fd;
   color: #1565c0;
@@ -215,6 +242,18 @@
 .status-complete {
   background: #7a9a3b;
   color: white;
+}
+
+.status-partial {
+  background: #fff3cd;
+  color: #856404;
+  border: 2px solid #ffc107;
+}
+
+.status-refunded {
+  background: #f8d7da;
+  color: #721c24;
+  border: 2px solid #dc3545;
 }
 
 /* Progress Dots */

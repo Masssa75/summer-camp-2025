@@ -574,19 +574,13 @@
         <div class="kids-overlay"></div>
         <div class="kids-content">
             <div class="kids-left">
-                <h2>What Your Kids Will Love</h2>
-                <p>Real nature activities that make us different</p>
+                <h2>Real Nature, Real Learning</h2>
+                <p>Activities that make us different</p>
             </div>
             
             <div class="kids-info-card" id="kidsInfoCard">
-                <div class="age-badge">Ages 3-13</div>
                 <h3 class="kids-activity">Garden & Plant Care</h3>
                 <p class="kids-description">Children learn to nurture plants, understand nature cycles, and develop responsibility through hands-on gardening experiences.</p>
-                <div class="kids-benefits">
-                    <span class="kids-benefit-tag">Nature Connection</span>
-                    <span class="kids-benefit-tag">Responsibility</span>
-                    <span class="kids-benefit-tag">Life Skills</span>
-                </div>
                 
                 <div class="carousel-nav">
                     <button class="nav-button" id="kidsPrevBtn" onclick="changeKidsSlide(-1)">← Prev</button>
@@ -696,22 +690,22 @@
         const kidsActivities = [
             {
                 title: "Garden & Plant Care",
-                headerText: "Real Nature, Real Learning",
+                description: "Children learn to nurture plants, understand nature cycles, and develop responsibility through hands-on gardening experiences.",
                 image: "References/img/Photoshopped/IMG_5996.JPG"
             },
             {
                 title: "Cooking & Food Preparation",
-                headerText: "What Makes Us Different",
+                description: "Kids discover healthy eating and develop fine motor skills through safe, supervised cooking activities and food preparation.",
                 image: "References/img/Photoshopped/IMG_7112.JPG"
             },
             {
                 title: "Outdoor Play & Nature",
-                headerText: "Adventures That Matter",
+                description: "Active outdoor time with nature exploration, fresh air activities, and unstructured play that builds confidence and social skills.",
                 image: "References/img/Photoshopped/IMG_7044.JPG"
             },
             {
                 title: "Creative Arts & Learning",
-                headerText: "Beyond Ordinary Childcare",
+                description: "Artistic expression through drawing, crafts, and creative projects that develop imagination and problem-solving skills.",
                 image: "public/references/Summer Camp Presentation Images/32.jpg"
             }
         ];
@@ -723,7 +717,6 @@
         function updateKidsSlide() {
             const kidsSection = document.getElementById('kidsSection');
             const kidsInfoCard = document.getElementById('kidsInfoCard');
-            const kidsLeft = document.querySelector('.kids-left h2');
             const dots = document.querySelectorAll('#kidsDotsContainer .dot');
             const prevBtn = document.getElementById('kidsPrevBtn');
             const nextBtn = document.getElementById('kidsNextBtn');
@@ -733,12 +726,10 @@
             // Update background image
             kidsSection.style.backgroundImage = `url('${currentActivity.image}')`;
             
-            // Update header text
-            kidsLeft.textContent = currentActivity.headerText;
-            
-            // Update activity info - simplified for mobile
+            // Update activity info - without tags and age badges
             kidsInfoCard.innerHTML = `
                 <h3 class="kids-activity">${currentActivity.title}</h3>
+                <p class="kids-description">${currentActivity.description}</p>
                 
                 <div class="carousel-nav">
                     <button class="nav-button" id="kidsPrevBtn" onclick="changeKidsSlide(-1)">← Prev</button>
