@@ -477,10 +477,23 @@ p {
   display: flex;
   align-items: center;
   gap: 60px;
+  max-width: 100%;
 }
 
 .split-layout.reverse {
   flex-direction: row-reverse;
+}
+
+/* Constrain feature photos in split layouts */
+.split-layout .feature-photo {
+  flex: 1;
+  max-width: 50%;
+  overflow: hidden;
+}
+
+.split-layout .text-panel {
+  flex: 1;
+  max-width: 50%;
 }
 
 .centered-content {
@@ -557,9 +570,10 @@ p {
 }
 
 .feature-photo .story-card {
-  min-width: 450px;
-  max-width: 500px;
-  height: 500px;
+  min-width: 350px;
+  max-width: 400px;
+  height: 400px;
+  margin: 0 auto;
 }
 
 /* Schedule Styles */
