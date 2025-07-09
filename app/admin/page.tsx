@@ -442,13 +442,6 @@ export default function AdminPage() {
                     )}
                   </div>
                   
-                  {!telegramConnected && (
-                    <div className="telegram-connection-footer">
-                      <button onClick={connectTelegram} className="connect-telegram-footer-btn">
-                        Connect Telegram for instant notifications
-                      </button>
-                    </div>
-                  )}
                 </div>
               )}
             </div>
