@@ -35,6 +35,7 @@ export default function ExpandableImage({ src, alt, className = '' }: Expandable
         alt={alt}
         className={`${className} cursor-pointer transition-transform hover:scale-105`}
         onClick={handleClick}
+        style={{ maxWidth: '100%', height: 'auto' }}
       />
       
       {isExpanded && (
