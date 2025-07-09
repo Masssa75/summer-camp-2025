@@ -1323,6 +1323,8 @@ a.contact-link:hover .contact-details p {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    padding: 0 !important;
+    background: transparent !important;
   }
   
   .card-image img {
@@ -1330,6 +1332,7 @@ a.contact-link:hover .contact-details p {
     height: 100%;
     object-fit: cover;
     max-width: 100%;
+    border-radius: 20px;
   }
   /* Top Navigation Mobile Adjustments */
   .top-navigation {
