@@ -289,35 +289,6 @@ export default function RegistrationWorkflow() {
         <p>Track each registration through the complete process</p>
       </div>
 
-      {/* Workflow Legend */}
-      <div className="workflow-legend">
-        <h3>Registration Process</h3>
-        <div className="workflow-steps">
-          <div className="workflow-step">
-            <span className="step-icon">📝</span>
-            <span>New Registration</span>
-          </div>
-          <ChevronRight className="workflow-arrow" />
-          <div className="workflow-step">
-            <Check size={16} />
-            <span>Send Payment Request</span>
-          </div>
-          <ChevronRight className="workflow-arrow" />
-          <div className="workflow-step">
-            <span className="status-badge status-payment-pending">💰 Record Payment</span>
-          </div>
-          <ChevronRight className="workflow-arrow" />
-          <div className="workflow-step">
-            <Check size={16} />
-            <span>Send Confirmation</span>
-          </div>
-          <ChevronRight className="workflow-arrow" />
-          <div className="workflow-step">
-            <span className="step-icon">✅</span>
-            <span>Complete</span>
-          </div>
-        </div>
-      </div>
 
       {/* Quick Stats */}
       <div className="workflow-stats">

@@ -130,8 +130,12 @@
         
         .benefits-list {
             list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 40px;
+            margin: 30px auto;
+            max-width: 800px;
             text-align: left;
-            margin: 30px 0;
         }
         
         .benefits-list li {
@@ -185,6 +189,7 @@
             }
             
             .benefits-list {
+                grid-template-columns: 1fr;
                 max-width: 400px;
                 margin: 30px auto;
             }
@@ -192,15 +197,21 @@
     </style>
 </head>
 <body>
-    <!-- Hero 1: Problem/Solution Focus - Luxury Resort Style -->
+    <!-- Hero 1: Relaxing Family Vacation Focus -->
     <section class="hero hero-1">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>Finally, A Real Holiday in Phuket</h1>
-            <h2>Full-Day Summer Camp for Kids • Freedom for Parents</h2>
-            <p>Drop the kids at 8am, pick them up at 5pm. They'll have the time of their lives while you enjoy spa days, island tours, and romantic dinners.</p>
-            <a href="#" class="cta-button cta-primary">Book Your Freedom</a>
-            <a href="#" class="cta-button cta-secondary">Learn More</a>
+            <h1>The Relaxing Phuket Vacation for Families</h1>
+            <h2>Kids at Camp • Parents at Peace • Everyone Happy</h2>
+            <ul class="benefits-list">
+                <li>9 hours of adult time daily (8am-5pm)</li>
+                <li>Professional childcare by certified teachers</li>
+                <li>Kids enjoy sports, arts, swimming & more</li>
+                <li>Located in central Phuket - easy drop-off</li>
+                <li>Ages 3-13 welcome</li>
+                <li>Healthy meals & snacks included</li>
+            </ul>
+            <a href="#" class="cta-button cta-primary">Plan Your Family Escape</a>
         </div>
     </section>
     
