@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink, Trash2, MoreVertical } from 'lucide-react'
+import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, ExternalLink, Trash2, MoreVertical, Settings } from 'lucide-react'
 import EditableTimetable from '@/components/admin/EditableTimetable'
+import NotificationSettings from '@/components/NotificationSettings'
 import './admin.css'
 
 // Telegram Bot Configuration
@@ -33,6 +34,7 @@ export default function AdminPage() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [registrationToDelete, setRegistrationToDelete] = useState<any>(null)
   const [openMenuId, setOpenMenuId] = useState<string | null>(null)
+  const [showNotificationSettings, setShowNotificationSettings] = useState(false)
 
   const loadRegistrations = async () => {
     try {
@@ -367,15 +369,27 @@ export default function AdminPage() {
                       <Bell size={16} />
                       <span>Notifications</span>
                     </div>
-                    {unreadCount > 0 && (
-                      <button 
-                        onClick={markAllAsRead} 
-                        className="mark-all-read-btn"
-                        title="Mark all as read"
+                    <div className="notification-header-actions">
+                      <button
+                        onClick={() => {
+                          setShowNotificationMenu(false)
+                          setShowNotificationSettings(true)
+                        }}
+                        className="notification-settings-btn"
+                        title="Notification settings"
                       >
-                        Mark all read
+                        <Settings size={16} />
                       </button>
-                    )}
+                      {unreadCount > 0 && (
+                        <button 
+                          onClick={markAllAsRead} 
+                          className="mark-all-read-btn"
+                          title="Mark all as read"
+                        >
+                          Mark all read
+                        </button>
+                      )}
+                    </div>
                   </div>
                   
                   <div className="notifications-list">
@@ -816,6 +830,12 @@ export default function AdminPage() {
           </div>
         </div>
       )}
+
+      {/* Notification Settings Modal */}
+      <NotificationSettings 
+        isOpen={showNotificationSettings}
+        onClose={() => setShowNotificationSettings(false)}
+      />
     </div>
   )
 }

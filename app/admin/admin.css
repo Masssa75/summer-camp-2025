@@ -198,6 +198,30 @@
   border-radius: 12px 12px 0 0;
 }
 
+.notification-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notification-settings-btn {
+  background: none;
+  border: none;
+  padding: 6px;
+  color: #666;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.notification-settings-btn:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
 .notification-title {
   display: flex;
   align-items: center;
