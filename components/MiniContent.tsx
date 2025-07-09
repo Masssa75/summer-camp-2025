@@ -194,12 +194,13 @@ export default function MiniContent() {
             <p>Simple, hands-on culinary experiences, from kneading dough to preparing wholesome snacks.</p>
           </div>
           
-          <PhotoCarousel 
-            photos={[
-              { src: '/references/Summer Camp Presentation Images/11.jpg', alt: 'Children cooking' }
-            ]}
-            className="feature-photo"
-          />
+          <div className="feature-photo-container">
+            <img 
+              src="/references/Summer Camp Presentation Images/11.jpg" 
+              alt="Children cooking"
+              className="feature-photo-img"
+            />
+          </div>
         </div>
       </section>
 
@@ -336,7 +337,11 @@ export default function MiniContent() {
         
         <div className="content-wrapper slide-14-layout">
           <div className="slide-14-photo">
-            <GlobalGalleryImage src="/references/Summer Camp Presentation Images/17.jpg" alt="Child with blocks" />
+            <img 
+              src="/references/Summer Camp Presentation Images/17.jpg" 
+              alt="Child with blocks"
+              className="slide-14-img"
+            />
           </div>
           
           <div className="slide-14-text">
