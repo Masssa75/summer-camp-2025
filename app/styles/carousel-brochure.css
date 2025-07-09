@@ -1649,6 +1649,11 @@ a.contact-link:hover .contact-details p {
     margin-top: 30px;
   }
   
+  /* Disable the fade gradient on mobile */
+  .schedule-container::after {
+    display: none !important;
+  }
+  
   /* Add scroll hint on mobile */
   .schedule-container::before {
     content: '← Scroll →';

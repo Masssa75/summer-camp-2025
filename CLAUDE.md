@@ -117,35 +117,61 @@ When you need detailed information, check these files:
 - **Admin Dashboard** - View registrations at /admin (Telegram or test login)
 - **Test Admin Authentication** - Password-based login for AI testing (password: test123)
 - **Editable Timetable** - Admins can edit the camp schedule in the dashboard, changes reflect on public site
-- **Telegram Notifications** - Admins receive instant notifications for new registrations
+- **Telegram Notifications** - Group notifications working to group ID: -1002582721018
+- **Notification Settings Modal** - Gear icon in notification panel with join group link
+- **Admin Workflow UI** - Designed workflow for payment tracking (send request → record payment → send confirmation)
 
-### 🚧 Partially Implemented
-- **Supabase integration** - Database schema created but no backend API endpoints yet
-- **Payment processing** - Registration form ready but no payment gateway
-- **Email notifications** - Form submissions stored but no email sending
+### 🚧 In Progress (Jan 9, 2025)
+- **Database Normalization** - Created schema for parents, students, enrollments, attendance
+- **Google Sheets Import** - Analyzed 2 registration sheets + 1 attendance sheet
+  - Explorer Camp (7-13): ~30+ registrations with duplicates
+  - Mini Camp (3-6): ~15+ registrations with duplicates
+  - Many duplicates are siblings from same family
+- **Enhanced Tracking Fields** - Added payment_request_sent, confirmation_email_sent, etc.
 
-### 📋 Planned But Not Started
-- **Email confirmation system** - Automated emails after registration
-- **Payment integration** - Stripe or local payment gateway
-- **Multi-language support** - Thai/English toggle
-- **Registration status tracking** - Check registration and payment status
-- **Telegram notifications** - Send admin notifications when new registrations arrive
+### 📋 Next Steps
+- **Import Google Sheets** - Import all registrations (including duplicates)
+- **Process into Normalized Structure** - Create unique parent/student records
+- **Build Attendance Interface** - Daily check-in/out tracking
+- **Staff Management** - Import staff assignments from sheets
 
 ---
 
 ## Critical Context
 
-### Database Gotchas
-- **Registration table** - Stores parent and child info together (denormalized for simplicity)
-- **weeks_selected** - PostgreSQL array field storing week numbers (1-7)
-- **Storage buckets** - 'registration-documents' bucket must have public access for passport uploads
-- **Boolean fields** - has_insurance, photo_permission, terms_acknowledged, all_statements_true
+### Database Schema Evolution
+1. **Original Structure** (Deployed):
+   - **registrations** - Denormalized table with parent + child info
+   - **admin_users** - Telegram users for admin access
+   - **admin_notifications** - Notification tracking
+   - **camp_settings** - Key-value config store
 
-### Database Tables
-- **registrations** - Main table for camp registrations (parent + child info)
-- **admin_users** - Stores authorized Telegram users for admin access
-- **admin_notifications** - Tracks notifications sent to admins
-- **camp_settings** - Key-value store for camp configuration (includes editable timetable)
+2. **New Normalized Structure** (Created Jan 9):
+   - **parents** - Unique parents (deduped by email)
+   - **students** - Unique children (deduped by name + DOB)
+   - **parent_student** - Links parents to children
+   - **enrollments** - Links students to camp sessions
+   - **camp_sessions** - Define weeks/sessions
+   - **attendance** - Daily check-in/out
+   - **staff** - Staff members
+   - **staff_assignments** - Staff schedule
+
+### Import Strategy
+- Keep ALL registrations (including duplicates)
+- Create unique parent/student records from registrations
+- Use `create_or_get_parent()` and `create_or_get_student()` functions for deduplication
+- Link enrollments back to original registrations
+
+### Google Sheets Data Sources
+1. **Explorer Camp Registrations**: https://docs.google.com/spreadsheets/d/1G7UBjwPsDfEDAeXWNecATYHHwY6RXJti2im_1NKXA00
+2. **Mini Camp Registrations**: https://docs.google.com/spreadsheets/d/12IIwb8mtZ-BeJm34RgFVvSw6r3xYyJ9pCFtD63Iix-g
+3. **Attendance Tracking**: https://docs.google.com/spreadsheets/d/1EfdpTFP_YJpAFJT5KElD7x79ChIKAZ3j4x1Imms6Wz8
+
+### Known Duplicates
+- **assafster@gmail.com** - Multiple children in both camps
+- **nikizhang112233@gmail.com** - 3-4 registrations
+- **Cohen Family** - 5+ children
+- Most duplicates are siblings, not errors
 
 ### Authentication
 - **Public registration** - No login required for parents to register
