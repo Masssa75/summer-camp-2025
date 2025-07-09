@@ -47,6 +47,19 @@ export async function POST(request: Request) {
       body: JSON.stringify({ telegram_id: userId, name: userName })
     }).catch(() => {}) // Don't fail if this doesn't work
 
+    // Special handling for group chats
+    if (isGroupChat) {
+      // In groups, respond to commands directed at the bot
+      if (text === '/groupid' || text === `/groupid@${process.env.TELEGRAM_BOT_USERNAME}`) {
+        await sendTelegramMessage(chatId, `This group's ID is: <code>${chatId}</code>`)
+        return NextResponse.json({ ok: true })
+      }
+      // Don't respond to regular messages in groups unless mentioned
+      if (!text.includes('@' + process.env.TELEGRAM_BOT_USERNAME)) {
+        return NextResponse.json({ ok: true })
+      }
+    }
+
     // If user sends /start or asks for help
     if (text === '/start' || text.toLowerCase().includes('help')) {
       const welcomeMessage = `
