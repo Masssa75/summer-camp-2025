@@ -17,8 +17,7 @@ export default function NotificationSettings({
   if (!isOpen) return null
 
   const handleJoinGroup = () => {
-    // TODO: Replace with actual group invite link
-    alert('Please ask an admin for the group invite link')
+    window.open('https://t.me/+1Lowhrq8Eo1mZTc1', '_blank')
   }
 
   return (
