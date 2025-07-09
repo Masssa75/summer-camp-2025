@@ -64,21 +64,35 @@ export async function sendTelegramMessage(chatId: number, message: string): Prom
  * Get list of admin Telegram IDs who should receive notifications
  */
 export async function getAdminTelegramIds(): Promise<number[]> {
-  // TODO: Replace with real admin Telegram IDs
-  // Instructions to get your Telegram ID:
-  // 1. Start a chat with @Bamboo_Valley_Admin_Bot
-  // 2. Send any message
-  // 3. Check the logs or use @userinfobot to get your ID
-  
+  // Check for admin group first (preferred method)
+  const adminGroupId = process.env.TELEGRAM_ADMIN_GROUP_ID
+  if (adminGroupId) {
+    const groupId = parseInt(adminGroupId)
+    if (!isNaN(groupId)) {
+      console.log('Using Telegram admin group for notifications:', groupId)
+      return [groupId]
+    }
+  }
+
+  // Fall back to individual admin IDs
+  const adminIds = process.env.TELEGRAM_ADMIN_IDS
+  if (adminIds) {
+    const ids = adminIds.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id))
+    if (ids.length > 0) {
+      console.log('Using individual Telegram IDs for notifications:', ids)
+      return ids
+    }
+  }
+
+  // Hardcoded fallback (remove once env vars are set)
   const hardcodedAdmins: number[] = [
-    // Real admin Telegram IDs
     5089502326, // Marc - Connected via bot
-    123456789, // Test admin (placeholder)
   ]
 
-  // Return the list even if empty (webhook will handle the case)
-  if (hardcodedAdmins.length === 0) {
-    console.warn('No admin Telegram IDs configured for notifications')
+  if (hardcodedAdmins.length > 0) {
+    console.warn('Using hardcoded admin IDs. Please set TELEGRAM_ADMIN_GROUP_ID or TELEGRAM_ADMIN_IDS in .env.local')
+  } else {
+    console.error('No admin Telegram IDs or group configured for notifications!')
   }
 
   // TODO: Add database query to get admin users when admin_users table is properly set up

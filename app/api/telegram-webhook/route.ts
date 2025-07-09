@@ -29,8 +29,16 @@ export async function POST(request: Request) {
     const chatId = message.chat.id
     const text = message.text
     const userName = message.from.first_name + (message.from.last_name ? ` ${message.from.last_name}` : '')
+    const isGroupChat = chatId < 0 // Group chats have negative IDs
 
-    console.log(`Telegram message from ${userName} (ID: ${userId}):`, text)
+    if (isGroupChat) {
+      console.log(`📢 GROUP MESSAGE - Chat ID: ${chatId}`)
+      console.log(`   From: ${userName} (User ID: ${userId})`)
+      console.log(`   Message: ${text}`)
+      console.log(`   ⚡ Add this to .env.local: TELEGRAM_ADMIN_GROUP_ID=${chatId}`)
+    } else {
+      console.log(`Telegram message from ${userName} (ID: ${userId}):`, text)
+    }
 
     // Log this user ID for potential admin setup
     await fetch('/api/admin/add-telegram-id', {
