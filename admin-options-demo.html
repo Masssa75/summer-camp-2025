@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Registration List - Implementation Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #7a9a3b;
+            margin-bottom: 10px;
+        }
+        
+        .option-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .option-title {
+            font-size: 24px;
+            color: #7a9a3b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        /* Option 1: Inline Editable */
+        .inline-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        .inline-table th {
+            background: #f8f8f8;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #e0e0e0;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .inline-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .inline-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .editable {
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .editable:hover {
+            background: #e8f5e9;
+            box-shadow: 0 0 0 2px #7a9a3b;
+        }
+        
+        .payment-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-partial {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        /* Option 2: Action Buttons */
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        .action-table th {
+            background: #f8f8f8;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #e0e0e0;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .action-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+        
+        .action-btn:hover {
+            background: #f0f0f0;
+            border-color: #7a9a3b;
+            transform: translateY(-1px);
+        }
+        
+        .action-btn.primary {
+            background: #7a9a3b;
+            color: white;
+            border-color: #7a9a3b;
+        }
+        
+        .action-btn.primary:hover {
+            background: #5a7a2b;
+        }
+        
+        /* Option 3: Status Dashboard */
+        .status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .status-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+        
+        .status-card.paid::before {
+            background: #28a745;
+        }
+        
+        .status-card.pending::before {
+            background: #ffc107;
+        }
+        
+        .status-card.action-required::before {
+            background: #dc3545;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+        
+        .card-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .card-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .card-details {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .card-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 8px;
+        }
+        
+        /* Option 4: Sidebar Actions */
+        .sidebar-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .main-list {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+        
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .form-group label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .email-log {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .email-entry {
+            padding: 8px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .quick-btn {
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .quick-btn:hover {
+            background: #f0f0f0;
+            border-color: #7a9a3b;
+        }
+        
+        /* Comparison Summary */
+        .comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .comparison-card {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .comparison-card h3 {
+            color: #7a9a3b;
+            margin-bottom: 10px;
+        }
+        
+        .comparison-card ul {
+            list-style: none;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .comparison-card li::before {
+            content: "✓ ";
+            color: #7a9a3b;
+            font-weight: bold;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Summer Camp Admin - Registration Management Options</h1>
+            <p>Compare different approaches for managing registrations, payments, and communications</p>
+        </div>
+
+        <!-- Option 1: Inline Editable -->
+        <div class="option-section">
+            <h2 class="option-title">Option 1: Inline Editable Fields (Google Sheets Style)</h2>
+            <table class="inline-table">
+                <thead>
+                    <tr>
+                        <th>Child Name</th>
+                        <th>Parent</th>
+                        <th>Payment Status</th>
+                        <th>Amount</th>
+                        <th>Payment Date</th>
+                        <th>Confirmation</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Emma Thompson</td>
+                        <td>Sarah Thompson</td>
+                        <td>
+                            <span class="payment-status status-paid editable" title="Click to edit">
+                                ✅ Paid
+                            </span>
+                        </td>
+                        <td class="editable" title="Click to edit">฿15,000</td>
+                        <td class="editable" title="Click to edit">Mar 25</td>
+                        <td class="editable" title="Click to edit">✉️ Sent</td>
+                        <td class="editable" title="Click to edit">Bank transfer received</td>
+                    </tr>
+                    <tr>
+                        <td>Liam Chen</td>
+                        <td>David Chen</td>
+                        <td>
+                            <span class="payment-status status-pending editable" title="Click to edit">
+                                ⏳ Pending
+                            </span>
+                        </td>
+                        <td class="editable" title="Click to edit">-</td>
+                        <td class="editable" title="Click to edit">-</td>
+                        <td class="editable" title="Click to edit">⏳ Pending</td>
+                        <td class="editable" title="Click to edit">Awaiting payment</td>
+                    </tr>
+                    <tr>
+                        <td>Sophia Martinez</td>
+                        <td>Carlos Martinez</td>
+                        <td>
+                            <span class="payment-status status-partial editable" title="Click to edit">
+                                🔸 Partial
+                            </span>
+                        </td>
+                        <td class="editable" title="Click to edit">฿7,500</td>
+                        <td class="editable" title="Click to edit">Apr 3</td>
+                        <td class="editable" title="Click to edit">✉️ Sent</td>
+                        <td class="editable" title="Click to edit">50% deposit paid</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 16px; font-size: 14px; color: #666;">
+                💡 <strong>Pros:</strong> Familiar interface, quick edits, minimal clicks<br>
+                ⚠️ <strong>Cons:</strong> Can be cluttered, accidental edits possible, mobile unfriendly
+            </p>
+        </div>
+
+        <!-- Option 2: Action Buttons -->
+        <div class="option-section">
+            <h2 class="option-title">Option 2: Action Buttons Row</h2>
+            <table class="action-table">
+                <thead>
+                    <tr>
+                        <th>Child Name</th>
+                        <th>Parent</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Emma Thompson</td>
+                        <td>Sarah Thompson</td>
+                        <td><span class="payment-status status-paid">✅ Paid</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn">
+                                    💰 Payment
+                                </button>
+                                <button class="action-btn">
+                                    ✉️ Email
+                                </button>
+                                <button class="action-btn">
+                                    📝 Note
+                                </button>
+                                <button class="action-btn">
+                                    ⋮
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Liam Chen</td>
+                        <td>David Chen</td>
+                        <td><span class="payment-status status-pending">⏳ Pending</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn primary">
+                                    💰 Mark Paid
+                                </button>
+                                <button class="action-btn">
+                                    ✉️ Send
+                                </button>
+                                <button class="action-btn">
+                                    📝 Note
+                                </button>
+                                <button class="action-btn">
+                                    ⋮
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 16px; font-size: 14px; color: #666;">
+                💡 <strong>Pros:</strong> Clear actions, prevents mistakes, mobile friendly<br>
+                ⚠️ <strong>Cons:</strong> More clicks needed, takes more space
+            </p>
+        </div>
+
+        <!-- Option 3: Status Dashboard -->
+        <div class="option-section">
+            <h2 class="option-title">Option 3: Status Dashboard Cards</h2>
+            <div class="status-cards">
+                <div class="status-card paid">
+                    <div class="card-header">
+                        <div class="card-name">Emma Thompson</div>
+                        <div class="card-status" style="background: #d4edda; color: #155724;">Paid</div>
+                    </div>
+                    <div class="card-details">
+                        <div>Parent: Sarah Thompson</div>
+                        <div>Camp: Mini Camp (3-6)</div>
+                        <div>Weeks: 1, 2, 3</div>
+                        <div>Amount: ฿15,000</div>
+                        <div>✅ Confirmation sent Mar 25</div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn">View Details</button>
+                        <button class="action-btn">Send Receipt</button>
+                    </div>
+                </div>
+                
+                <div class="status-card pending">
+                    <div class="card-header">
+                        <div class="card-name">Liam Chen</div>
+                        <div class="card-status" style="background: #fff3cd; color: #856404;">Payment Pending</div>
+                    </div>
+                    <div class="card-details">
+                        <div>Parent: David Chen</div>
+                        <div>Camp: Explorer Camp (7-13)</div>
+                        <div>Weeks: 3, 4</div>
+                        <div>Amount: ฿10,000</div>
+                        <div>⏳ Awaiting payment</div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn primary">Mark as Paid</button>
+                        <button class="action-btn">Send Reminder</button>
+                    </div>
+                </div>
+                
+                <div class="status-card action-required">
+                    <div class="card-header">
+                        <div class="card-name">Noah Williams</div>
+                        <div class="card-status" style="background: #f8d7da; color: #721c24;">Action Required</div>
+                    </div>
+                    <div class="card-details">
+                        <div>Parent: James Williams</div>
+                        <div>Camp: Explorer Camp (7-13)</div>
+                        <div>Weeks: 1</div>
+                        <div>Amount: ฿5,000</div>
+                        <div>❌ Missing documents</div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn primary">Contact Parent</button>
+                        <button class="action-btn">Add Note</button>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 16px; font-size: 14px; color: #666;">
+                💡 <strong>Pros:</strong> Visual status overview, priority focused, great for dashboards<br>
+                ⚠️ <strong>Cons:</strong> Takes more space, harder to compare data
+            </p>
+        </div>
+
+        <!-- Option 4: Sidebar Actions -->
+        <div class="option-section">
+            <h2 class="option-title">Option 4: Enhanced Sidebar Actions (Current + Improvements)</h2>
+            <div class="sidebar-layout">
+                <div class="main-list">
+                    <table class="action-table">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Child Name</th>
+                                <th>Parent</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #e8f5e9;">
+                                <td><input type="radio" name="select" checked></td>
+                                <td><strong>Emma Thompson</strong></td>
+                                <td>Sarah Thompson</td>
+                                <td><span class="payment-status status-paid">✅ Paid</span></td>
+                                <td>฿15,000</td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="select"></td>
+                                <td>Liam Chen</td>
+                                <td>David Chen</td>
+                                <td><span class="payment-status status-pending">⏳ Pending</span></td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="sidebar">
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Payment Management</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Payment Status</label>
+                                <select>
+                                    <option>✅ Paid</option>
+                                    <option>⏳ Pending</option>
+                                    <option>🔸 Partial</option>
+                                    <option>❌ Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount</label>
+                                <input type="text" value="฿15,000">
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Date</label>
+                                <input type="date" value="2025-03-25">
+                            </div>
+                            <button class="action-btn primary" style="width: 100%;">
+                                💾 Save Payment
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Email History</h3>
+                        <div class="email-log">
+                            <div class="email-entry">
+                                ✉️ Confirmation sent<br>
+                                <small>Mar 25, 2025 10:30 AM</small>
+                            </div>
+                            <div class="email-entry">
+                                📧 Welcome email sent<br>
+                                <small>Mar 25, 2025 2:15 PM</small>
+                            </div>
+                        </div>
+                        <button class="action-btn" style="width: 100%; margin-top: 8px;">
+                            📤 Send Email
+                        </button>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Quick Actions</h3>
+                        <div class="quick-actions">
+                            <button class="quick-btn">📄 Invoice</button>
+                            <button class="quick-btn">🧾 Receipt</button>
+                            <button class="quick-btn">📋 Details</button>
+                            <button class="quick-btn">🗑️ Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 16px; font-size: 14px; color: #666;">
+                💡 <strong>Pros:</strong> Detailed management, maintains current UI, comprehensive features<br>
+                ⚠️ <strong>Cons:</strong> Requires selection first, desktop-focused
+            </p>
+        </div>
+
+        <!-- Comparison Summary -->
+        <div class="option-section">
+            <h2 class="option-title">Quick Comparison</h2>
+            <div class="comparison">
+                <div class="comparison-card">
+                    <h3>Option 1: Inline Edit</h3>
+                    <ul>
+                        <li>Best for quick updates</li>
+                        <li>Familiar spreadsheet feel</li>
+                        <li>Minimal clicks</li>
+                        <li>Risk of accidental edits</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h3>Option 2: Action Buttons</h3>
+                    <ul>
+                        <li>Clear, explicit actions</li>
+                        <li>Mobile friendly</li>
+                        <li>Prevents mistakes</li>
+                        <li>More clicks needed</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h3>Option 3: Status Cards</h3>
+                    <ul>
+                        <li>Visual overview</li>
+                        <li>Priority focused</li>
+                        <li>Great for dashboards</li>
+                        <li>Less data density</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h3>Option 4: Sidebar</h3>
+                    <ul>
+                        <li>Detailed management</li>
+                        <li>Maintains current UI</li>
+                        <li>Comprehensive features</li>
+                        <li>Desktop optimized</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendation -->
+        <div class="option-section" style="background: #e8f5e9;">
+            <h2 class="option-title">Recommendation: Hybrid Approach</h2>
+            <p style="font-size: 16px; line-height: 1.6;">
+                <strong>Start with Option 2 (Action Buttons)</strong> for the main list view, providing quick access to common tasks.
+                <strong>Enhance with Option 4 (Sidebar)</strong> for detailed management when a registration is selected.
+                This gives you the best of both worlds: quick actions for daily tasks and comprehensive management for detailed work.
+            </p>
+            <p style="margin-top: 16px; font-size: 14px; color: #666;">
+                Future enhancement: Add Option 3's status cards as a dashboard view toggle for visual overview of registration statuses.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Add click interaction to editable cells
+        document.querySelectorAll('.editable').forEach(cell => {
+            cell.addEventListener('click', function() {
+                this.style.background = '#e8f5e9';
+                this.style.boxShadow = '0 0 0 2px #7a9a3b';
+                
+                // Simulate edit mode
+                setTimeout(() => {
+                    this.style.background = '';
+                    this.style.boxShadow = '';
+                }, 2000);
+            });
+        });
+
+        // Add hover effects to buttons
+        document.querySelectorAll('.action-btn, .quick-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Simulate action
+                const originalText = this.innerHTML;
+                this.innerHTML = '✓ ' + originalText;
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                }, 1000);
+            });
+        });
+
+        // Status card interaction
+        document.querySelectorAll('.status-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.boxShadow = '0 4px 16px rgba(0,0,0,0.1)';
+                
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

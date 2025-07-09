@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import ExpandableImage from '@/components/ExpandableImage'
+import { GalleryProvider, GalleryImage } from '@/components/ExpandableImageGallery'
 import ScheduleGridAdjuster from '@/components/ScheduleGridAdjuster'
 
 interface TimeSlot {
@@ -119,20 +120,27 @@ export default function MiniContent() {
           <div className="centered-content">
             <h2 className="wonder-title">A Summer of Wonder,<br/>Just for Them</h2>
             
-            <div className="activity-grid">
-              <div className="activity-bubble top-left">
-                <ExpandableImage src="/references/Summer Camp Presentation Images/5.jpg" alt="Child drawing" />
+            <GalleryProvider images={[
+              { src: "/references/Summer Camp Presentation Images/5.jpg", alt: "Child drawing" },
+              { src: "/references/Summer Camp Presentation Images/6.jpg", alt: "Child activity" },
+              { src: "/references/Summer Camp Presentation Images/7.jpg", alt: "Child with crafts" },
+              { src: "/references/Summer Camp Presentation Images/8.jpg", alt: "Outdoor activity" }
+            ]}>
+              <div className="activity-grid">
+                <div className="activity-bubble top-left">
+                  <GalleryImage index={0} src="/references/Summer Camp Presentation Images/5.jpg" alt="Child drawing" />
+                </div>
+                <div className="activity-bubble top-right">
+                  <GalleryImage index={1} src="/references/Summer Camp Presentation Images/6.jpg" alt="Child activity" />
+                </div>
+                <div className="activity-bubble bottom-left">
+                  <GalleryImage index={2} src="/references/Summer Camp Presentation Images/7.jpg" alt="Child with crafts" />
+                </div>
+                <div className="activity-bubble bottom-right">
+                  <GalleryImage index={3} src="/references/Summer Camp Presentation Images/8.jpg" alt="Outdoor activity" />
+                </div>
               </div>
-              <div className="activity-bubble top-right">
-                <ExpandableImage src="/references/Summer Camp Presentation Images/6.jpg" alt="Child activity" />
-              </div>
-              <div className="activity-bubble bottom-left">
-                <ExpandableImage src="/references/Summer Camp Presentation Images/7.jpg" alt="Child with crafts" />
-              </div>
-              <div className="activity-bubble bottom-right">
-                <ExpandableImage src="/references/Summer Camp Presentation Images/8.jpg" alt="Outdoor activity" />
-              </div>
-            </div>
+            </GalleryProvider>
           </div>
         </div>
       </section>

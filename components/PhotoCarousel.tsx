@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import ExpandableImage from './ExpandableImage'
+import { GalleryProvider, GalleryImage } from './ExpandableImageGallery'
 
 interface Photo {
   src: string
@@ -38,32 +38,34 @@ export default function PhotoCarousel({ photos, className = '' }: PhotoCarouselP
   }
 
   return (
-    <div className={`photo-carousel ${className}`}>
-      <div 
-        ref={carouselRef}
-        className="carousel-wrapper"
-        onScroll={handleScroll}
-      >
-        {photos.map((photo, index) => (
-          <div key={index} className="story-card">
-            <div className="card-image">
-              <ExpandableImage src={photo.src} alt={photo.alt} />
+    <GalleryProvider images={photos}>
+      <div className={`photo-carousel ${className}`}>
+        <div 
+          ref={carouselRef}
+          className="carousel-wrapper"
+          onScroll={handleScroll}
+        >
+          {photos.map((photo, index) => (
+            <div key={index} className="story-card">
+              <div className="card-image">
+                <GalleryImage index={index} src={photo.src} alt={photo.alt} />
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      
-      {photos.length > 1 && (
-        <div className="navigation-dots">
-          {photos.map((_, index) => (
-            <span
-              key={index}
-              className={`dot ${index === activeIndex ? 'active' : ''}`}
-              onClick={() => scrollToCard(index)}
-            />
           ))}
         </div>
-      )}
-    </div>
+        
+        {photos.length > 1 && (
+          <div className="navigation-dots">
+            {photos.map((_, index) => (
+              <span
+                key={index}
+                className={`dot ${index === activeIndex ? 'active' : ''}`}
+                onClick={() => scrollToCard(index)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </GalleryProvider>
   )
 }
