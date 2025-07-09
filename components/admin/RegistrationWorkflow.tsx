@@ -21,14 +21,26 @@ interface Registration {
   id: string
   child_name: string
   nick_name?: string
+  gender?: string
+  date_of_birth?: string
+  current_school?: string
+  nationality_language?: string
+  english_level?: string
   parent_name_1: string
   parent_name_2?: string
   email: string
   mobile_phone_1: string
   mobile_phone_2?: string
+  wechat_whatsapp_1?: string
+  wechat_whatsapp_2?: string
+  emergency_contact?: string
   age_group: 'mini' | 'explorer'
   weeks_selected: number[]
   created_at: string
+  allergies?: string
+  health_behavioral_conditions?: string
+  has_insurance?: boolean
+  photo_permission?: boolean
   payment_status: 'pending' | 'paid' | 'partial' | 'refunded'
   payment_amount?: number
   payment_date?: string
@@ -37,6 +49,9 @@ interface Registration {
   payment_request_sent?: string
   confirmation_email_sent?: string
   admin_notes?: string
+  child_passport_url?: string
+  parent_passport_1_url?: string
+  parent_passport_2_url?: string
 }
 
 interface WorkflowStats {

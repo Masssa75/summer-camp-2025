@@ -432,9 +432,9 @@
         .kids-info-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px 25px;
             color: #333;
-            max-width: 400px;
+            max-width: 350px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
@@ -450,10 +450,11 @@
         }
         
         .kids-activity {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
+            text-align: center;
         }
         
         .kids-description {
@@ -484,11 +485,23 @@
             .kids-content {
                 flex-direction: column;
                 text-align: center;
+                padding: 20px;
             }
             
             .kids-left {
-                margin-bottom: 30px;
+                margin-bottom: 20px;
                 text-align: center;
+            }
+            
+            .kids-info-card {
+                padding: 20px 15px;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+            
+            .kids-activity {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
             }
         }
         
@@ -683,26 +696,22 @@
         const kidsActivities = [
             {
                 title: "Garden & Plant Care",
-                description: "Children learn to nurture plants, understand nature cycles, and develop responsibility through hands-on gardening experiences.",
-                benefits: ["Nature Connection", "Responsibility", "Life Skills"],
+                headerText: "Real Nature, Real Learning",
                 image: "References/img/Photoshopped/IMG_5996.JPG"
             },
             {
                 title: "Cooking & Food Preparation",
-                description: "Kids discover healthy eating and develop fine motor skills through safe, supervised cooking activities and food preparation.",
-                benefits: ["Healthy Eating", "Fine Motor Skills", "Independence"],
+                headerText: "What Makes Us Different",
                 image: "References/img/Photoshopped/IMG_7112.JPG"
             },
             {
                 title: "Outdoor Play & Nature",
-                description: "Active outdoor time with nature exploration, fresh air activities, and unstructured play that builds confidence and social skills.",
-                benefits: ["Physical Activity", "Social Skills", "Confidence"],
+                headerText: "Adventures That Matter",
                 image: "References/img/Photoshopped/IMG_7044.JPG"
             },
             {
                 title: "Creative Arts & Learning",
-                description: "Artistic expression through drawing, crafts, and creative projects that develop imagination and problem-solving skills.",
-                benefits: ["Creativity", "Problem Solving", "Self Expression"],
+                headerText: "Beyond Ordinary Childcare",
                 image: "public/references/Summer Camp Presentation Images/32.jpg"
             }
         ];
@@ -714,6 +723,7 @@
         function updateKidsSlide() {
             const kidsSection = document.getElementById('kidsSection');
             const kidsInfoCard = document.getElementById('kidsInfoCard');
+            const kidsLeft = document.querySelector('.kids-left h2');
             const dots = document.querySelectorAll('#kidsDotsContainer .dot');
             const prevBtn = document.getElementById('kidsPrevBtn');
             const nextBtn = document.getElementById('kidsNextBtn');
@@ -723,14 +733,12 @@
             // Update background image
             kidsSection.style.backgroundImage = `url('${currentActivity.image}')`;
             
-            // Update activity info
+            // Update header text
+            kidsLeft.textContent = currentActivity.headerText;
+            
+            // Update activity info - simplified for mobile
             kidsInfoCard.innerHTML = `
-                <div class="age-badge">Ages 3-13</div>
                 <h3 class="kids-activity">${currentActivity.title}</h3>
-                <p class="kids-description">${currentActivity.description}</p>
-                <div class="kids-benefits">
-                    ${currentActivity.benefits.map(benefit => `<span class="kids-benefit-tag">${benefit}</span>`).join('')}
-                </div>
                 
                 <div class="carousel-nav">
                     <button class="nav-button" id="kidsPrevBtn" onclick="changeKidsSlide(-1)">← Prev</button>
