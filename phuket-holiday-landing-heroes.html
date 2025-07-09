@@ -517,6 +517,331 @@
                 margin: 30px auto;
             }
         }
+        
+        /* Camp Programs Section */
+        .camp-programs {
+            padding: 80px 20px;
+            background: #f9f9f9;
+        }
+        
+        .programs-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .programs-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .program-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .program-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .program-header {
+            margin-bottom: 20px;
+        }
+        
+        .program-header h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .age-range {
+            background: #7a9a3b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        
+        .program-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .program-highlights {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .program-highlights li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+        
+        .program-highlights li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #7a9a3b;
+            font-weight: bold;
+        }
+        
+        /* Schedule Section */
+        .schedule-section {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .schedule-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .schedule-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .schedule-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .toggle-btn {
+            padding: 12px 30px;
+            border: 2px solid #7a9a3b;
+            background: white;
+            color: #7a9a3b;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn.active {
+            background: #7a9a3b;
+            color: white;
+        }
+        
+        .schedule-container {
+            background: #f9f9f9;
+            border-radius: 20px;
+            padding: 40px;
+            overflow-x: auto;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        .schedule-table th,
+        .schedule-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .schedule-table th {
+            background: #7a9a3b;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .schedule-table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 80px 20px;
+            background: #e8f5e9;
+        }
+        
+        .pricing-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .pricing-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 50px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .price-amount {
+            margin: 30px 0;
+        }
+        
+        .currency {
+            font-size: 1.5rem;
+            color: #7a9a3b;
+            vertical-align: top;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #7a9a3b;
+        }
+        
+        .period {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .price-includes {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .price-includes li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .price-includes li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #7a9a3b;
+            font-weight: bold;
+        }
+        
+        .pricing-note {
+            margin-top: 30px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .contact-info h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .contact-intro {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .contact-details {
+            display: grid;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-item h4 {
+            font-size: 1.2rem;
+            color: #7a9a3b;
+            margin-bottom: 10px;
+        }
+        
+        .contact-item p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .programs-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-toggle,
+            .pricing-toggle {
+                flex-wrap: wrap;
+            }
+        }
     </style>
 </head>
 <body>
@@ -570,17 +895,17 @@
     </section>
 
     <!-- Kids Activities Section -->
-    <section class="kids-section" id="kidsSection" style="background-image: url('References/img/Photoshopped/IMG_5996.JPG');">
+    <section class="kids-section" id="kidsSection" style="background-image: url('References/img/Photoshopped/PANA8828.jpg');">
         <div class="kids-overlay"></div>
         <div class="kids-content">
             <div class="kids-left">
-                <h2>Real Nature, Real Learning</h2>
+                <h2>Lifelong Lessons for Your Children</h2>
                 <p>Activities that make us different</p>
             </div>
             
             <div class="kids-info-card" id="kidsInfoCard">
-                <h3 class="kids-activity">Garden & Plant Care</h3>
-                <p class="kids-description">Children learn to nurture plants, understand nature cycles, and develop responsibility through hands-on gardening experiences.</p>
+                <h3 class="kids-activity">Our Waldorf-Inspired Approach</h3>
+                <p class="kids-description">Our Waldorf-inspired camp teaches children through hands-on experiences with nature, creative arts, and practical life skills that foster independence and confidence.</p>
                 
                 <div class="carousel-nav">
                     <button class="nav-button" id="kidsPrevBtn" onclick="changeKidsSlide(-1)">← Prev</button>
@@ -592,7 +917,151 @@
                     <span class="dot" onclick="goToKidsSlide(1)"></span>
                     <span class="dot" onclick="goToKidsSlide(2)"></span>
                     <span class="dot" onclick="goToKidsSlide(3)"></span>
+                    <span class="dot" onclick="goToKidsSlide(4)"></span>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Camp Programs Section -->
+    <section class="camp-programs">
+        <div class="programs-content">
+            <h2>Two Programs, Perfect for Every Age</h2>
+            <div class="programs-grid">
+                <div class="program-card mini">
+                    <div class="program-header">
+                        <h3>Mini Camp</h3>
+                        <span class="age-range">Ages 3-6</span>
+                    </div>
+                    <p class="program-description">A gentle introduction to independence through play-based learning, sensory activities, and nurturing care in a safe environment.</p>
+                    <ul class="program-highlights">
+                        <li>Shorter activity periods</li>
+                        <li>Nap time available</li>
+                        <li>Extra snack breaks</li>
+                        <li>1:6 teacher ratio</li>
+                    </ul>
+                </div>
+                
+                <div class="program-card explorer">
+                    <div class="program-header">
+                        <h3>Explorer Camp</h3>
+                        <span class="age-range">Ages 7-13</span>
+                    </div>
+                    <p class="program-description">Adventure-filled days with sports, nature exploration, creative projects, and team activities that build confidence and friendships.</p>
+                    <ul class="program-highlights">
+                        <li>Advanced activities</li>
+                        <li>Field trips included</li>
+                        <li>Leadership opportunities</li>
+                        <li>1:8 teacher ratio</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="schedule-section" id="scheduleSection">
+        <div class="schedule-content">
+            <h2>Weekly Schedule</h2>
+            <div class="schedule-toggle">
+                <button class="toggle-btn active" onclick="toggleSchedule('mini')">Mini Camp (3-6)</button>
+                <button class="toggle-btn" onclick="toggleSchedule('explorer')">Explorer Camp (7-13)</button>
+            </div>
+            
+            <div class="schedule-container" id="scheduleContainer">
+                <!-- Schedule will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="pricing-content">
+            <h2>Simple, Transparent Pricing</h2>
+            <div class="pricing-toggle">
+                <button class="toggle-btn active" onclick="togglePricing('weekly')">Weekly</button>
+                <button class="toggle-btn" onclick="togglePricing('daily')">Daily</button>
+            </div>
+            
+            <div class="pricing-grid" id="pricingGrid">
+                <div class="pricing-card">
+                    <h3>Mini Camp</h3>
+                    <div class="price-amount">
+                        <span class="currency">฿</span>
+                        <span class="price" id="miniPrice">15,000</span>
+                        <span class="period" id="miniPeriod">/week</span>
+                    </div>
+                    <ul class="price-includes">
+                        <li>8:00 AM - 5:00 PM</li>
+                        <li>All meals & snacks</li>
+                        <li>Materials included</li>
+                        <li>Weekly field trip</li>
+                    </ul>
+                    <a href="#" class="cta-button cta-primary">Register Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Explorer Camp</h3>
+                    <div class="price-amount">
+                        <span class="currency">฿</span>
+                        <span class="price" id="explorerPrice">18,000</span>
+                        <span class="period" id="explorerPeriod">/week</span>
+                    </div>
+                    <ul class="price-includes">
+                        <li>8:00 AM - 5:00 PM</li>
+                        <li>All meals & snacks</li>
+                        <li>Advanced activities</li>
+                        <li>2 field trips/week</li>
+                    </ul>
+                    <a href="#" class="cta-button cta-primary">Register Now</a>
+                </div>
+            </div>
+            
+            <p class="pricing-note">* 10% sibling discount available</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2>Visit Us Today</h2>
+                <p class="contact-intro">Located in the heart of Phuket, easy access from all major hotels</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <h4>Location</h4>
+                        <p>123 Soi Samakki 1<br>Rawai, Phuket 83130</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Contact</h4>
+                        <p>Phone: +66 98 912 4218<br>
+                        Email: info@phuketsummercamp.com</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>Hours</h4>
+                        <p>Monday - Friday<br>
+                        8:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="contact-buttons">
+                    <a href="#" class="cta-button cta-primary">Get Directions</a>
+                    <a href="https://wa.me/66989124218" class="cta-button cta-secondary">WhatsApp Us</a>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.639!2d98.3380!3d7.8280!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNDknNDAuOCJOIDk4wrAyMCcxNi44IkU!5e0!3m2!1sen!2sth!4v1234567890"
+                    width="100%" 
+                    height="400" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
             </div>
         </div>
     </section>
@@ -689,22 +1158,27 @@
         // Kids Activities data
         const kidsActivities = [
             {
-                title: "Garden & Plant Care",
+                headerTitle: "Lifelong Lessons for Your Children",
+                description: "Our Waldorf-inspired camp teaches children through hands-on experiences with nature, creative arts, and practical life skills that foster independence and confidence.",
+                image: "References/img/Photoshopped/PANA8828.jpg"
+            },
+            {
+                headerTitle: "Garden & Plant Care",
                 description: "Children learn to nurture plants, understand nature cycles, and develop responsibility through hands-on gardening experiences.",
                 image: "References/img/Photoshopped/IMG_5996.JPG"
             },
             {
-                title: "Cooking & Food Preparation",
+                headerTitle: "Cooking & Food Preparation",
                 description: "Kids discover healthy eating and develop fine motor skills through safe, supervised cooking activities and food preparation.",
                 image: "References/img/Photoshopped/IMG_7112.JPG"
             },
             {
-                title: "Outdoor Play & Nature",
+                headerTitle: "Outdoor Play & Nature",
                 description: "Active outdoor time with nature exploration, fresh air activities, and unstructured play that builds confidence and social skills.",
                 image: "References/img/Photoshopped/IMG_7044.JPG"
             },
             {
-                title: "Creative Arts & Learning",
+                headerTitle: "Creative Arts & Learning",
                 description: "Artistic expression through drawing, crafts, and creative projects that develop imagination and problem-solving skills.",
                 image: "public/references/Summer Camp Presentation Images/32.jpg"
             }
@@ -811,6 +1285,217 @@
         // Initialize both carousels
         updateSlide();
         updateKidsSlide();
+        
+        // Schedule data
+        const schedules = {
+            mini: `
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>8:00 - 9:00</td>
+                            <td>Welcome & Free Play</td>
+                            <td>Welcome & Free Play</td>
+                            <td>Welcome & Free Play</td>
+                            <td>Welcome & Free Play</td>
+                            <td>Welcome & Free Play</td>
+                        </tr>
+                        <tr>
+                            <td>9:00 - 10:00</td>
+                            <td>Circle Time & Songs</td>
+                            <td>Circle Time & Songs</td>
+                            <td>Circle Time & Songs</td>
+                            <td>Circle Time & Songs</td>
+                            <td>Circle Time & Songs</td>
+                        </tr>
+                        <tr>
+                            <td>10:00 - 10:30</td>
+                            <td>Snack Time</td>
+                            <td>Snack Time</td>
+                            <td>Snack Time</td>
+                            <td>Snack Time</td>
+                            <td>Snack Time</td>
+                        </tr>
+                        <tr>
+                            <td>10:30 - 11:30</td>
+                            <td>Garden Time</td>
+                            <td>Arts & Crafts</td>
+                            <td>Water Play</td>
+                            <td>Cooking Class</td>
+                            <td>Nature Walk</td>
+                        </tr>
+                        <tr>
+                            <td>11:30 - 12:30</td>
+                            <td>Lunch</td>
+                            <td>Lunch</td>
+                            <td>Lunch</td>
+                            <td>Lunch</td>
+                            <td>Lunch</td>
+                        </tr>
+                        <tr>
+                            <td>12:30 - 2:00</td>
+                            <td>Nap/Quiet Time</td>
+                            <td>Nap/Quiet Time</td>
+                            <td>Nap/Quiet Time</td>
+                            <td>Nap/Quiet Time</td>
+                            <td>Nap/Quiet Time</td>
+                        </tr>
+                        <tr>
+                            <td>2:00 - 3:00</td>
+                            <td>Story Time</td>
+                            <td>Music & Dance</td>
+                            <td>Sensory Play</td>
+                            <td>Drama Play</td>
+                            <td>Show & Tell</td>
+                        </tr>
+                        <tr>
+                            <td>3:00 - 3:30</td>
+                            <td>Snack Time</td>
+                            <td>Snack Time</td>
+                            <td>Snack Time</td>
+                            <td>Snack Time</td>
+                            <td>Snack Time</td>
+                        </tr>
+                        <tr>
+                            <td>3:30 - 5:00</td>
+                            <td>Free Play & Pickup</td>
+                            <td>Free Play & Pickup</td>
+                            <td>Free Play & Pickup</td>
+                            <td>Free Play & Pickup</td>
+                            <td>Free Play & Pickup</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `,
+            explorer: `
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>8:00 - 9:00</td>
+                            <td>Morning Assembly</td>
+                            <td>Morning Assembly</td>
+                            <td>Morning Assembly</td>
+                            <td>Morning Assembly</td>
+                            <td>Morning Assembly</td>
+                        </tr>
+                        <tr>
+                            <td>9:00 - 10:30</td>
+                            <td>Sports & Games</td>
+                            <td>Farm Project</td>
+                            <td>Swimming</td>
+                            <td>Adventure Course</td>
+                            <td>Team Building</td>
+                        </tr>
+                        <tr>
+                            <td>10:30 - 11:00</td>
+                            <td>Snack Break</td>
+                            <td>Snack Break</td>
+                            <td>Snack Break</td>
+                            <td>Snack Break</td>
+                            <td>Snack Break</td>
+                        </tr>
+                        <tr>
+                            <td>11:00 - 12:00</td>
+                            <td>Science Lab</td>
+                            <td>Art Studio</td>
+                            <td>Nature Study</td>
+                            <td>Cooking Lab</td>
+                            <td>STEM Projects</td>
+                        </tr>
+                        <tr>
+                            <td>12:00 - 1:00</td>
+                            <td>Lunch</td>
+                            <td>Lunch</td>
+                            <td>Lunch</td>
+                            <td>Lunch</td>
+                            <td>Lunch</td>
+                        </tr>
+                        <tr>
+                            <td>1:00 - 2:30</td>
+                            <td>Creative Writing</td>
+                            <td>Drama Workshop</td>
+                            <td>Field Trip</td>
+                            <td>Music Band</td>
+                            <td>Movie Making</td>
+                        </tr>
+                        <tr>
+                            <td>2:30 - 3:00</td>
+                            <td>Snack Break</td>
+                            <td>Snack Break</td>
+                            <td>Snack Break</td>
+                            <td>Snack Break</td>
+                            <td>Snack Break</td>
+                        </tr>
+                        <tr>
+                            <td>3:00 - 4:30</td>
+                            <td>Leadership Skills</td>
+                            <td>Environmental Club</td>
+                            <td>Field Trip Cont.</td>
+                            <td>Photography</td>
+                            <td>Talent Show Prep</td>
+                        </tr>
+                        <tr>
+                            <td>4:30 - 5:00</td>
+                            <td>Reflection & Pickup</td>
+                            <td>Reflection & Pickup</td>
+                            <td>Reflection & Pickup</td>
+                            <td>Reflection & Pickup</td>
+                            <td>Show & Pickup</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `
+        };
+        
+        // Toggle schedule function
+        function toggleSchedule(type) {
+            const buttons = document.querySelectorAll('.schedule-toggle .toggle-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('scheduleContainer').innerHTML = schedules[type];
+        }
+        
+        // Toggle pricing function
+        function togglePricing(type) {
+            const buttons = document.querySelectorAll('.pricing-toggle .toggle-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (type === 'daily') {
+                document.getElementById('miniPrice').textContent = '3,500';
+                document.getElementById('miniPeriod').textContent = '/day';
+                document.getElementById('explorerPrice').textContent = '4,000';
+                document.getElementById('explorerPeriod').textContent = '/day';
+            } else {
+                document.getElementById('miniPrice').textContent = '15,000';
+                document.getElementById('miniPeriod').textContent = '/week';
+                document.getElementById('explorerPrice').textContent = '18,000';
+                document.getElementById('explorerPeriod').textContent = '/week';
+            }
+        }
+        
+        // Initialize schedule with mini camp
+        document.getElementById('scheduleContainer').innerHTML = schedules.mini;
     </script>
 </body>
 </html>
