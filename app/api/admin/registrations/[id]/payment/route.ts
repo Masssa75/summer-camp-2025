@@ -4,7 +4,7 @@ import { sendTelegramMessage } from '@/utils/telegram'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { 
@@ -16,6 +16,7 @@ export async function POST(
       admin_notes
     } = await request.json()
 
+    const { id } = await params
     const supabase = createClient()
 
     // Update registration with payment information
@@ -30,7 +31,7 @@ export async function POST(
         admin_notes,
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single()
 
@@ -41,16 +42,21 @@ export async function POST(
 
     // Send notification to admin group
     try {
+      const { getAdminTelegramIds } = await import('@/utils/telegram')
+      const adminIds = await getAdminTelegramIds()
       const statusEmoji = payment_status === 'paid' ? '✅' : payment_status === 'partial' ? '⚠️' : '❌'
-      await sendTelegramMessage(
-        null, // Will use admin group ID
-        `${statusEmoji} Payment recorded for ${registration.child_name}\n\n` +
+      const message = `${statusEmoji} Payment recorded for ${registration.child_name}\n\n` +
         `Status: ${payment_status.charAt(0).toUpperCase() + payment_status.slice(1)}\n` +
         `Amount: ฿${payment_amount?.toLocaleString() || 'N/A'}\n` +
         `Method: ${payment_method || 'N/A'}\n` +
         `Reference: ${payment_reference || 'N/A'}\n` +
         `Date: ${payment_date || 'N/A'}`
+      
+      // Send to all admins
+      const notifications = adminIds.map(adminId => 
+        sendTelegramMessage(adminId, message)
       )
+      await Promise.allSettled(notifications)
     } catch (telegramError) {
       console.error('Error sending Telegram notification:', telegramError)
       // Don't fail the request if Telegram fails

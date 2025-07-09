@@ -4,10 +4,11 @@ import { sendTelegramMessage } from '@/utils/telegram'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { amount, email } = await request.json()
+    const { id } = await params
     const supabase = createClient()
 
     // Update registration with payment request sent timestamp
@@ -17,7 +18,7 @@ export async function POST(
         payment_request_sent: new Date().toISOString(),
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single()
 
@@ -28,13 +29,18 @@ export async function POST(
 
     // Send notification to admin group
     try {
-      await sendTelegramMessage(
-        null, // Will use admin group ID
-        `📧 Payment request sent to ${registration.child_name}'s parent (${email})\n\n` +
+      const { getAdminTelegramIds } = await import('@/utils/telegram')
+      const adminIds = await getAdminTelegramIds()
+      const message = `📧 Payment request sent to ${registration.child_name}'s parent (${email})\n\n` +
         `Amount: ฿${amount.toLocaleString()}\n` +
         `Camp: ${registration.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'}\n` +
         `Weeks: ${registration.weeks_selected?.join(', ') || 'N/A'}`
+      
+      // Send to all admins
+      const notifications = adminIds.map(adminId => 
+        sendTelegramMessage(adminId, message)
       )
+      await Promise.allSettled(notifications)
     } catch (telegramError) {
       console.error('Error sending Telegram notification:', telegramError)
       // Don't fail the request if Telegram fails
