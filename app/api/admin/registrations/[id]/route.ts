@@ -53,3 +53,57 @@ export async function DELETE(
     }, { status: 500 })
   }
 }
+
+export async function PATCH(
+  request: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const params = await context.params
+    const { id } = params
+    const body = await request.json()
+    
+    if (!id) {
+      return NextResponse.json({ error: 'Registration ID required' }, { status: 400 })
+    }
+
+    // Create server-side client with service role access
+    const supabase = createClient()
+    
+    // First check if registration exists
+    const { data: registration, error: fetchError } = await supabase
+      .from('registrations')
+      .select('*')
+      .eq('id', id)
+      .single()
+    
+    if (fetchError || !registration) {
+      return NextResponse.json({ error: 'Registration not found' }, { status: 404 })
+    }
+    
+    // Update the registration
+    const { error: updateError } = await supabase
+      .from('registrations')
+      .update({
+        ...body,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', id)
+    
+    if (updateError) {
+      console.error('Error updating registration:', updateError)
+      return NextResponse.json({ error: updateError.message }, { status: 500 })
+    }
+    
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Registration updated successfully' 
+    })
+  } catch (error) {
+    console.error('API error:', error)
+    return NextResponse.json({ 
+      error: 'Internal server error',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
+  }
+}

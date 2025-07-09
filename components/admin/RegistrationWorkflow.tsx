@@ -49,6 +49,9 @@ interface WorkflowStats {
 export default function RegistrationWorkflow() {
   const [registrations, setRegistrations] = useState<Registration[]>([])
   const [loading, setLoading] = useState(true)
+  const [showAllActive, setShowAllActive] = useState(false)
+  const [showCompleted, setShowCompleted] = useState(false)
+  const [showArchived, setShowArchived] = useState(false)
   const [stats, setStats] = useState<WorkflowStats>({
     new: 0,
     awaiting_payment: 0,
@@ -87,23 +90,35 @@ export default function RegistrationWorkflow() {
     }
   }
 
+  // Helper functions to categorize registrations
+  const getActiveRegistrations = (regs: Registration[]) => {
+    return regs.filter(reg => !reg.confirmation_email_sent && !reg.admin_notes?.includes('archived'))
+  }
+
+  const getCompletedRegistrations = (regs: Registration[]) => {
+    return regs.filter(reg => reg.confirmation_email_sent && !reg.admin_notes?.includes('archived'))
+  }
+
+  const getArchivedRegistrations = (regs: Registration[]) => {
+    return regs.filter(reg => reg.admin_notes?.includes('archived'))
+  }
+
   const calculateStats = (regs: Registration[]) => {
+    const activeRegs = getActiveRegistrations(regs)
     const newStats = {
       new: 0,
       awaiting_payment: 0,
       paid: 0,
-      confirmed: 0
+      confirmed: getCompletedRegistrations(regs).length
     }
 
-    regs.forEach(reg => {
+    activeRegs.forEach(reg => {
       if (!reg.payment_request_sent) {
         newStats.new++
       } else if (reg.payment_status === 'pending') {
         newStats.awaiting_payment++
       } else if (reg.payment_status === 'paid' && !reg.confirmation_email_sent) {
         newStats.paid++
-      } else if (reg.confirmation_email_sent) {
-        newStats.confirmed++
       }
     })
 
@@ -254,6 +269,35 @@ export default function RegistrationWorkflow() {
     setSelectedRegistration(null)
   }
 
+  const archiveRegistration = async (id: string) => {
+    if (!confirm('Are you sure you want to archive this registration?')) return
+
+    try {
+      const response = await fetch(`/api/admin/registrations/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          admin_notes: 'archived',
+          archived_at: new Date().toISOString()
+        })
+      })
+
+      if (response.ok) {
+        // Update local state
+        const updatedRegs = registrations.map(r => 
+          r.id === id 
+            ? { ...r, admin_notes: 'archived' }
+            : r
+        )
+        setRegistrations(updatedRegs)
+        calculateStats(updatedRegs)
+      }
+    } catch (error) {
+      console.error('Error archiving registration:', error)
+      alert('Failed to archive registration')
+    }
+  }
+
   const deleteRegistration = async (id: string) => {
     if (!confirm('Are you sure you want to delete this registration?')) return
 
@@ -310,170 +354,348 @@ export default function RegistrationWorkflow() {
         </div>
       </div>
 
-      {/* Registrations Table */}
+      {/* Active Workflow Section */}
       <div className="workflow-table-section">
-        <table className="workflow-table">
-          <thead>
-            <tr>
-              <th>Registration Info</th>
-              <th>Payment Request</th>
-              <th>Payment Status</th>
-              <th>Confirmation</th>
-              <th>Progress</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {registrations.map((reg) => {
-              const status = getRegistrationStatus(reg)
-              const progressDots = getProgressDots(reg)
-              const expectedAmount = calculatePrice(reg)
+        <div className="section-header">
+          <h3>Active Workflow</h3>
+          <p>Registrations requiring action</p>
+        </div>
+        
+        {(() => {
+          const activeRegs = getActiveRegistrations(registrations)
+          const displayRegs = showAllActive ? activeRegs : activeRegs.slice(0, 10)
+          
+          return (
+            <>
+              <table className="workflow-table">
+                <thead>
+                  <tr>
+                    <th>Registration Info</th>
+                    <th>Payment Request</th>
+                    <th>Payment Status</th>
+                    <th>Confirmation</th>
+                    <th>Progress</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {displayRegs.map((reg) => {
+                    const status = getRegistrationStatus(reg)
+                    const progressDots = getProgressDots(reg)
+                    const expectedAmount = calculatePrice(reg)
 
-              return (
-                <tr key={reg.id}>
-                  <td>
-                    <div className="registration-info">
-                      <div className="child-name">{reg.child_name}</div>
-                      <div className="parent-name">
-                        {reg.parent_name_1} • {reg.mobile_phone_1}
-                      </div>
-                      <div className="camp-details">
-                        {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
-                        Weeks {reg.weeks_selected.join(', ')} • 
-                        ฿{expectedAmount.toLocaleString()}
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    {!reg.payment_request_sent ? (
-                      <div className="status-cell">
-                        <input
-                          type="checkbox"
-                          className="checkbox-action"
-                          onChange={() => sendPaymentRequest(reg)}
-                        />
-                        <label>Send request</label>
-                      </div>
-                    ) : (
-                      <div className="status-cell">
-                        <span className="status-completed">
-                          ✓ Sent {new Date(reg.payment_request_sent).toLocaleDateString()}
-                        </span>
-                      </div>
-                    )}
-                  </td>
-                  <td>
-                    {reg.payment_status === 'paid' ? (
-                      <span className="status-badge status-paid">
-                        ✅ Paid {reg.payment_amount && `(฿${reg.payment_amount.toLocaleString()})`}
-                      </span>
-                    ) : reg.payment_request_sent ? (
-                      <span 
-                        className="status-badge status-payment-pending"
-                        onClick={() => {
-                          setSelectedRegistration(reg)
-                          setPaymentForm({
-                            ...paymentForm,
-                            amount: `฿${expectedAmount}`
-                          })
-                          setShowPaymentModal(true)
-                        }}
-                      >
-                        💰 Pending Payment
-                      </span>
-                    ) : (
-                      <span className="status-badge status-new">
-                        {status.icon} {status.label}
-                      </span>
-                    )}
-                  </td>
-                  <td>
-                    {reg.confirmation_email_sent ? (
-                      <div className="status-cell">
-                        <span className="status-completed">
-                          ✓ Sent {new Date(reg.confirmation_email_sent).toLocaleDateString()}
-                        </span>
-                      </div>
-                    ) : reg.payment_status === 'paid' ? (
-                      <div className="status-cell">
-                        <input
-                          type="checkbox"
-                          className="checkbox-action"
-                          onChange={() => sendConfirmation(reg)}
-                        />
-                        <label>Send confirmation</label>
-                      </div>
-                    ) : (
-                      <div className="status-cell">
-                        <input type="checkbox" disabled className="checkbox-action" />
-                        <label className="disabled">
-                          {reg.payment_request_sent ? 'Awaiting payment' : 'Not ready'}
-                        </label>
-                      </div>
-                    )}
-                  </td>
-                  <td>
-                    <div className="progress-dots">
-                      {progressDots.map((dot, i) => (
-                        <div key={i} className={`dot ${dot}`}></div>
-                      ))}
-                    </div>
-                  </td>
-                  <td>
-                    <div className="action-buttons">
-                      <button
-                        className="action-btn view"
-                        onClick={() => {
-                          setSelectedRegistration(reg)
-                          setShowDetailsModal(true)
-                        }}
-                        title="View Details"
-                      >
-                        <Eye size={16} />
-                      </button>
-                      <button
-                        className="action-btn delete"
-                        onClick={() => deleteRegistration(reg.id)}
-                        title="Delete"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                      <div className="action-dropdown">
-                        <button
-                          className="action-btn"
-                          onClick={() => setOpenMenuId(openMenuId === reg.id ? null : reg.id)}
-                          title="More Actions"
-                        >
-                          <MoreVertical size={16} />
-                        </button>
-                        {openMenuId === reg.id && (
-                          <div className="dropdown-menu">
-                            <button className="dropdown-item">
-                              <Mail size={14} />
-                              Send Email
-                            </button>
-                            <button className="dropdown-item">
-                              <Send size={14} />
-                              Send WhatsApp
-                            </button>
+                    return (
+                      <tr key={reg.id}>
+                        <td>
+                          <div className="registration-info">
+                            <div className="child-name">{reg.child_name}</div>
+                            <div className="parent-name">
+                              {reg.parent_name_1} • {reg.mobile_phone_1}
+                            </div>
+                            <div className="camp-details">
+                              {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
+                              Weeks {reg.weeks_selected.join(', ')} • 
+                              ฿{expectedAmount.toLocaleString()}
+                            </div>
                           </div>
-                        )}
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+                        </td>
+                        <td>
+                          {!reg.payment_request_sent ? (
+                            <div className="status-cell">
+                              <input
+                                type="checkbox"
+                                className="checkbox-action"
+                                onChange={() => sendPaymentRequest(reg)}
+                              />
+                              <label>Send request</label>
+                            </div>
+                          ) : (
+                            <div className="status-cell">
+                              <span className="status-completed">
+                                ✓ Sent {new Date(reg.payment_request_sent).toLocaleDateString()}
+                              </span>
+                            </div>
+                          )}
+                        </td>
+                        <td>
+                          {reg.payment_status === 'paid' ? (
+                            <span className="status-badge status-paid">
+                              ✅ Paid {reg.payment_amount && `(฿${reg.payment_amount.toLocaleString()})`}
+                            </span>
+                          ) : reg.payment_request_sent ? (
+                            <span 
+                              className="status-badge status-payment-pending"
+                              onClick={() => {
+                                setSelectedRegistration(reg)
+                                setPaymentForm({
+                                  ...paymentForm,
+                                  amount: `฿${expectedAmount}`
+                                })
+                                setShowPaymentModal(true)
+                              }}
+                            >
+                              💰 Pending Payment
+                            </span>
+                          ) : (
+                            <span className="status-badge status-new">
+                              {status.icon} {status.label}
+                            </span>
+                          )}
+                        </td>
+                        <td>
+                          {reg.confirmation_email_sent ? (
+                            <div className="status-cell">
+                              <span className="status-completed">
+                                ✓ Sent {new Date(reg.confirmation_email_sent).toLocaleDateString()}
+                              </span>
+                            </div>
+                          ) : reg.payment_status === 'paid' ? (
+                            <div className="status-cell">
+                              <input
+                                type="checkbox"
+                                className="checkbox-action"
+                                onChange={() => sendConfirmation(reg)}
+                              />
+                              <label>Send confirmation</label>
+                            </div>
+                          ) : (
+                            <div className="status-cell">
+                              <input type="checkbox" disabled className="checkbox-action" />
+                              <label className="disabled">
+                                {reg.payment_request_sent ? 'Awaiting payment' : 'Not ready'}
+                              </label>
+                            </div>
+                          )}
+                        </td>
+                        <td>
+                          <div className="progress-dots">
+                            {progressDots.map((dot, i) => (
+                              <div key={i} className={`dot ${dot}`}></div>
+                            ))}
+                          </div>
+                        </td>
+                        <td>
+                          <div className="action-buttons">
+                            <button
+                              className="action-btn view"
+                              onClick={() => {
+                                setSelectedRegistration(reg)
+                                setShowDetailsModal(true)
+                              }}
+                              title="View Details"
+                            >
+                              <Eye size={16} />
+                            </button>
+                            <button
+                              className="action-btn delete"
+                              onClick={() => deleteRegistration(reg.id)}
+                              title="Delete"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                            <div className="action-dropdown">
+                              <button
+                                className="action-btn"
+                                onClick={() => setOpenMenuId(openMenuId === reg.id ? null : reg.id)}
+                                title="More Actions"
+                              >
+                                <MoreVertical size={16} />
+                              </button>
+                              {openMenuId === reg.id && (
+                                <div className="dropdown-menu">
+                                  <button className="dropdown-item">
+                                    <Mail size={14} />
+                                    Send Email
+                                  </button>
+                                  <button className="dropdown-item">
+                                    <Send size={14} />
+                                    Send WhatsApp
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
 
-        {registrations.length === 0 && (
-          <div className="no-registrations">
-            <AlertCircle size={48} />
-            <p>No registrations yet</p>
-          </div>
+              {activeRegs.length === 0 && (
+                <div className="no-registrations">
+                  <AlertCircle size={48} />
+                  <p>No active registrations</p>
+                </div>
+              )}
+
+              {activeRegs.length > 10 && (
+                <div className="expand-section">
+                  <button 
+                    className="btn btn-secondary"
+                    onClick={() => setShowAllActive(!showAllActive)}
+                  >
+                    {showAllActive ? 'Show Less' : `Show All ${activeRegs.length} Active Registrations`}
+                  </button>
+                </div>
+              )}
+            </>
+          )
+        })()}
+      </div>
+
+      {/* Completed Section */}
+      <div className="workflow-table-section">
+        <div className="section-header">
+          <h3>
+            Completed Registrations ({getCompletedRegistrations(registrations).length})
+            <button 
+              className="btn btn-secondary btn-sm"
+              onClick={() => setShowCompleted(!showCompleted)}
+            >
+              {showCompleted ? 'Hide' : 'Show'}
+            </button>
+          </h3>
+        </div>
+        
+        {showCompleted && (
+          <table className="workflow-table completed-table">
+            <thead>
+              <tr>
+                <th>Registration Info</th>
+                <th>Status</th>
+                <th>Completed Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {getCompletedRegistrations(registrations).map((reg) => {
+                const expectedAmount = calculatePrice(reg)
+                return (
+                  <tr key={reg.id}>
+                    <td>
+                      <div className="registration-info">
+                        <div className="child-name">{reg.child_name}</div>
+                        <div className="parent-name">
+                          {reg.parent_name_1} • {reg.mobile_phone_1}
+                        </div>
+                        <div className="camp-details">
+                          {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
+                          Weeks {reg.weeks_selected.join(', ')} • 
+                          ฿{expectedAmount.toLocaleString()}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className="status-badge status-complete">
+                        ✅ Complete
+                      </span>
+                    </td>
+                    <td>
+                      {reg.confirmation_email_sent && new Date(reg.confirmation_email_sent).toLocaleDateString()}
+                    </td>
+                    <td>
+                      <div className="action-buttons">
+                        <button
+                          className="action-btn view"
+                          onClick={() => {
+                            setSelectedRegistration(reg)
+                            setShowDetailsModal(true)
+                          }}
+                          title="View Details"
+                        >
+                          <Eye size={16} />
+                        </button>
+                        <button
+                          className="action-btn archive"
+                          onClick={() => archiveRegistration(reg.id)}
+                          title="Archive"
+                        >
+                          📦
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
         )}
       </div>
+
+      {/* Archived Section */}
+      {getArchivedRegistrations(registrations).length > 0 && (
+        <div className="workflow-table-section">
+          <div className="section-header">
+            <h3>
+              Archived ({getArchivedRegistrations(registrations).length})
+              <button 
+                className="btn btn-secondary btn-sm"
+                onClick={() => setShowArchived(!showArchived)}
+              >
+                {showArchived ? 'Hide' : 'Show'}
+              </button>
+            </h3>
+          </div>
+          
+          {showArchived && (
+            <table className="workflow-table archived-table">
+              <thead>
+                <tr>
+                  <th>Registration Info</th>
+                  <th>Status</th>
+                  <th>Archived Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {getArchivedRegistrations(registrations).map((reg) => {
+                  const expectedAmount = calculatePrice(reg)
+                  return (
+                    <tr key={reg.id}>
+                      <td>
+                        <div className="registration-info">
+                          <div className="child-name">{reg.child_name}</div>
+                          <div className="parent-name">
+                            {reg.parent_name_1} • {reg.mobile_phone_1}
+                          </div>
+                          <div className="camp-details">
+                            {reg.age_group === 'mini' ? 'Mini Camp' : 'Explorer Camp'} • 
+                            Weeks {reg.weeks_selected.join(', ')} • 
+                            ฿{expectedAmount.toLocaleString()}
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="status-badge status-archived">
+                          📦 Archived
+                        </span>
+                      </td>
+                      <td>
+                        Date archived
+                      </td>
+                      <td>
+                        <div className="action-buttons">
+                          <button
+                            className="action-btn view"
+                            onClick={() => {
+                              setSelectedRegistration(reg)
+                              setShowDetailsModal(true)
+                            }}
+                            title="View Details"
+                          >
+                            <Eye size={16} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
 
       {/* Payment Modal */}
       {showPaymentModal && selectedRegistration && (
