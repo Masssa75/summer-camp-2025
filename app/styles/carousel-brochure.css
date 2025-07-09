@@ -63,6 +63,12 @@ p {
   overflow-x: hidden;
 }
 
+/* Global image constraints to prevent oversized images */
+.content-wrapper img:not(.background-layer img) {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
 /* Base Slide */
 .slide {
   min-height: 100vh;
@@ -522,15 +528,20 @@ p {
   flex: 1;
   max-width: 50%;
   padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slide-14-photo img {
-  width: 100%;
+  width: auto;
   height: auto;
   max-width: 100%;
+  max-height: 600px;
   border-radius: 30px;
   border: 12px solid white;
   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  object-fit: cover;
 }
 
 .slide-14-text {

@@ -248,7 +248,7 @@ export function GlobalGalleryImage({ src, alt, className = '' }: GlobalGalleryIm
       alt={alt}
       className={`${className} cursor-pointer transition-transform hover:scale-105`}
       onClick={handleClick}
-      style={{ maxWidth: '100%', height: 'auto' }}
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
     />
   )
 }
