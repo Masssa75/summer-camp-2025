@@ -1780,10 +1780,19 @@ a.contact-link:hover .contact-details p {
   
   /* Exceptions for background images and layers */
   .background-layer,
-  .background-layer img,
   .background-overlay {
     max-width: none !important;
     width: 100% !important;
+  }
+  
+  /* Background images need special handling to cover full height */
+  .background-layer img {
+    max-width: none !important;
+    width: auto !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    object-fit: cover !important;
   }
   
   body {
