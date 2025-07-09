@@ -12,7 +12,6 @@ export async function POST(
       payment_amount, 
       payment_date, 
       payment_method, 
-      payment_reference,
       admin_notes
     } = await request.json()
 
@@ -27,7 +26,6 @@ export async function POST(
         payment_amount,
         payment_date,
         payment_method,
-        payment_reference,
         admin_notes,
         updated_at: new Date().toISOString()
       })
@@ -49,7 +47,6 @@ export async function POST(
         `Status: ${payment_status.charAt(0).toUpperCase() + payment_status.slice(1)}\n` +
         `Amount: ฿${payment_amount?.toLocaleString() || 'N/A'}\n` +
         `Method: ${payment_method || 'N/A'}\n` +
-        `Reference: ${payment_reference || 'N/A'}\n` +
         `Date: ${payment_date || 'N/A'}`
       
       // Send to all admins
