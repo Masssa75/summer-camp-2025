@@ -637,6 +637,11 @@ p {
   transform: scale(1.5);
 }
 
+/* Specific fix for Cooking & Baking image */
+.cooking-photo-zoom {
+  transform: scale(1.1);
+}
+
 /* Schedule Styles */
 .schedule-container {
   margin-top: 40px;

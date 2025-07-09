@@ -198,7 +198,7 @@ export default function MiniContent() {
             <img 
               src="/references/Summer Camp Presentation Images/11.jpg" 
               alt="Children cooking"
-              className="feature-photo-img"
+              className="feature-photo-img cooking-photo-zoom"
             />
           </div>
         </div>
