@@ -1337,8 +1337,10 @@ a.contact-link:hover .contact-details p {
   /* Top Navigation Mobile Adjustments */
   .top-navigation {
     padding: 8px 10px;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
   }
   
@@ -1409,7 +1411,7 @@ a.contact-link:hover .contact-details p {
   
   /* Add more top padding for mobile due to larger nav */
   body {
-    padding-top: 120px;
+    padding-top: 60px;
   }
   
   /* Interactive Landing Mobile Adjustments */
@@ -1774,6 +1776,14 @@ a.contact-link:hover .contact-details p {
   /* Final safety net - ensure nothing can cause horizontal scroll */
   * {
     max-width: 100vw !important;
+  }
+  
+  /* Exceptions for background images and layers */
+  .background-layer,
+  .background-layer img,
+  .background-overlay {
+    max-width: none !important;
+    width: 100% !important;
   }
   
   body {
