@@ -69,7 +69,7 @@ export default function TopNavigation({ onAgeGroupSelect }: TopNavigationProps) 
       <div className="nav-container">
         {/* Logo */}
         <button className="nav-logo" onClick={(e) => handleNavClick('top', e)}>
-          <img src="/references/Logo Only.png" alt="The Waldorf Phuket" />
+          <img src="/References/Bamboo Valley logo.png" alt="Bamboo Valley Summer Camp" />
         </button>
         
         {/* Age Group Selector */}
