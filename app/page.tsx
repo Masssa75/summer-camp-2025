@@ -33,8 +33,8 @@ export default function HomePage() {
           <div className="content-wrapper hero-with-video">
             <div className="hero-left">
               <div className="logo-container">
-                <img src="/references/Logo Only.png" alt="The Waldorf Phuket Logo" className="logo-image" />
-                <span className="logo-text">The Waldorf Phuket</span>
+                <img src="/References/Bamboo Valley logo.png" alt="Bamboo Valley Logo" className="logo-image" />
+                <span className="logo-text">Bamboo Valley</span>
               </div>
               <h1 className="hero-title">
                 <span>SUMMER</span>
