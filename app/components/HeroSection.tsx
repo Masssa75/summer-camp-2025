@@ -27,17 +27,6 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
         <div className={`text-center transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Logo */}
-          <div className="mb-8">
-            <Image
-              src="/References/Bamboo Valley logo.png"
-              alt="Bamboo Valley Summer Camp"
-              width={300}
-              height={300}
-              className="mx-auto"
-            />
-          </div>
-          
           <h1 className="text-6xl md:text-8xl font-bold mb-4">
             SUMMER
           </h1>
