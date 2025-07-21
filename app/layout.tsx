@@ -6,8 +6,8 @@ import { GlobalGalleryProvider } from '@/components/GlobalImageGallery'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'The Waldorf Phuket Summer Camp 2025',
-  description: 'Waldorf-inspired summer camp in Phuket for children ages 3-13. Nature-based activities, Thai culture, and holistic child development.',
+  title: 'Bamboo Valley Summer Camp 2025',
+  description: 'Bamboo Valley Summer Camp in Phuket for children ages 3-13. Nature-based activities, Thai culture, and holistic child development.',
 }
 
 export default function RootLayout({

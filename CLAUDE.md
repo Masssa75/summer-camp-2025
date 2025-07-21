@@ -101,6 +101,25 @@ When you need detailed information, check these files:
 - Deployment: Netlify
 - Testing: Playwright
 
+### Design System
+
+**Font Settings (from Bamboo Valley Phuket site)**:
+- **Primary Font**: Dreaming Outloud Sans Regular
+- **Logo Text Style**:
+  - Font: Dreaming Outloud Sans Regular
+  - Size: 24px
+  - Color: #f4a460 (Sandy Brown)
+  - Weight: 400
+  - Letter-spacing: 0.5px
+- **Fallback Fonts**: Comic Sans MS, Chalkboard SE, Marker Felt, sans-serif
+
+**Brand Colors**:
+- Primary Orange: #f4a460
+- Green Primary: #7a9a3b
+- Green Secondary: #a8c545
+- Green Dark: #5a7a2b
+- Green Light: #e8f5e9
+
 ---
 
 ## Current Project State

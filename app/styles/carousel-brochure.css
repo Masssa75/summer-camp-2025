@@ -1083,6 +1083,7 @@ p {
   padding: 0;
   display: flex;
   align-items: center;
+  gap: 12px;
   transition: transform 0.3s ease;
 }
 
@@ -1091,8 +1092,16 @@ p {
 }
 
 .nav-logo img {
-  height: 35px;
+  height: 40px;
   width: auto;
+}
+
+.nav-logo-text {
+  font-family: 'Dreaming Outloud Sans Regular', 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  font-size: 24px;
+  color: #f4a460;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 .nav-age-selector {
