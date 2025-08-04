@@ -343,9 +343,7 @@ export default function TeacherRecruitmentPage() {
             >
               Social Media ({contacts.filter(c => c.category === 'social').length})
             </button>
-          </div>
-
-          <div className="countries-filter">
+            
             <div className="countries-dropdown">
               <button 
                 className="countries-toggle"
@@ -364,7 +362,7 @@ export default function TeacherRecruitmentPage() {
                       <Check size={14} /> Select All
                     </button>
                   </div>
-                  <div className="countries-list">
+                  <div className="countries-grid">
                     {seaCountries.map(country => (
                       <label key={country.code} className="country-checkbox">
                         <input
@@ -608,11 +606,11 @@ export default function TeacherRecruitmentPage() {
         .category-selector {
           display: flex;
           gap: 0.5rem;
-          margin-bottom: 1rem;
           flex-wrap: wrap;
+          align-items: flex-start;
         }
 
-        .category-selector button {
+        .category-selector > button {
           padding: 0.5rem 1rem;
           border: 1px solid #e5e7eb;
           background: white;
@@ -623,19 +621,15 @@ export default function TeacherRecruitmentPage() {
           transition: all 0.2s;
         }
 
-        .category-selector button:hover {
+        .category-selector > button:hover {
           border-color: #2b6cb0;
           color: #2b6cb0;
         }
 
-        .category-selector button.active {
+        .category-selector > button.active {
           background: #2b6cb0;
           color: white;
           border-color: #2b6cb0;
-        }
-
-        .countries-filter {
-          position: relative;
         }
 
         .countries-dropdown {
@@ -652,9 +646,6 @@ export default function TeacherRecruitmentPage() {
           color: #6b7280;
           cursor: pointer;
           transition: all 0.2s;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
         }
 
         .countries-toggle:hover {
@@ -671,12 +662,12 @@ export default function TeacherRecruitmentPage() {
           border-radius: 6px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           z-index: 1000;
-          min-width: 200px;
+          width: 400px;
           margin-top: 2px;
         }
 
         .countries-header {
-          padding: 0.5rem;
+          padding: 0.75rem;
           border-bottom: 1px solid #e5e7eb;
         }
 
@@ -698,19 +689,21 @@ export default function TeacherRecruitmentPage() {
           background-color: #f3f4f6;
         }
 
-        .countries-list {
-          max-height: 200px;
-          overflow-y: auto;
-          padding: 0.5rem 0;
+        .countries-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0;
+          padding: 0.5rem;
         }
 
         .country-checkbox {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          padding: 0.5rem 1rem;
+          padding: 0.5rem;
           cursor: pointer;
           transition: background-color 0.2s;
+          border-radius: 4px;
         }
 
         .country-checkbox:hover {
@@ -719,15 +712,20 @@ export default function TeacherRecruitmentPage() {
 
         .country-checkbox input[type="checkbox"] {
           margin: 0;
+          flex-shrink: 0;
         }
 
         .country-flag {
           font-size: 1rem;
+          flex-shrink: 0;
         }
 
         .country-name {
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           color: #374151;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .contact-details {
@@ -827,6 +825,24 @@ export default function TeacherRecruitmentPage() {
 
           .contact-detail-item strong {
             min-width: auto;
+          }
+
+          .countries-dropdown-content {
+            width: 300px;
+          }
+
+          .countries-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .countries-dropdown-content {
+            width: 280px;
+          }
+
+          .countries-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>
