@@ -173,6 +173,261 @@ const contacts: Contact[] = [
     summary: 'Waldorf learning center with heart-centered approach',
     contact: 'Through Waldorf network',
     description: 'Waldorf teachers who believe in heart-centered education. Small community where everyone knows who\'s looking for new opportunities.'
+  },
+
+  // SINGAPORE ORGANIZATIONS
+  {
+    id: 'nie-singapore',
+    name: 'NIE (National Institute of Education)',
+    location: 'Singapore',
+    priority: 'high',
+    category: 'university',
+    summary: 'Singapore\'s only teacher training institute',
+    website: 'https://www.nie.edu.sg',
+    email: 'admissions@nie.edu.sg',
+    contact: 'Teacher Training Admissions Office',
+    description: 'Singapore\'s premier teacher training institution. Graduates are highly qualified and many seek international opportunities in progressive education settings.'
+  },
+  {
+    id: 'ecda-singapore',
+    name: 'ECDA (Early Childhood Development Agency)',
+    location: 'Singapore',
+    priority: 'high',
+    category: 'network',
+    summary: 'Certifies all early childhood educators in Singapore',
+    website: 'https://www.ecda.gov.sg',
+    email: 'contact@ecda.gov.sg',
+    contact: 'Professional Development Division',
+    description: 'Government agency that certifies early childhood teachers. Their certified teachers often seek new challenges in innovative international schools.'
+  },
+  {
+    id: 'relief-teacher-sg',
+    name: 'Relief Teacher Singapore',
+    location: 'Singapore',
+    priority: 'medium',
+    category: 'social',
+    summary: '15,000+ member Facebook group of substitute teachers',
+    contact: 'Facebook Group',
+    groups: ['Relief Teacher Singapore (Facebook - 15,000+ members)'],
+    description: 'Large community of relief teachers, many seeking full-time positions. Active group where teachers discuss opportunities and alternative education approaches.'
+  },
+  {
+    id: 'jobscentral-sg',
+    name: 'JobsCentral Singapore',
+    location: 'Singapore',
+    priority: 'medium',
+    category: 'jobsite',
+    summary: 'Major job portal with education section',
+    website: 'https://www.jobscentral.com.sg',
+    email: 'employers@jobscentral.com.sg',
+    description: 'Singapore\'s leading job portal. Education section attracts teachers seeking new opportunities, including international positions.'
+  },
+
+  // MALAYSIA ORGANIZATIONS  
+  {
+    id: 'university-malaya',
+    name: 'University of Malaya - Faculty of Education',
+    location: 'Malaysia',
+    priority: 'high',
+    category: 'university',
+    summary: 'Top education program in Malaysia',
+    website: 'https://www.um.edu.my/faculties/faculty-of-education',
+    email: 'education@um.edu.my',
+    contact: 'Faculty of Education Career Services',
+    description: 'Malaysia\'s premier education faculty. Graduates are well-trained and many seek international teaching opportunities in progressive schools.'
+  },
+  {
+    id: 'malaysian-kindergarten',
+    name: 'Malaysian Association of Kindergartens',
+    location: 'Malaysia',
+    priority: 'high',
+    category: 'network',
+    summary: 'Direct access to trained early childhood teachers',
+    contact: 'Through member kindergartens',
+    description: 'National association connecting kindergarten teachers. Members often seek new opportunities in innovative early childhood programs.'
+  },
+  {
+    id: 'montessori-malaysia',
+    name: 'Montessori Malaysia Network',
+    location: 'Malaysia',
+    priority: 'medium',
+    category: 'network',
+    summary: 'Alternative education community',
+    contact: 'Through Montessori schools and training centers',
+    description: 'Growing network of Montessori-trained teachers who understand child-centered education and nature-based learning approaches.'
+  },
+  {
+    id: 'teachformalaysia-alumni',
+    name: 'TeachForMalaysia Alumni Network',
+    location: 'Malaysia',
+    priority: 'medium',
+    category: 'network',
+    summary: 'Passionate educators open to innovation',
+    website: 'https://teachformalaysia.org',
+    email: 'alumni@teachformalaysia.org',
+    description: 'Network of passionate educators committed to educational transformation. Alumni often seek innovative teaching opportunities.'
+  },
+
+  // INDONESIA ORGANIZATIONS
+  {
+    id: 'green-school-alumni',
+    name: 'Green School Bali Alumni Network',
+    location: 'Bali, Indonesia',
+    priority: 'high',
+    category: 'school',
+    summary: 'Nature-based school alumni already aligned with outdoor learning',
+    website: 'https://www.greenschool.org',
+    email: 'alumni@greenschool.org',
+    keyPerson: 'Alumni Relations Office',
+    description: 'Network of teachers from the famous Green School Bali. Already believe in nature-based, outdoor learning and many seek similar opportunities in tropical locations.'
+  },
+  {
+    id: 'sekolah-alam-network',
+    name: 'Sekolah Alam Network Indonesia',
+    location: 'Indonesia',
+    priority: 'medium',
+    category: 'network',
+    summary: '50+ nature schools across Indonesia',
+    contact: 'Through individual Sekolah Alam schools',
+    description: 'Network of 50+ nature-based schools across Indonesia. Teachers here specifically believe in outdoor education and natural learning environments.'
+  },
+  {
+    id: 'guru-berbagi',
+    name: 'Guru Berbagi (Teacher Share)',
+    location: 'Indonesia',
+    priority: 'medium',
+    category: 'social',
+    summary: 'Indonesia\'s largest teacher community',
+    contact: 'Online platform and social media groups',
+    description: 'Indonesia\'s largest teacher sharing community. Platform where progressive teachers connect and share innovative teaching methods.'
+  },
+
+  // PHILIPPINES ORGANIZATIONS
+  {
+    id: 'philippine-normal-university',
+    name: 'Philippine Normal University',
+    location: 'Philippines',
+    priority: 'high',
+    category: 'university',
+    summary: 'Premier teacher training institution',
+    website: 'https://www.pnu.edu.ph',
+    email: 'info@pnu.edu.ph',
+    contact: 'Teacher Education Placement Office',
+    description: 'Philippines\' premier teacher training university. Graduates are highly qualified and many seek international teaching opportunities.'
+  },
+  {
+    id: 'international-school-manila',
+    name: 'International School Manila Network',
+    location: 'Philippines',
+    priority: 'high',
+    category: 'school',
+    summary: 'High-quality international teacher pool',
+    contact: 'Through international school networks in Manila',
+    description: 'Network of international schools in Manila with experienced teachers who understand progressive education and may seek new opportunities.'
+  },
+  {
+    id: 'teach-philippines-alumni',
+    name: 'Teach for the Philippines Alumni',
+    location: 'Philippines',
+    priority: 'medium',
+    category: 'network',
+    summary: 'Young, innovative educators',
+    website: 'https://teachforthephilippines.org',
+    email: 'alumni@teachforthephilippines.org',
+    description: 'Network of passionate young educators committed to educational innovation. Alumni often seek opportunities in progressive international schools.'
+  },
+  {
+    id: 'edi-staffing',
+    name: 'EDI Staffing (Education Dimensions Inc.)',
+    location: 'Philippines',
+    priority: 'medium',
+    category: 'jobsite',
+    summary: 'Specializes in placing Filipino teachers abroad',
+    website: 'https://www.edi-staffing.com',
+    email: 'placement@edi-staffing.com',
+    description: 'Professional recruitment agency specializing in placing Filipino teachers in international schools. Established network of qualified candidates.'
+  },
+
+  // VIETNAM ORGANIZATIONS
+  {
+    id: 'rmit-vietnam',
+    name: 'RMIT Vietnam - Education Programs',
+    location: 'Vietnam',
+    priority: 'medium',
+    category: 'university',
+    summary: 'Western-standard teacher training',
+    website: 'https://www.rmit.edu.vn',
+    email: 'study@rmit.edu.vn',
+    contact: 'Education Faculty Career Services',
+    description: 'International university offering Western-standard teacher training programs. Graduates seek opportunities in innovative international schools.'
+  },
+  {
+    id: 'saigon-teachers',
+    name: 'Saigon International Teachers Network',
+    location: 'Vietnam',
+    priority: 'medium',
+    category: 'social',
+    summary: 'Facebook group with 8,000+ international teacher members',
+    contact: 'Facebook Group',
+    groups: ['Saigon International Teachers Network (Facebook - 8,000+ members)'],
+    description: 'Large community of international teachers in Vietnam. Active networking group where teachers share opportunities and discuss progressive education.'
+  },
+
+  // REGIONAL PLATFORMS
+  {
+    id: 'tes-jobs-asia',
+    name: 'TES Jobs Asia',
+    location: 'Regional (Southeast Asia)',
+    priority: 'high',
+    category: 'jobsite',
+    summary: 'Premier international school job board',
+    website: 'https://www.tes.com/jobs/browse/international',
+    email: 'support@tes.com',
+    description: 'Leading job board for international school positions across Asia. Teachers here specifically seek progressive, innovative school environments.'
+  },
+  {
+    id: 'search-associates',
+    name: 'Search Associates',
+    location: 'Regional (Southeast Asia)',
+    priority: 'high',
+    category: 'jobsite',
+    summary: 'Premium teacher recruitment service',
+    website: 'https://www.searchassociates.com',
+    email: 'info@searchassociates.com',
+    description: 'Premium recruitment firm for international schools. Worth the investment - they have access to highly qualified teachers seeking innovative opportunities.'
+  },
+  {
+    id: 'sea-international-teachers',
+    name: 'SEA International Teachers',
+    location: 'Regional (Southeast Asia)',
+    priority: 'medium',
+    category: 'social',
+    summary: 'Facebook group with 25,000+ members across SEA',
+    contact: 'Facebook Group',
+    groups: ['SEA International Teachers (Facebook - 25,000+ members)'],
+    description: 'Massive community of international teachers across Southeast Asia. Very active group for sharing opportunities and connecting with progressive educators.'
+  },
+  {
+    id: 'alternative-education-sea',
+    name: 'Alternative Education Southeast Asia',
+    location: 'Regional (Southeast Asia)',
+    priority: 'high',
+    category: 'social',
+    summary: 'Facebook group with 12,000+ alternative education advocates',
+    contact: 'Facebook Group',
+    groups: ['Alternative Education Southeast Asia (Facebook - 12,000+ members)'],
+    description: 'Community specifically focused on alternative education across SEA. Perfect match for teachers who believe in discovering children\'s magic powers.'
+  },
+  {
+    id: 'teacher-horizons',
+    name: 'Teacher Horizons',
+    location: 'Regional (Southeast Asia)',
+    priority: 'medium',
+    category: 'jobsite',
+    summary: 'Modern platform connecting international teachers',
+    website: 'https://www.teacherhorizons.com',
+    email: 'support@teacherhorizons.com',
+    description: 'Modern recruitment platform specifically for international teachers. User-friendly interface attracts younger, tech-savvy educators seeking progressive opportunities.'
   }
 ]
 
@@ -272,7 +527,11 @@ export default function TeacherRecruitmentPage() {
 
   const isContactInSelectedCountries = (contact: Contact): boolean => {
     const country = getCountryByLocation(contact.location)
-    return country ? selectedCountries.has(country) : false // Hide contacts without clear country match
+    // Regional contacts should appear when any SEA country is selected
+    if (contact.location.includes('Regional')) {
+      return selectedCountries.size > 0
+    }
+    return country ? selectedCountries.has(country) : false
   }
 
   if (loading) {
