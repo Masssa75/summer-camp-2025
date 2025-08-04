@@ -2,20 +2,21 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { Shield, ChevronDown, ChevronRight, ExternalLink, Phone, Mail, Globe, MapPin, Check } from 'lucide-react'
+import { Shield, ChevronDown, ChevronRight, ExternalLink, Phone, Mail, Globe, MapPin, Check, ArrowUp, ArrowDown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import HamburgerMenu from '@/components/admin/HamburgerMenu'
 
 interface TelegramUser {
   id: number
+  username?: string
   first_name: string
   last_name?: string
-  username?: string
   photo_url?: string
 }
 
 interface Contact {
   id: string
+  contact_id: string
   name: string
   location: string
   priority: 'high' | 'medium' | 'low'
@@ -24,412 +25,14 @@ interface Contact {
   website?: string
   email?: string
   phone?: string
-  contact?: string
-  keyPerson?: string
+  contact_info?: string
+  key_person?: string
   groups?: string[]
   note?: string
   description: string
+  sort_order: number
+  is_active: boolean
 }
-
-const contacts: Contact[] = [
-  {
-    id: 'rajabhat',
-    name: 'Rajabhat University Phuket',
-    location: 'Phuket',
-    priority: 'high',
-    category: 'university',
-    summary: 'Local teacher training with progressive methods',
-    contact: 'Early Childhood Education Department',
-    phone: '076-211-959',
-    website: 'http://pkru.ac.th',
-    email: 'ece@pkru.ac.th',
-    keyPerson: 'Head of Early Childhood Education Department',
-    description: 'Local university training early childhood teachers with progressive methods. Graduates often stay in Phuket and seek innovative schools.'
-  },
-  {
-    id: 'alliance',
-    name: 'Alternative Education Alliance Thailand',
-    location: 'Thailand-wide',
-    priority: 'high',
-    category: 'network',
-    summary: 'Coalition of all alternative schools in Thailand',
-    contact: 'Through member schools like Panyotai Waldorf',
-    keyPerson: 'Contact conference organizers or Panyotai School for network access',
-    description: 'Coalition of ALL alternative schools in Thailand. Annual gatherings where progressive teachers network and seek new positions.'
-  },
-  {
-    id: 'act',
-    name: 'Asian College of Teachers (ACT)',
-    location: 'Bangkok',
-    priority: 'high',
-    category: 'university',
-    summary: 'Trains 50,000+ teachers in alternative methods',
-    website: 'https://asiancollegeofteachers.com',
-    email: 'info@asiancollegeofteachers.com',
-    phone: '+66 2 213 3939',
-    keyPerson: 'Admissions Office for teacher placement partnerships',
-    description: 'Trains 50,000+ teachers in Montessori and alternative methods. Fresh graduates seeking schools that match their progressive training.'
-  },
-  {
-    id: 'facebook',
-    name: 'Facebook Groups',
-    location: 'Online',
-    priority: 'high',
-    category: 'social',
-    summary: 'Active communities of alternative education teachers',
-    groups: [
-      'การศึกษาทางเลือก (Alternative Education Thailand)',
-      'Waldorf Education Thailand',
-      'Montessori Thailand Community'
-    ],
-    description: 'Active Thai teachers already believing in alternative education. Post about outdoor learning and discovering children\'s magic powers.'
-  },
-  {
-    id: 'panyotai',
-    name: 'Panyotai Waldorf School',
-    location: 'Bangkok',
-    priority: 'medium',
-    category: 'school',
-    summary: 'Thailand\'s first Waldorf school',
-    website: 'https://panyotai.com',
-    email: 'info@panyotai.com',
-    phone: '02-885-2670',
-    keyPerson: 'School Director or HR Department',
-    description: 'Thailand\'s first Waldorf school. Experienced teachers who understand child development and may seek new adventures in Phuket.'
-  },
-  {
-    id: 'montessori-foundation',
-    name: 'Thai Montessori Foundation',
-    location: 'Thailand',
-    priority: 'medium',
-    category: 'network',
-    summary: 'National Montessori teacher network',
-    contact: 'Through member schools',
-    keyPerson: 'Conference organizers or established Montessori schools',
-    email: 'thaimontessorifoundation@gmail.com',
-    description: 'National Montessori network. Teachers here specifically interested in nature-based approaches to Montessori education.'
-  },
-  {
-    id: 'eef',
-    name: 'Equitable Education Fund (EEF)',
-    location: 'Bangkok',
-    priority: 'medium',
-    category: 'network',
-    summary: 'Government fund connecting innovative educators',
-    website: 'https://www.eef.or.th',
-    email: 'contact@eef.or.th',
-    phone: '02-079-5475',
-    description: 'Government fund connecting innovative educators. Their network includes teachers passionate about educational transformation.'
-  },
-  {
-    id: 'ajarn',
-    name: 'Ajarn.com',
-    location: 'Online',
-    priority: 'medium',
-    category: 'jobsite',
-    summary: 'Thailand\'s main teaching job board',
-    website: 'https://www.ajarn.com',
-    email: 'info@ajarn.com',
-    description: 'Thailand\'s main teaching job site. Teachers browsing here often seek escape from traditional schools.'
-  },
-  {
-    id: 'rainbow-montessori',
-    name: 'Rainbow Montessori Phuket',
-    location: 'Phuket (Competing School)',
-    priority: 'low',
-    category: 'school',
-    summary: 'Local competing Montessori school',
-    note: 'Competing Montessori school - unlikely to share teachers',
-    description: 'Local Montessori school. While they won\'t help with recruitment, knowing their approach helps position your unique outdoor offering.'
-  },
-  {
-    id: 'sunshine-village',
-    name: 'Phuket Sunshine Village',
-    location: 'Phuket (Competing School)',
-    priority: 'low',
-    category: 'school',
-    summary: 'Local competing alternative school',
-    note: 'Alternative school in Phuket - approach diplomatically',
-    description: 'Another alternative school in Phuket. Unlikely to help with recruitment but worth understanding their approach.'
-  },
-  {
-    id: 'green-school',
-    name: 'Green School Bali Network',
-    location: 'Bali, Indonesia',
-    priority: 'low',
-    category: 'school',
-    summary: 'Nature-based school alumni network',
-    website: 'https://www.greenschool.org',
-    email: 'info@greenschool.org',
-    keyPerson: 'Alumni Relations Office',
-    description: 'Nature-based school with teachers who already believe in outdoor learning. Many alumni seek tropical teaching positions.'
-  },
-  {
-    id: 'siratthaya',
-    name: 'Siratthaya Waldorf Learning Center',
-    location: 'Thailand',
-    priority: 'low',
-    category: 'school',
-    summary: 'Waldorf learning center with heart-centered approach',
-    contact: 'Through Waldorf network',
-    description: 'Waldorf teachers who believe in heart-centered education. Small community where everyone knows who\'s looking for new opportunities.'
-  },
-
-  // SINGAPORE ORGANIZATIONS
-  {
-    id: 'nie-singapore',
-    name: 'NIE (National Institute of Education)',
-    location: 'Singapore',
-    priority: 'high',
-    category: 'university',
-    summary: 'Singapore\'s only teacher training institute',
-    website: 'https://www.nie.edu.sg',
-    email: 'admissions@nie.edu.sg',
-    contact: 'Teacher Training Admissions Office',
-    description: 'Singapore\'s premier teacher training institution. Graduates are highly qualified and many seek international opportunities in progressive education settings.'
-  },
-  {
-    id: 'ecda-singapore',
-    name: 'ECDA (Early Childhood Development Agency)',
-    location: 'Singapore',
-    priority: 'high',
-    category: 'network',
-    summary: 'Certifies all early childhood educators in Singapore',
-    website: 'https://www.ecda.gov.sg',
-    email: 'contact@ecda.gov.sg',
-    contact: 'Professional Development Division',
-    description: 'Government agency that certifies early childhood teachers. Their certified teachers often seek new challenges in innovative international schools.'
-  },
-  {
-    id: 'relief-teacher-sg',
-    name: 'Relief Teacher Singapore',
-    location: 'Singapore',
-    priority: 'medium',
-    category: 'social',
-    summary: '15,000+ member Facebook group of substitute teachers',
-    contact: 'Facebook Group',
-    groups: ['Relief Teacher Singapore (Facebook - 15,000+ members)'],
-    description: 'Large community of relief teachers, many seeking full-time positions. Active group where teachers discuss opportunities and alternative education approaches.'
-  },
-  {
-    id: 'jobscentral-sg',
-    name: 'JobsCentral Singapore',
-    location: 'Singapore',
-    priority: 'medium',
-    category: 'jobsite',
-    summary: 'Major job portal with education section',
-    website: 'https://www.jobscentral.com.sg',
-    email: 'employers@jobscentral.com.sg',
-    description: 'Singapore\'s leading job portal. Education section attracts teachers seeking new opportunities, including international positions.'
-  },
-
-  // MALAYSIA ORGANIZATIONS  
-  {
-    id: 'university-malaya',
-    name: 'University of Malaya - Faculty of Education',
-    location: 'Malaysia',
-    priority: 'high',
-    category: 'university',
-    summary: 'Top education program in Malaysia',
-    website: 'https://www.um.edu.my/faculties/faculty-of-education',
-    email: 'education@um.edu.my',
-    contact: 'Faculty of Education Career Services',
-    description: 'Malaysia\'s premier education faculty. Graduates are well-trained and many seek international teaching opportunities in progressive schools.'
-  },
-  {
-    id: 'malaysian-kindergarten',
-    name: 'Malaysian Association of Kindergartens',
-    location: 'Malaysia',
-    priority: 'high',
-    category: 'network',
-    summary: 'Direct access to trained early childhood teachers',
-    contact: 'Through member kindergartens',
-    description: 'National association connecting kindergarten teachers. Members often seek new opportunities in innovative early childhood programs.'
-  },
-  {
-    id: 'montessori-malaysia',
-    name: 'Montessori Malaysia Network',
-    location: 'Malaysia',
-    priority: 'medium',
-    category: 'network',
-    summary: 'Alternative education community',
-    contact: 'Through Montessori schools and training centers',
-    description: 'Growing network of Montessori-trained teachers who understand child-centered education and nature-based learning approaches.'
-  },
-  {
-    id: 'teachformalaysia-alumni',
-    name: 'TeachForMalaysia Alumni Network',
-    location: 'Malaysia',
-    priority: 'medium',
-    category: 'network',
-    summary: 'Passionate educators open to innovation',
-    website: 'https://teachformalaysia.org',
-    email: 'alumni@teachformalaysia.org',
-    description: 'Network of passionate educators committed to educational transformation. Alumni often seek innovative teaching opportunities.'
-  },
-
-  // INDONESIA ORGANIZATIONS
-  {
-    id: 'green-school-alumni',
-    name: 'Green School Bali Alumni Network',
-    location: 'Bali, Indonesia',
-    priority: 'high',
-    category: 'school',
-    summary: 'Nature-based school alumni already aligned with outdoor learning',
-    website: 'https://www.greenschool.org',
-    email: 'alumni@greenschool.org',
-    keyPerson: 'Alumni Relations Office',
-    description: 'Network of teachers from the famous Green School Bali. Already believe in nature-based, outdoor learning and many seek similar opportunities in tropical locations.'
-  },
-  {
-    id: 'sekolah-alam-network',
-    name: 'Sekolah Alam Network Indonesia',
-    location: 'Indonesia',
-    priority: 'medium',
-    category: 'network',
-    summary: '50+ nature schools across Indonesia',
-    contact: 'Through individual Sekolah Alam schools',
-    description: 'Network of 50+ nature-based schools across Indonesia. Teachers here specifically believe in outdoor education and natural learning environments.'
-  },
-  {
-    id: 'guru-berbagi',
-    name: 'Guru Berbagi (Teacher Share)',
-    location: 'Indonesia',
-    priority: 'medium',
-    category: 'social',
-    summary: 'Indonesia\'s largest teacher community',
-    contact: 'Online platform and social media groups',
-    description: 'Indonesia\'s largest teacher sharing community. Platform where progressive teachers connect and share innovative teaching methods.'
-  },
-
-  // PHILIPPINES ORGANIZATIONS
-  {
-    id: 'philippine-normal-university',
-    name: 'Philippine Normal University',
-    location: 'Philippines',
-    priority: 'high',
-    category: 'university',
-    summary: 'Premier teacher training institution',
-    website: 'https://www.pnu.edu.ph',
-    email: 'info@pnu.edu.ph',
-    contact: 'Teacher Education Placement Office',
-    description: 'Philippines\' premier teacher training university. Graduates are highly qualified and many seek international teaching opportunities.'
-  },
-  {
-    id: 'international-school-manila',
-    name: 'International School Manila Network',
-    location: 'Philippines',
-    priority: 'high',
-    category: 'school',
-    summary: 'High-quality international teacher pool',
-    contact: 'Through international school networks in Manila',
-    description: 'Network of international schools in Manila with experienced teachers who understand progressive education and may seek new opportunities.'
-  },
-  {
-    id: 'teach-philippines-alumni',
-    name: 'Teach for the Philippines Alumni',
-    location: 'Philippines',
-    priority: 'medium',
-    category: 'network',
-    summary: 'Young, innovative educators',
-    website: 'https://teachforthephilippines.org',
-    email: 'alumni@teachforthephilippines.org',
-    description: 'Network of passionate young educators committed to educational innovation. Alumni often seek opportunities in progressive international schools.'
-  },
-  {
-    id: 'edi-staffing',
-    name: 'EDI Staffing (Education Dimensions Inc.)',
-    location: 'Philippines',
-    priority: 'medium',
-    category: 'jobsite',
-    summary: 'Specializes in placing Filipino teachers abroad',
-    website: 'https://www.edi-staffing.com',
-    email: 'placement@edi-staffing.com',
-    description: 'Professional recruitment agency specializing in placing Filipino teachers in international schools. Established network of qualified candidates.'
-  },
-
-  // VIETNAM ORGANIZATIONS
-  {
-    id: 'rmit-vietnam',
-    name: 'RMIT Vietnam - Education Programs',
-    location: 'Vietnam',
-    priority: 'medium',
-    category: 'university',
-    summary: 'Western-standard teacher training',
-    website: 'https://www.rmit.edu.vn',
-    email: 'study@rmit.edu.vn',
-    contact: 'Education Faculty Career Services',
-    description: 'International university offering Western-standard teacher training programs. Graduates seek opportunities in innovative international schools.'
-  },
-  {
-    id: 'saigon-teachers',
-    name: 'Saigon International Teachers Network',
-    location: 'Vietnam',
-    priority: 'medium',
-    category: 'social',
-    summary: 'Facebook group with 8,000+ international teacher members',
-    contact: 'Facebook Group',
-    groups: ['Saigon International Teachers Network (Facebook - 8,000+ members)'],
-    description: 'Large community of international teachers in Vietnam. Active networking group where teachers share opportunities and discuss progressive education.'
-  },
-
-  // REGIONAL PLATFORMS
-  {
-    id: 'tes-jobs-asia',
-    name: 'TES Jobs Asia',
-    location: 'Regional (Southeast Asia)',
-    priority: 'high',
-    category: 'jobsite',
-    summary: 'Premier international school job board',
-    website: 'https://www.tes.com/jobs/browse/international',
-    email: 'support@tes.com',
-    description: 'Leading job board for international school positions across Asia. Teachers here specifically seek progressive, innovative school environments.'
-  },
-  {
-    id: 'search-associates',
-    name: 'Search Associates',
-    location: 'Regional (Southeast Asia)',
-    priority: 'high',
-    category: 'jobsite',
-    summary: 'Premium teacher recruitment service',
-    website: 'https://www.searchassociates.com',
-    email: 'info@searchassociates.com',
-    description: 'Premium recruitment firm for international schools. Worth the investment - they have access to highly qualified teachers seeking innovative opportunities.'
-  },
-  {
-    id: 'sea-international-teachers',
-    name: 'SEA International Teachers',
-    location: 'Regional (Southeast Asia)',
-    priority: 'medium',
-    category: 'social',
-    summary: 'Facebook group with 25,000+ members across SEA',
-    contact: 'Facebook Group',
-    groups: ['SEA International Teachers (Facebook - 25,000+ members)'],
-    description: 'Massive community of international teachers across Southeast Asia. Very active group for sharing opportunities and connecting with progressive educators.'
-  },
-  {
-    id: 'alternative-education-sea',
-    name: 'Alternative Education Southeast Asia',
-    location: 'Regional (Southeast Asia)',
-    priority: 'high',
-    category: 'social',
-    summary: 'Facebook group with 12,000+ alternative education advocates',
-    contact: 'Facebook Group',
-    groups: ['Alternative Education Southeast Asia (Facebook - 12,000+ members)'],
-    description: 'Community specifically focused on alternative education across SEA. Perfect match for teachers who believe in discovering children\'s magic powers.'
-  },
-  {
-    id: 'teacher-horizons',
-    name: 'Teacher Horizons',
-    location: 'Regional (Southeast Asia)',
-    priority: 'medium',
-    category: 'jobsite',
-    summary: 'Modern platform connecting international teachers',
-    website: 'https://www.teacherhorizons.com',
-    email: 'support@teacherhorizons.com',
-    description: 'Modern recruitment platform specifically for international teachers. User-friendly interface attracts younger, tech-savvy educators seeking progressive opportunities.'
-  }
-]
 
 const seaCountries = [
   { code: 'TH', name: 'Thailand', flag: '🇹🇭' },
@@ -445,42 +48,63 @@ const seaCountries = [
 export default function TeacherRecruitmentPage() {
   const [user, setUser] = useState<TelegramUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const [contacts, setContacts] = useState<Contact[]>([])
   const [expandedContacts, setExpandedContacts] = useState<Set<string>>(new Set())
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [showCountriesDropdown, setShowCountriesDropdown] = useState(false)
   const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set(['TH'])) // Thailand selected by default
   const router = useRouter()
+  const supabase = createClient()
 
   useEffect(() => {
-    // Check if user is logged in
-    const telegramUser = localStorage.getItem('telegram_user')
-    if (telegramUser) {
-      const parsedUser = JSON.parse(telegramUser)
-      setUser(parsedUser)
-    } else {
-      // Redirect to admin login
-      router.push('/admin')
-    }
-    setLoading(false)
-  }, [router])
+    const checkUser = async () => {
+      try {
+        const { data: { user: authUser } } = await supabase.auth.getUser()
+        
+        if (!authUser) {
+          router.push('/admin')
+          return
+        }
 
-  const handleLogout = () => {
-    localStorage.removeItem('telegram_user')
-    setUser(null)
-    router.push('/admin')
-  }
-
-  const toggleContact = (id: string) => {
-    setExpandedContacts(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(id)) {
-        newSet.delete(id)
-      } else {
-        newSet.add(id)
+        const storedUser = localStorage.getItem('telegram_user')
+        if (storedUser) {
+          setUser(JSON.parse(storedUser))
+        }
+      } catch (error) {
+        console.error('Error checking user:', error)
+        router.push('/admin')
+      } finally {
+        setLoading(false)
       }
-      return newSet
-    })
-  }
+    }
+
+    checkUser()
+  }, [router, supabase.auth])
+
+  useEffect(() => {
+    const loadContacts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('teacher_recruitment_contacts')
+          .select('*')
+          .eq('is_active', true)
+          .order('sort_order', { ascending: true })
+
+        if (error) {
+          console.error('Error loading contacts:', error)
+          return
+        }
+
+        setContacts(data || [])
+      } catch (error) {
+        console.error('Error loading contacts:', error)
+      }
+    }
+
+    if (!loading) {
+      loadContacts()
+    }
+  }, [loading, supabase])
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
@@ -493,6 +117,18 @@ export default function TeacherRecruitmentPage() {
       default:
         return '#a0aec0'
     }
+  }
+
+  const toggleContact = (contactId: string) => {
+    setExpandedContacts(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(contactId)) {
+        newSet.delete(contactId)
+      } else {
+        newSet.add(contactId)
+      }
+      return newSet
+    })
   }
 
   const toggleCountry = (countryCode: string) => {
@@ -534,30 +170,75 @@ export default function TeacherRecruitmentPage() {
     return country ? selectedCountries.has(country) : false
   }
 
+  const moveContact = async (contactId: string, direction: 'up' | 'down') => {
+    const currentIndex = contacts.findIndex(c => c.contact_id === contactId)
+    if (currentIndex === -1) return
+
+    const newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1
+    if (newIndex < 0 || newIndex >= contacts.length) return
+
+    // Create new array with swapped positions
+    const newContacts = [...contacts]
+    const [movedContact] = newContacts.splice(currentIndex, 1)
+    newContacts.splice(newIndex, 0, movedContact)
+
+    // Update sort_order values
+    const updatedContacts = newContacts.map((contact, index) => ({
+      ...contact,
+      sort_order: index + 1
+    }))
+
+    try {
+      // Update in database
+      const updates = updatedContacts
+        .filter((contact, index) => 
+          contact.sort_order !== contacts[index]?.sort_order
+        )
+        .map(contact => ({
+          id: contact.id,
+          sort_order: contact.sort_order
+        }))
+
+      for (const update of updates) {
+        await supabase
+          .from('teacher_recruitment_contacts')
+          .update({ sort_order: update.sort_order })
+          .eq('id', update.id)
+      }
+
+      // Update local state
+      setContacts(updatedContacts)
+    } catch (error) {
+      console.error('Error updating contact order:', error)
+    }
+  }
+
   if (loading) {
     return (
       <div className="admin-loading">
-        <div className="spinner"></div>
+        <Shield className="loading-icon" />
         <p>Loading...</p>
       </div>
     )
   }
 
   if (!user) {
-    return null // Router will redirect
+    return null
   }
 
+  const filteredContacts = contacts
+    .filter(contact => selectedCategory === 'all' || contact.category === selectedCategory)
+    .filter(contact => isContactInSelectedCountries(contact))
+
   return (
-    <div className="admin-dashboard">
+    <div className="admin-container">
       <header className="admin-header">
-        <div className="header-content">
-          <h1>Teacher Recruitment Contacts</h1>
-          <div className="header-right">
-            <HamburgerMenu 
-              onLogout={handleLogout}
-              user={user}
-            />
+        <div className="admin-header-content">
+          <div className="admin-title">
+            <Shield size={24} />
+            <h1>Teacher Recruitment</h1>
           </div>
+          <HamburgerMenu user={user} />
         </div>
       </header>
 
@@ -643,26 +324,16 @@ export default function TeacherRecruitmentPage() {
         </div>
 
         <div className="contacts-list">
-          {contacts
-            .filter(contact => selectedCategory === 'all' || contact.category === selectedCategory)
-            .filter(contact => isContactInSelectedCountries(contact))
-            .map(contact => {
-            const isExpanded = expandedContacts.has(contact.id)
-            
+          {filteredContacts.map((contact, index) => {
+            const isExpanded = expandedContacts.has(contact.contact_id)
             return (
-              <div 
-                key={contact.id} 
-                className="contact-item"
-                style={{ borderLeftColor: getPriorityColor(contact.priority) }}
-              >
-                <div 
-                  className="contact-header"
-                  onClick={() => toggleContact(contact.id)}
-                >
-                  <div className="contact-header-left">
-                    <div className="contact-expand-icon">
-                      {isExpanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-                    </div>
+              <div key={contact.contact_id} className="contact-item">
+                <div className="contact-header" onClick={() => toggleContact(contact.contact_id)}>
+                  <div 
+                    className="priority-indicator"
+                    style={{ backgroundColor: getPriorityColor(contact.priority) }}
+                  />
+                  <div className="contact-header-content">
                     <div>
                       <h3>{contact.name}</h3>
                       <div className="contact-meta">
@@ -672,71 +343,101 @@ export default function TeacherRecruitmentPage() {
                         )}
                       </div>
                     </div>
+                    <div className="contact-controls">
+                      <div className="reorder-buttons">
+                        <button
+                          className="reorder-btn"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            moveContact(contact.contact_id, 'up')
+                          }}
+                          disabled={index === 0}
+                          title="Move up"
+                        >
+                          <ArrowUp size={16} />
+                        </button>
+                        <button
+                          className="reorder-btn"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            moveContact(contact.contact_id, 'down')
+                          }}
+                          disabled={index === filteredContacts.length - 1}
+                          title="Move down"
+                        >
+                          <ArrowDown size={16} />
+                        </button>
+                      </div>
+                      <div className="expand-icon">
+                        {isExpanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {isExpanded && (
                   <div className="contact-details">
-                    {contact.website && (
-                      <div className="contact-detail-item">
-                        <Globe size={16} />
-                        <strong>Website:</strong>
-                        <a href={contact.website} target="_blank" rel="noopener noreferrer">
-                          {contact.website}
-                        </a>
-                      </div>
-                    )}
+                    <p className="contact-description">{contact.description}</p>
                     
-                    {contact.email && (
-                      <div className="contact-detail-item">
-                        <Mail size={16} />
-                        <strong>Email:</strong>
-                        <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                      </div>
-                    )}
-                    
-                    {contact.phone && (
-                      <div className="contact-detail-item">
-                        <Phone size={16} />
-                        <strong>Phone:</strong>
-                        <span>{contact.phone}</span>
-                      </div>
-                    )}
-                    
-                    {contact.contact && (
-                      <div className="contact-detail-item">
-                        <strong>Contact:</strong>
-                        <span>{contact.contact}</span>
-                      </div>
-                    )}
-                    
-                    {contact.keyPerson && (
-                      <div className="contact-detail-item">
-                        <strong>Key Person:</strong>
-                        <span>{contact.keyPerson}</span>
-                      </div>
-                    )}
-                    
-                    {contact.groups && (
-                      <div className="contact-detail-item">
-                        <strong>Groups to join:</strong>
-                        <ul>
-                          {contact.groups.map((group, index) => (
-                            <li key={index}>{group}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {contact.note && (
-                      <div className="contact-detail-item">
-                        <strong>Note:</strong>
-                        <span className="contact-note">{contact.note}</span>
-                      </div>
-                    )}
-                    
-                    <div className="contact-description">
-                      {contact.description}
+                    <div className="contact-info">
+                      {contact.website && (
+                        <div className="contact-detail-item">
+                          <Globe size={16} />
+                          <strong>Website:</strong>
+                          <a href={contact.website} target="_blank" rel="noopener noreferrer">
+                            {contact.website} <ExternalLink size={12} />
+                          </a>
+                        </div>
+                      )}
+                      
+                      {contact.email && (
+                        <div className="contact-detail-item">
+                          <Mail size={16} />
+                          <strong>Email:</strong>
+                          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                        </div>
+                      )}
+                      
+                      {contact.phone && (
+                        <div className="contact-detail-item">
+                          <Phone size={16} />
+                          <strong>Phone:</strong>
+                          <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+                        </div>
+                      )}
+                      
+                      {contact.contact_info && (
+                        <div className="contact-detail-item">
+                          <MapPin size={16} />
+                          <strong>Contact:</strong>
+                          <span>{contact.contact_info}</span>
+                        </div>
+                      )}
+                      
+                      {contact.key_person && (
+                        <div className="contact-detail-item">
+                          <strong>Key Person:</strong>
+                          <span>{contact.key_person}</span>
+                        </div>
+                      )}
+                      
+                      {contact.groups && contact.groups.length > 0 && (
+                        <div className="contact-detail-item">
+                          <strong>Groups:</strong>
+                          <ul>
+                            {contact.groups.map((group, idx) => (
+                              <li key={idx}>{group}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      
+                      {contact.note && (
+                        <div className="contact-detail-item note">
+                          <strong>Note:</strong>
+                          <span>{contact.note}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
@@ -747,117 +448,65 @@ export default function TeacherRecruitmentPage() {
       </div>
 
       <style jsx>{`
-        .admin-dashboard {
+        .admin-container {
           min-height: 100vh;
-          background: #f5f7fa;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
 
         .admin-header {
-          background: white;
-          border-bottom: 1px solid #e5e7eb;
-          padding: 1rem 2rem;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 1rem 0;
+          position: sticky;
+          top: 0;
+          z-index: 100;
         }
 
-        .header-content {
+        .admin-header-content {
+          maximum-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          max-width: 1400px;
-          margin: 0 auto;
         }
 
-        .header-content h1 {
-          margin: 0;
-          font-size: 1.5rem;
-          color: #1f2937;
-        }
-
-        .header-right {
+        .admin-title {
           display: flex;
           align-items: center;
+          gap: 0.75rem;
+          color: #2d3748;
+        }
+
+        .admin-title h1 {
+          margin: 0;
+          font-size: 1.5rem;
+          font-weight: 600;
         }
 
         .recruitment-content {
-          max-width: 1000px;
+          max-width: 1200px;
           margin: 0 auto;
-          padding: 2rem;
+          padding: 2rem 1rem;
         }
 
         .recruitment-intro {
-          background: white;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
           padding: 1.5rem;
-          border-radius: 8px;
           margin-bottom: 2rem;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .recruitment-intro p {
           margin: 0;
-          color: #4b5563;
           font-size: 1.1rem;
-        }
-
-        .contacts-list {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-        }
-
-        .contact-item {
-          background: white;
-          border-radius: 8px;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-          overflow: hidden;
-          border-left: 4px solid;
-          transition: all 0.2s;
-        }
-
-        .contact-header {
-          padding: 1rem 1.5rem;
-          cursor: pointer;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          transition: background-color 0.2s;
-        }
-
-        .contact-header:hover {
-          background-color: #f9fafb;
-        }
-
-        .contact-header-left {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-        }
-
-        .contact-expand-icon {
-          color: #6b7280;
-        }
-
-        .contact-header h3 {
-          margin: 0;
-          font-size: 1.1rem;
-          color: #2b6cb0;
-        }
-
-        .contact-meta {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          flex-wrap: wrap;
-        }
-
-        .contact-location {
-          font-size: 0.9rem;
-          color: #6b7280;
-        }
-
-        .contact-summary {
-          font-size: 0.85rem;
-          color: #9ca3af;
-          font-style: italic;
+          color: #4a5568;
+          font-weight: 500;
         }
 
         .filter-controls {
@@ -989,8 +638,135 @@ export default function TeacherRecruitmentPage() {
           text-overflow: ellipsis;
         }
 
+        .contacts-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .contact-item {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+          transition: all 0.2s ease;
+        }
+
+        .contact-item:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-header {
+          display: flex;
+          align-items: flex-start;
+          padding: 1.5rem;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+
+        .contact-header:hover {
+          background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .priority-indicator {
+          width: 4px;
+          height: 100%;
+          min-height: 40px;
+          border-radius: 2px;
+          margin-right: 1rem;
+          flex-shrink: 0;
+        }
+
+        .contact-header-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          width: 100%;
+          gap: 1rem;
+        }
+
+        .contact-header-content h3 {
+          margin: 0 0 0.5rem 0;
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #2d3748;
+          line-height: 1.3;
+        }
+
+        .contact-meta {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .contact-location {
+          font-size: 0.9rem;
+          color: #6b7280;
+        }
+
+        .contact-summary {
+          font-size: 0.85rem;
+          color: #9ca3af;
+          font-style: italic;
+        }
+
+        .contact-controls {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex-shrink: 0;
+        }
+
+        .reorder-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        .reorder-btn {
+          background: #f7fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 4px;
+          padding: 0.25rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .reorder-btn:hover:not(:disabled) {
+          background: #edf2f7;
+          border-color: #cbd5e0;
+        }
+
+        .reorder-btn:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+
+        .expand-icon {
+          color: #a0aec0;
+          transition: transform 0.2s;
+        }
+
         .contact-details {
-          padding: 0 1.5rem 1.5rem 3.5rem;
+          padding: 0 1.5rem 1.5rem 2.5rem;
+          border-top: 1px solid #f1f5f9;
+          background: rgba(248, 250, 252, 0.5);
+        }
+
+        .contact-description {
+          margin: 0 0 1.5rem 0;
+          color: #4a5568;
+          line-height: 1.6;
+          font-size: 0.95rem;
+        }
+
+        .contact-info {
           display: flex;
           flex-direction: column;
           gap: 0.75rem;
@@ -999,52 +775,43 @@ export default function TeacherRecruitmentPage() {
         .contact-detail-item {
           display: flex;
           align-items: flex-start;
-          gap: 0.5rem;
-          color: #4b5563;
+          gap: 0.75rem;
+          font-size: 0.9rem;
         }
 
         .contact-detail-item strong {
-          color: #2b6cb0;
-          min-width: 100px;
-        }
-
-        .contact-detail-item svg {
-          color: #6b7280;
-          margin-top: 2px;
-          flex-shrink: 0;
+          min-width: 80px;
+          color: #2d3748;
+          font-weight: 600;
         }
 
         .contact-detail-item a {
-          color: #3182ce;
+          color: #2b6cb0;
           text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
         }
 
         .contact-detail-item a:hover {
           text-decoration: underline;
         }
 
+        .contact-detail-item.note {
+          background: #fef5e7;
+          padding: 0.75rem;
+          border-radius: 6px;
+          border-left: 3px solid #f6ad55;
+        }
+
         .contact-detail-item ul {
           margin: 0;
-          padding-left: 1.5rem;
-          list-style-type: disc;
+          padding-left: 1.25rem;
         }
 
         .contact-detail-item li {
-          margin: 0.25rem 0;
-        }
-
-        .contact-note {
-          color: #dc2626;
-          font-style: italic;
-        }
-
-        .contact-description {
-          margin-top: 0.75rem;
-          padding: 0.75rem;
-          background: #f3f4f6;
-          border-radius: 6px;
-          color: #374151;
-          line-height: 1.6;
+          margin-bottom: 0.25rem;
+          color: #4a5568;
         }
 
         .admin-loading {
@@ -1053,21 +820,18 @@ export default function TeacherRecruitmentPage() {
           align-items: center;
           justify-content: center;
           min-height: 100vh;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
         }
 
-        .spinner {
-          width: 40px;
-          height: 40px;
-          border: 3px solid #e5e7eb;
-          border-top-color: #3b82f6;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
+        .loading-icon {
+          animation: spin 2s linear infinite;
+          margin-bottom: 1rem;
         }
 
         @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         @media (max-width: 768px) {
@@ -1094,6 +858,15 @@ export default function TeacherRecruitmentPage() {
 
           .countries-grid {
             grid-template-columns: repeat(2, 1fr);
+          }
+
+          .contact-controls {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+
+          .reorder-buttons {
+            flex-direction: row;
           }
         }
 
