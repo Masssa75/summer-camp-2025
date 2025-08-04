@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { Shield, ChevronDown, ChevronRight, ExternalLink, Phone, Mail, Globe, MapPin } from 'lucide-react'
+import { Shield, ChevronDown, ChevronRight, ExternalLink, Phone, Mail, Globe, MapPin, Check } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import HamburgerMenu from '@/components/admin/HamburgerMenu'
 
@@ -176,11 +176,24 @@ const contacts: Contact[] = [
   }
 ]
 
+const seaCountries = [
+  { code: 'TH', name: 'Thailand', flag: '🇹🇭' },
+  { code: 'SG', name: 'Singapore', flag: '🇸🇬' },
+  { code: 'MY', name: 'Malaysia', flag: '🇲🇾' }, 
+  { code: 'ID', name: 'Indonesia', flag: '🇮🇩' },
+  { code: 'PH', name: 'Philippines', flag: '🇵🇭' },
+  { code: 'VN', name: 'Vietnam', flag: '🇻🇳' },
+  { code: 'MM', name: 'Myanmar', flag: '🇲🇲' },
+  { code: 'KH', name: 'Cambodia', flag: '🇰🇭' }
+]
+
 export default function TeacherRecruitmentPage() {
   const [user, setUser] = useState<TelegramUser | null>(null)
   const [loading, setLoading] = useState(true)
   const [expandedContacts, setExpandedContacts] = useState<Set<string>>(new Set())
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [showCountriesDropdown, setShowCountriesDropdown] = useState(false)
+  const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set(['TH'])) // Thailand selected by default
   const router = useRouter()
 
   useEffect(() => {
@@ -227,6 +240,39 @@ export default function TeacherRecruitmentPage() {
     }
   }
 
+  const toggleCountry = (countryCode: string) => {
+    setSelectedCountries(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(countryCode)) {
+        newSet.delete(countryCode)
+      } else {
+        newSet.add(countryCode)
+      }
+      return newSet
+    })
+  }
+
+  const selectAllCountries = () => {
+    setSelectedCountries(new Set(seaCountries.map(c => c.code)))
+  }
+
+  const getCountryByLocation = (location: string): string | null => {
+    if (location.includes('Thailand') || location.includes('Bangkok') || location.includes('Phuket')) return 'TH'
+    if (location.includes('Singapore')) return 'SG'
+    if (location.includes('Malaysia')) return 'MY'
+    if (location.includes('Indonesia') || location.includes('Bali')) return 'ID'
+    if (location.includes('Philippines')) return 'PH'
+    if (location.includes('Vietnam')) return 'VN'
+    if (location.includes('Myanmar')) return 'MM'
+    if (location.includes('Cambodia')) return 'KH'
+    return null
+  }
+
+  const isContactInSelectedCountries = (contact: Contact): boolean => {
+    const country = getCountryByLocation(contact.location)
+    return country ? selectedCountries.has(country) : true // Show contacts without clear country match
+  }
+
   if (loading) {
     return (
       <div className="admin-loading">
@@ -259,48 +305,88 @@ export default function TeacherRecruitmentPage() {
           <p>Organizations and networks for finding teachers who believe in discovering each child's "magic power".</p>
         </div>
 
-        <div className="category-selector">
-          <button 
-            className={selectedCategory === 'all' ? 'active' : ''}
-            onClick={() => setSelectedCategory('all')}
-          >
-            All ({contacts.length})
-          </button>
-          <button 
-            className={selectedCategory === 'university' ? 'active' : ''}
-            onClick={() => setSelectedCategory('university')}
-          >
-            Universities ({contacts.filter(c => c.category === 'university').length})
-          </button>
-          <button 
-            className={selectedCategory === 'jobsite' ? 'active' : ''}
-            onClick={() => setSelectedCategory('jobsite')}
-          >
-            Job Sites ({contacts.filter(c => c.category === 'jobsite').length})
-          </button>
-          <button 
-            className={selectedCategory === 'network' ? 'active' : ''}
-            onClick={() => setSelectedCategory('network')}
-          >
-            Networks ({contacts.filter(c => c.category === 'network').length})
-          </button>
-          <button 
-            className={selectedCategory === 'school' ? 'active' : ''}
-            onClick={() => setSelectedCategory('school')}
-          >
-            Schools ({contacts.filter(c => c.category === 'school').length})
-          </button>
-          <button 
-            className={selectedCategory === 'social' ? 'active' : ''}
-            onClick={() => setSelectedCategory('social')}
-          >
-            Social Media ({contacts.filter(c => c.category === 'social').length})
-          </button>
+        <div className="filter-controls">
+          <div className="category-selector">
+            <button 
+              className={selectedCategory === 'all' ? 'active' : ''}
+              onClick={() => setSelectedCategory('all')}
+            >
+              All ({contacts.length})
+            </button>
+            <button 
+              className={selectedCategory === 'university' ? 'active' : ''}
+              onClick={() => setSelectedCategory('university')}
+            >
+              Universities ({contacts.filter(c => c.category === 'university').length})
+            </button>
+            <button 
+              className={selectedCategory === 'jobsite' ? 'active' : ''}
+              onClick={() => setSelectedCategory('jobsite')}
+            >
+              Job Sites ({contacts.filter(c => c.category === 'jobsite').length})
+            </button>
+            <button 
+              className={selectedCategory === 'network' ? 'active' : ''}
+              onClick={() => setSelectedCategory('network')}
+            >
+              Networks ({contacts.filter(c => c.category === 'network').length})
+            </button>
+            <button 
+              className={selectedCategory === 'school' ? 'active' : ''}
+              onClick={() => setSelectedCategory('school')}
+            >
+              Schools ({contacts.filter(c => c.category === 'school').length})
+            </button>
+            <button 
+              className={selectedCategory === 'social' ? 'active' : ''}
+              onClick={() => setSelectedCategory('social')}
+            >
+              Social Media ({contacts.filter(c => c.category === 'social').length})
+            </button>
+          </div>
+
+          <div className="countries-filter">
+            <div className="countries-dropdown">
+              <button 
+                className="countries-toggle"
+                onClick={() => setShowCountriesDropdown(!showCountriesDropdown)}
+              >
+                Countries ({selectedCountries.size}) {showCountriesDropdown ? '▲' : '▼'}
+              </button>
+              
+              {showCountriesDropdown && (
+                <div className="countries-dropdown-content">
+                  <div className="countries-header">
+                    <button 
+                      className="select-all-btn"
+                      onClick={selectAllCountries}
+                    >
+                      <Check size={14} /> Select All
+                    </button>
+                  </div>
+                  <div className="countries-list">
+                    {seaCountries.map(country => (
+                      <label key={country.code} className="country-checkbox">
+                        <input
+                          type="checkbox"
+                          checked={selectedCountries.has(country.code)}
+                          onChange={() => toggleCountry(country.code)}
+                        />
+                        <span className="country-flag">{country.flag}</span>
+                        <span className="country-name">{country.name}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="contacts-list">
           {contacts
             .filter(contact => selectedCategory === 'all' || contact.category === selectedCategory)
+            .filter(contact => isContactInSelectedCountries(contact))
             .map(contact => {
             const isExpanded = expandedContacts.has(contact.id)
             
@@ -515,10 +601,14 @@ export default function TeacherRecruitmentPage() {
           font-style: italic;
         }
 
+        .filter-controls {
+          margin-bottom: 1.5rem;
+        }
+
         .category-selector {
           display: flex;
           gap: 0.5rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           flex-wrap: wrap;
         }
 
@@ -542,6 +632,102 @@ export default function TeacherRecruitmentPage() {
           background: #2b6cb0;
           color: white;
           border-color: #2b6cb0;
+        }
+
+        .countries-filter {
+          position: relative;
+        }
+
+        .countries-dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .countries-toggle {
+          padding: 0.5rem 1rem;
+          border: 1px solid #e5e7eb;
+          background: white;
+          border-radius: 6px;
+          font-size: 0.9rem;
+          color: #6b7280;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .countries-toggle:hover {
+          border-color: #2b6cb0;
+          color: #2b6cb0;
+        }
+
+        .countries-dropdown-content {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background: white;
+          border: 1px solid #e5e7eb;
+          border-radius: 6px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+          min-width: 200px;
+          margin-top: 2px;
+        }
+
+        .countries-header {
+          padding: 0.5rem;
+          border-bottom: 1px solid #e5e7eb;
+        }
+
+        .select-all-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: none;
+          border: none;
+          color: #2b6cb0;
+          font-size: 0.85rem;
+          cursor: pointer;
+          padding: 0.25rem;
+          border-radius: 4px;
+          transition: background-color 0.2s;
+        }
+
+        .select-all-btn:hover {
+          background-color: #f3f4f6;
+        }
+
+        .countries-list {
+          max-height: 200px;
+          overflow-y: auto;
+          padding: 0.5rem 0;
+        }
+
+        .country-checkbox {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+
+        .country-checkbox:hover {
+          background-color: #f9fafb;
+        }
+
+        .country-checkbox input[type="checkbox"] {
+          margin: 0;
+        }
+
+        .country-flag {
+          font-size: 1rem;
+        }
+
+        .country-name {
+          font-size: 0.9rem;
+          color: #374151;
         }
 
         .contact-details {
