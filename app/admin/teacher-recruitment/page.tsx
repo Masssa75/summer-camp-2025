@@ -238,7 +238,14 @@ export default function TeacherRecruitmentPage() {
             <Shield size={24} />
             <h1>Teacher Recruitment</h1>
           </div>
-          <HamburgerMenu user={user} />
+          <HamburgerMenu 
+            user={user} 
+            onLogout={async () => {
+              await supabase.auth.signOut()
+              localStorage.removeItem('telegram_user')
+              router.push('/admin')
+            }}
+          />
         </div>
       </header>
 
