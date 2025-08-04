@@ -59,6 +59,15 @@ export default function TeacherRecruitmentPage() {
   useEffect(() => {
     const checkUser = async () => {
       try {
+        // First check for test auth user
+        const storedUser = localStorage.getItem('telegram_user')
+        if (storedUser) {
+          setUser(JSON.parse(storedUser))
+          setLoading(false)
+          return
+        }
+
+        // If no test auth, check Supabase auth
         const { data: { user: authUser } } = await supabase.auth.getUser()
         
         if (!authUser) {
@@ -66,10 +75,9 @@ export default function TeacherRecruitmentPage() {
           return
         }
 
-        const storedUser = localStorage.getItem('telegram_user')
-        if (storedUser) {
-          setUser(JSON.parse(storedUser))
-        }
+        // Supabase user exists but no Telegram user stored
+        // This shouldn't happen in normal flow, but redirect to admin
+        router.push('/admin')
       } catch (error) {
         console.error('Error checking user:', error)
         router.push('/admin')
