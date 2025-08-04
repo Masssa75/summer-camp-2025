@@ -723,24 +723,32 @@ export default function TeacherRecruitmentPage() {
         .reorder-buttons {
           display: flex;
           flex-direction: column;
-          gap: 0.25rem;
+          gap: 0.5rem;
+          margin-right: 0.5rem;
         }
 
         .reorder-btn {
-          background: #f7fafc;
-          border: 1px solid #e2e8f0;
-          border-radius: 4px;
-          padding: 0.25rem;
+          background: #ffffff;
+          border: 2px solid #cbd5e0;
+          border-radius: 6px;
+          padding: 0.5rem;
           cursor: pointer;
           transition: all 0.2s;
           display: flex;
           align-items: center;
           justify-content: center;
+          min-width: 36px;
+          min-height: 36px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          color: #4a5568;
         }
 
         .reorder-btn:hover:not(:disabled) {
-          background: #edf2f7;
-          border-color: #cbd5e0;
+          background: #e2e8f0;
+          border-color: #2b6cb0;
+          color: #2b6cb0;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         .reorder-btn:disabled {
