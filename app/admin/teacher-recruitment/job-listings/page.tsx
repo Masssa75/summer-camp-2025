@@ -4,6 +4,10 @@ import { Shield, FileText, Users, Target, Award, Clock, MapPin, DollarSign } fro
 import Link from 'next/link'
 
 export default function JobListingsPage() {
+  // Update page title
+  if (typeof document !== 'undefined') {
+    document.title = 'Teaching at Bamboo Valley - Requirements & Philosophy'
+  }
   return (
     <div className="min-h-screen bg-white">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
@@ -11,7 +15,7 @@ export default function JobListingsPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Shield size={24} className="text-gray-700" />
-              <h1 className="text-xl font-semibold text-gray-900">Teacher Positions</h1>
+              <h1 className="text-xl font-semibold text-gray-900">Teaching at Bamboo Valley</h1>
             </div>
             <Link href="/admin/teacher-recruitment" className="text-blue-600 hover:text-blue-700 text-sm">
               ← Back to Recruitment
@@ -29,69 +33,38 @@ export default function JobListingsPage() {
           </p>
         </div>
 
-        {/* Current Openings */}
+        {/* Educational Philosophy */}
         <section className="mb-12">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6">Current Openings</h3>
+          <h3 className="text-2xl font-semibold text-gray-900 mb-6">Our Educational Philosophy</h3>
           
-          <div className="grid gap-6">
-            {/* Position 1 */}
-            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h4 className="text-xl font-semibold text-gray-900">Lead Teacher - Mini Camp (Ages 3-6)</h4>
-                  <p className="text-gray-600 mt-1">Full-time position for our early childhood program</p>
-                </div>
-                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Open</span>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
-                <div className="flex items-center gap-2">
-                  <MapPin size={16} />
-                  <span>Phuket, Thailand</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock size={16} />
-                  <span>Full-time</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users size={16} />
-                  <span>3-6 years</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <DollarSign size={16} />
-                  <span>Competitive</span>
-                </div>
-              </div>
+          <div className="prose prose-gray max-w-none">
+            <div className="bg-gray-50 rounded-lg p-6 mb-6">
+              <h4 className="text-lg font-semibold text-gray-900 mb-3">Discovering Each Child's Magic Power</h4>
+              <p className="text-gray-700 mb-4">
+                At Bamboo Valley, we believe every child possesses unique talents and abilities - their "magic power." 
+                Our role as educators is to help discover and nurture these innate gifts through:
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li>• Child-centered, play-based learning</li>
+                <li>• Outdoor education in our 3.5-rai palm plantation</li>
+                <li>• Small group sizes for personalized attention</li>
+                <li>• Integration of arts, nature, and academics</li>
+                <li>• Respect for each child's developmental pace</li>
+              </ul>
             </div>
 
-            {/* Position 2 */}
-            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h4 className="text-xl font-semibold text-gray-900">Assistant Teacher - Explorer Camp (Ages 7-13)</h4>
-                  <p className="text-gray-600 mt-1">Support our adventure-based learning program</p>
-                </div>
-                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Open</span>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
-                <div className="flex items-center gap-2">
-                  <MapPin size={16} />
-                  <span>Phuket, Thailand</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock size={16} />
-                  <span>Full-time</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users size={16} />
-                  <span>7-13 years</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <DollarSign size={16} />
-                  <span>Competitive</span>
-                </div>
-              </div>
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h4 className="text-lg font-semibold text-gray-900 mb-3">What We're Looking For</h4>
+              <p className="text-gray-700 mb-4">
+                We seek educators who:
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li>• View children as capable, creative individuals</li>
+                <li>• Embrace outdoor and experiential learning</li>
+                <li>• Value collaboration over competition</li>
+                <li>• Understand that learning happens everywhere, not just in classrooms</li>
+                <li>• Are committed to their own continuous growth and learning</li>
+              </ul>
             </div>
           </div>
         </section>
