@@ -6,6 +6,7 @@ import { Shield, LogOut, Users, FileText, Bell, Check, Eye, X, Download, Externa
 import EditableTimetable from '@/components/admin/EditableTimetable'
 import NotificationSettings from '@/components/NotificationSettings'
 import RegistrationWorkflow from '@/components/admin/RegistrationWorkflow'
+import HamburgerMenu from '@/components/admin/HamburgerMenu'
 import './admin.css'
 
 // Telegram Bot Configuration
@@ -348,7 +349,10 @@ export default function AdminPage() {
     <div className="admin-dashboard">
       <header className="admin-header">
         <div className="header-content">
-          <h1>Summer Camp Admin</h1>
+          <div className="header-left">
+            <HamburgerMenu onLogout={handleLogout} />
+            <h1>Summer Camp Admin</h1>
+          </div>
           <div className="user-info">
             {/* Notification Bell */}
             <div className="notification-container">

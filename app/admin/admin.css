@@ -86,6 +86,12 @@
   align-items: center;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .admin-header h1 {
   color: #7a9a3b;
   font-size: 1.8rem;
@@ -968,8 +974,16 @@ tr:hover {
 /* Responsive */
 @media (max-width: 768px) {
   .header-content {
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
+    padding: 15px;
+  }
+  
+  .header-left {
+    flex: 1;
+  }
+  
+  .header-left h1 {
+    font-size: 1.2rem;
   }
   
   .stats-grid {
