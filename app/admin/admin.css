@@ -86,7 +86,7 @@
   align-items: center;
 }
 
-.header-left {
+.header-right {
   display: flex;
   align-items: center;
   gap: 1rem;

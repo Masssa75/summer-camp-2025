@@ -217,15 +217,12 @@ export default function TeacherRecruitmentPage() {
     <div className="admin-dashboard">
       <header className="admin-header">
         <div className="header-content">
-          <div className="header-left">
-            <HamburgerMenu onLogout={handleLogout} />
-            <h1>Teacher Recruitment Contacts</h1>
-          </div>
-          <div className="user-info">
-            {user.photo_url && (
-              <img src={user.photo_url} alt={user.first_name} className="user-avatar" />
-            )}
-            <span>{user.first_name} {user.last_name}</span>
+          <h1>Teacher Recruitment Contacts</h1>
+          <div className="header-right">
+            <HamburgerMenu 
+              onLogout={handleLogout}
+              user={user}
+            />
           </div>
         </div>
       </header>
@@ -352,28 +349,15 @@ export default function TeacherRecruitmentPage() {
           margin: 0 auto;
         }
 
-        .header-left {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-        }
-
-        .header-left h1 {
+        .header-content h1 {
           margin: 0;
           font-size: 1.5rem;
           color: #1f2937;
         }
 
-        .user-info {
+        .header-right {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-        }
-
-        .user-avatar {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
         }
 
         .recruitment-content {
