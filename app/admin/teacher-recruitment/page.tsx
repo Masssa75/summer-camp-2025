@@ -465,14 +465,13 @@ export default function TeacherRecruitmentPage() {
       <style jsx>{`
         .admin-container {
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: #ffffff;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
 
         .admin-header {
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(10px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          background: #ffffff;
+          border-bottom: 1px solid #e5e7eb;
           padding: 1rem 0;
           position: sticky;
           top: 0;
@@ -840,8 +839,8 @@ export default function TeacherRecruitmentPage() {
           align-items: center;
           justify-content: center;
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
+          background: #ffffff;
+          color: #4a5568;
         }
 
         .loading-icon {
