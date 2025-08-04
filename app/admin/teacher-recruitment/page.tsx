@@ -369,7 +369,7 @@ export default function TeacherRecruitmentPage() {
                           disabled={index === 0}
                           title="Move up"
                         >
-                          <ArrowUp size={16} />
+                          <ArrowUp size={14} />
                         </button>
                         <button
                           className="reorder-btn"
@@ -380,7 +380,7 @@ export default function TeacherRecruitmentPage() {
                           disabled={index === filteredContacts.length - 1}
                           title="Move down"
                         >
-                          <ArrowDown size={16} />
+                          <ArrowDown size={14} />
                         </button>
                       </div>
                       <div className="expand-icon">
@@ -743,31 +743,28 @@ export default function TeacherRecruitmentPage() {
         }
 
         .reorder-btn {
-          background: #ffffff;
-          border: 2px solid #cbd5e0;
-          border-radius: 6px;
-          padding: 0.5rem;
+          background: transparent;
+          border: 1px solid #e2e8f0;
+          border-radius: 4px;
+          padding: 0.25rem;
           cursor: pointer;
           transition: all 0.2s;
           display: flex;
           align-items: center;
           justify-content: center;
-          min-width: 36px;
-          min-height: 36px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          color: #4a5568;
+          width: 24px;
+          height: 24px;
+          color: #a0aec0;
         }
 
         .reorder-btn:hover:not(:disabled) {
-          background: #e2e8f0;
-          border-color: #2b6cb0;
-          color: #2b6cb0;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          background: #f7fafc;
+          border-color: #cbd5e0;
+          color: #4a5568;
         }
 
         .reorder-btn:disabled {
-          opacity: 0.4;
+          opacity: 0.3;
           cursor: not-allowed;
         }
 
