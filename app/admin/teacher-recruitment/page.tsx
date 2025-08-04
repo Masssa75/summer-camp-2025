@@ -19,6 +19,8 @@ interface Contact {
   name: string
   location: string
   priority: 'high' | 'medium' | 'low'
+  category: 'university' | 'jobsite' | 'network' | 'school' | 'social'
+  summary?: string
   website?: string
   email?: string
   phone?: string
@@ -35,6 +37,8 @@ const contacts: Contact[] = [
     name: 'Rajabhat University Phuket',
     location: 'Phuket',
     priority: 'high',
+    category: 'university',
+    summary: 'Local teacher training with progressive methods',
     contact: 'Early Childhood Education Department',
     phone: '076-211-959',
     website: 'http://pkru.ac.th',
@@ -47,6 +51,8 @@ const contacts: Contact[] = [
     name: 'Alternative Education Alliance Thailand',
     location: 'Thailand-wide',
     priority: 'high',
+    category: 'network',
+    summary: 'Coalition of all alternative schools in Thailand',
     contact: 'Through member schools like Panyotai Waldorf',
     keyPerson: 'Contact conference organizers or Panyotai School for network access',
     description: 'Coalition of ALL alternative schools in Thailand. Annual gatherings where progressive teachers network and seek new positions.'
@@ -56,6 +62,8 @@ const contacts: Contact[] = [
     name: 'Asian College of Teachers (ACT)',
     location: 'Bangkok',
     priority: 'high',
+    category: 'university',
+    summary: 'Trains 50,000+ teachers in alternative methods',
     website: 'https://asiancollegeofteachers.com',
     email: 'info@asiancollegeofteachers.com',
     phone: '+66 2 213 3939',
@@ -67,6 +75,8 @@ const contacts: Contact[] = [
     name: 'Facebook Groups',
     location: 'Online',
     priority: 'high',
+    category: 'social',
+    summary: 'Active communities of alternative education teachers',
     groups: [
       'การศึกษาทางเลือก (Alternative Education Thailand)',
       'Waldorf Education Thailand',
@@ -79,6 +89,8 @@ const contacts: Contact[] = [
     name: 'Panyotai Waldorf School',
     location: 'Bangkok',
     priority: 'medium',
+    category: 'school',
+    summary: 'Thailand\'s first Waldorf school',
     website: 'https://panyotai.com',
     email: 'info@panyotai.com',
     phone: '02-885-2670',
@@ -90,6 +102,8 @@ const contacts: Contact[] = [
     name: 'Thai Montessori Foundation',
     location: 'Thailand',
     priority: 'medium',
+    category: 'network',
+    summary: 'National Montessori teacher network',
     contact: 'Through member schools',
     keyPerson: 'Conference organizers or established Montessori schools',
     email: 'thaimontessorifoundation@gmail.com',
@@ -100,6 +114,8 @@ const contacts: Contact[] = [
     name: 'Equitable Education Fund (EEF)',
     location: 'Bangkok',
     priority: 'medium',
+    category: 'network',
+    summary: 'Government fund connecting innovative educators',
     website: 'https://www.eef.or.th',
     email: 'contact@eef.or.th',
     phone: '02-079-5475',
@@ -110,6 +126,8 @@ const contacts: Contact[] = [
     name: 'Ajarn.com',
     location: 'Online',
     priority: 'medium',
+    category: 'jobsite',
+    summary: 'Thailand\'s main teaching job board',
     website: 'https://www.ajarn.com',
     email: 'info@ajarn.com',
     description: 'Thailand\'s main teaching job site. Teachers browsing here often seek escape from traditional schools.'
@@ -119,6 +137,8 @@ const contacts: Contact[] = [
     name: 'Rainbow Montessori Phuket',
     location: 'Phuket (Competing School)',
     priority: 'low',
+    category: 'school',
+    summary: 'Local competing Montessori school',
     note: 'Competing Montessori school - unlikely to share teachers',
     description: 'Local Montessori school. While they won\'t help with recruitment, knowing their approach helps position your unique outdoor offering.'
   },
@@ -127,6 +147,8 @@ const contacts: Contact[] = [
     name: 'Phuket Sunshine Village',
     location: 'Phuket (Competing School)',
     priority: 'low',
+    category: 'school',
+    summary: 'Local competing alternative school',
     note: 'Alternative school in Phuket - approach diplomatically',
     description: 'Another alternative school in Phuket. Unlikely to help with recruitment but worth understanding their approach.'
   },
@@ -135,6 +157,8 @@ const contacts: Contact[] = [
     name: 'Green School Bali Network',
     location: 'Bali, Indonesia',
     priority: 'low',
+    category: 'school',
+    summary: 'Nature-based school alumni network',
     website: 'https://www.greenschool.org',
     email: 'info@greenschool.org',
     keyPerson: 'Alumni Relations Office',
@@ -145,6 +169,8 @@ const contacts: Contact[] = [
     name: 'Siratthaya Waldorf Learning Center',
     location: 'Thailand',
     priority: 'low',
+    category: 'school',
+    summary: 'Waldorf learning center with heart-centered approach',
     contact: 'Through Waldorf network',
     description: 'Waldorf teachers who believe in heart-centered education. Small community where everyone knows who\'s looking for new opportunities.'
   }
@@ -154,6 +180,7 @@ export default function TeacherRecruitmentPage() {
   const [user, setUser] = useState<TelegramUser | null>(null)
   const [loading, setLoading] = useState(true)
   const [expandedContacts, setExpandedContacts] = useState<Set<string>>(new Set())
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const router = useRouter()
 
   useEffect(() => {
@@ -232,8 +259,49 @@ export default function TeacherRecruitmentPage() {
           <p>Organizations and networks for finding teachers who believe in discovering each child's "magic power".</p>
         </div>
 
+        <div className="category-selector">
+          <button 
+            className={selectedCategory === 'all' ? 'active' : ''}
+            onClick={() => setSelectedCategory('all')}
+          >
+            All ({contacts.length})
+          </button>
+          <button 
+            className={selectedCategory === 'university' ? 'active' : ''}
+            onClick={() => setSelectedCategory('university')}
+          >
+            Universities ({contacts.filter(c => c.category === 'university').length})
+          </button>
+          <button 
+            className={selectedCategory === 'jobsite' ? 'active' : ''}
+            onClick={() => setSelectedCategory('jobsite')}
+          >
+            Job Sites ({contacts.filter(c => c.category === 'jobsite').length})
+          </button>
+          <button 
+            className={selectedCategory === 'network' ? 'active' : ''}
+            onClick={() => setSelectedCategory('network')}
+          >
+            Networks ({contacts.filter(c => c.category === 'network').length})
+          </button>
+          <button 
+            className={selectedCategory === 'school' ? 'active' : ''}
+            onClick={() => setSelectedCategory('school')}
+          >
+            Schools ({contacts.filter(c => c.category === 'school').length})
+          </button>
+          <button 
+            className={selectedCategory === 'social' ? 'active' : ''}
+            onClick={() => setSelectedCategory('social')}
+          >
+            Social Media ({contacts.filter(c => c.category === 'social').length})
+          </button>
+        </div>
+
         <div className="contacts-list">
-          {contacts.map(contact => {
+          {contacts
+            .filter(contact => selectedCategory === 'all' || contact.category === selectedCategory)
+            .map(contact => {
             const isExpanded = expandedContacts.has(contact.id)
             
             return (
@@ -252,7 +320,12 @@ export default function TeacherRecruitmentPage() {
                     </div>
                     <div>
                       <h3>{contact.name}</h3>
-                      <span className="contact-location">{contact.location}</span>
+                      <div className="contact-meta">
+                        <span className="contact-location">{contact.location}</span>
+                        {contact.summary && (
+                          <span className="contact-summary">• {contact.summary}</span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -424,9 +497,51 @@ export default function TeacherRecruitmentPage() {
           color: #2b6cb0;
         }
 
+        .contact-meta {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+
         .contact-location {
           font-size: 0.9rem;
           color: #6b7280;
+        }
+
+        .contact-summary {
+          font-size: 0.85rem;
+          color: #9ca3af;
+          font-style: italic;
+        }
+
+        .category-selector {
+          display: flex;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+          flex-wrap: wrap;
+        }
+
+        .category-selector button {
+          padding: 0.5rem 1rem;
+          border: 1px solid #e5e7eb;
+          background: white;
+          border-radius: 6px;
+          font-size: 0.9rem;
+          color: #6b7280;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .category-selector button:hover {
+          border-color: #2b6cb0;
+          color: #2b6cb0;
+        }
+
+        .category-selector button.active {
+          background: #2b6cb0;
+          color: white;
+          border-color: #2b6cb0;
         }
 
         .contact-details {
