@@ -265,12 +265,14 @@ export default function TeacherRecruitmentPage() {
     if (location.includes('Vietnam')) return 'VN'
     if (location.includes('Myanmar')) return 'MM'
     if (location.includes('Cambodia')) return 'KH'
+    // Treat "Online" as Thailand since these are Thai-focused platforms
+    if (location.includes('Online')) return 'TH'
     return null
   }
 
   const isContactInSelectedCountries = (contact: Contact): boolean => {
     const country = getCountryByLocation(contact.location)
-    return country ? selectedCountries.has(country) : true // Show contacts without clear country match
+    return country ? selectedCountries.has(country) : false // Hide contacts without clear country match
   }
 
   if (loading) {
