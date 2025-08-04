@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { Shield, ChevronDown, ChevronRight, ExternalLink, Phone, Mail, Globe, MapPin, Check, ArrowUp, ArrowDown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import HamburgerMenu from '@/components/admin/HamburgerMenu'
 
 interface TelegramUser {
@@ -260,6 +261,9 @@ export default function TeacherRecruitmentPage() {
       <div className="recruitment-content">
         <div className="recruitment-intro">
           <p>Organizations and networks for finding teachers who believe in discovering each child's "magic power".</p>
+          <Link href="/admin/teacher-recruitment/job-listings" className="view-job-listings">
+            View Job Listings & Requirements →
+          </Link>
         </div>
 
         <div className="filter-controls">
@@ -521,6 +525,21 @@ export default function TeacherRecruitmentPage() {
           font-size: 1.1rem;
           color: #4a5568;
           font-weight: 500;
+        }
+
+        .view-job-listings {
+          display: inline-block;
+          margin-top: 1rem;
+          color: #2b6cb0;
+          text-decoration: none;
+          font-size: 0.95rem;
+          font-weight: 500;
+          transition: color 0.2s;
+        }
+
+        .view-job-listings:hover {
+          color: #1e4e8c;
+          text-decoration: underline;
         }
 
         .filter-controls {
