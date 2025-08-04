@@ -351,6 +351,103 @@ export default function AdminPage() {
         <div className="header-content">
           <h1>Summer Camp Admin</h1>
           <div className="header-right">
+            {/* Notification Bell */}
+            <div className="notification-container">
+              <button 
+                onClick={() => setShowNotificationMenu(!showNotificationMenu)}
+                className="notification-bell"
+                title="View notifications"
+              >
+                <Bell size={20} />
+                {unreadCount > 0 && (
+                  <span className="notification-badge">{unreadCount}</span>
+                )}
+              </button>
+              
+              {showNotificationMenu && (
+                <div className="notification-menu">
+                  <div className="notification-header">
+                    <div className="notification-title">
+                      <Bell size={16} />
+                      <span>Notifications</span>
+                    </div>
+                    <div className="notification-header-actions">
+                      <button
+                        onClick={() => {
+                          setShowNotificationMenu(false)
+                          setShowNotificationSettings(true)
+                        }}
+                        className="notification-settings-btn"
+                        title="Notification settings"
+                      >
+                        <Settings size={16} />
+                      </button>
+                      {unreadCount > 0 && (
+                        <button 
+                          onClick={markAllAsRead} 
+                          className="mark-all-read-btn"
+                          title="Mark all as read"
+                        >
+                          Mark all read
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="notifications-list">
+                    {recentNotifications.length === 0 ? (
+                      <div className="no-notifications">
+                        <p>No recent notifications</p>
+                      </div>
+                    ) : (
+                      recentNotifications.map((notification) => (
+                        <div 
+                          key={notification.id} 
+                          className={`notification-item ${notification.is_read ? 'read' : 'unread'}`}
+                        >
+                          <div className="notification-content">
+                            <div className="notification-main">
+                              <h4>{notification.title}</h4>
+                              <p>{notification.message}</p>
+                              <span className="notification-time">
+                                {new Date(notification.created_at).toLocaleString()}
+                              </span>
+                            </div>
+                            <div className="notification-actions">
+                              {!notification.is_read && (
+                                <button
+                                  onClick={() => markNotificationAsRead(notification.id)}
+                                  className="mark-read-btn"
+                                  title="Mark as read"
+                                >
+                                  <Check size={14} />
+                                </button>
+                              )}
+                              <button
+                                onClick={() => viewRegistration(notification.registration)}
+                                className="view-notification-btn"
+                                title="View details"
+                              >
+                                <Eye size={14} />
+                              </button>
+                              <button
+                                onClick={() => deleteNotification(notification.id)}
+                                className="delete-notification-btn"
+                                title="Delete"
+                              >
+                                <X size={14} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  
+                </div>
+              )}
+            </div>
+            
             <HamburgerMenu 
               onLogout={handleLogout} 
               user={user}
