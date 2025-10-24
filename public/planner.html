@@ -407,7 +407,7 @@
             return userId;
         }
 
-        const USER_ID = getUserId();
+        // Note: USER_ID is called dynamically via getUserId() to allow runtime changes
 
         // Data
         let data = {
@@ -1060,10 +1060,10 @@
 
         async function loadData() {
             try {
-                const { data: savedData, error } = await supabaseClient
+                const { data: savedData, error} = await supabaseClient
                     .from('financial_planner')
                     .select('*')
-                    .eq('user_id', USER_ID)
+                    .eq('user_id', getUserId())
                     .single();
 
                 if (error) {
@@ -1094,11 +1094,11 @@
                 const { data: existingData } = await supabaseClient
                     .from('financial_planner')
                     .select('id')
-                    .eq('user_id', USER_ID)
+                    .eq('user_id', getUserId())
                     .single();
 
                 const payload = {
-                    user_id: USER_ID,
+                    user_id: getUserId(),
                     events: data.events,
                     time_range: data.timeRange,
                     scenario: data.scenario,
@@ -1111,7 +1111,7 @@
                     await supabaseClient
                         .from('financial_planner')
                         .update(payload)
-                        .eq('user_id', USER_ID);
+                        .eq('user_id', getUserId());
                 } else {
                     // Insert new
                     await supabaseClient
@@ -1129,7 +1129,7 @@
                     await supabaseClient
                         .from('financial_planner')
                         .delete()
-                        .eq('user_id', USER_ID);
+                        .eq('user_id', getUserId());
                     location.reload();
                 } catch (e) {
                     console.error('Failed to clear data:', e);
