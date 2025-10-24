@@ -399,11 +399,9 @@
 
         // Get or create user ID
         function getUserId() {
-            let userId = localStorage.getItem('bambooFinancialUserId');
-            if (!userId) {
-                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('bambooFinancialUserId', userId);
-            }
+            // Use fixed user ID since this is password-protected single-user app
+            const userId = 'bamboo-valley-user';
+            localStorage.setItem('bambooFinancialUserId', userId);
             return userId;
         }
 
