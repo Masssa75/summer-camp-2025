@@ -323,15 +323,15 @@
             </div>
             <div style="display: flex; gap: 10px; align-items: center; margin-left: 30px;">
                 <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Scenario</span>
-                <button class="btn scenario-btn" data-scenario="confirmed"><i data-lucide="check-circle" style="width: 14px; height: 14px; margin-right: 4px;"></i> Confirmed</button>
-                <button class="btn scenario-btn active" data-scenario="likely"><i data-lucide="star" style="width: 14px; height: 14px; margin-right: 4px;"></i> Likely</button>
-                <button class="btn scenario-btn" data-scenario="possible"><i data-lucide="circle-dot" style="width: 14px; height: 14px; margin-right: 4px;"></i> Possible</button>
-                <button class="btn scenario-btn" data-scenario="optimistic"><i data-lucide="sparkles" style="width: 14px; height: 14px; margin-right: 4px;"></i> Optimistic</button>
+                <button class="btn scenario-btn" data-scenario="confirmed">Confirmed</button>
+                <button class="btn scenario-btn active" data-scenario="likely">Likely</button>
+                <button class="btn scenario-btn" data-scenario="possible">Possible</button>
+                <button class="btn scenario-btn" data-scenario="optimistic">Optimistic</button>
             </div>
             <div style="display: flex; gap: 10px; align-items: center; margin-left: 30px;">
                 <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Show</span>
-                <button class="btn filter-btn active" data-filter="income"><i data-lucide="trending-up" style="width: 14px; height: 14px; margin-right: 4px;"></i> Income</button>
-                <button class="btn filter-btn active" data-filter="expense"><i data-lucide="trending-down" style="width: 14px; height: 14px; margin-right: 4px;"></i> Expenses</button>
+                <button class="btn filter-btn active" data-filter="income">Income</button>
+                <button class="btn filter-btn active" data-filter="expense">Expenses</button>
             </div>
         </div>
 
@@ -352,8 +352,8 @@
             <h2 id="modalTitle">Add Event</h2>
 
             <div class="type-btns">
-                <button class="type-btn" data-type="income" onclick="selectType('income')"><i data-lucide="trending-up" style="width: 16px; height: 16px; margin-right: 6px;"></i> Income</button>
-                <button class="type-btn" data-type="expense" onclick="selectType('expense')"><i data-lucide="trending-down" style="width: 16px; height: 16px; margin-right: 6px;"></i> Expense</button>
+                <button class="type-btn" data-type="income" onclick="selectType('income')">Income</button>
+                <button class="type-btn" data-type="expense" onclick="selectType('expense')">Expense</button>
             </div>
 
             <div class="form-group">
@@ -835,7 +835,6 @@
             document.getElementById('duplicateBtn').style.display = 'none';
             selectType('income');
             document.getElementById('eventModal').classList.add('active');
-            lucide.createIcons();
         }
 
         function openModalForEdit(event) {
@@ -854,7 +853,6 @@
             }
 
             document.getElementById('eventModal').classList.add('active');
-            lucide.createIcons();
         }
 
         function closeModal() {
@@ -907,9 +905,6 @@
             } else {
                 likelihoodGroup.style.display = 'none';
             }
-
-            // Re-initialize Lucide icons
-            lucide.createIcons();
         }
 
         function saveEvent() {
@@ -1007,12 +1002,12 @@
 
                 // Add likelihood indicator for income events
                 const likelihoodIcon = (e.type === 'income' && e.likelihood) ?
-                    `<i data-lucide="${likelihoodIconMap[e.likelihood]}" style="width: 14px; height: 14px; color: #7CB342; margin-left: 6px;"></i>` : '';
+                    ` (${e.likelihood})` : '';
 
                 return `
                     <div class="event-item" data-event-id="${e.id}" onclick="highlightEvent(${e.id})" style="opacity: ${opacity}; ${excludedStyle}">
                         <div style="flex: 1;">
-                            <div class="event-date"><i data-lucide="${iconName}" style="width: 14px; height: 14px; margin-right: 4px;"></i> ${e.date}</div>
+                            <div class="event-date">${e.date}</div>
                             <div class="event-desc">${e.description}${likelihoodIcon}</div>
                         </div>
                         <div class="event-amount ${amtClass}">${sign}${formatAmount(e.amount)}</div>
@@ -1023,8 +1018,6 @@
 
             document.getElementById('eventsList').innerHTML = html || '<div style="color: #999; padding: 20px; text-align: center;">No events yet. Click on the chart to add one!</div>';
 
-            // Re-initialize Lucide icons after updating HTML
-            lucide.createIcons();
         }
 
         function highlightEvent(id) {
