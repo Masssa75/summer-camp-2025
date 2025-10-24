@@ -555,12 +555,12 @@
 
                         console.log('Closest event:', closestEvent.description, 'minDist:', minDist);
 
-                        // Only open if click is reasonably close (within 100k)
-                        if (minDist < 100000) {
+                        // Only open if click is reasonably close (within 500k)
+                        if (minDist < 500000) {
                             console.log('Opening modal for edit!');
                             openModalForEdit(closestEvent);
                         } else {
-                            console.log('Click too far from bubble (minDist >= 100000)');
+                            console.log('Click too far from bubble (minDist >= 500000)');
                         }
                     } else {
                         console.log('No events at this date or click not close enough to X axis');
