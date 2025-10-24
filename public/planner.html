@@ -1013,8 +1013,9 @@
 
                 if (error) {
                     if (error.code === 'PGRST116') {
-                        // No data found, use defaults
-                        console.log('No saved data, using defaults');
+                        // No data found, save defaults for new user
+                        console.log('No saved data, creating defaults with starting balance');
+                        await saveData(); // Save the default starting balance
                     } else {
                         console.error('Error loading data:', error);
                     }
