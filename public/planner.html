@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bamboo Valley Financial Planner</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 40px;
+            background: #fafafa;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        h1 { font-size: 28px; color: #333; margin-bottom: 5px; }
+        .subtitle { color: #666; font-size: 14px; }
+        .stats {
+            display: flex;
+            gap: 30px;
+        }
+        .stat {
+            text-align: right;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .stat-value.green { color: #7CB342; }
+        .stat-value.red { color: #e53935; }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .btn:hover { background: #f5f5f5; }
+        .btn.active {
+            background: #7CB342;
+            color: white;
+            border-color: #7CB342;
+        }
+        .btn.danger {
+            background: #e53935;
+            color: white;
+            border-color: #e53935;
+            margin-left: auto;
+        }
+        #chartContainer {
+            margin-bottom: 40px;
+            cursor: pointer;
+            min-height: 400px;
+            position: relative;
+        }
+        #dateClickLayer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .section {
+            margin-top: 40px;
+        }
+        .section h3 {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .event-item:hover { background: #f0f0f0; }
+        .event-item.highlighted {
+            background: #e8f5e9;
+            border: 2px solid #7CB342;
+            padding: 10px;
+        }
+        .event-date {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+        .event-desc { color: #333; font-size: 14px; }
+        .event-amount {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .event-amount.income { color: #7CB342; }
+        .event-amount.expense { color: #e53935; }
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0 8px;
+        }
+        .delete-btn:hover { color: #e53935; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 500px;
+            max-width: 90vw;
+        }
+        .modal h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .type-btns {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .type-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .type-btn.selected.income {
+            background: #e8f5e9;
+            border-color: #7CB342;
+            color: #7CB342;
+        }
+        .type-btn.selected.expense {
+            background: #ffebee;
+            border-color: #e53935;
+            color: #e53935;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .modal-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .modal-actions .cancel {
+            background: #f5f5f5;
+            color: #666;
+        }
+        .modal-actions .save {
+            background: #7CB342;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Bamboo Valley Financial Overview</h1>
+                <div class="subtitle">Click date labels to add events</div>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-label">Current</div>
+                    <div class="stat-value" id="currentBalance">0฿</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Low Point</div>
+                    <div class="stat-value red" id="lowPoint">0฿</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Ending</div>
+                    <div class="stat-value green" id="endBalance">0฿</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Time Range</span>
+                <button class="btn timerange-btn active" data-range="quarter">Quarter</button>
+                <button class="btn timerange-btn" data-range="half">6 Months</button>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; margin-left: 30px;">
+                <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Scenario</span>
+                <button class="btn scenario-btn" data-scenario="confirmed"><i data-lucide="check-circle" style="width: 14px; height: 14px; margin-right: 4px;"></i> Confirmed</button>
+                <button class="btn scenario-btn active" data-scenario="likely"><i data-lucide="star" style="width: 14px; height: 14px; margin-right: 4px;"></i> Likely</button>
+                <button class="btn scenario-btn" data-scenario="possible"><i data-lucide="circle-dot" style="width: 14px; height: 14px; margin-right: 4px;"></i> Possible</button>
+                <button class="btn scenario-btn" data-scenario="optimistic"><i data-lucide="sparkles" style="width: 14px; height: 14px; margin-right: 4px;"></i> Optimistic</button>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; margin-left: 30px;">
+                <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Show</span>
+                <button class="btn filter-btn active" data-filter="income"><i data-lucide="trending-up" style="width: 14px; height: 14px; margin-right: 4px;"></i> Income</button>
+                <button class="btn filter-btn active" data-filter="expense"><i data-lucide="trending-down" style="width: 14px; height: 14px; margin-right: 4px;"></i> Expenses</button>
+            </div>
+        </div>
+
+        <div id="chartContainer">
+            <canvas id="chart"></canvas>
+            <div id="dateClickLayer"></div>
+        </div>
+
+        <div class="section">
+            <h3>All Events</h3>
+            <div id="eventsList"></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Add Event</h2>
+
+            <div class="type-btns">
+                <button class="type-btn" data-type="income" onclick="selectType('income')"><i data-lucide="trending-up" style="width: 16px; height: 16px; margin-right: 6px;"></i> Income</button>
+                <button class="type-btn" data-type="expense" onclick="selectType('expense')"><i data-lucide="trending-down" style="width: 16px; height: 16px; margin-right: 6px;"></i> Expense</button>
+            </div>
+
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="eventDate">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" id="eventDesc" placeholder="e.g., Monthly salaries">
+            </div>
+
+            <div class="form-group">
+                <label>Amount (฿)</label>
+                <input type="number" id="eventAmount" placeholder="0">
+            </div>
+
+            <div class="form-group" id="likelihoodGroup" style="display: none;">
+                <label>Likelihood</label>
+                <select id="eventLikelihood" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                    <option value="confirmed">Confirmed - Already received or guaranteed</option>
+                    <option value="likely">Likely - Very probable</option>
+                    <option value="possible">Possible - Might happen</option>
+                    <option value="optimistic">Optimistic - Hopeful but uncertain</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="cancel" onclick="closeModal()">Cancel</button>
+                <button class="btn" id="duplicateBtn" onclick="duplicateEvent()" style="background: #2196F3; color: white; display: none;">Duplicate</button>
+                <button class="save" onclick="saveEvent()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Supabase
+        const supabase = supabase.createClient(
+            'https://xunccqdrybxpwcvafvag.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1bmNjcWRyeWJ4cHdjdmFmdmFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzNDY5MDMsImV4cCI6MjA2NjkyMjkwM30.rRAs7qWQpQ8rV_LIY5x6FeSaBk6etotb_9IHbYHPXf8'
+        );
+
+        // Get or create user ID
+        function getUserId() {
+            let userId = localStorage.getItem('bambooFinancialUserId');
+            if (!userId) {
+                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('bambooFinancialUserId', userId);
+            }
+            return userId;
+        }
+
+        const USER_ID = getUserId();
+
+        // Data
+        let data = {
+            events: [
+                { id: 1, date: '2025-10-21', type: 'income', description: 'Starting balance', amount: 180000, likelihood: 'confirmed' }
+            ],
+            timeRange: 'quarter',
+            scenario: 'likely',
+            filters: {
+                income: true,
+                expense: true
+            },
+            nextId: 2
+        };
+
+        let chart = null;
+        let selectedType = 'income';
+        let clickedDate = null;
+        let editingEventId = null;
+
+        // Time ranges with padding
+        const timeRanges = {
+            quarter: ['Oct 21', 'Oct 24', 'Oct 31', 'Nov 7', 'Nov 14', 'Nov 21', 'Nov 30', 'Dec 7', 'Dec 14', 'Dec 21', 'Dec 31', 'Jan 3'],
+            half: ['Oct 21', 'Oct 24', 'Oct 31', 'Nov 14', 'Nov 30', 'Dec 14', 'Dec 31', 'Jan 14', 'Jan 31', 'Feb 14', 'Feb 28', 'Mar 14', 'Mar 31', 'Apr 7']
+        };
+
+        // Initialize
+        async function init() {
+            await loadData();
+
+            // Restore active buttons
+            document.querySelectorAll('.timerange-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.range === data.timeRange);
+            });
+            document.querySelectorAll('.scenario-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.scenario === data.scenario);
+            });
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', data.filters[btn.dataset.filter]);
+            });
+
+            renderChart();
+            renderEvents();
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.timerange-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.timerange-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    data.timeRange = this.dataset.range;
+                    saveData();
+                    renderChart();
+                });
+            });
+
+            document.querySelectorAll('.scenario-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    data.scenario = this.dataset.scenario;
+                    saveData();
+                    renderChart();
+                });
+            });
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filterType = this.dataset.filter;
+                    data.filters[filterType] = !data.filters[filterType];
+                    this.classList.toggle('active', data.filters[filterType]);
+                    saveData();
+                    renderChart();
+                    renderEvents();
+                });
+            });
+
+            // Date click layer for clicking on date labels
+            const dateLayer = document.getElementById('dateClickLayer');
+            dateLayer.addEventListener('click', function(e) {
+                if (!chart) return;
+
+                const rect = chart.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const dataX = chart.scales.x.getValueForPixel(x);
+                const index = Math.round(dataX);
+
+                if (index >= 0 && index < chart.data.labels.length) {
+                    const label = chart.data.labels[index];
+                    const labelDate = convertLabelToDate(label);
+                    openModal(labelDate);
+                }
+            });
+
+            // Double-click on canvas to edit events
+            const canvas = document.getElementById('chart');
+            canvas.addEventListener('dblclick', function(e) {
+                if (!chart) return;
+
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const dataX = chart.scales.x.getValueForPixel(x);
+                const dataY = chart.scales.y.getValueForPixel(y);
+                const index = Math.round(dataX);
+
+                if (index >= 0 && index < chart.data.labels.length) {
+                    const label = chart.data.labels[index];
+                    const labelDate = convertLabelToDate(label);
+                    const eventsAtDate = data.events.filter(e => e.date === labelDate);
+
+                    if (eventsAtDate.length > 0 && Math.abs(dataX - index) < 0.35) {
+                        // Find closest event by Y position
+                        const cashFlow = calculateCashFlow(chart.data.labels, getFilteredEvents());
+                        const maxBalance = Math.max(...cashFlow, 0);
+                        const minBalance = Math.min(...cashFlow, 0);
+                        const eventSpacing = 200000;
+                        const baseY = maxBalance + Math.max((maxBalance - minBalance) * 0.10, 50000);
+
+                        const sortedEvents = [...eventsAtDate].sort((a, b) => {
+                            const aVal = a.type === 'income' ? a.amount : -a.amount;
+                            const bVal = b.type === 'income' ? b.amount : -b.amount;
+                            return bVal - aVal;
+                        });
+
+                        let closestEvent = sortedEvents[0];
+                        let minDist = Infinity;
+
+                        sortedEvents.forEach((event, idx) => {
+                            const eventY = baseY - (idx * eventSpacing);
+                            const dist = Math.abs(dataY - eventY);
+                            if (dist < minDist) {
+                                minDist = dist;
+                                closestEvent = event;
+                            }
+                        });
+
+                        // Only open if click is reasonably close (within 100k)
+                        if (minDist < 100000) {
+                            openModalForEdit(closestEvent);
+                        }
+                    }
+                }
+            });
+        }
+
+        function getFilteredEvents() {
+            const scenarioLevels = {
+                'confirmed': ['confirmed'],
+                'likely': ['confirmed', 'likely'],
+                'possible': ['confirmed', 'likely', 'possible'],
+                'optimistic': ['confirmed', 'likely', 'possible', 'optimistic']
+            };
+
+            const allowedLikelihoods = scenarioLevels[data.scenario] || scenarioLevels.optimistic;
+
+            return data.events.filter(event => {
+                // Filter by type (income/expense)
+                if (!data.filters[event.type]) return false;
+
+                // For expenses, just check if they're enabled
+                if (event.type === 'expense') return true;
+
+                // For income, check if likelihood matches scenario
+                return allowedLikelihoods.includes(event.likelihood || 'confirmed');
+            });
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('chart').getContext('2d');
+            const labels = timeRanges[data.timeRange];
+            const filteredEvents = getFilteredEvents();
+            const cashFlow = calculateCashFlow(labels, filteredEvents);
+
+            updateStats(cashFlow);
+
+            // Calculate max stacked events at any date to determine y-axis max
+            const eventsByDate = {};
+            filteredEvents.forEach(event => {
+                labels.forEach(label => {
+                    const labelDate = convertLabelToDate(label);
+                    if (event.date === labelDate) {
+                        if (!eventsByDate[label]) eventsByDate[label] = [];
+                        eventsByDate[label].push(event);
+                    }
+                });
+            });
+
+            const maxStackedEvents = Math.max(...Object.values(eventsByDate).map(events => events.length), 1);
+            const maxBalance = Math.max(...cashFlow, 0);
+            const minBalance = Math.min(...cashFlow, 0);
+            const range = maxBalance - minBalance;
+
+            // Add space for stacked events: 10% base padding + 200k per stacked event
+            const eventSpacing = 200000;
+            const yAxisMax = maxBalance + Math.max(range * 0.10, 50000) + (maxStackedEvents * eventSpacing);
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: cashFlow,
+                        borderColor: '#7CB342',
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        pointRadius: 6,
+                        pointBackgroundColor: cashFlow.map(v => v < 0 ? '#e53935' : '#7CB342'),
+                        pointBorderColor: cashFlow.map(v => v < 0 ? '#e53935' : '#7CB342'),
+                        segment: {
+                            borderColor: ctx => {
+                                const curr = ctx.p1.parsed.y;
+                                const prev = ctx.p0.parsed.y;
+                                return (curr < 0 || prev < 0) ? '#e53935' : '#7CB342';
+                            }
+                        }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 3,
+                    onClick: handleChartClick,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => '฿' + ctx.parsed.y.toLocaleString()
+                            }
+                        },
+                        annotation: {
+                            annotations: createAnnotations(labels, cashFlow, filteredEvents)
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: yAxisMax,
+                            grid: { color: '#f5f5f5' },
+                            ticks: {
+                                callback: v => '฿' + (v/1000) + 'k'
+                            }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function calculateCashFlow(labels, events) {
+            const balances = [];
+
+            labels.forEach(label => {
+                const labelDate = convertLabelToDate(label);
+                const prevLabel = labels[labels.indexOf(label) - 1];
+                const prevDate = prevLabel ? convertLabelToDate(prevLabel) : null;
+
+                const prevBalance = balances.length > 0 ? balances[balances.length - 1] : 0;
+                let balance = prevBalance;
+
+                events.forEach(event => {
+                    if (event.date <= labelDate && (!prevDate || event.date > prevDate)) {
+                        if (event.type === 'income') {
+                            balance += event.amount;
+                        } else {
+                            balance -= event.amount;
+                        }
+                    }
+                });
+
+                balances.push(balance);
+            });
+
+            return balances;
+        }
+
+        function createAnnotations(labels, cashFlow, events) {
+            const minBalance = Math.min(...cashFlow, 0);
+            const maxBalance = Math.max(...cashFlow, 0);
+
+            // Likelihood icons (Unicode for canvas rendering)
+            const likelihoodIcons = {
+                'confirmed': '✓',
+                'likely': '★',
+                'possible': '◉',
+                'optimistic': '✦'
+            };
+
+            const annotations = {
+                zeroLine: {
+                    type: 'line',
+                    yMin: 0,
+                    yMax: 0,
+                    borderColor: '#999',
+                    borderWidth: 1,
+                    borderDash: [4, 4]
+                }
+            };
+
+            // Red zone if negative
+            if (minBalance < 0) {
+                annotations.negativeZone = {
+                    type: 'box',
+                    xMin: 0,
+                    xMax: labels.length - 1,
+                    yMin: minBalance,
+                    yMax: 0,
+                    backgroundColor: 'rgba(229, 57, 53, 0.03)',
+                    borderWidth: 0,
+                    z: -1
+                };
+            }
+
+            // Event markers (only show filtered events)
+            const eventsByDate = {};
+            events.forEach(event => {
+                labels.forEach((label, idx) => {
+                    const labelDate = convertLabelToDate(label);
+                    if (event.date === labelDate) {
+                        if (!eventsByDate[idx]) eventsByDate[idx] = [];
+                        eventsByDate[idx].push(event);
+                    }
+                });
+            });
+
+            Object.keys(eventsByDate).forEach(idx => {
+                const index = parseInt(idx);
+                const events = eventsByDate[idx].sort((a, b) => {
+                    const aVal = a.type === 'income' ? a.amount : -a.amount;
+                    const bVal = b.type === 'income' ? b.amount : -b.amount;
+                    return bVal - aVal;
+                });
+
+                const incomeCount = events.filter(e => e.type === 'income').length;
+                const color = incomeCount >= events.length / 2 ? '#7CB342' : '#e53935';
+
+                annotations[`line_${index}`] = {
+                    type: 'line',
+                    xMin: index,
+                    xMax: index,
+                    borderColor: color,
+                    borderWidth: 2
+                };
+
+                annotations[`bg_${index}`] = {
+                    type: 'box',
+                    xMin: index - 0.25,
+                    xMax: index + 0.25,
+                    backgroundColor: color === '#7CB342' ? 'rgba(124, 179, 66, 0.05)' : 'rgba(229, 57, 53, 0.05)',
+                    borderWidth: 0
+                };
+
+                const eventSpacing = 200000;
+                const baseY = maxBalance + Math.max((maxBalance - minBalance) * 0.10, 50000);
+                events.forEach((event, eventIdx) => {
+                    const desc = event.description.length > 15 ? event.description.substring(0, 15) + '...' : event.description;
+                    const amt = formatAmount(event.amount);
+                    const sign = event.type === 'income' ? '+' : '-';
+
+                    // Set opacity and hue based on likelihood for income
+                    let eventColor = event.type === 'income' ? '#7CB342' : '#e53935';
+                    if (event.type === 'income' && event.likelihood) {
+                        const colorMap = {
+                            'confirmed': { r: 124, g: 179, b: 66, opacity: 1.0 },   // Green
+                            'likely': { r: 156, g: 195, b: 70, opacity: 0.8 },      // Yellow-green
+                            'possible': { r: 185, g: 210, b: 75, opacity: 0.6 },    // More yellow
+                            'optimistic': { r: 210, g: 225, b: 80, opacity: 0.4 }   // Light yellow-lime
+                        };
+                        const color = colorMap[event.likelihood] || colorMap.confirmed;
+                        eventColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${color.opacity})`;
+                    }
+
+                    // Add likelihood icon for income events
+                    const likelihoodIcon = (event.type === 'income' && event.likelihood) ? likelihoodIcons[event.likelihood] + ' ' : '';
+
+                    annotations[`pill_${index}_${eventIdx}`] = {
+                        type: 'label',
+                        xValue: index,
+                        yValue: baseY - (eventIdx * eventSpacing),
+                        content: [likelihoodIcon + desc, sign + amt],
+                        backgroundColor: eventColor,
+                        color: 'white',
+                        font: { size: 10, weight: '600' },
+                        padding: { top: 4, bottom: 4, left: 8, right: 8 },
+                        borderRadius: 4
+                    };
+                });
+            });
+
+            return annotations;
+        }
+
+        function handleChartClick(event) {
+            const canvasPos = Chart.helpers.getRelativePosition(event, chart);
+            const dataX = chart.scales.x.getValueForPixel(canvasPos.x);
+            const index = Math.round(dataX);
+
+            if (index >= 0 && index < chart.data.labels.length) {
+                const label = chart.data.labels[index];
+                const labelDate = convertLabelToDate(label);
+
+                // Inside chart area - check for events to highlight
+                const eventsAtDate = data.events.filter(e => e.date === labelDate);
+
+                if (eventsAtDate.length > 0 && Math.abs(dataX - index) < 0.35) {
+                    // Clicking near an event line - highlight it
+                    highlightEvents(labelDate);
+                }
+                // Otherwise do nothing (clicking empty chart area does nothing)
+            }
+        }
+
+        function openModal(date) {
+            editingEventId = null;
+            clickedDate = date;
+            document.getElementById('modalTitle').textContent = 'Add Event';
+            document.getElementById('eventDate').value = date;
+            document.getElementById('eventDesc').value = '';
+            document.getElementById('eventAmount').value = '';
+            document.getElementById('duplicateBtn').style.display = 'none';
+            selectType('income');
+            document.getElementById('eventModal').classList.add('active');
+            lucide.createIcons();
+        }
+
+        function openModalForEdit(event) {
+            editingEventId = event.id;
+            clickedDate = event.date;
+            document.getElementById('modalTitle').textContent = 'Edit Event';
+            document.getElementById('eventDate').value = event.date;
+            document.getElementById('eventDesc').value = event.description;
+            document.getElementById('eventAmount').value = event.amount;
+            document.getElementById('duplicateBtn').style.display = 'block';
+            selectType(event.type);
+
+            // Pre-select likelihood if it exists
+            if (event.type === 'income' && event.likelihood) {
+                document.getElementById('eventLikelihood').value = event.likelihood;
+            }
+
+            document.getElementById('eventModal').classList.add('active');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('eventModal').classList.remove('active');
+        }
+
+        function duplicateEvent() {
+            const date = document.getElementById('eventDate').value;
+            const desc = document.getElementById('eventDesc').value.trim();
+            const amount = parseInt(document.getElementById('eventAmount').value);
+            const likelihood = document.getElementById('eventLikelihood').value;
+
+            if (!date || !desc || !amount) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            // Create duplicate event
+            const newEvent = {
+                id: data.nextId++,
+                date: date,
+                type: selectedType,
+                description: desc,
+                amount: amount
+            };
+            if (selectedType === 'income') {
+                newEvent.likelihood = likelihood;
+            }
+            data.events.push(newEvent);
+
+            saveData();
+            closeModal();
+            renderChart();
+            renderEvents();
+        }
+
+        function selectType(type) {
+            selectedType = type;
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.remove('selected', 'income', 'expense');
+                if (btn.dataset.type === type) {
+                    btn.classList.add('selected', type);
+                }
+            });
+
+            // Show/hide likelihood dropdown
+            const likelihoodGroup = document.getElementById('likelihoodGroup');
+            if (type === 'income') {
+                likelihoodGroup.style.display = 'block';
+            } else {
+                likelihoodGroup.style.display = 'none';
+            }
+
+            // Re-initialize Lucide icons
+            lucide.createIcons();
+        }
+
+        function saveEvent() {
+            const date = document.getElementById('eventDate').value;
+            const desc = document.getElementById('eventDesc').value.trim();
+            const amount = parseInt(document.getElementById('eventAmount').value);
+            const likelihood = document.getElementById('eventLikelihood').value;
+
+            if (!date || !desc || !amount) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            if (editingEventId !== null) {
+                // Update existing event
+                const event = data.events.find(e => e.id === editingEventId);
+                if (event) {
+                    event.date = date;
+                    event.type = selectedType;
+                    event.description = desc;
+                    event.amount = amount;
+                    if (selectedType === 'income') {
+                        event.likelihood = likelihood;
+                    } else {
+                        // Remove likelihood if changing to expense
+                        delete event.likelihood;
+                    }
+                }
+                editingEventId = null;
+            } else {
+                // Create new event
+                const newEvent = {
+                    id: data.nextId++,
+                    date: date,
+                    type: selectedType,
+                    description: desc,
+                    amount: amount
+                };
+                if (selectedType === 'income') {
+                    newEvent.likelihood = likelihood;
+                }
+                data.events.push(newEvent);
+            }
+
+            saveData();
+            closeModal();
+            renderChart();
+            renderEvents();
+        }
+
+        function deleteEvent(id) {
+            if (confirm('Delete this event?')) {
+                data.events = data.events.filter(e => e.id !== id);
+                saveData();
+                renderChart();
+                renderEvents();
+            }
+        }
+
+        function highlightEvents(date) {
+            document.querySelectorAll('.event-item').forEach(el => el.classList.remove('highlighted'));
+
+            const eventsAtDate = data.events.filter(e => e.date === date);
+            eventsAtDate.forEach(event => {
+                const el = document.querySelector(`[data-event-id="${event.id}"]`);
+                if (el) {
+                    el.classList.add('highlighted');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        }
+
+        function renderEvents() {
+            const sorted = [...data.events].sort((a, b) => a.date.localeCompare(b.date));
+            const filteredEvents = getFilteredEvents();
+            const filteredIds = new Set(filteredEvents.map(e => e.id));
+
+            // Likelihood icon mapping
+            const likelihoodIconMap = {
+                'confirmed': 'check-circle',
+                'likely': 'star',
+                'possible': 'circle-dot',
+                'optimistic': 'sparkles'
+            };
+
+            const html = sorted.map(e => {
+                const iconName = e.type === 'income' ? 'trending-up' : 'trending-down';
+                const amtClass = e.type === 'income' ? 'income' : 'expense';
+                const sign = e.type === 'income' ? '+' : '-';
+
+                // Check if this event is included in current scenario
+                const isIncluded = filteredIds.has(e.id);
+                const opacity = isIncluded ? '1' : '0.4';
+                const excludedStyle = isIncluded ? '' : 'filter: grayscale(0.5);';
+
+                // Add likelihood indicator for income events
+                const likelihoodIcon = (e.type === 'income' && e.likelihood) ?
+                    `<i data-lucide="${likelihoodIconMap[e.likelihood]}" style="width: 14px; height: 14px; color: #7CB342; margin-left: 6px;"></i>` : '';
+
+                return `
+                    <div class="event-item" data-event-id="${e.id}" onclick="highlightEvent(${e.id})" style="opacity: ${opacity}; ${excludedStyle}">
+                        <div style="flex: 1;">
+                            <div class="event-date"><i data-lucide="${iconName}" style="width: 14px; height: 14px; margin-right: 4px;"></i> ${e.date}</div>
+                            <div class="event-desc">${e.description}${likelihoodIcon}</div>
+                        </div>
+                        <div class="event-amount ${amtClass}">${sign}${formatAmount(e.amount)}</div>
+                        <button class="delete-btn" onclick="event.stopPropagation(); deleteEvent(${e.id})">×</button>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('eventsList').innerHTML = html || '<div style="color: #999; padding: 20px; text-align: center;">No events yet. Click on the chart to add one!</div>';
+
+            // Re-initialize Lucide icons after updating HTML
+            lucide.createIcons();
+        }
+
+        function highlightEvent(id) {
+            const event = data.events.find(e => e.id === id);
+            if (event) highlightEvents(event.date);
+        }
+
+        function updateStats(cashFlow) {
+            const current = cashFlow[0] || 0;
+            const low = Math.min(...cashFlow);
+            const end = cashFlow[cashFlow.length - 1] || 0;
+
+            document.getElementById('currentBalance').textContent = formatAmount(current);
+            document.getElementById('currentBalance').className = 'stat-value' + (current >= 0 ? ' green' : ' red');
+
+            document.getElementById('lowPoint').textContent = formatAmount(low);
+            document.getElementById('lowPoint').className = 'stat-value' + (low >= 0 ? ' green' : ' red');
+
+            document.getElementById('endBalance').textContent = formatAmount(end);
+            document.getElementById('endBalance').className = 'stat-value' + (end >= 0 ? ' green' : ' red');
+        }
+
+        function formatAmount(amt) {
+            if (amt >= 1000000) return (amt / 1000000).toFixed(1) + 'M฿';
+            if (amt >= 1000) return (amt / 1000).toFixed(0) + 'k฿';
+            return amt + '฿';
+        }
+
+        function convertLabelToDate(label) {
+            const months = {
+                'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04',
+                'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08',
+                'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'
+            };
+            const [monthStr, day] = label.split(' ');
+            const month = months[monthStr];
+            const year = ['Jan', 'Feb', 'Mar', 'Apr'].includes(monthStr) ? '2026' : '2025';
+            return `${year}-${month}-${day.padStart(2, '0')}`;
+        }
+
+        async function loadData() {
+            try {
+                const { data: savedData, error } = await supabase
+                    .from('financial_planner')
+                    .select('*')
+                    .eq('user_id', USER_ID)
+                    .single();
+
+                if (error) {
+                    if (error.code === 'PGRST116') {
+                        // No data found, use defaults
+                        console.log('No saved data, using defaults');
+                    } else {
+                        console.error('Error loading data:', error);
+                    }
+                    return;
+                }
+
+                if (savedData) {
+                    data.events = savedData.events || data.events;
+                    data.timeRange = savedData.time_range || data.timeRange;
+                    data.scenario = savedData.scenario || data.scenario;
+                    data.filters = savedData.filters || data.filters;
+                    data.nextId = savedData.next_id || data.nextId;
+                }
+            } catch (e) {
+                console.error('Failed to load data:', e);
+            }
+        }
+
+        async function saveData() {
+            try {
+                const { data: existingData } = await supabase
+                    .from('financial_planner')
+                    .select('id')
+                    .eq('user_id', USER_ID)
+                    .single();
+
+                const payload = {
+                    user_id: USER_ID,
+                    events: data.events,
+                    time_range: data.timeRange,
+                    scenario: data.scenario,
+                    filters: data.filters,
+                    next_id: data.nextId
+                };
+
+                if (existingData) {
+                    // Update existing
+                    await supabase
+                        .from('financial_planner')
+                        .update(payload)
+                        .eq('user_id', USER_ID);
+                } else {
+                    // Insert new
+                    await supabase
+                        .from('financial_planner')
+                        .insert([payload]);
+                }
+            } catch (e) {
+                console.error('Failed to save data:', e);
+            }
+        }
+
+        async function clearAllData() {
+            if (confirm('This will delete all events and reload. Continue?')) {
+                try {
+                    await supabase
+                        .from('financial_planner')
+                        .delete()
+                        .eq('user_id', USER_ID);
+                    location.reload();
+                } catch (e) {
+                    console.error('Failed to clear data:', e);
+                }
+            }
+        }
+
+        init();
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
