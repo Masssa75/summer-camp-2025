@@ -1175,10 +1175,10 @@
             }
         };
 
-        init();
-
-        // Initialize Lucide icons
-        lucide.createIcons();
+        // Only initialize when authenticated
+        if (sessionStorage.getItem('plannerAuthenticated') === 'true') {
+            init();
+        }
     </script>
 
     <!-- Login Script -->
@@ -1195,8 +1195,13 @@
                 // Hide login modal and show app
                 document.getElementById('loginModal').classList.remove('active');
                 document.getElementById('appContent').classList.add('unlocked');
-                // Initialize icons after content is shown
-                lucide.createIcons();
+                // Initialize app and icons
+                if (typeof init === 'function') {
+                    init();
+                }
+                if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                    lucide.createIcons();
+                }
             } else {
                 error.textContent = 'Incorrect password';
                 input.value = '';
@@ -1204,11 +1209,20 @@
             }
         }
 
-        // Check if already authenticated
-        if (sessionStorage.getItem('plannerAuthenticated') === 'true') {
-            document.getElementById('loginModal').classList.remove('active');
-            document.getElementById('appContent').classList.add('unlocked');
-        }
+        // Check if already authenticated on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('plannerAuthenticated') === 'true') {
+                document.getElementById('loginModal').classList.remove('active');
+                document.getElementById('appContent').classList.add('unlocked');
+                // Initialize app and icons for returning users
+                if (typeof init === 'function') {
+                    init();
+                }
+                if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                    lucide.createIcons();
+                }
+            }
+        });
 
         // Allow Enter key to submit
         document.getElementById('loginPassword').addEventListener('keypress', (e) => {
