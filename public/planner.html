@@ -6,7 +6,6 @@
     <title>Bamboo Valley Financial Planner</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1195,12 +1194,9 @@
                 // Hide login modal and show app
                 document.getElementById('loginModal').classList.remove('active');
                 document.getElementById('appContent').classList.add('unlocked');
-                // Initialize app and icons
+                // Initialize app
                 if (typeof init === 'function') {
                     init();
-                }
-                if (typeof lucide !== 'undefined' && lucide.createIcons) {
-                    lucide.createIcons();
                 }
             } else {
                 error.textContent = 'Incorrect password';
@@ -1214,12 +1210,9 @@
             if (sessionStorage.getItem('plannerAuthenticated') === 'true') {
                 document.getElementById('loginModal').classList.remove('active');
                 document.getElementById('appContent').classList.add('unlocked');
-                // Initialize app and icons for returning users
+                // Initialize app for returning users
                 if (typeof init === 'function') {
                     init();
-                }
-                if (typeof lucide !== 'undefined' && lucide.createIcons) {
-                    lucide.createIcons();
                 }
             }
         });
