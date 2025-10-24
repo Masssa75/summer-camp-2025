@@ -1082,6 +1082,36 @@
             }
         }
 
+        // Migration function - can be called from browser console
+        window.migrateFromLocalStorage = async function() {
+            const localData = localStorage.getItem('bambooFinancial');
+            if (!localData) {
+                console.log('No localStorage data found to migrate');
+                return;
+            }
+
+            try {
+                const parsedData = JSON.parse(localData);
+                console.log('Found localStorage data:', parsedData);
+
+                // Update the current data object
+                data.events = parsedData.events || data.events;
+                data.timeRange = parsedData.timeRange || data.timeRange;
+                data.scenario = parsedData.scenario || data.scenario;
+                data.filters = parsedData.filters || data.filters;
+                data.nextId = parsedData.nextId || data.nextId;
+
+                // Save to Supabase
+                await saveData();
+                console.log('Successfully migrated data to Supabase!');
+
+                // Reload to see the migrated data
+                location.reload();
+            } catch (e) {
+                console.error('Migration failed:', e);
+            }
+        };
+
         init();
 
         // Initialize Lucide icons
