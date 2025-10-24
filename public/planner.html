@@ -330,7 +330,8 @@
 
     <script>
         // Initialize Supabase
-        const supabase = supabase.createClient(
+        const { createClient } = window.supabase;
+        const supabaseClient = createClient(
             'https://xunccqdrybxpwcvafvag.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1bmNjcWRyeWJ4cHdjdmFmdmFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzNDY5MDMsImV4cCI6MjA2NjkyMjkwM30.rRAs7qWQpQ8rV_LIY5x6FeSaBk6etotb_9IHbYHPXf8'
         );
@@ -1005,7 +1006,7 @@
 
         async function loadData() {
             try {
-                const { data: savedData, error } = await supabase
+                const { data: savedData, error } = await supabaseClient
                     .from('financial_planner')
                     .select('*')
                     .eq('user_id', USER_ID)
@@ -1036,7 +1037,7 @@
 
         async function saveData() {
             try {
-                const { data: existingData } = await supabase
+                const { data: existingData } = await supabaseClient
                     .from('financial_planner')
                     .select('id')
                     .eq('user_id', USER_ID)
@@ -1053,13 +1054,13 @@
 
                 if (existingData) {
                     // Update existing
-                    await supabase
+                    await supabaseClient
                         .from('financial_planner')
                         .update(payload)
                         .eq('user_id', USER_ID);
                 } else {
                     // Insert new
-                    await supabase
+                    await supabaseClient
                         .from('financial_planner')
                         .insert([payload]);
                 }
@@ -1071,7 +1072,7 @@
         async function clearAllData() {
             if (confirm('This will delete all events and reload. Continue?')) {
                 try {
-                    await supabase
+                    await supabaseClient
                         .from('financial_planner')
                         .delete()
                         .eq('user_id', USER_ID);
