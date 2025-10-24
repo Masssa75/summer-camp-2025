@@ -504,7 +504,10 @@
             // Double-click on canvas to edit events
             const canvas = document.getElementById('chart');
             canvas.addEventListener('dblclick', function(e) {
-                if (!chart) return;
+                if (!chart) {
+                    console.log('Double-click: No chart found');
+                    return;
+                }
 
                 const rect = canvas.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -514,10 +517,14 @@
                 const dataY = chart.scales.y.getValueForPixel(y);
                 const index = Math.round(dataX);
 
+                console.log('Double-click detected:', { x, y, dataX, dataY, index });
+
                 if (index >= 0 && index < chart.data.labels.length) {
                     const label = chart.data.labels[index];
                     const labelDate = convertLabelToDate(label);
                     const eventsAtDate = data.events.filter(e => e.date === labelDate);
+
+                    console.log('Found label:', label, 'Date:', labelDate, 'Events at date:', eventsAtDate.length);
 
                     if (eventsAtDate.length > 0 && Math.abs(dataX - index) < 0.35) {
                         // Find closest event by Y position
@@ -539,17 +546,27 @@
                         sortedEvents.forEach((event, idx) => {
                             const eventY = baseY - (idx * eventSpacing);
                             const dist = Math.abs(dataY - eventY);
+                            console.log('Event:', event.description, 'eventY:', eventY, 'dataY:', dataY, 'dist:', dist);
                             if (dist < minDist) {
                                 minDist = dist;
                                 closestEvent = event;
                             }
                         });
 
+                        console.log('Closest event:', closestEvent.description, 'minDist:', minDist);
+
                         // Only open if click is reasonably close (within 100k)
                         if (minDist < 100000) {
+                            console.log('Opening modal for edit!');
                             openModalForEdit(closestEvent);
+                        } else {
+                            console.log('Click too far from bubble (minDist >= 100000)');
                         }
+                    } else {
+                        console.log('No events at this date or click not close enough to X axis');
                     }
+                } else {
+                    console.log('Index out of range');
                 }
             });
         }
