@@ -833,8 +833,8 @@
                 const eventsAtDate = data.events.filter(e => e.date === labelDate);
 
                 if (eventsAtDate.length > 0 && Math.abs(dataX - index) < 0.35) {
-                    // Clicking near an event line - highlight it
-                    highlightEvents(labelDate);
+                    // Clicking near an event line - highlight it (without scrolling to prevent double-click issues)
+                    highlightEvents(labelDate, false);
                 }
                 // Otherwise do nothing (clicking empty chart area does nothing)
             }
@@ -979,7 +979,7 @@
             }
         }
 
-        function highlightEvents(date) {
+        function highlightEvents(date, shouldScroll = true) {
             document.querySelectorAll('.event-item').forEach(el => el.classList.remove('highlighted'));
 
             const eventsAtDate = data.events.filter(e => e.date === date);
@@ -987,7 +987,9 @@
                 const el = document.querySelector(`[data-event-id="${event.id}"]`);
                 if (el) {
                     el.classList.add('highlighted');
-                    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    if (shouldScroll) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
                 }
             });
         }
