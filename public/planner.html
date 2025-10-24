@@ -1020,7 +1020,7 @@
                     ` (${e.likelihood})` : '';
 
                 return `
-                    <div class="event-item" data-event-id="${e.id}" onclick="highlightEvent(${e.id})" style="opacity: ${opacity}; ${excludedStyle}">
+                    <div class="event-item" data-event-id="${e.id}" onclick="highlightEvent(${e.id})" ondblclick="event.stopPropagation(); openModalForEdit(data.events.find(ev => ev.id === ${e.id}))" style="opacity: ${opacity}; ${excludedStyle}">
                         <div style="flex: 1;">
                             <div class="event-date">${e.date}</div>
                             <div class="event-desc">${e.description}${likelihoodIcon}</div>
