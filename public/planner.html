@@ -785,10 +785,8 @@
             }
 
             dateLayer.addEventListener('click', function(e) {
-                console.log('Date layer clicked!', e);
-
                 if (!chart) {
-                    console.error('Chart not initialized yet');
+                    console.error('Chart not initialized yet - please refresh the page');
                     return;
                 }
 
@@ -797,15 +795,10 @@
                 const dataX = chart.scales.x.getValueForPixel(x);
                 const index = Math.round(dataX);
 
-                console.log('Click coordinates:', { x, dataX, index, labels: chart.data.labels.length });
-
                 if (index >= 0 && index < chart.data.labels.length) {
                     const label = chart.data.labels[index];
                     const labelDate = convertLabelToDate(label);
-                    console.log('Opening modal for date:', labelDate);
                     openModal(labelDate);
-                } else {
-                    console.warn('Click outside valid index range:', index);
                 }
             });
 
