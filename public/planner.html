@@ -186,6 +186,7 @@
         }
         .event-amount.income { color: #7CB342; }
         .event-amount.expense { color: #e53935; }
+        .event-amount.marketing { color: #F57C00; }
         .delete-btn {
             background: none;
             border: none;
@@ -262,6 +263,11 @@
             background: #ffebee;
             border-color: #e53935;
             color: #e53935;
+        }
+        .type-btn.selected.marketing {
+            background: #fff8e1;
+            border-color: #FFC107;
+            color: #F57C00;
         }
         .modal-actions {
             display: flex;
@@ -392,6 +398,7 @@
                 <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Show</span>
                 <button class="btn filter-btn active" data-filter="income">Income</button>
                 <button class="btn filter-btn active" data-filter="expense">Expenses</button>
+                <button class="btn filter-btn active" data-filter="marketing">Marketing</button>
             </div>
         </div>
 
@@ -415,6 +422,9 @@
                     </label>
                     <label>
                         <input type="checkbox" class="category-filter" data-category="camp" checked> Camp
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="loan" checked> Loan/Financing
                     </label>
                     <label>
                         <input type="checkbox" class="category-filter" data-category="income-other" checked> Other
@@ -442,6 +452,28 @@
                         <input type="checkbox" class="category-filter" data-category="expense-other" checked> Other
                     </label>
                 </div>
+
+                <div class="category-section">
+                    <h3 style="font-size: 11px; color: #999; margin-bottom: 8px;">Marketing</h3>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="social-media" checked> Social Media
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="ads" checked> Advertising
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="events" checked> Events
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="content" checked> Content
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="partnerships" checked> Partnerships
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="marketing-other" checked> Other
+                    </label>
+                </div>
             </div>
 
             <!-- Chart Area -->
@@ -467,6 +499,7 @@
             <div class="type-btns">
                 <button class="type-btn" data-type="income" onclick="selectType('income')">Income</button>
                 <button class="type-btn" data-type="expense" onclick="selectType('expense')">Expense</button>
+                <button class="type-btn" data-type="marketing" onclick="selectType('marketing')">Marketing</button>
             </div>
 
             <div class="form-group">
@@ -479,7 +512,7 @@
                 <input type="text" id="eventDesc" placeholder="e.g., Monthly salaries">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="amountGroup">
                 <label>Amount (฿)</label>
                 <input type="number" id="eventAmount" placeholder="0">
             </div>
@@ -499,9 +532,23 @@
                         <option value="longterm">Long-term Students</option>
                         <option value="shortterm">Short-term Students</option>
                         <option value="camp">Camp</option>
+                        <option value="loan">Loan/Financing</option>
                         <option value="income-other">Other</option>
                     </optgroup>
+                    <optgroup label="Marketing" id="marketingCategories" style="display: none;">
+                        <option value="social-media">Social Media</option>
+                        <option value="ads">Advertising</option>
+                        <option value="events">Events</option>
+                        <option value="content">Content</option>
+                        <option value="partnerships">Partnerships</option>
+                        <option value="marketing-other">Other</option>
+                    </optgroup>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label>Comments (optional)</label>
+                <textarea id="eventComments" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; resize: vertical;" placeholder="Add notes or comments about this event..."></textarea>
             </div>
 
             <div class="form-group" id="likelihoodGroup" style="display: none;">
@@ -551,7 +598,8 @@
             scenario: 'likely',
             filters: {
                 income: true,
-                expense: true
+                expense: true,
+                marketing: true
             },
             nextId: 2
         };
@@ -837,9 +885,10 @@
 
                 events.forEach(event => {
                     if (event.date <= labelDate && (!prevDate || event.date > prevDate)) {
+                        // Marketing events don't affect balance
                         if (event.type === 'income') {
                             balance += event.amount;
-                        } else {
+                        } else if (event.type === 'expense') {
                             balance -= event.amount;
                         }
                     }
@@ -965,7 +1014,9 @@
                 });
 
                 const incomeCount = events.filter(e => e.type === 'income').length;
-                const color = incomeCount >= events.length / 2 ? '#7CB342' : '#e53935';
+                const marketingCount = events.filter(e => e.type === 'marketing').length;
+                const color = marketingCount === events.length ? '#FFC107' :
+                             (incomeCount >= events.length / 2 ? '#7CB342' : '#e53935');
 
                 annotations[`line_${index}`] = {
                     type: 'line',
@@ -979,7 +1030,8 @@
                     type: 'box',
                     xMin: index - 0.25,
                     xMax: index + 0.25,
-                    backgroundColor: color === '#7CB342' ? 'rgba(124, 179, 66, 0.05)' : 'rgba(229, 57, 53, 0.05)',
+                    backgroundColor: color === '#FFC107' ? 'rgba(255, 193, 7, 0.05)' :
+                                    (color === '#7CB342' ? 'rgba(124, 179, 66, 0.05)' : 'rgba(229, 57, 53, 0.05)'),
                     borderWidth: 0
                 };
 
@@ -990,24 +1042,35 @@
 
                 events.forEach((event, eventIdx) => {
                     const desc = event.description.length > 15 ? event.description.substring(0, 15) + '...' : event.description;
-                    const amt = formatAmount(event.amount);
-                    const sign = event.type === 'income' ? '+' : '-';
+                    const amt = event.type === 'marketing' ? '📊' : formatAmount(event.amount);
+                    const sign = event.type === 'income' ? '+' : (event.type === 'expense' ? '-' : '');
 
-                    // Set opacity and hue based on likelihood for income
-                    let eventColor = event.type === 'income' ? '#7CB342' : '#e53935';
-                    if (event.type === 'income' && event.likelihood) {
-                        const colorMap = {
-                            'confirmed': { r: 124, g: 179, b: 66, opacity: 1.0 },   // Green
-                            'likely': { r: 156, g: 195, b: 70, opacity: 0.8 },      // Yellow-green
-                            'possible': { r: 185, g: 210, b: 75, opacity: 0.6 },    // More yellow
-                            'optimistic': { r: 210, g: 225, b: 80, opacity: 0.4 }   // Light yellow-lime
-                        };
-                        const color = colorMap[event.likelihood] || colorMap.confirmed;
-                        eventColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${color.opacity})`;
+                    // Set color based on type
+                    let eventColor;
+                    if (event.type === 'marketing') {
+                        eventColor = '#FFC107'; // Yellow for marketing
+                    } else if (event.type === 'income') {
+                        eventColor = '#7CB342'; // Green for income
+                        // Adjust opacity based on likelihood
+                        if (event.likelihood) {
+                            const colorMap = {
+                                'confirmed': { r: 124, g: 179, b: 66, opacity: 1.0 },
+                                'likely': { r: 156, g: 195, b: 70, opacity: 0.8 },
+                                'possible': { r: 185, g: 210, b: 75, opacity: 0.6 },
+                                'optimistic': { r: 210, g: 225, b: 80, opacity: 0.4 }
+                            };
+                            const color = colorMap[event.likelihood] || colorMap.confirmed;
+                            eventColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${color.opacity})`;
+                        }
+                    } else {
+                        eventColor = '#e53935'; // Red for expense
                     }
 
                     // Add likelihood icon for income events
                     const likelihoodIcon = (event.type === 'income' && event.likelihood) ? likelihoodIcons[event.likelihood] + ' ' : '';
+
+                    // Add comment indicator
+                    const commentIcon = event.comments ? '💬 ' : '';
 
                     // Calculate initial position
                     const initialY = baseY + (eventIdx * bubbleSpacing);
@@ -1022,7 +1085,7 @@
                         type: 'label',
                         xValue: index,
                         yValue: bubbleY,
-                        content: [likelihoodIcon + desc, sign + amt],
+                        content: [commentIcon + likelihoodIcon + desc, sign + amt],
                         backgroundColor: eventColor,
                         color: 'white',
                         font: { size: 10, weight: '600' },
@@ -1062,6 +1125,7 @@
             document.getElementById('eventDate').value = date;
             document.getElementById('eventDesc').value = '';
             document.getElementById('eventAmount').value = '';
+            document.getElementById('eventComments').value = '';
             document.getElementById('deleteBtn').style.display = 'none';
             document.getElementById('duplicateBtn').style.display = 'none';
             selectType('income');
@@ -1074,7 +1138,8 @@
             document.getElementById('modalTitle').textContent = 'Edit Event';
             document.getElementById('eventDate').value = event.date;
             document.getElementById('eventDesc').value = event.description;
-            document.getElementById('eventAmount').value = event.amount;
+            document.getElementById('eventAmount').value = event.amount || '';
+            document.getElementById('eventComments').value = event.comments || '';
             document.getElementById('deleteBtn').style.display = 'block';
             document.getElementById('duplicateBtn').style.display = 'block';
             selectType(event.type);
@@ -1153,45 +1218,57 @@
         function selectType(type) {
             selectedType = type;
             document.querySelectorAll('.type-btn').forEach(btn => {
-                btn.classList.remove('selected', 'income', 'expense');
+                btn.classList.remove('selected', 'income', 'expense', 'marketing');
                 if (btn.dataset.type === type) {
                     btn.classList.add('selected', type);
                 }
             });
 
-            // Show/hide likelihood dropdown
+            // Show/hide likelihood dropdown (only for income)
             const likelihoodGroup = document.getElementById('likelihoodGroup');
-            if (type === 'income') {
-                likelihoodGroup.style.display = 'block';
-            } else {
-                likelihoodGroup.style.display = 'none';
-            }
+            likelihoodGroup.style.display = type === 'income' ? 'block' : 'none';
+
+            // Show/hide amount field (marketing doesn't need amount)
+            const amountGroup = document.getElementById('amountGroup');
+            amountGroup.style.display = type === 'marketing' ? 'none' : 'block';
 
             // Show/hide appropriate category optgroups
             const expenseCategories = document.getElementById('expenseCategories');
             const incomeCategories = document.getElementById('incomeCategories');
+            const marketingCategories = document.getElementById('marketingCategories');
             const categorySelect = document.getElementById('eventCategory');
 
+            expenseCategories.style.display = 'none';
+            incomeCategories.style.display = 'none';
+            marketingCategories.style.display = 'none';
+
             if (type === 'income') {
-                expenseCategories.style.display = 'none';
                 incomeCategories.style.display = '';
                 categorySelect.value = 'longterm';
-            } else {
+            } else if (type === 'expense') {
                 expenseCategories.style.display = '';
-                incomeCategories.style.display = 'none';
                 categorySelect.value = 'card';
+            } else if (type === 'marketing') {
+                marketingCategories.style.display = '';
+                categorySelect.value = 'social-media';
             }
         }
 
         function saveEvent() {
             const date = document.getElementById('eventDate').value;
             const desc = document.getElementById('eventDesc').value.trim();
-            const amount = parseInt(document.getElementById('eventAmount').value);
+            const amount = selectedType === 'marketing' ? 0 : parseInt(document.getElementById('eventAmount').value);
             const likelihood = document.getElementById('eventLikelihood').value;
             const category = document.getElementById('eventCategory').value;
+            const comments = document.getElementById('eventComments').value.trim();
 
-            if (!date || !desc || !amount) {
-                alert('Please fill all fields');
+            if (!date || !desc) {
+                alert('Please fill date and description');
+                return;
+            }
+
+            if (selectedType !== 'marketing' && !amount) {
+                alert('Please enter an amount');
                 return;
             }
 
@@ -1204,10 +1281,10 @@
                     event.description = desc;
                     event.amount = amount;
                     event.category = category;
+                    event.comments = comments;
                     if (selectedType === 'income') {
                         event.likelihood = likelihood;
                     } else {
-                        // Remove likelihood if changing to expense
                         delete event.likelihood;
                     }
                 }
@@ -1220,7 +1297,8 @@
                     type: selectedType,
                     description: desc,
                     amount: amount,
-                    category: category
+                    category: category,
+                    comments: comments
                 };
                 if (selectedType === 'income') {
                     newEvent.likelihood = likelihood;
@@ -1273,9 +1351,8 @@
             };
 
             const html = sorted.map(e => {
-                const iconName = e.type === 'income' ? 'trending-up' : 'trending-down';
-                const amtClass = e.type === 'income' ? 'income' : 'expense';
-                const sign = e.type === 'income' ? '+' : '-';
+                const amtClass = e.type === 'income' ? 'income' : (e.type === 'expense' ? 'expense' : 'marketing');
+                const sign = e.type === 'income' ? '+' : (e.type === 'expense' ? '-' : '');
 
                 // Check if this event is included in current scenario
                 const isIncluded = filteredIds.has(e.id);
@@ -1286,13 +1363,19 @@
                 const likelihoodIcon = (e.type === 'income' && e.likelihood) ?
                     ` (${e.likelihood})` : '';
 
+                // Add comment indicator
+                const commentIndicator = e.comments ? ' 💬' : '';
+
+                // Format amount display
+                const amountDisplay = e.type === 'marketing' ? '📊' : `${sign}${formatAmount(e.amount)}`;
+
                 return `
                     <div class="event-item" data-event-id="${e.id}" onclick="highlightEvent(${e.id})" ondblclick="event.stopPropagation(); openModalForEdit(data.events.find(ev => ev.id === ${e.id}))" style="opacity: ${opacity}; ${excludedStyle}">
                         <div style="flex: 1;">
                             <div class="event-date">${e.date}</div>
-                            <div class="event-desc">${e.description}${likelihoodIcon}</div>
+                            <div class="event-desc">${e.description}${likelihoodIcon}${commentIndicator}</div>
                         </div>
-                        <div class="event-amount ${amtClass}">${sign}${formatAmount(e.amount)}</div>
+                        <div class="event-amount ${amtClass}">${amountDisplay}</div>
                         <button class="delete-btn" onclick="event.stopPropagation(); deleteEvent(${e.id})">×</button>
                     </div>
                 `;
