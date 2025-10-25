@@ -135,7 +135,7 @@
         #chartContainer {
             margin-bottom: 40px;
             cursor: pointer;
-            min-height: 400px;
+            min-height: 600px;
             position: relative;
         }
         #dateClickLayer {
@@ -406,6 +406,22 @@
                 </div>
 
                 <div class="category-section">
+                    <h3 style="font-size: 11px; color: #999; margin-bottom: 8px;">Income</h3>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="longterm" checked> Long-term
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="shortterm" checked> Short-term
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="camp" checked> Camp
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="income-other" checked> Other
+                    </label>
+                </div>
+
+                <div class="category-section">
                     <h3 style="font-size: 11px; color: #999; margin-bottom: 8px;">Expenses</h3>
                     <label>
                         <input type="checkbox" class="category-filter" data-category="card" checked> Card Payment
@@ -424,22 +440,6 @@
                     </label>
                     <label>
                         <input type="checkbox" class="category-filter" data-category="expense-other" checked> Other
-                    </label>
-                </div>
-
-                <div class="category-section">
-                    <h3 style="font-size: 11px; color: #999; margin-bottom: 8px;">Income</h3>
-                    <label>
-                        <input type="checkbox" class="category-filter" data-category="longterm" checked> Long-term
-                    </label>
-                    <label>
-                        <input type="checkbox" class="category-filter" data-category="shortterm" checked> Short-term
-                    </label>
-                    <label>
-                        <input type="checkbox" class="category-filter" data-category="camp" checked> Camp
-                    </label>
-                    <label>
-                        <input type="checkbox" class="category-filter" data-category="income-other" checked> Other
                     </label>
                 </div>
             </div>
@@ -773,11 +773,11 @@
             const range = maxBalance - minBalance;
 
             // Add space for stacked events
-            // Base padding (20% or 100k) + space for bubbles (15% or 120k per bubble) + 80k margin above top bubble
-            const bubbleSpacing = Math.max(range * 0.15, 120000);
-            const basePadding = Math.max(range * 0.20, 100000); // Where bubbles start
+            // Base padding (25% or 150k) + space for bubbles (20% or 150k per bubble) + 120k margin above top bubble
+            const bubbleSpacing = Math.max(range * 0.20, 150000);
+            const basePadding = Math.max(range * 0.25, 150000); // Where bubbles start
             const stackHeight = (maxStackedEvents - 1) * bubbleSpacing; // Height of stacked bubbles
-            const topMargin = 80000; // Space above highest bubble
+            const topMargin = 120000; // Space above highest bubble
             const yAxisMax = maxBalance + basePadding + stackHeight + topMargin;
 
             if (chart) chart.destroy();
@@ -807,7 +807,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    aspectRatio: 3,
+                    aspectRatio: 2.5,
                     onClick: handleChartClick,
                     plugins: {
                         legend: { display: false },
