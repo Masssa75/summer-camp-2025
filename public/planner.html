@@ -537,8 +537,8 @@
                         const maxBalance = Math.max(...cashFlow, 0);
                         const minBalance = Math.min(...cashFlow, 0);
                         const range = maxBalance - minBalance;
-                        const bubbleSpacing = Math.max(range * 0.08, 60000);
-                        const baseY = maxBalance + (range * 0.15);
+                        const bubbleSpacing = Math.max(range * 0.15, 120000);
+                        const baseY = maxBalance + (range * 0.20);
 
                         const sortedEvents = [...eventsAtDate].sort((a, b) => {
                             const aVal = a.type === 'income' ? a.amount : -a.amount;
@@ -789,8 +789,8 @@
 
                 // Position bubbles ABOVE the chart data with spacing based on event count
                 const range = maxBalance - minBalance;
-                const bubbleSpacing = Math.max(range * 0.08, 60000); // 8% of range or 60k minimum
-                const baseY = maxBalance + (range * 0.15); // Start 15% above max balance
+                const bubbleSpacing = Math.max(range * 0.15, 120000); // 15% of range or 120k minimum
+                const baseY = maxBalance + (range * 0.20); // Start 20% above max balance
 
                 events.forEach((event, eventIdx) => {
                     const desc = event.description.length > 15 ? event.description.substring(0, 15) + '...' : event.description;
