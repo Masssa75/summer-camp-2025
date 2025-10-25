@@ -224,6 +224,10 @@
             background: #f5f5f5;
             color: #666;
         }
+        .modal-actions .delete {
+            background: #e53935;
+            color: white;
+        }
         .modal-actions .save {
             background: #7CB342;
             color: white;
@@ -383,6 +387,7 @@
 
             <div class="modal-actions">
                 <button class="cancel" onclick="closeModal()">Cancel</button>
+                <button class="delete" id="deleteBtn" onclick="deleteEvent(editingEventId)" style="display: none;">Delete</button>
                 <button class="btn" id="duplicateBtn" onclick="duplicateEvent()" style="background: #2196F3; color: white; display: none;">Duplicate</button>
                 <button class="save" onclick="saveEvent()">Save</button>
             </div>
@@ -847,6 +852,7 @@
             document.getElementById('eventDate').value = date;
             document.getElementById('eventDesc').value = '';
             document.getElementById('eventAmount').value = '';
+            document.getElementById('deleteBtn').style.display = 'none';
             document.getElementById('duplicateBtn').style.display = 'none';
             selectType('income');
             document.getElementById('eventModal').classList.add('active');
@@ -859,6 +865,7 @@
             document.getElementById('eventDate').value = event.date;
             document.getElementById('eventDesc').value = event.description;
             document.getElementById('eventAmount').value = event.amount;
+            document.getElementById('deleteBtn').style.display = 'block';
             document.getElementById('duplicateBtn').style.display = 'block';
             selectType(event.type);
 
@@ -976,6 +983,7 @@
                 saveData();
                 renderChart();
                 renderEvents();
+                closeModal();
             }
         }
 
