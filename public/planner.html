@@ -779,18 +779,33 @@
 
             // Date click layer for clicking on date labels
             const dateLayer = document.getElementById('dateClickLayer');
+            if (!dateLayer) {
+                console.error('dateClickLayer element not found!');
+                return;
+            }
+
             dateLayer.addEventListener('click', function(e) {
-                if (!chart) return;
+                console.log('Date layer clicked!', e);
+
+                if (!chart) {
+                    console.error('Chart not initialized yet');
+                    return;
+                }
 
                 const rect = chart.canvas.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const dataX = chart.scales.x.getValueForPixel(x);
                 const index = Math.round(dataX);
 
+                console.log('Click coordinates:', { x, dataX, index, labels: chart.data.labels.length });
+
                 if (index >= 0 && index < chart.data.labels.length) {
                     const label = chart.data.labels[index];
                     const labelDate = convertLabelToDate(label);
+                    console.log('Opening modal for date:', labelDate);
                     openModal(labelDate);
+                } else {
+                    console.warn('Click outside valid index range:', index);
                 }
             });
 
