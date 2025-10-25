@@ -139,15 +139,7 @@
             position: relative;
         }
         #dateClickLayer {
-            position: absolute;
-            bottom: 40px;
-            left: 60px;
-            right: 20px;
-            height: 50px;
-            cursor: pointer;
-            z-index: 10;
-            /* Debug border - remove after testing */
-            /* border: 2px dashed rgba(255, 0, 0, 0.3); */
+            display: none; /* Disabled - using canvas click instead */
         }
         .section {
             margin-top: 40px;
@@ -779,33 +771,35 @@
                 });
             });
 
-            // Date click layer for clicking on date labels
-            const dateLayer = document.getElementById('dateClickLayer');
-            if (!dateLayer) {
-                console.error('dateClickLayer element not found!');
-                return;
-            }
+            // Canvas click handlers
+            const canvas = document.getElementById('chart');
 
-            dateLayer.addEventListener('click', function(e) {
-                if (!chart) {
-                    console.error('Chart not initialized yet - please refresh the page');
-                    return;
-                }
+            // Single-click on x-axis labels to add events
+            canvas.addEventListener('click', function(e) {
+                if (!chart) return;
 
-                const rect = chart.canvas.getBoundingClientRect();
+                const rect = canvas.getBoundingClientRect();
                 const x = e.clientX - rect.left;
-                const dataX = chart.scales.x.getValueForPixel(x);
-                const index = Math.round(dataX);
+                const y = e.clientY - rect.top;
 
-                if (index >= 0 && index < chart.data.labels.length) {
-                    const label = chart.data.labels[index];
-                    const labelDate = convertLabelToDate(label);
-                    openModal(labelDate);
+                // Get the chart area bounds
+                const chartArea = chart.chartArea;
+                const yAxisBottom = chartArea.bottom;
+
+                // Check if click is in the x-axis label area (below the chart data area)
+                if (y > yAxisBottom) {
+                    const dataX = chart.scales.x.getValueForPixel(x);
+                    const index = Math.round(dataX);
+
+                    if (index >= 0 && index < chart.data.labels.length) {
+                        const label = chart.data.labels[index];
+                        const labelDate = convertLabelToDate(label);
+                        openModal(labelDate);
+                    }
                 }
             });
 
             // Double-click on canvas to edit events
-            const canvas = document.getElementById('chart');
             canvas.addEventListener('dblclick', function(e) {
                 if (!chart) {
                     console.log('Double-click: No chart found');
