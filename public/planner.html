@@ -560,6 +560,7 @@
         let selectedType = 'income';
         let clickedDate = null;
         let editingEventId = null;
+        let bubblePositions = {}; // Store actual bubble positions for click detection
 
         // Time ranges with padding
         const timeRanges = {
@@ -669,37 +670,22 @@
                 if (index >= 0 && index < chart.data.labels.length) {
                     const label = chart.data.labels[index];
                     const labelDate = convertLabelToDate(label);
-                    const eventsAtDate = data.events.filter(e => e.date === labelDate);
 
-                    console.log('Found label:', label, 'Date:', labelDate, 'Events at date:', eventsAtDate.length);
+                    // Only check events that were actually rendered (have bubble positions)
+                    const renderedEvents = data.events.filter(e => e.date === labelDate && bubblePositions[e.id]);
 
-                    if (eventsAtDate.length > 0 && Math.abs(dataX - index) < 0.35) {
-                        // Find closest event by Y position
-                        // Note: We can't perfectly replicate collision detection without re-running it,
-                        // but we can estimate positions for click detection
-                        const cashFlow = calculateCashFlow(chart.data.labels, getFilteredEvents());
-                        const maxBalance = Math.max(...cashFlow, 0);
-                        const minBalance = Math.min(...cashFlow, 0);
-                        const range = maxBalance - minBalance;
-                        const bubbleSpacing = Math.max(range * 0.20, 150000);
-                        const baseY = maxBalance + (range * 0.25);
+                    console.log('Found label:', label, 'Date:', labelDate, 'Rendered events at date:', renderedEvents.length);
+                    console.log('BubblePositions keys:', Object.keys(bubblePositions));
 
-                        const sortedEvents = [...eventsAtDate].sort((a, b) => {
-                            // Sort by type first (income before expense), then by amount
-                            if (a.type !== b.type) {
-                                return a.type === 'income' ? -1 : 1;
-                            }
-                            // Within same type, sort by amount (descending)
-                            return b.amount - a.amount;
-                        });
-
-                        let closestEvent = sortedEvents[0];
+                    if (renderedEvents.length > 0 && Math.abs(dataX - index) < 0.35) {
+                        // Find closest event using actual rendered bubble positions
+                        let closestEvent = renderedEvents[0];
                         let minDist = Infinity;
 
-                        sortedEvents.forEach((event, idx) => {
-                            const eventY = baseY + (idx * bubbleSpacing);
-                            const dist = Math.abs(dataY - eventY);
-                            console.log('Event:', event.description, 'eventY:', eventY, 'dataY:', dataY, 'dist:', dist);
+                        renderedEvents.forEach(event => {
+                            const bubblePos = bubblePositions[event.id];
+                            const dist = Math.abs(dataY - bubblePos.y);
+                            console.log('Event:', event.description, 'bubbleY:', bubblePos.y, 'dataY:', dataY, 'dist:', dist);
                             if (dist < minDist) {
                                 minDist = dist;
                                 closestEvent = event;
@@ -708,7 +694,7 @@
 
                         console.log('Closest event:', closestEvent.description, 'minDist:', minDist);
 
-                        // Only open if click is reasonably close (within 200k to account for collision adjustments)
+                        // Only open if click is reasonably close (within 200k)
                         if (minDist < 200000) {
                             console.log('Opening modal for edit!');
                             openModalForEdit(closestEvent);
@@ -920,6 +906,9 @@
             const BUBBLE_WIDTH = 0.8; // Width in x-axis units
             const MIN_VERTICAL_GAP = 15000; // Minimum gap between bubbles
 
+            // Reset bubble positions map for this render
+            bubblePositions = {};
+
             function findNonOverlappingY(xPos, initialY) {
                 let testY = initialY;
                 let attempts = 0;
@@ -1014,6 +1003,9 @@
 
                     // Find non-overlapping position
                     const bubbleY = findNonOverlappingY(index, initialY);
+
+                    // Store bubble position for click detection
+                    bubblePositions[event.id] = { x: index, y: bubbleY };
 
                     annotations[`pill_${index}_${eventIdx}`] = {
                         type: 'label',
