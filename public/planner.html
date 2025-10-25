@@ -704,11 +704,13 @@
             const minBalance = Math.min(...cashFlow, 0);
             const range = maxBalance - minBalance;
 
-            // Add space for stacked events: 20% base padding + bubble spacing per stacked event
-            // Must match the bubble spacing logic in createAnnotations (120k minimum)
+            // Add space for stacked events
+            // Base padding (20% or 100k) + space for bubbles (15% or 120k per bubble) + 80k margin above top bubble
             const bubbleSpacing = Math.max(range * 0.15, 120000);
-            const stackedPadding = maxStackedEvents * bubbleSpacing;
-            const yAxisMax = maxBalance + Math.max(range * 0.20, 100000) + stackedPadding;
+            const basePadding = Math.max(range * 0.20, 100000); // Where bubbles start
+            const stackHeight = (maxStackedEvents - 1) * bubbleSpacing; // Height of stacked bubbles
+            const topMargin = 80000; // Space above highest bubble
+            const yAxisMax = maxBalance + basePadding + stackHeight + topMargin;
 
             if (chart) chart.destroy();
 
