@@ -329,45 +329,36 @@ const { chromium } = require('playwright');
 
 ## Session Handoff Notes
 
-### Recent Changes (2025-07-09)
-1. **Fixed Telegram notification system**:
-   - Moved from individual admin IDs to group-based notifications
-   - Added TELEGRAM_ADMIN_GROUP_ID environment variable
-   - Bot now sends notifications to admin group (-1002582721018)
-   - Removed "Connect Telegram" button from admin interface
+### Recent Changes (2025-10-25 - Session 1)
+**Fixed chart bubble spacing in financial planner**:
+- Increased bubble vertical spacing from 8% to 15% of chart range (60k minimum → 120k minimum)
+- Raised start position from 15% to 20% above max balance to create more breathing room
+- Synchronized double-click handler positioning calculations with annotation rendering
+- File modified: `public/planner.html` (lines 790-793, 535-541)
+- Deployed and confirmed working (commit 115cb4d)
+- **Result**: Event bubbles now display with proper vertical separation, no overlapping
 
-2. **Implemented complete registration workflow management**:
-   - Payment request → Payment recording → Confirmation workflow
-   - Organized registrations into Active, Completed, and Archived sections
-   - Active workflow shows max 10 entries with expand/collapse functionality
-   - Archive functionality for abandoned/cancelled registrations
-   - Real-time stats tracking (New, Awaiting Payment, Paid, Confirmed)
-   - Progress dots showing workflow stage for each registration
-
-3. **Database normalization and data import**:
-   - Created normalized schema: parents, students, enrollments, attendance, staff
-   - Imported 57 registrations from Google Sheets successfully
-   - Added tracking fields: payment_request_sent, confirmation_email_sent, payment_method, etc.
-   - Implemented deduplication strategies for parents (by email) and students (by name+DOB)
-
-4. **Current Issue - Dropdown Menu Not Working**:
-   - The "..." (MoreVertical) dropdown menu in workflow table doesn't open
-   - Menu contains important actions: Send Email, Send WhatsApp, Archive (Abandoned)
-   - onClick handler exists but not functioning properly
-   - Located in RegistrationWorkflow.tsx lines 496-526
+**Previous Session Work (2025-07-09)**:
+- Telegram notification system (group-based)
+- Registration workflow management (payment tracking)
+- Database normalization and Google Sheets import
+- See full history in: `/logs/SESSION-LOG-INDEX.md`
 
 ### Known Issues
-- **CRITICAL**: Dropdown menu ("...") in workflow table not opening (current issue)
 - No email notifications after registration (API endpoints exist but not implemented)
 - No payment processing integration
 - Registration success only shows on frontend, no email confirmation
+- Dropdown menu in workflow table needs verification
 
 ### Next Priorities
-1. **FIX DROPDOWN MENU** - Critical for workflow functionality
+1. Test and verify all admin workflow features
 2. Set up email notifications using Supabase Edge Functions or external service
 3. Add payment gateway integration (consider local Thai payment options)
 4. Build attendance tracking interface
 5. Create staff management system
+
+**Last Updated**: October 25, 2025 (Session 1)
+**Version**: 2.0.0
 
 ---
 

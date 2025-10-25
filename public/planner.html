@@ -336,6 +336,7 @@
                 <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Show</span>
                 <button class="btn filter-btn active" data-filter="income">Income</button>
                 <button class="btn filter-btn active" data-filter="expense">Expenses</button>
+                <button class="btn" onclick="openCategoryFilter()" style="margin-left: 10px;">Categories ⚙</button>
             </div>
         </div>
 
@@ -375,6 +376,25 @@
                 <input type="number" id="eventAmount" placeholder="0">
             </div>
 
+            <div class="form-group">
+                <label>Category</label>
+                <select id="eventCategory" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                    <optgroup label="Expense" id="expenseCategories">
+                        <option value="card">Card Payment</option>
+                        <option value="rent">Rent</option>
+                        <option value="salaries">Salaries</option>
+                        <option value="personal">Personal</option>
+                        <option value="expense-other">Other</option>
+                    </optgroup>
+                    <optgroup label="Income" id="incomeCategories" style="display: none;">
+                        <option value="longterm">Long-term Students</option>
+                        <option value="shortterm">Short-term Students</option>
+                        <option value="camp">Camp</option>
+                        <option value="income-other">Other</option>
+                    </optgroup>
+                </select>
+            </div>
+
             <div class="form-group" id="likelihoodGroup" style="display: none;">
                 <label>Likelihood</label>
                 <select id="eventLikelihood" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
@@ -390,6 +410,51 @@
                 <button class="delete" id="deleteBtn" onclick="deleteEvent(editingEventId)" style="display: none;">Delete</button>
                 <button class="btn" id="duplicateBtn" onclick="duplicateEvent()" style="background: #2196F3; color: white; display: none;">Duplicate</button>
                 <button class="save" onclick="saveEvent()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="categoryFilterModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <h2>Filter by Category</h2>
+
+            <div style="margin: 20px 0;">
+                <h3 style="font-size: 14px; color: #666; margin-bottom: 10px;">Expenses</h3>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="card" checked> Card Payment
+                </label>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="rent" checked> Rent
+                </label>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="salaries" checked> Salaries
+                </label>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="personal" checked> Personal
+                </label>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="expense-other" checked> Other Expenses
+                </label>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3 style="font-size: 14px; color: #666; margin-bottom: 10px;">Income</h3>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="longterm" checked> Long-term Students
+                </label>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="shortterm" checked> Short-term Students
+                </label>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="camp" checked> Camp
+                </label>
+                <label style="display: block; margin: 8px 0; cursor: pointer;">
+                    <input type="checkbox" class="category-filter" data-category="income-other" checked> Other Income
+                </label>
+            </div>
+
+            <div class="modal-actions">
+                <button class="cancel" onclick="closeCategoryFilter()">Close</button>
             </div>
         </div>
     </div>
@@ -586,10 +651,14 @@
             };
 
             const allowedLikelihoods = scenarioLevels[data.scenario] || scenarioLevels.optimistic;
+            const activeCategories = getActiveCategoryFilters();
 
             return data.events.filter(event => {
                 // Filter by type (income/expense)
                 if (!data.filters[event.type]) return false;
+
+                // Filter by category (if event has a category and it's not in active list, exclude it)
+                if (event.category && !activeCategories.includes(event.category)) return false;
 
                 // For expenses, just check if they're enabled
                 if (event.type === 'expense') return true;
@@ -877,6 +946,11 @@
             document.getElementById('duplicateBtn').style.display = 'block';
             selectType(event.type);
 
+            // Pre-select category if it exists, otherwise use default for type
+            if (event.category) {
+                document.getElementById('eventCategory').value = event.category;
+            }
+
             // Pre-select likelihood if it exists
             if (event.type === 'income' && event.likelihood) {
                 document.getElementById('eventLikelihood').value = event.likelihood;
@@ -887,6 +961,30 @@
 
         function closeModal() {
             document.getElementById('eventModal').classList.remove('active');
+        }
+
+        function openCategoryFilter() {
+            document.getElementById('categoryFilterModal').classList.add('active');
+
+            // Setup event listeners for checkboxes
+            document.querySelectorAll('.category-filter').forEach(cb => {
+                cb.addEventListener('change', function() {
+                    renderChart();
+                    renderEvents();
+                });
+            });
+        }
+
+        function closeCategoryFilter() {
+            document.getElementById('categoryFilterModal').classList.remove('active');
+        }
+
+        function getActiveCategoryFilters() {
+            const active = [];
+            document.querySelectorAll('.category-filter:checked').forEach(cb => {
+                active.push(cb.dataset.category);
+            });
+            return active;
         }
 
         function duplicateEvent() {
@@ -935,6 +1033,21 @@
             } else {
                 likelihoodGroup.style.display = 'none';
             }
+
+            // Show/hide appropriate category optgroups
+            const expenseCategories = document.getElementById('expenseCategories');
+            const incomeCategories = document.getElementById('incomeCategories');
+            const categorySelect = document.getElementById('eventCategory');
+
+            if (type === 'income') {
+                expenseCategories.style.display = 'none';
+                incomeCategories.style.display = '';
+                categorySelect.value = 'longterm';
+            } else {
+                expenseCategories.style.display = '';
+                incomeCategories.style.display = 'none';
+                categorySelect.value = 'card';
+            }
         }
 
         function saveEvent() {
@@ -942,6 +1055,7 @@
             const desc = document.getElementById('eventDesc').value.trim();
             const amount = parseInt(document.getElementById('eventAmount').value);
             const likelihood = document.getElementById('eventLikelihood').value;
+            const category = document.getElementById('eventCategory').value;
 
             if (!date || !desc || !amount) {
                 alert('Please fill all fields');
@@ -956,6 +1070,7 @@
                     event.type = selectedType;
                     event.description = desc;
                     event.amount = amount;
+                    event.category = category;
                     if (selectedType === 'income') {
                         event.likelihood = likelihood;
                     } else {
@@ -971,7 +1086,8 @@
                     date: date,
                     type: selectedType,
                     description: desc,
-                    amount: amount
+                    amount: amount,
+                    category: category
                 };
                 if (selectedType === 'income') {
                     newEvent.likelihood = likelihood;
