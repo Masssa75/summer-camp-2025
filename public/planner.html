@@ -536,8 +536,8 @@
                         const cashFlow = calculateCashFlow(chart.data.labels, getFilteredEvents());
                         const maxBalance = Math.max(...cashFlow, 0);
                         const minBalance = Math.min(...cashFlow, 0);
-                        const eventSpacing = 200000;
-                        const baseY = maxBalance + Math.max((maxBalance - minBalance) * 0.10, 50000);
+                        const eventSpacing = 40000;
+                        const baseY = maxBalance + Math.max((maxBalance - minBalance) * 0.20, 100000);
 
                         const sortedEvents = [...eventsAtDate].sort((a, b) => {
                             const aVal = a.type === 'income' ? a.amount : -a.amount;
@@ -560,12 +560,12 @@
 
                         console.log('Closest event:', closestEvent.description, 'minDist:', minDist);
 
-                        // Only open if click is reasonably close (within 500k)
-                        if (minDist < 500000) {
+                        // Only open if click is reasonably close (within 150k)
+                        if (minDist < 150000) {
                             console.log('Opening modal for edit!');
                             openModalForEdit(closestEvent);
                         } else {
-                            console.log('Click too far from bubble (minDist >= 500000)');
+                            console.log('Click too far from bubble (minDist >= 150000)');
                         }
                     } else {
                         console.log('No events at this date or click not close enough to X axis');
@@ -623,9 +623,10 @@
             const minBalance = Math.min(...cashFlow, 0);
             const range = maxBalance - minBalance;
 
-            // Add space for stacked events: 10% base padding + 200k per stacked event
-            const eventSpacing = 200000;
-            const yAxisMax = maxBalance + Math.max(range * 0.10, 50000) + (maxStackedEvents * eventSpacing);
+            // Add space for stacked events: 20% base padding + 40k per stacked event (capped at 300k)
+            const eventSpacing = 40000;
+            const stackedPadding = Math.min(maxStackedEvents * eventSpacing, 300000);
+            const yAxisMax = maxBalance + Math.max(range * 0.20, 100000) + stackedPadding;
 
             if (chart) chart.destroy();
 
@@ -785,8 +786,8 @@
                     borderWidth: 0
                 };
 
-                const eventSpacing = 200000;
-                const baseY = maxBalance + Math.max((maxBalance - minBalance) * 0.10, 50000);
+                const eventSpacing = 40000;
+                const baseY = maxBalance + Math.max((maxBalance - minBalance) * 0.20, 100000);
                 events.forEach((event, eventIdx) => {
                     const desc = event.description.length > 15 ? event.description.substring(0, 15) + '...' : event.description;
                     const amt = formatAmount(event.amount);
