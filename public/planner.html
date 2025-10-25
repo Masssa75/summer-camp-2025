@@ -324,6 +324,7 @@
                 <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Time Range</span>
                 <button class="btn timerange-btn active" data-range="quarter">Quarter</button>
                 <button class="btn timerange-btn" data-range="half">6 Months</button>
+                <button class="btn timerange-btn" data-range="year">Year</button>
             </div>
             <div style="display: flex; gap: 10px; align-items: center; margin-left: 30px;">
                 <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Scenario</span>
@@ -508,7 +509,8 @@
         // Time ranges with padding
         const timeRanges = {
             quarter: ['Oct 21', 'Oct 24', 'Oct 31', 'Nov 7', 'Nov 14', 'Nov 21', 'Nov 30', 'Dec 7', 'Dec 14', 'Dec 21', 'Dec 31', 'Jan 3'],
-            half: ['Oct 21', 'Oct 24', 'Oct 31', 'Nov 14', 'Nov 30', 'Dec 14', 'Dec 31', 'Jan 14', 'Jan 31', 'Feb 14', 'Feb 28', 'Mar 14', 'Mar 31', 'Apr 7']
+            half: ['Oct 21', 'Oct 24', 'Oct 31', 'Nov 14', 'Nov 30', 'Dec 14', 'Dec 31', 'Jan 14', 'Jan 31', 'Feb 14', 'Feb 28', 'Mar 14', 'Mar 31', 'Apr 7'],
+            year: ['Oct 21', 'Oct 31', 'Nov 30', 'Dec 31', 'Jan 31', 'Feb 28', 'Mar 31', 'Apr 30', 'May 31', 'Jun 30', 'Jul 31', 'Aug 31', 'Sep 30', 'Oct 21']
         };
 
         // Initialize
@@ -702,9 +704,10 @@
             const minBalance = Math.min(...cashFlow, 0);
             const range = maxBalance - minBalance;
 
-            // Add space for stacked events: 20% base padding + 40k per stacked event (capped at 300k)
-            const eventSpacing = 40000;
-            const stackedPadding = Math.min(maxStackedEvents * eventSpacing, 300000);
+            // Add space for stacked events: 20% base padding + bubble spacing per stacked event
+            // Must match the bubble spacing logic in createAnnotations (120k minimum)
+            const bubbleSpacing = Math.max(range * 0.15, 120000);
+            const stackedPadding = maxStackedEvents * bubbleSpacing;
             const yAxisMax = maxBalance + Math.max(range * 0.20, 100000) + stackedPadding;
 
             if (chart) chart.destroy();
@@ -1228,7 +1231,9 @@
             };
             const [monthStr, day] = label.split(' ');
             const month = months[monthStr];
-            const year = ['Jan', 'Feb', 'Mar', 'Apr'].includes(monthStr) ? '2026' : '2025';
+            // Jan-Sep are 2026, Oct-Dec are 2025 (except for final Oct 21 which is 2026)
+            const year = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'].includes(monthStr) ? '2026' :
+                         (monthStr === 'Oct' && parseInt(day) === 21 && data.timeRange === 'year') ? '2026' : '2025';
             return `${year}-${month}-${day.padStart(2, '0')}`;
         }
 
