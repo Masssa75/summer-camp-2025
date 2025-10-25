@@ -945,11 +945,22 @@
             Object.keys(eventsByDate).forEach(idx => {
                 const index = parseInt(idx);
                 const events = eventsByDate[idx].sort((a, b) => {
-                    // Sort by type first (income before expense), then by amount
+                    // Define likelihood priority (lower = more certain = closer to baseline)
+                    const likelihoodOrder = { confirmed: 0, likely: 1, possible: 2, optimistic: 3 };
+                    const aLikelihood = likelihoodOrder[a.likelihood] ?? 1; // default to 'likely' if undefined
+                    const bLikelihood = likelihoodOrder[b.likelihood] ?? 1;
+
+                    // Sort by likelihood first (most certain at bottom)
+                    if (aLikelihood !== bLikelihood) {
+                        return aLikelihood - bLikelihood;
+                    }
+
+                    // If same likelihood, sort by type (income before expense)
                     if (a.type !== b.type) {
                         return a.type === 'income' ? -1 : 1;
                     }
-                    // Within same type, sort by amount (descending)
+
+                    // Within same type and likelihood, sort by amount (descending)
                     return b.amount - a.amount;
                 });
 
