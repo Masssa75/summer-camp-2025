@@ -532,13 +532,13 @@
                     console.log('Found label:', label, 'Date:', labelDate, 'Events at date:', eventsAtDate.length);
 
                     if (eventsAtDate.length > 0 && Math.abs(dataX - index) < 0.35) {
-                        // Find closest event by Y position
+                        // Find closest event by Y position using same logic as annotation positioning
                         const cashFlow = calculateCashFlow(chart.data.labels, getFilteredEvents());
                         const maxBalance = Math.max(...cashFlow, 0);
                         const minBalance = Math.min(...cashFlow, 0);
                         const range = maxBalance - minBalance;
-                        const bubbleSpacing = Math.max(range * 0.05, 50000);
-                        const balanceAtDate = cashFlow[index];
+                        const bubbleSpacing = Math.max(range * 0.08, 60000);
+                        const baseY = maxBalance + (range * 0.15);
 
                         const sortedEvents = [...eventsAtDate].sort((a, b) => {
                             const aVal = a.type === 'income' ? a.amount : -a.amount;
@@ -549,9 +549,8 @@
                         let closestEvent = sortedEvents[0];
                         let minDist = Infinity;
 
-                        const offset = (sortedEvents.length - 1) / 2;
                         sortedEvents.forEach((event, idx) => {
-                            const eventY = balanceAtDate + ((offset - idx) * bubbleSpacing);
+                            const eventY = baseY - (idx * bubbleSpacing);
                             const dist = Math.abs(dataY - eventY);
                             console.log('Event:', event.description, 'eventY:', eventY, 'dataY:', dataY, 'dist:', dist);
                             if (dist < minDist) {
@@ -788,10 +787,10 @@
                     borderWidth: 0
                 };
 
-                // Position bubbles at the balance line for this date, then spread them vertically
-                const balanceAtDate = cashFlow[index];
+                // Position bubbles ABOVE the chart data with spacing based on event count
                 const range = maxBalance - minBalance;
-                const bubbleSpacing = Math.max(range * 0.05, 50000); // 5% of range or 50k minimum
+                const bubbleSpacing = Math.max(range * 0.08, 60000); // 8% of range or 60k minimum
+                const baseY = maxBalance + (range * 0.15); // Start 15% above max balance
 
                 events.forEach((event, eventIdx) => {
                     const desc = event.description.length > 15 ? event.description.substring(0, 15) + '...' : event.description;
@@ -814,9 +813,8 @@
                     // Add likelihood icon for income events
                     const likelihoodIcon = (event.type === 'income' && event.likelihood) ? likelihoodIcons[event.likelihood] + ' ' : '';
 
-                    // Position bubbles centered around the balance line, spreading up/down
-                    const offset = (events.length - 1) / 2; // Center point
-                    const bubbleY = balanceAtDate + ((offset - eventIdx) * bubbleSpacing);
+                    // Position bubbles from baseY, spreading down with good spacing
+                    const bubbleY = baseY - (eventIdx * bubbleSpacing);
 
                     annotations[`pill_${index}_${eventIdx}`] = {
                         type: 'label',
