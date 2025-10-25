@@ -685,9 +685,12 @@
                         const baseY = maxBalance + (range * 0.25);
 
                         const sortedEvents = [...eventsAtDate].sort((a, b) => {
-                            const aVal = a.type === 'income' ? a.amount : -a.amount;
-                            const bVal = b.type === 'income' ? b.amount : -b.amount;
-                            return bVal - aVal;
+                            // Sort by type first (income before expense), then by amount
+                            if (a.type !== b.type) {
+                                return a.type === 'income' ? -1 : 1;
+                            }
+                            // Within same type, sort by amount (descending)
+                            return b.amount - a.amount;
                         });
 
                         let closestEvent = sortedEvents[0];
@@ -953,9 +956,12 @@
             Object.keys(eventsByDate).forEach(idx => {
                 const index = parseInt(idx);
                 const events = eventsByDate[idx].sort((a, b) => {
-                    const aVal = a.type === 'income' ? a.amount : -a.amount;
-                    const bVal = b.type === 'income' ? b.amount : -b.amount;
-                    return bVal - aVal;
+                    // Sort by type first (income before expense), then by amount
+                    if (a.type !== b.type) {
+                        return a.type === 'income' ? -1 : 1;
+                    }
+                    // Within same type, sort by amount (descending)
+                    return b.amount - a.amount;
                 });
 
                 const incomeCount = events.filter(e => e.type === 'income').length;

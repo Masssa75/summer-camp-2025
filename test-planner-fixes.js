@@ -69,17 +69,31 @@ const { chromium } = require('playwright');
   const allCheckedCount = await page.locator('.category-filter:checked').count();
   console.log(`  All categories checked: ${allCheckedCount === totalCheckboxes ? '✅ YES' : '❌ NO (' + allCheckedCount + '/' + totalCheckboxes + ')'}`);
 
+  // Check category order
+  console.log('\n✓ Checking category order...');
+  const sidebarElement = await page.locator('.category-sidebar');
+  const sections = await sidebarElement.locator('.category-section').all();
+
+  if (sections.length >= 2) {
+    const firstSectionTitle = await sections[0].locator('h3').innerText();
+    const secondSectionTitle = await sections[1].locator('h3').innerText();
+    console.log(`  First section: ${firstSectionTitle}`);
+    console.log(`  Second section: ${secondSectionTitle}`);
+    console.log(`  Income before Expenses: ${firstSectionTitle.includes('Income') ? '✅ YES' : '❌ NO'}`);
+  }
+
   // Visual verification
-  console.log('\n✓ Visual check for bubble spacing...');
+  console.log('\n✓ Visual check for improvements...');
   console.log('  Please verify visually that:');
-  console.log('  - Event bubbles are NOT overlapping');
-  console.log('  - Bubbles from different dates have proper vertical separation');
+  console.log('  - Event bubbles are NOT overlapping or cut off at top');
+  console.log('  - Chart has adequate height (600px minimum)');
+  console.log('  - Income categories appear ABOVE expense categories');
   console.log('  - Category sidebar is on the LEFT side of the chart');
   console.log('  - Layout looks clean and professional');
 
   // Take a screenshot
-  await page.screenshot({ path: 'planner-with-sidebar.png', fullPage: true });
-  console.log('\n📸 Screenshot saved as planner-with-sidebar.png');
+  await page.screenshot({ path: 'planner-final.png', fullPage: true });
+  console.log('\n📸 Screenshot saved as planner-final.png');
 
   console.log('\n✅ All automated tests passed! Please review the screenshot.');
   console.log('Browser will stay open for 10 seconds for manual inspection...');
