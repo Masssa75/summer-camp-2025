@@ -419,6 +419,11 @@
         <div class="modal-content" style="max-width: 500px;">
             <h2>Filter by Category</h2>
 
+            <div style="margin: 15px 0; display: flex; gap: 10px;">
+                <button class="btn" onclick="selectAllCategories()" style="flex: 1; padding: 8px;">Select All</button>
+                <button class="btn" onclick="deselectAllCategories()" style="flex: 1; padding: 8px;">Deselect All</button>
+            </div>
+
             <div style="margin: 20px 0;">
                 <h3 style="font-size: 14px; color: #666; margin-bottom: 10px;">Expenses</h3>
                 <label style="display: block; margin: 8px 0; cursor: pointer;">
@@ -989,6 +994,22 @@
                 active.push(cb.dataset.category);
             });
             return active;
+        }
+
+        function selectAllCategories() {
+            document.querySelectorAll('.category-filter').forEach(cb => {
+                cb.checked = true;
+            });
+            renderChart();
+            renderEvents();
+        }
+
+        function deselectAllCategories() {
+            document.querySelectorAll('.category-filter').forEach(cb => {
+                cb.checked = false;
+            });
+            renderChart();
+            renderEvents();
         }
 
         function duplicateEvent() {
