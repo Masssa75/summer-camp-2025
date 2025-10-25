@@ -197,6 +197,41 @@
         }
         .delete-btn:hover { color: #e53935; }
 
+        /* Bubble Tooltip */
+        #bubbleTooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.5;
+            max-width: 300px;
+            pointer-events: none;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        #bubbleTooltip.show {
+            display: block;
+        }
+        #bubbleTooltip .tooltip-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #FFC107;
+        }
+        #bubbleTooltip .tooltip-amount {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        #bubbleTooltip .tooltip-comment {
+            color: #ddd;
+            font-style: italic;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -358,6 +393,9 @@
 
     <!-- Main App Content -->
     <div id="appContent">
+    <!-- Bubble Tooltip -->
+    <div id="bubbleTooltip"></div>
+
     <div class="container">
         <div class="header">
             <div>
@@ -636,6 +674,7 @@
             renderEvents();
             setupEventListeners();
             setupCategoryFilters();
+            setupBubbleTooltip();
         }
 
         function setupCategoryFilters() {
@@ -645,6 +684,64 @@
                     renderChart();
                     renderEvents();
                 });
+            });
+        }
+
+        function setupBubbleTooltip() {
+            const canvas = document.getElementById('chart');
+            const tooltip = document.getElementById('bubbleTooltip');
+
+            canvas.addEventListener('mousemove', function(e) {
+                if (!chart) return;
+
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const dataX = chart.scales.x.getValueForPixel(x);
+                const dataY = chart.scales.y.getValueForPixel(y);
+
+                // Find if we're hovering over any bubble
+                let hoveredEvent = null;
+                let minDist = Infinity;
+                const HOVER_THRESHOLD = 50000; // Distance threshold for hover detection
+
+                Object.keys(bubblePositions).forEach(eventId => {
+                    const pos = bubblePositions[eventId];
+                    const xDist = Math.abs(dataX - pos.x);
+                    const yDist = Math.abs(dataY - pos.y);
+
+                    // Check if within bubble bounds
+                    if (xDist < 0.4 && yDist < HOVER_THRESHOLD) {
+                        const dist = yDist;
+                        if (dist < minDist) {
+                            minDist = dist;
+                            hoveredEvent = data.events.find(ev => ev.id == eventId);
+                        }
+                    }
+                });
+
+                if (hoveredEvent && hoveredEvent.comments) {
+                    // Show tooltip
+                    const sign = hoveredEvent.type === 'income' ? '+' : (hoveredEvent.type === 'expense' ? '-' : '');
+                    const amountText = hoveredEvent.type === 'marketing' ? '📊 Marketing Activity' :
+                                      `${sign}${formatAmount(hoveredEvent.amount)}`;
+
+                    tooltip.innerHTML = `
+                        <div class="tooltip-title">${hoveredEvent.description}</div>
+                        <div class="tooltip-amount">${amountText}</div>
+                        <div class="tooltip-comment">${hoveredEvent.comments}</div>
+                    `;
+                    tooltip.style.left = e.clientX + 15 + 'px';
+                    tooltip.style.top = e.clientY + 15 + 'px';
+                    tooltip.classList.add('show');
+                } else {
+                    tooltip.classList.remove('show');
+                }
+            });
+
+            canvas.addEventListener('mouseleave', function() {
+                tooltip.classList.remove('show');
             });
         }
 
