@@ -15,12 +15,67 @@
             background: #fafafa;
         }
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             background: white;
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .main-content {
+            display: flex;
+            gap: 30px;
+        }
+        .category-sidebar {
+            flex-shrink: 0;
+            width: 200px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            align-self: flex-start;
+        }
+        .category-sidebar h3 {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            margin-top: 0;
+        }
+        .category-sidebar .category-section {
+            margin-bottom: 20px;
+        }
+        .category-sidebar label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            font-size: 13px;
+            color: #333;
+        }
+        .category-sidebar input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .category-sidebar .controls-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .category-sidebar .controls-row button {
+            flex: 1;
+            padding: 6px 10px;
+            font-size: 11px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .category-sidebar .controls-row button:hover {
+            background: #f0f0f0;
+        }
+        .chart-area {
+            flex: 1;
+            min-width: 0;
         }
         .header {
             display: flex;
@@ -337,18 +392,70 @@
                 <span style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Show</span>
                 <button class="btn filter-btn active" data-filter="income">Income</button>
                 <button class="btn filter-btn active" data-filter="expense">Expenses</button>
-                <button class="btn" onclick="openCategoryFilter()" style="margin-left: 10px;">Categories ⚙</button>
             </div>
         </div>
 
-        <div id="chartContainer">
-            <canvas id="chart"></canvas>
-            <div id="dateClickLayer"></div>
-        </div>
+        <div class="main-content">
+            <!-- Category Sidebar -->
+            <div class="category-sidebar">
+                <h3>Filter Categories</h3>
 
-        <div class="section">
-            <h3>All Events</h3>
-            <div id="eventsList"></div>
+                <div class="controls-row">
+                    <button onclick="selectAllCategories()">All</button>
+                    <button onclick="deselectAllCategories()">None</button>
+                </div>
+
+                <div class="category-section">
+                    <h3 style="font-size: 11px; color: #999; margin-bottom: 8px;">Expenses</h3>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="card" checked> Card Payment
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="rent" checked> Rent
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="salaries" checked> Salaries
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="personal" checked> Personal
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="maintenance" checked> Maintenance
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="expense-other" checked> Other
+                    </label>
+                </div>
+
+                <div class="category-section">
+                    <h3 style="font-size: 11px; color: #999; margin-bottom: 8px;">Income</h3>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="longterm" checked> Long-term
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="shortterm" checked> Short-term
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="camp" checked> Camp
+                    </label>
+                    <label>
+                        <input type="checkbox" class="category-filter" data-category="income-other" checked> Other
+                    </label>
+                </div>
+            </div>
+
+            <!-- Chart Area -->
+            <div class="chart-area">
+                <div id="chartContainer">
+                    <canvas id="chart"></canvas>
+                    <div id="dateClickLayer"></div>
+                </div>
+
+                <div class="section">
+                    <h3>All Events</h3>
+                    <div id="eventsList"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -416,58 +523,6 @@
         </div>
     </div>
 
-    <div class="modal" id="categoryFilterModal">
-        <div class="modal-content" style="max-width: 500px;">
-            <h2>Filter by Category</h2>
-
-            <div style="margin: 15px 0; display: flex; gap: 10px;">
-                <button class="btn" onclick="selectAllCategories()" style="flex: 1; padding: 8px;">Select All</button>
-                <button class="btn" onclick="deselectAllCategories()" style="flex: 1; padding: 8px;">Deselect All</button>
-            </div>
-
-            <div style="margin: 20px 0;">
-                <h3 style="font-size: 14px; color: #666; margin-bottom: 10px;">Expenses</h3>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="card" checked> Card Payment
-                </label>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="rent" checked> Rent
-                </label>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="salaries" checked> Salaries
-                </label>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="personal" checked> Personal
-                </label>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="maintenance" checked> Maintenance
-                </label>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="expense-other" checked> Other Expenses
-                </label>
-            </div>
-
-            <div style="margin: 20px 0;">
-                <h3 style="font-size: 14px; color: #666; margin-bottom: 10px;">Income</h3>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="longterm" checked> Long-term Students
-                </label>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="shortterm" checked> Short-term Students
-                </label>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="camp" checked> Camp
-                </label>
-                <label style="display: block; margin: 8px 0; cursor: pointer;">
-                    <input type="checkbox" class="category-filter" data-category="income-other" checked> Other Income
-                </label>
-            </div>
-
-            <div class="modal-actions">
-                <button class="cancel" onclick="closeCategoryFilter()">Close</button>
-            </div>
-        </div>
-    </div>
 
     <script>
         // Initialize Supabase
@@ -531,6 +586,17 @@
             renderChart();
             renderEvents();
             setupEventListeners();
+            setupCategoryFilters();
+        }
+
+        function setupCategoryFilters() {
+            // Setup event listeners for category checkboxes
+            document.querySelectorAll('.category-filter').forEach(cb => {
+                cb.addEventListener('change', function() {
+                    renderChart();
+                    renderEvents();
+                });
+            });
         }
 
         function setupEventListeners() {
@@ -1019,22 +1085,6 @@
 
         function closeModal() {
             document.getElementById('eventModal').classList.remove('active');
-        }
-
-        function openCategoryFilter() {
-            document.getElementById('categoryFilterModal').classList.add('active');
-
-            // Setup event listeners for checkboxes
-            document.querySelectorAll('.category-filter').forEach(cb => {
-                cb.addEventListener('change', function() {
-                    renderChart();
-                    renderEvents();
-                });
-            });
-        }
-
-        function closeCategoryFilter() {
-            document.getElementById('categoryFilterModal').classList.remove('active');
         }
 
         function getActiveCategoryFilters() {
