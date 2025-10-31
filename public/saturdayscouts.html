@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saturday Scouts - Team Briefing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Navigation */
+        .nav-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, #5a6d4d 0%, #4a5c3d 100%);
+            padding: 40px 30px;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .nav-sidebar h3 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .nav-sidebar ul {
+            list-style: none;
+        }
+
+        .nav-sidebar li {
+            margin-bottom: 12px;
+        }
+
+        .nav-sidebar a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-sidebar a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(90, 109, 77, 0.7), rgba(74, 92, 61, 0.7)),
+                        url('Finnish Research Slides/Absolute best/10 best/2B662BBB-3C91-4A24-BC1C-7AF0A4AE576C.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            margin: 0 0 40px 0;
+            padding: 60px 80px;
+        }
+
+        .content-section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            color: #5a6d4d;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .content-section h3 {
+            font-size: 1.8rem;
+            color: #4a5c3d;
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .content-section h4 {
+            font-size: 1.3rem;
+            color: #5a6d4d;
+            margin: 25px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .content-section ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .full-width-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 40px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Stats Box */
+        .stats-box {
+            background: linear-gradient(135deg, #5a6d4d 0%, #4a5c3d 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+
+        .stats-box h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .stats-box ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .stats-box li {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .stats-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            border-left: 3px solid #5a6d4d;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 13px;
+            height: 13px;
+            background: #5a6d4d;
+            border-radius: 50%;
+        }
+
+        .timeline-item strong {
+            color: #5a6d4d;
+            font-size: 1.1rem;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        thead {
+            background: #5a6d4d;
+            color: white;
+        }
+
+        th {
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        td {
+            padding: 18px;
+            border-bottom: 1px solid #eee;
+            font-size: 1rem;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: #fff5e6;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid #f39c12;
+            margin: 30px 0;
+        }
+
+        .checklist h4 {
+            color: #f39c12;
+            margin-top: 0;
+        }
+
+        .checklist ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.3rem;
+            color: #f39c12;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        /* Callout Box */
+        .callout {
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #4caf50;
+            margin: 30px 0;
+        }
+
+        .callout strong {
+            color: #2e7d32;
+        }
+
+        /* Badge Icons */
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .badge-item {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .badge-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .badge-item .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .badge-item h4 {
+            margin: 10px 0;
+            color: #5a6d4d;
+        }
+
+        .badge-item p {
+            font-size: 0.95rem;
+            margin: 0;
+            color: #666;
+        }
+
+        /* Print Styles */
+        @media print {
+            .nav-sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .content-section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .nav-sidebar {
+                width: 220px;
+                padding: 30px 20px;
+            }
+
+            .main-content {
+                margin-left: 220px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-section {
+                padding: 40px 40px;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .badge-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <nav class="nav-sidebar">
+        <h3>Saturday Scouts</h3>
+        <ul>
+            <li><a href="#overview">Executive Summary</a></li>
+            <li><a href="#why">Why We're Doing This</a></li>
+            <li><a href="#program">Program Overview</a></li>
+            <li><a href="#structure">Session Structure</a></li>
+            <li><a href="#badges">Badge System</a></li>
+            <li><a href="#team-needs">What We Need</a></li>
+            <li><a href="#timeline">Launch Timeline</a></li>
+            <li><a href="#research">Research & Inspiration</a></li>
+            <li><a href="#questions">Discussion Questions</a></li>
+            <li><a href="#next-steps">Next Steps</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Saturday Scouts</h1>
+            <p>Nature Skills for Life • Ages 3-6 • Launching Soon</p>
+        </div>
+
+        <!-- Section 1: Executive Summary -->
+        <section id="overview" class="content-section">
+            <h2>Executive Summary</h2>
+
+            <p><strong>What:</strong> Saturday Scouts is a nature-based program for ages 3-6, teaching outdoor skills, building immunity, and developing confidence through gardening, yoga, fire cooking, and nature exploration.</p>
+
+            <p><strong>Format:</strong> Morning session (10am-12pm), afternoon session (1-3pm), or full day (10am-3pm with lunch). <strong>Drop-in weekly—no term commitment required.</strong> Attend one Saturday to try it out, or buy packages for regular attendance.</p>
+
+            <p><strong>Capacity:</strong> Maximum 20 children per session (scaling to 80 in future)</p>
+
+            <p><strong>Foundation:</strong> Based on UK Squirrels Scouts program (ages 4-5) with proven results: 78% increased confidence, 82% better teamwork, 87% more willing to try new things</p>
+
+            <div class="image-grid">
+                <img src="Finnish Research Slides/Absolute best/10 best/IMG_1205.JPG" alt="Children in nature">
+                <img src="Finnish Research Slides/Absolute best/10 best/IMG_0829.jpeg" alt="Child gardening">
+            </div>
+
+            <div class="callout">
+                <strong>Target Market:</strong> Phuket expat families whose children attend traditional schools during the week but need the "nature dimension" they're missing elsewhere—outdoor skills, immunity building, and character development that sports and academics don't provide.
+                <br><br>
+                <strong>Key Advantage:</strong> No term commitment required! Parents can "try one Saturday" to experience Bamboo Valley without risk. Once they see the benefits, they buy packages (e.g., "10 sessions + 2 free") for regular attendance. This removes the biggest barrier to enrollment.
+            </div>
+        </section>
+
+        <!-- Section 2: Why We're Doing This -->
+        <section id="why" class="content-section">
+            <h2>Why We're Doing This</h2>
+
+            <div class="two-column">
+                <div>
+                    <h3>Business Case</h3>
+                    <ul>
+                        <li><strong>New revenue stream</strong> - Capture Saturday market</li>
+                        <li><strong>Gateway to enrollment</strong> - Parents experience Bamboo Valley without full commitment</li>
+                        <li><strong>Unique positioning</strong> - Only nature-based Saturday program in Phuket</li>
+                        <li><strong>Scalable</strong> - Start with 20, grow to 80 kids</li>
+                        <li><strong>Low barrier entry</strong> - Parents who'd never do full-time alternative school will sign up for Saturdays</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Educational Philosophy</h3>
+                    <ul>
+                        <li><strong>The missing dimension</strong> - Kids get academics at school, sports at swimming lessons—but nature skills, immunity building, and outdoor confidence? Nowhere.</li>
+                        <li><strong>Research-backed</strong> - Finnish study: 28 days to stronger immunity. UK Squirrels: measurable confidence gains.</li>
+                        <li><strong>International validation</strong> - 1,500+ programs in Germany, thriving in Switzerland, Norway, Singapore</li>
+                        <li><strong>Phuket advantage</strong> - Our palm plantation provides natural shade—the only place kids can be outside all day comfortably</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img class="full-width-img" src="Finnish Research Slides/Absolute best/10 best/IMG_1184.jpeg" alt="Outdoor learning station">
+
+            <div class="stats-box">
+                <h3>Research-Backed Results</h3>
+                <ul>
+                    <li>78% of children show increased confidence (UK Squirrels program)</li>
+                    <li>82% develop better teamwork skills</li>
+                    <li>87% become more willing to try new things</li>
+                    <li>28 days to measurably stronger immune system (Finnish research on soil bacteria)</li>
+                    <li>Swiss study: Forest kindergartners perform better on gross motor skills and creativity</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Program Overview -->
+        <section id="program" class="content-section">
+            <h2>Program Overview</h2>
+
+            <h3>Time Slots</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Session</th>
+                        <th>Time</th>
+                        <th>Duration</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Morning</strong></td>
+                        <td>10:00 AM - 12:00 PM</td>
+                        <td>2 hours</td>
+                        <td>High energy activities, badge work</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Afternoon</strong></td>
+                        <td>1:00 PM - 3:00 PM</td>
+                        <td>2 hours</td>
+                        <td>Calmer start (yoga), creative activities</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Full Day</strong></td>
+                        <td>10:00 AM - 3:00 PM</td>
+                        <td>5 hours</td>
+                        <td>Includes lunch + fire cooking</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Lodge System</h3>
+            <p>Children are divided into small groups called "lodges" for better bonding and easier management.</p>
+
+            <div class="badge-grid">
+                <div class="badge-item">
+                    <div class="icon">🐒</div>
+                    <h4>Monkey Lodge</h4>
+                    <p>6-8 children per lodge</p>
+                </div>
+                <div class="badge-item">
+                    <div class="icon">🦎</div>
+                    <h4>Gecko Lodge</h4>
+                    <p>6-8 children per lodge</p>
+                </div>
+                <div class="badge-item">
+                    <div class="icon">🦅</div>
+                    <h4>Eagle Lodge</h4>
+                    <p>6-8 children per lodge</p>
+                </div>
+                <div class="badge-item">
+                    <div class="icon">🦋</div>
+                    <h4>Butterfly Lodge</h4>
+                    <p>6-8 children per lodge</p>
+                </div>
+            </div>
+
+            <div class="callout">
+                <strong>How Lodge Assignment Works:</strong> Lodges are assigned each Saturday based on who attends that day. Children who come regularly will often be placed in the same lodge, building consistent friendships over time. First-time or drop-in children are welcomed into whichever lodge needs members. This flexible system works for both regular attendees and occasional participants.
+            </div>
+
+            <div class="image-grid">
+                <img src="Finnish Research Slides/Absolute best/10 best/IMG_1185.jpeg" alt="Child in garden">
+                <img src="Finnish Research Slides/Absolute best/10 best/BA3DC70F-5857-4364-93E9-2EA40E4E3D55.jpeg" alt="Bamboo structure">
+            </div>
+
+            <h3>What Children Get</h3>
+            <ul>
+                <li><strong>Saturday Scouts uniform shirt</strong> - Wear with pride every week</li>
+                <li><strong>Achievement badge patches</strong> - Cloth badges to sew onto shirt</li>
+                <li><strong>Progress book</strong> - Track badge achievements with stickers/stamps</li>
+                <li><strong>Lodge membership</strong> - Belong to Monkey, Gecko, Eagle, or Butterfly lodge</li>
+                <li><strong>Weekly nature adventures</strong> - Different activities each week</li>
+            </ul>
+        </section>
+
+        <!-- Section 4: Session Structure -->
+        <section id="structure" class="content-section">
+            <h2>Sample Session Structure</h2>
+
+            <h3>Morning Session (10am-12pm)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>10:00-10:15 - Opening Ceremony "Gather Palms"</strong>
+                    <p>Kids arrive, find their lodge, circle formation under palm trees. Saturday Scouts chant/song. Announce today's badge focus.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>10:15-10:30 - Warm-Up Game</strong>
+                    <p>Nature-themed active game. Examples: "Monkey in the Middle," "Gecko Tag," palm tree races.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>10:30-11:15 - Main Badge Activity</strong>
+                    <p>Structured learning + hands-on doing. Examples: Bug hunting with magnifying glasses, building stick teepees, planting in the garden.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>11:15-11:30 - Snack & Social Time</strong>
+                    <p>Healthy snacks (fruit, crackers), lodge bonding, water break.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>11:30-11:50 - Free Exploration or Lodge Project</strong>
+                    <p>Child-led activities: mud kitchen, climbing, exploring. OR collaborative lodge project.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>11:50-12:00 - Closing Circle</strong>
+                    <p>Share discoveries, preview next week, Saturday Scouts goodbye ritual, badge stamps.</p>
+                </div>
+            </div>
+
+            <img class="full-width-img" src="Finnish Research Slides/Absolute best/IMG_1155.JPG" alt="Circle time with children under palm trees">
+
+            <h3>Afternoon Session (1pm-3pm)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>1:00-1:15 - Re-Gathering & Calm Start</strong>
+                    <p>Yoga or stretching under palms, breathing exercises, transition from lunch energy.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>1:15-1:30 - Movement Game</strong>
+                    <p>Active but not intense (post-lunch). Balance games, nature yoga poses.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>1:30-2:15 - Second Badge Activity</strong>
+                    <p>Different focus than morning, often more creative/calm. Examples: Story time under palms, harvesting herbs, natural art projects, nature music/sound exploration.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>2:15-2:30 - Lodge Project Time</strong>
+                    <p>Ongoing projects: Building fairy garden, creating lodge flag, nature journal.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>2:30-2:50 - Free Play in Nature</strong>
+                    <p>Kids choose their adventure: climbing, digging, exploring, creating.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>2:50-3:00 - Closing Ceremony</strong>
+                    <p>Circle up, share proudest moment, badge progress check, goodbye ritual.</p>
+                </div>
+            </div>
+
+            <h3>Full Day Additions (12pm-1pm)</h3>
+            <ul>
+                <li><strong>12:00-12:15</strong> - Lunch preparation (kids help set up, wash hands, lodge tables)</li>
+                <li><strong>12:15-12:45</strong> - Lunch together (family-style serving, social learning)</li>
+                <li><strong>12:45-1:00</strong> - Quiet/rest time (story time under palms, calm transition)</li>
+            </ul>
+
+            <div class="callout">
+                <strong>Fire Cooking Element:</strong> Full-day participants experience real campfire cooking (teacher-supervised). Kids learn fire safety, help prepare food, and cook vegetables/simple items over open flame. This is a core Scouts tradition adapted safely for ages 3-6.
+            </div>
+        </section>
+
+        <!-- Section 5: Badge System -->
+        <section id="badges" class="content-section">
+            <h2>Badge Achievement System</h2>
+
+            <p>Children earn cloth patches that they sew onto their Saturday Scouts uniform shirt. Each badge represents mastery of specific outdoor skills through multiple weekly sessions.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Badge</th>
+                        <th>What Kids Learn</th>
+                        <th>Sample Activities</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🌱 Outdoor Explorer</strong></td>
+                        <td>Nature observation, bug hunting, plant identification, weather awareness</td>
+                        <td>Scavenger hunts, magnifying glass exploration, bug hotels, leaf rubbings, nature journals</td>
+                    </tr>
+                    <tr>
+                        <td><strong>💪 Strong & Active</strong></td>
+                        <td>Physical confidence in nature, climbing, balancing, coordination</td>
+                        <td>Palm tree climbing (supervised), obstacle courses, yoga, balance games</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🏗️ Brilliant Builder</strong></td>
+                        <td>Creating with natural materials, problem-solving through making</td>
+                        <td>Stick forts, mud sculptures, natural art, building challenges</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🧪 Nature Scientist</strong></td>
+                        <td>Gardening and plant care, soil and composting, living systems</td>
+                        <td>Planting seeds, worm farms, mud kitchen experiments, harvesting</td>
+                    </tr>
+                    <tr>
+                        <td><strong>😊 Feel Good & Calm</strong></td>
+                        <td>Emotional wellbeing, mindfulness, body awareness</td>
+                        <td>Yoga, short mindful moments, breathing exercises, sound healing, nature listening, calm activities</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🍽️ Wild Chef</strong></td>
+                        <td>Cooking with garden produce, fire safety, food awareness</td>
+                        <td>Harvesting, campfire cooking (supervised), simple food prep, taste testing</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="image-grid">
+                <img src="Finnish Research Slides/Absolute best/10 best/IMG_1210.JPG" alt="Outdoor learning">
+                <img src="Finnish Research Slides/Absolute best/10 best/BA3DC70F-5857-4364-93E9-2EA40E4E3D55.jpeg" alt="Bamboo dome structure">
+            </div>
+
+            <h3>How Badge Earning Works</h3>
+            <ul>
+                <li><strong>Activity-Based, Not Time-Based:</strong> Badges are earned by completing specific activities well, not by attending a certain number of weeks. A child who comes once and masters an activity gets that stamp immediately.</li>
+                <li><strong>Stamp System:</strong> Each Saturday offers activities tied to different badges. When a child successfully completes an activity (teacher observes skill mastery), they get a stamp in their Scout Book.</li>
+                <li><strong>Earning the Badge:</strong> Collect [TBD: 4-6?] stamps for a specific badge type = earn that cloth patch. Example: 5 different "Outdoor Explorer" activities = Outdoor Explorer badge earned.</li>
+                <li><strong>Works for Drop-Ins:</strong> A child attending irregularly can still earn badges—it just takes longer. Regular attendees earn badges faster.</li>
+                <li><strong>Physical Badge:</strong> Cloth patch presented when earned, kids sew/iron onto uniform shirt</li>
+                <li><strong>Celebration:</strong> Badge earning ceremony during closing circle when milestones are reached</li>
+            </ul>
+        </section>
+
+        <!-- Section 6: What We Need from Team -->
+        <section id="team-needs" class="content-section">
+            <h2>What We Need from the Team</h2>
+
+            <div class="checklist">
+                <h4>Curriculum Development</h4>
+                <ul>
+                    <li>Finalize badge requirements (how many weeks/activities to earn each badge?)</li>
+                    <li>Create ceremony templates (opening "Gather Palms" and closing rituals)</li>
+                    <li>Develop seasonal activity themes (adapt for rainy season vs. hot season)</li>
+                    <li>Document safety protocols for all activities</li>
+                    <li>Design weekly lesson plans with backup activities for weather</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h4>Physical Materials & Logistics</h4>
+                <ul>
+                    <li>Saturday Scouts uniform shirt design and ordering (sizing for ages 3-6)</li>
+                    <li>Badge patch design and production (6 badge designs + cloth/printing)</li>
+                    <li>Progress book creation (printed booklets with stamp spaces)</li>
+                    <li>Lodge flags/banners (Monkey, Gecko, Eagle, Butterfly)</li>
+                    <li>Fire cooking equipment and safety setup (fire pit, grills, extinguisher, etc.)</li>
+                    <li>First aid kits, shade structures, water stations</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h4>Staffing & Training</h4>
+                <ul>
+                    <li>Assign lodge leaders (1 teacher per 6-8 kids = need 3-4 teachers per session)</li>
+                    <li>Training schedule for badge activities and ceremonies</li>
+                    <li>Emergency protocols and communication system</li>
+                    <li>Fire safety training for full-day session leaders</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <h4>Operations & Admin</h4>
+                <ul>
+                    <li>Registration system (Google Form or booking platform?)</li>
+                    <li>Waiver/permission forms (safety, medical info, photo consent)</li>
+                    <li>Emergency contact sheets for each session</li>
+                    <li>Attendance tracking system</li>
+                    <li>Badge progress tracking (per child, per badge)</li>
+                    <li>Parent communication templates (weekly updates format)</li>
+                    <li>Pricing structure and payment system</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 7: Launch Timeline -->
+        <section id="timeline" class="content-section">
+            <h2>Launch Timeline</h2>
+
+            <p><strong>To be finalized with team, but suggested timeline:</strong></p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Week 1-2: Team Alignment</strong>
+                    <p>Review briefing document, curriculum planning meeting, assign responsibilities, begin uniform/badge design</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 3: Materials Production</strong>
+                    <p>Order uniforms and badges, create progress books, build lodge flags, prepare fire cooking area</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 4: Marketing Launch</strong>
+                    <p>Release promotional materials (Instagram flyer, landing page), open registration, WhatsApp campaigns</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 5: Staff Training</strong>
+                    <p>Run through ceremonies, practice badge activities, safety protocol drills, test fire cooking setup</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 6: FIRST SESSION!</strong>
+                    <p>Launch Saturday Scouts program with inaugural session</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Research & Inspiration -->
+        <section id="research" class="content-section">
+            <h2>Research & International Inspiration</h2>
+
+            <h3>UK Squirrels Scouts (Ages 4-5)</h3>
+            <p>Launched in 2021 specifically for this age group. Measurable parent-reported results after participation:</p>
+            <ul>
+                <li>78% noticed their child's confidence increased</li>
+                <li>82% said they had better teamwork skills</li>
+                <li>87% said they were more likely to try new things</li>
+                <li>74% more parent involvement compared to other programs</li>
+            </ul>
+
+            <h3>German Waldkindergarten (Forest Kindergarten)</h3>
+            <p>The original model since 1968. Over 1,500 programs across Germany operating 100% outdoors (8:30am-2:30pm, five days a week). Key principle: No commercial toys—children create play with natural objects, building imagination and collaboration.</p>
+
+            <h3>Swiss Alpine Kindergartens</h3>
+            <p>2003 University of Fribourg study: Forest kindergartners performed equally well on fine motor skills and <em>significantly better</em> on gross motor skills and creativity compared to traditional kindergartens. Switzerland delays academics until age 7, allowing full focus on outdoor exploration.</p>
+
+            <h3>Norwegian Friluftsbarnehage (Outdoor Life Kindergarten)</h3>
+            <p>5-10% of Norwegian preschoolers attend nature preschools. Cultural philosophy "friluftsliv" (open-air living) means outdoor time isn't alternative education—it's normal childhood. Famous saying: "There's no bad weather, only bad clothes!"</p>
+
+            <h3>Singapore Forest Schools</h3>
+            <p>First in Asia to gain UK Forest School accreditation (Dulwich College Singapore). Shows forest school principles work in tropical, urban Asian contexts. Multiple programs thriving in densely populated city-state.</p>
+
+            <h3>Finnish Immunity Research</h3>
+            <p>University of Helsinki study: Children who played on forest floor (natural soil with living plants) for just 28 days showed measurably stronger immune systems—more diverse skin and gut bacteria, increased regulatory T cells, higher anti-inflammatory proteins.</p>
+
+            <div class="stats-box">
+                <h3>Why This Matters for Bamboo Valley</h3>
+                <ul>
+                    <li>We're not inventing something experimental—we're adapting proven international models</li>
+                    <li>Research backs both the confidence/skills development AND the immune system benefits</li>
+                    <li>Programs like this thrive in diverse climates: Alpine Switzerland, tropical Singapore, urban Germany</li>
+                    <li>Phuket's palm plantation gives us unique advantage—natural shade for all-day outdoor learning</li>
+                    <li>Saturday format fills gap: most forest schools are weekday/full-time, we capture weekend market</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 9: Discussion Questions -->
+        <section id="questions" class="content-section">
+            <h2>Open Questions for Team Discussion</h2>
+
+            <h3>Pricing & Business Model</h3>
+            <ul>
+                <li><strong>Single-session pricing:</strong> What's the drop-in rate? (Morning, afternoon, full day)</li>
+                <li><strong>Package deals to incentivize commitment:</strong> E.g., "Buy 10 sessions, get 2 free" or similar bulk discount?</li>
+                <li><strong>Uniform shirt:</strong> Included in first session or separate purchase?</li>
+                <li><strong>Badge patches:</strong> Included or parents buy them when earned?</li>
+                <li><strong>Lunch for full day:</strong> Who provides/cooks? Cost included or separate?</li>
+                <li><strong>Booking requirements:</strong> How far in advance must parents book? Same-week signup allowed?</li>
+                <li><strong>Cancellation policy:</strong> Can parents cancel if child is sick? Refund or credit?</li>
+                <li><strong>Minimum/maximum attendance:</strong> Do we cancel if only 3 kids sign up? Cap at 20?</li>
+            </ul>
+
+            <h3>Curriculum & Operations</h3>
+            <ul>
+                <li><strong>Badge requirements:</strong> How many stamps/activities required to earn each badge? (4 activities? 5? 6?)</li>
+                <li><strong>Activity rotation:</strong> How do we ensure variety so regular attendees don't repeat the same activities every week?</li>
+                <li><strong>Seasonal adaptation:</strong> What changes between hot season vs. rainy season?</li>
+                <li><strong>Drop-in logistics:</strong> How do we handle fluctuating attendance? (5 kids one week, 20 the next?)</li>
+                <li><strong>Staff planning:</strong> Can we handle 20 kids per session with current staff? Minimum viable attendance?</li>
+                <li><strong>Registration system:</strong> Google Forms or proper booking platform that handles packages/credits?</li>
+            </ul>
+
+            <h3>Marketing & Launch</h3>
+            <ul>
+                <li><strong>Launch date:</strong> When realistically can we be ready?</li>
+                <li><strong>Trial strategy:</strong> How do we encourage "try one Saturday" signups? Special intro rate?</li>
+                <li><strong>Package promotion:</strong> What's the offer? "Buy 10, get 2 free"? "First-time package: 4 sessions for the price of 3"?</li>
+                <li><strong>Marketing message:</strong> Emphasize easy trial ("Just try one Saturday!") or commitment discounts ("Save with packages")?</li>
+                <li><strong>Channels:</strong> Instagram, Facebook, WhatsApp groups, flyers at schools?</li>
+            </ul>
+        </section>
+
+        <!-- Section 10: Next Steps -->
+        <section id="next-steps" class="content-section">
+            <h2>Next Steps & Action Items</h2>
+
+            <div class="checklist">
+                <h4>Immediate Actions</h4>
+                <ul>
+                    <li><strong>Team Review Meeting</strong> - Schedule 90-minute session to review this document, discuss questions, assign responsibilities (by DATE: TBD)</li>
+                    <li><strong>Curriculum Planning Session</strong> - Teachers meet to finalize badge requirements, ceremony structure, weekly activity plans (by DATE: TBD)</li>
+                    <li><strong>Uniform & Badge Design</strong> - Design Saturday Scouts shirt and 6 badge patches, get quotes from suppliers (by DATE: TBD)</li>
+                    <li><strong>Marketing Assets Creation</strong> - Finalize promotional flyer, create landing page, write website copy (by DATE: TBD)</li>
+                    <li><strong>Pricing Decision</strong> - Finalize all pricing, packages, payment terms (by DATE: TBD)</li>
+                </ul>
+            </div>
+
+            <img class="full-width-img" src="Finnish Research Slides/Absolute best/10 best/IMG_1210.JPG" alt="Children learning outdoors">
+
+            <div class="callout">
+                <strong>Ready to Launch:</strong> Saturday Scouts has the potential to be a significant differentiator for Bamboo Valley—capturing families who would never consider full-time alternative education but desperately want this nature dimension for their children. With proven international models, research-backed benefits, and our unique palm plantation advantage, we're positioned to create something truly special for Phuket.
+            </div>
+        </section>
+    </main>
+</body>
+</html>
