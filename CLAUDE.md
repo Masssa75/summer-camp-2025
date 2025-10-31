@@ -329,19 +329,20 @@ const { chromium } = require('playwright');
 
 ## Session Handoff Notes
 
-### Recent Changes (2025-10-25 - Session 1)
-**Fixed chart bubble spacing in financial planner**:
-- Increased bubble vertical spacing from 8% to 15% of chart range (60k minimum → 120k minimum)
-- Raised start position from 15% to 20% above max balance to create more breathing room
-- Synchronized double-click handler positioning calculations with annotation rendering
-- File modified: `public/planner.html` (lines 790-793, 535-541)
-- Deployed and confirmed working (commit 115cb4d)
-- **Result**: Event bubbles now display with proper vertical separation, no overlapping
+### Recent Changes (2025-10-31 - Session 2)
+**Comprehensive financial planner improvements** - See [Session 2 Log](./logs/SESSION-LOG-2025-10-25.md#session-2---october-31-2025) for full details:
+- Implemented collision detection algorithm for bubble overlap prevention
+- Redesigned UI with permanent category filter sidebar on left
+- Increased chart height (400px→600px) and improved spacing to prevent cutoff
+- Reordered categories (Income before Expenses) for better visual hierarchy
+- Sorted bubbles so income appears above expenses on same date
+- Files modified: `public/planner.html`
+- Commits: 465fd14, f031c39, d6266b6, e3ee58c
+- **Result**: Professional layout with no overlaps, easy category filtering, clear visual organization
 
-**Previous Session Work (2025-07-09)**:
-- Telegram notification system (group-based)
-- Registration workflow management (payment tracking)
-- Database normalization and Google Sheets import
+**Previous Work**:
+- Session 1 (2025-10-25): Fixed chart bubble spacing - [Details](./logs/SESSION-LOG-2025-10-25.md#session-1---october-25-2025)
+- Session 0 (2025-07-09): Telegram notifications, registration workflow, database normalization
 - See full history in: `/logs/SESSION-LOG-INDEX.md`
 
 ### Known Issues
@@ -357,8 +358,8 @@ const { chromium } = require('playwright');
 4. Build attendance tracking interface
 5. Create staff management system
 
-**Last Updated**: October 25, 2025 (Session 1)
-**Version**: 2.0.0
+**Last Updated**: October 31, 2025 (Session 2)
+**Version**: 2.1.0
 
 ---
 
